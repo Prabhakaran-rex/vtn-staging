@@ -1,0 +1,30 @@
+%h4 My Appraisals
+.sub_box
+  -# flash.each do |key, msg|
+    -# %div{:id => key}
+      -# %p= msg
+  
+  #panel
+    - if @appraisals.empty?
+      %h3 There are currently no new items available to appraise.
+    - else
+      %h3 The following items are available to appraise:
+      %table.appraisal_list{:cellpadding => 5, :cellspacing => 0, :border => 0}
+        %tr.header
+          %th Image
+          %th Item
+          %th Item#
+          %th Date Created
+          %th Actions
+        - @appraisals.each do |appraisal|
+          %tr{:class => (@appraisals.index(appraisal) % 2 == 0 ? "even" : "odd")}
+            %td
+              - appraisal.photos.each do |photo|
+                = link_to image_tag(photo.asset.url(:thumb)), photo.asset.url(:original), :title => h(appraisal.name), :rel => "lightbox"
+            %td= link_to(h(appraisal.name) + " ##{appraisal.id}", appraisal)
+            %td Pending
+            %td= distance_of_time_in_words(Time.now,appraisal.created_at) + " ago"
+            - if appraisal.status == EActivityValueClaimed
+              %td= link_to('Reply', reply_appraisal_path(appraisal))
+            - else
+              %td= link_to('View', appraisal)

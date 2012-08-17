@@ -1,0 +1,117 @@
+%h4= h(@appraisal.name)
+.right
+  - @appraisal.photos.each do |photo|
+    .photo= image_tag(photo.asset.url(:large), :id => "photo_#{photo.id}", :height => 500, :width => 500)
+    :javascript
+      $("#photo_#{photo.id}").annotateImage({
+        editable: true,
+        useAjax: false,
+        notes: [ { "top": 16,
+                   "left": 11,
+                   "width": 52,
+                   "height": 37,
+                   "text": "Looks like touchup work was done",
+                   "id": "e69213d0-2eef-40fa-a04b-0ed998f9f1f5",
+                   "editable": false },
+                 { "top": 20,
+                   "left": 110,
+                   "width": 68,
+                   "height": 74,
+                   "text": "Chip on the Wing",
+                   "id": "e7f44ac5-bcf2-412d-b440-6dbb8b19ffbe",
+                   "editable": true } ]
+      });
+
+.left
+  #notice
+    %p= notice
+    %p{ :id=>"alert"}= alert
+
+  %p
+    %b Name:
+    = @appraisal.name
+
+  %p
+    %b Dimensions:
+    = @appraisal.dimensions
+
+  %p
+    %b Materials:
+    = @appraisal.materials
+
+  %p
+    %b Country of origin:
+    = @appraisal.country_of_origin
+
+  %p
+    %b Makers marks:
+    = @appraisal.makers_marks
+
+  %p
+    %b Country of origin:
+    = @appraisal.country_of_origin
+
+  %p
+    %b Damage:
+    = @appraisal.damage
+
+  %p
+    %b Year of manufacture:
+    = @appraisal.year_of_manufacture
+
+  %p
+    %b Where it was obtained:
+    = @appraisal.where_was_it_obtained
+
+  %p
+    %b How it was obtained:
+    = @appraisal.how_was_it_obtained
+
+  - if @appraisal.status == EActivityValueFinalized
+
+    %hr
+    %h2 Appraisers report
+    %p
+      %b Appraiser Number:
+      = @appraisal.appraiser_number
+
+    %p
+      %b Value of item:
+      = number_to_currency(@appraisal.value_of_item, :precision => 0)
+
+    %p
+      %b Historical significance:
+      = @appraisal.historical_significance
+
+    %p
+      %b Number of pieces created:
+      = @appraisal.number_of_pieces_created
+
+    %p
+      %b Where it was manufactured:
+      = @appraisal.where_it_was_manufactured
+
+    %p
+      %b When it was used:
+      = @appraisal.when_it_was_used
+    %p
+      %b How it was used:
+      = @appraisal.how_it_was_used
+
+
+    %p
+      %b Additional notes:
+      %ul
+        - @appraisal.appraisal_datums.each do |data|
+          %li= data.value
+
+  - if @user
+    - if @user.role.eql?("user")
+      = link_to 'Edit', edit_appraisal_path(@appraisal)
+      |
+    - else
+      - if @appraisal.status == EActivityValueCreated
+        = link_to 'Claim', claim_appraisal_path(@appraisal)
+        |
+
+  = link_to 'Back', appraisals_path

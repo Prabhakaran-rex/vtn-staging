@@ -1,0 +1,88 @@
+%table
+  %tr
+    %td= h(@appraisal.name)
+    %td
+      %ul
+        - @appraisal.photos.each do |photo|
+          %li= link_to image_tag(photo.asset.url(:thumb)), photo.asset.url(:original), :title => h(@appraisal.name), :rel => "lightbox"
+
+.form
+  %h4 Reply to Appraisal
+  =form_for(@appraisal) do |f|
+    %h2 User entered item info.
+
+    .field
+      %p= f.label :name
+      = f.text_field :name , :disabled => true
+
+    .field
+      %p= f.label :dimensions
+      = f.text_field :dimensions  , :disabled => true
+
+    .field
+      %p= f.label :materials
+      = f.text_field :materials  , :disabled => true
+
+    .field
+      %p= f.label :country_of_origin
+      = f.text_field :country_of_origin    , :disabled => true
+
+    .field
+      %p= f.label :makers_marks
+      = f.text_field :makers_marks   , :disabled => true
+    .field
+      %p= f.label :damage
+      = f.text_field :damage    , :disabled => true
+
+    .field
+      %p= f.label :year_of_manufacture
+      = f.text_field :year_of_manufacture   , :disabled => true
+
+    .field
+      %p= f.label :where_was_it_obtained
+      = f.text_area :where_was_it_obtained  , :disabled => true
+
+    .field
+      %p= f.label :how_was_it_obtained
+      = f.text_area :how_was_it_obtained    , :disabled => true
+
+    %hr
+    %h2 Please compete the following
+    .field
+      %p= f.label :appraiser_number
+      = f.text_area :appraiser_number
+
+    .field
+      %p= f.label :value_of_item
+      = f.text_area :value_of_item
+
+
+    .field
+      %p= f.label :historical_significance
+      = f.text_area :historical_significance
+
+    .field
+      %p= f.label :number_of_pieces_created
+      = f.text_area :number_of_pieces_created
+
+    .field
+      %p= f.label :where_it_was_manufactured
+      = f.text_area :where_it_was_manufactured
+
+    .field
+      %p= f.label :when_it_was_used
+      = f.text_area :when_it_was_used
+
+    .field
+      %p= f.label :how_it_was_used
+      = f.text_area :how_it_was_used
+
+
+    %p Please add notes for this appraisal
+    - f.fields_for :appraisal_datums do |data|
+      %p Create a note
+      = data.text_field :value
+    %p Select Status:
+    = f.select :status , {"Send report back to user."=> EActivityValueFinalized, "I want to save but not hand back to user yet." => @appraisal.status }  , :selected => EActivityValueFinalized
+    .actions
+      =f.submit

@@ -1,0 +1,124 @@
+- if @appraisal.status == EActivityValueFinalized
+  .create_appraisal_table_1
+    .photo_box
+      .uploaded_photo
+        - @appraisal.photos.each do |photo|
+          %div
+            =link_to image_tag(photo.asset.url(:medium)), photo.asset.url(:original), :title => h(@appraisal.name), :rel => "lightbox", :target_id => "photo_#{photo.id}"
+        = render :partial => "multiple_photo_upload"
+  .choose_plan{:style => "height:220px;"}
+    %center
+      %p
+        = link_to(image_tag("icons/google-plus.png"), "#")
+        = link_to(image_tag("icons/twitter.png"), "#")
+        = link_to(image_tag("icons/facebook.png"), "#")
+      %p
+        .Button= link_to "Download Certified Appraisal", "#"
+      %p
+        .Button= link_to "Send To Auction", "#"
+
+  -# #notice= flash[:notice]
+
+  %table{:width => "468", :cellspacing => "0", :cellpadding => "3", :border => "0"}
+
+    %tr.title
+      %td.label{:width => 165}= @appraisal.name
+      %td= ""
+
+    %tr
+      %td.label{:width => 165} Prepared By
+      %td= @appraiser.name + " - Appraiser #" + @appraiser.id.to_s
+
+    %tr
+      %td.label{:width => 165} Name of Item
+      %td= @appraisal.name
+
+    %tr
+      %td.label Uses if Applicable
+      %td= @appraisal.how_it_was_used
+
+    %tr
+      %td.label Estimated Value
+      %td= number_to_currency(@appraisal.value_of_item)
+
+    %tr
+      %td.label Estimated Age
+      %td= @appraisal.year_of_manufacture
+
+    %tr
+      %td.label Reported Damage
+      %td= @appraisal.damage
+
+    %tr
+      %td.label Year of Manufacture
+      %td= @appraisal.year_of_manufacture
+
+    %tr
+      %td.label Where was it Obtained
+      %td= @appraisal.where_was_it_obtained
+
+    %tr
+      %td.label How was it Obtained
+      %td= @appraisal.how_was_it_obtained
+
+    %tr
+      %td.label Appraiser Signature
+      %td= image_tag("signature_example.gif")
+
+  %p This appraisal report was prepared in accordance with the standards of #{link_to("USPAP", "http://en.wikipedia.org/wiki/Uniform_Standards_of_Professional_Appraisal_Practice")}
+  %p{:align => "center"}
+    = link_to("Appraisal Disclaimer", "#")
+
+- else
+  .create_appraisal_table_1
+    .photo_box
+      .uploaded_photo
+        - @appraisal.photos.each do |photo|
+          =link_to image_tag(photo.asset.url(:medium)), photo.asset.url(:original), :title => h(@appraisal.name), :rel => "lightbox", :target_id => "photo_#{photo.id}"
+  .choose_plan
+    %p{:align => "center"}= "Status: #{getStringForActivityValue(@appraisal.status)}"
+
+  .create_but3
+    .Button= link_to "Edit Appraisal", edit_appraisal_path
+
+  -# #notice= flash[:notice]
+
+  %table{:width => "468", :cellspacing => "0", :cellpadding => "3", :border => "0"}
+
+    %tr
+      %td.label{:width => 165} Name of Item
+      %td= @appraisal.name
+
+    %tr
+      %td.label Dimensions
+      %td= @appraisal.dimensions
+
+    %tr
+      %td.label Materials
+      %td= @appraisal.materials
+
+    %tr
+      %td.label Country of Origin
+      %td= @appraisal.country_of_origin
+
+    %tr
+      %td.label Makers Marks
+      %td= @appraisal.makers_marks
+
+    %tr
+      %td.label Damage
+      %td= @appraisal.damage
+
+    %tr
+      %td.label Year of Manufacture
+      %td= @appraisal.year_of_manufacture
+
+    %tr
+      %td.label Where was it Obtained
+      %td= @appraisal.where_was_it_obtained
+
+    %tr
+      %td.label How was it Obtained
+      %td= @appraisal.how_was_it_obtained
+
+= render :partial => "multiple_photo_upload"

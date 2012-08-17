@@ -1,0 +1,67 @@
+.form
+  %h4 Create An Appraisal
+  .sub_box.clearfix
+    .create_appraisal_table_1
+      .photo_box
+        .uploaded_photo{:style => "width:256px;height:256px;"} Images Will Be uploaded here
+      =form_for(@appraisal, :html => {:multipart => true}) do |f|
+        -if @appraisal.errors.any?
+          #error_explanation
+          %h2= "#{pluralize(@appraisal.errors.count, "error")} prohibited this appraisal from being saved:"
+          %ul
+            - @appraisal.errors.full_messages.each do |msg|
+              %li= msg
+
+        .choose_plan
+          %p
+            = f.radio_button :selected_plan, 0
+            = f.label :plan1, "Social Light Appraisal $4.99 (SLA 7 days)"
+          %p
+            = f.radio_button :selected_plan, 1, :checked => true
+            = f.label :plan2, "Social Full Appraisal $9.99 (SLA 36 hours)"
+
+        .create_but3
+          .Button= link_to_function "Create Appraisal", "document.forms['new_appraisal'].submit()"
+
+        %table{:width => "468", :cellspacing => "0", :cellpadding => "3", :border => "0"}
+
+          %tr
+            %td{:width => 165}= f.label :name, "Name of Item"
+            %td= f.text_field :name, :size => 30
+
+          %tr
+            %td= f.label :dimensions, "Dimensions"
+            %td= f.text_field :dimensions
+
+          %tr
+            %td= f.label :materials, "Materials"
+            %td= f.text_field :materials
+
+          %tr
+            %td= f.label :country_of_origin, "Country of Origin"
+            %td= f.select :country_of_origin, options_for_select([["Afghanistan","Afghanistan"],["Albania","Albania"],["Algeria","Algeria"],["American Samoa","American Samoa"],["Andorra","Andorra"],["Angola","Angola"],["Anguilla","Anguilla"],["Antarctica","Antarctica"],["Antigua and Barbuda","Antigua and Barbuda"],["Argentina","Argentina"],["Armenia","Armenia"],["Aruba","Aruba"],["Australia","Australia"],["Austria","Austria"],["Azerbaijan","Azerbaijan"],["Bahamas","Bahamas"],["Bahrain","Bahrain"],["Bangladesh","Bangladesh"],["Barbados","Barbados"],["Belarus","Belarus"],["Belgium","Belgium"],["Belize","Belize"],["Benin","Benin"],["Bermuda","Bermuda"],["Bhutan","Bhutan"],["Bolivia","Bolivia"],["Bosnia and Herzegovina","Bosnia and Herzegovina"],["Botswana","Botswana"],["Bouvet Island","Bouvet Island"],["Brazil","Brazil"],["British Indian Ocean Territory","British Indian Ocean Territory"],["Brunei Darussalam","Brunei Darussalam"],["Bulgaria","Bulgaria"],["Burkina Faso","Burkina Faso"],["Burundi","Burundi"],["Cambodia","Cambodia"],["Cameroon","Cameroon"],["Canada","Canada"],["Cape Verde","Cape Verde"],["Cayman Islands","Cayman Islands"],["Central African Republic","Central African Republic"],["Chad","Chad"],["Chile","Chile"],["China","China"],["Christmas Island","Christmas Island"],["Cocos (Keeling Islands)","Cocos (Keeling Islands)"],["Colombia","Colombia"],["Comoros","Comoros"],["Congo","Congo"],["Cook Islands","Cook Islands"],["Costa Rica","Costa Rica"],["Cote D'Ivoire (Ivory Coast)","Cote D'Ivoire (Ivory Coast)"],["Croatia (Hrvatska","Croatia (Hrvatska"],["Cuba","Cuba"],["Cyprus","Cyprus"],["Czech Republic","Czech Republic"],["Denmark","Denmark"],["Djibouti","Djibouti"],["Dominican Republic","Dominican Republic"],["Dominica","Dominica"],["East Timor","East Timor"],["Ecuador","Ecuador"],["Egypt","Egypt"],["El Salvador","El Salvador"],["Equatorial Guinea","Equatorial Guinea"],["Eritrea","Eritrea"],["Estonia","Estonia"],["Ethiopia","Ethiopia"],["Falkland Islands (Malvinas)","Falkland Islands (Malvinas)"],["Faroe Islands","Faroe Islands"],["Fiji","Fiji"],["Finland","Finland"],["France, Metropolitan","France, Metropolitan"],["France","France"],["French Guiana","French Guiana"],["French Polynesia","French Polynesia"],["French Southern Territories","French Southern Territories"],["Gabon","Gabon"],["Gambia","Gambia"],["Georgia","Georgia"],["Germany","Germany"],["Ghana","Ghana"],["Gibraltar","Gibraltar"],["Greece","Greece"],["Greenland","Greenland"],["Grenada","Grenada"],["Guadeloupe","Guadeloupe"],["Guam","Guam"],["Guatemala","Guatemala"],["Guinea-Bissau","Guinea-Bissau"],["Guinea","Guinea"],["Guyana","Guyana"],["Haiti","Haiti"],["Heard and McDonald Islands","Heard and McDonald Islands"],["Honduras","Honduras"],["Hong Kong","Hong Kong"],["Hungary","Hungary"],["Iceland","Iceland"],["India","India"],["Indonesia","Indonesia"],["Iran","Iran"],["Iraq","Iraq"],["Ireland","Ireland"],["Israel","Israel"],["Italy","Italy"],["Jamaica","Jamaica"],["Japan","Japan"],["Jordan","Jordan"],["Kazakhstan","Kazakhstan"],["Kenya","Kenya"],["Kiribati","Kiribati"],["Korea (North)","Korea (North)"],["Korea (South)","Korea (South)"],["Kuwait","Kuwait"],["Kyrgyzstan","Kyrgyzstan"],["Laos","Laos"],["Latvia","Latvia"],["Lebanon","Lebanon"],["Lesotho","Lesotho"],["Liberia","Liberia"],["Libya","Libya"],["Liechtenstein","Liechtenstein"],["Lithuania","Lithuania"],["Luxembourg","Luxembourg"],["Macau","Macau"],["Macedonia","Macedonia"],["Madagascar","Madagascar"],["Malawi","Malawi"],["Malaysia","Malaysia"],["Maldives","Maldives"],["Mali","Mali"],["Malta","Malta"],["Marshall Islands","Marshall Islands"],["Martinique","Martinique"],["Mauritania","Mauritania"],["Mauritius","Mauritius"],["Mayotte","Mayotte"],["Mexico","Mexico"],["Micronesia","Micronesia"],["Moldova","Moldova"],["Monaco","Monaco"],["Mongolia","Mongolia"],["Montserrat","Montserrat"],["Morocco","Morocco"],["Mozambique","Mozambique"],["Myanmar","Myanmar"],["Namibia","Namibia"],["Nauru","Nauru"],["Nepal","Nepal"],["Netherlands Antilles","Netherlands Antilles"],["Netherlands","Netherlands"],["New Caledonia","New Caledonia"],["New Zealand","New Zealand"],["Nicaragua","Nicaragua"],["Nigeria","Nigeria"],["Niger","Niger"],["Niue","Niue"],["Norfolk Island","Norfolk Island"],["Northern Mariana Islands","Northern Mariana Islands"],["Norway","Norway"],["Oman","Oman"],["Pakistan","Pakistan"],["Palau","Palau"],["Panama","Panama"],["Papua New Guinea","Papua New Guinea"],["Paraguay","Paraguay"],["Peru","Peru"],["Philippines","Philippines"],["Pitcairn","Pitcairn"],["Poland","Poland"],["Portugal","Portugal"],["Puerto Rico","Puerto Rico"],["Qatar","Qatar"],["Reunion","Reunion"],["Romania","Romania"],["Russian Federation","Russian Federation"],["Rwanda","Rwanda"],["S. Georgia and S. Sandwich Isls.","S. Georgia and S. Sandwich Isls."],["Saint Kitts and Nevis","Saint Kitts and Nevis"],["Saint Lucia","Saint Lucia"],["Saint Vincent and The Grenadines","Saint Vincent and The Grenadines"],["Samoa","Samoa"],["San Marino","San Marino"],["Sao Tome and Principe","Sao Tome and Principe"],["Saudi Arabia","Saudi Arabia"],["Senegal","Senegal"],["Seychelles","Seychelles"],["Sierra Leone","Sierra Leone"],["Singapore","Singapore"],["Slovak Republic","Slovak Republic"],["Slovenia","Slovenia"],["Solomon Islands","Solomon Islands"],["Somalia","Somalia"],["South Africa","South Africa"],["Spain","Spain"],["Sri Lanka","Sri Lanka"],["St. Helena","St. Helena"],["St. Pierre and Miquelon","St. Pierre and Miquelon"],["Sudan","Sudan"],["Suriname","Suriname"],["Svalbard and Jan Mayen Islands","Svalbard and Jan Mayen Islands"],["Swaziland","Swaziland"],["Sweden","Sweden"],["Switzerland","Switzerland"],["Syria","Syria"],["Taiwan","Taiwan"],["Tajikistan","Tajikistan"],["Tanzania","Tanzania"],["Thailand","Thailand"],["Togo","Togo"],["Tokelau","Tokelau"],["Tonga","Tonga"],["Trinidad and Tobago","Trinidad and Tobago"],["Tunisia","Tunisia"],["Turkey","Turkey"],["Turkmenistan","Turkmenistan"],["Turks and Caicos Islands","Turks and Caicos Islands"],["Tuvalu","Tuvalu"],["US Minor Outlying Islands","US Minor Outlying Islands"],["Uganda","Uganda"],["Ukraine","Ukraine"],["United Arab Emirates","United Arab Emirates"],["United Kingdom","United Kingdom"],["United States","United States"],["Uruguay","Uruguay"],["Uzbekistan","Uzbekistan"],["Vanuatu","Vanuatu"],["Vatican City State","Vatican City State"],["Venezuela","Venezuela"],["Viet Nam","Viet Nam"],["Virgin Islands (British)","Virgin Islands (British)"],["Virgin Islands (US)","Virgin Islands (US)"],["Wallis and Futuna Islands","Wallis and Futuna Islands"],["Western Sahara","Western Sahara"],["Yemen","Yemen"],["Yugoslavia","Yugoslavia"],["Zaire","Zaire"],["Zambia","Zambia"],["Zimbabwe","Zimbabwe"]]), { :include_blank => true }
+
+          %tr
+            %td= f.label :makers_marks, "Makers Marks"
+            %td= f.text_field :makers_marks
+
+          %tr
+            %td= f.label :damage, "Damage"
+            %td= f.text_field :damage
+
+          %tr
+            %td= f.label :year_of_manufacture, "Year of Manufacture"
+            %td= f.text_field :year_of_manufacture, :size => 5
+
+          %tr
+            %td= f.label :where_was_it_obtained, "Where was it Obtained"
+            %td= f.text_area :where_was_it_obtained, :cols => 30, :rows => 3
+
+          %tr
+            %td= f.label :how_was_it_obtained, "How was it Obtained"
+            %td= f.text_area :how_was_it_obtained, :cols => 30, :rows => 3
+
+          = f.fields_for :photos do |photo|
+            %tr
+              %td= f.label "Please upload photo(s)"
+              %td= photo.file_field :asset
