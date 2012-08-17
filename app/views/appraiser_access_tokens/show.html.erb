@@ -1,30 +1,24 @@
-<p id="notice"><%= notice %></p>
+<div id="login_panel" >
+<h2>Sign up</h2>
 
-<p>
-  <b>User:</b>
-  <%= @appraiser_access_token.user %>
-</p>
+<%= form_for( @user, :url => registration_path(@user)) do |f| %>
+  <p><%= f.label :email %><br />
+  <%= f.email_field :email %></p>
 
-<p>
-  <b>Token:</b>
-  <%= @appraiser_access_token.token %>
-</p>
+  <p><%= f.label :password %><br />
+  <%= f.password_field :password %></p>
 
-<p>
-  <b>Email:</b>
-  <%= @appraiser_access_token.email %>
-</p>
+  <%= hidden_field_tag("access_token", @token.token) %>
 
-<p>
-  <b>Name:</b>
-  <%= @appraiser_access_token.name %>
-</p>
+  <p><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></p>
 
-<p>
-  <b>Used at:</b>
-  <%= @appraiser_access_token.used_at %>
-</p>
+<div class="terms">
+  <p><%= render :partial => "home/terms_and_conditions"%></p>
+</div>
+  <p><%= f.label :agree_to_tos %><br />
+  <%= f.check_box :agree_to_tos %></p>
 
-
-<%= link_to 'Edit', edit_appraiser_access_token_path(@appraiser_access_token) %> |
-<%= link_to 'Back', appraiser_access_tokens_path %>
+  <p><%= f.submit "Sign up" %></p>
+<% end %>
+</div>

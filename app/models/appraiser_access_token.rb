@@ -9,7 +9,7 @@ class AppraiserAccessToken < ActiveRecord::Base
   validates_uniqueness_of :token, :case_sensitive => true
 
   def set_random_token
-    self.token = CGI::escape(ActiveSupport::SecureRandom.hex(19)) unless self.token
+    self.token = CGI::escape(SecureRandom.hex(19)) unless self.token
   end
 
   def to_param

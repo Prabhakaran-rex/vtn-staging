@@ -1,0 +1,4 @@
+%p{ :class => cycle('odd', 'even')}
+  %span.created= user.created_at.strftime("%b %d, %H:%M")
+  %span.email= user.email
+  %span.name= user.name

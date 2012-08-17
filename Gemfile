@@ -33,7 +33,7 @@ gem "cancan" #this form the basis of user permissions
 
 gem 'heroku'
 # gem "heroku_backup_task"   #takes care of backing up the database via a cron job
-# gem 'will_paginate', '~> 3.0.pre2'  #means lists of active objects can be paginated
+gem 'will_paginate'  #means lists of active objects can be paginated
 gem 'haml' #more consise template files, easier to read and maintain
 
 gem 'activemerchant'#, '1.23.0', :require => 'active_merchant'

@@ -1,0 +1,98 @@
+%h1 Manage Your Profile
+%p= "Welcome appraiser: " << @user.email
+
+#logout
+  = link_to "Sign out", destroy_user_session_url
+= link_to 'Back to Appraisals', appraisals_path
+#panel
+  =# flash[:alert]
+  %h2 Profile
+  %h2 Your listed skills set
+  %p= "You have set #{@user.skills.count} skills."
+  - @user.skills.each do |skill|
+    - val =  skill.discipline
+    %h3= val.humanize
+    = "Doing professionally since: " << (@user.skills.find_by_discipline(val).since || "Unknown").to_s
+    = link_to "Edit" , edit_appraiser_skill_path(@user.skills.find_by_discipline(val) )
+    = link_to "Remove" , @user.skills.find_by_discipline(val) , :confirm => 'Are you sure?', :method => :delete
+
+
+  %h2 Add skills
+  - form_for(@user, :controller => :appraiser) do |f|
+    - val = "coins"
+    - unless @user.skills.find_by_discipline(val)
+      - f.fields_for :skills, @user.skills.build do |skill|
+        = skill.hidden_field :discipline , :value => val
+        = skill.label :since , "Working professionally since "
+        = skill.text_field :since , :value => "2011"
+        = skill.submit("Add expert status in " << val)
+
+  - form_for(@user, :controller => :appraiser) do |f|
+    - val = "wines"
+    - unless @user.skills.find_by_discipline(val)
+      - f.fields_for :skills, @user.skills.build do |skill|
+        = skill.hidden_field :discipline , :value => val
+        = skill.label :since , "Working professionally since "
+        = skill.text_field :since , :value => "2011"
+        = skill.submit("Add expert status in " << val)
+
+  - form_for(@user, :controller => :appraiser) do |f|
+    - val = "books"
+    - unless @user.skills.find_by_discipline(val)
+      - f.fields_for :skills, @user.skills.build do |skill|
+        = skill.hidden_field :discipline , :value => val
+        = skill.label :since , "Working professionally since "
+        = skill.text_field :since , :value => "2011"
+        = skill.submit("Add expert status in " << val)
+
+  - form_for(@user, :controller => :appraiser) do |f|
+    - val = "stamps"
+    - unless @user.skills.find_by_discipline(val)
+      - f.fields_for :skills, @user.skills.build do |skill|
+        = skill.hidden_field :discipline , :value => val
+        = skill.label :since , "Working professionally since "
+        = skill.text_field :since , :value => "2011"
+        = skill.submit("Add expert status in " << val)
+
+  - form_for(@user, :controller => :appraiser) do |f|
+    - val = "jewelry"
+    - unless @user.skills.find_by_discipline(val)
+      - f.fields_for :skills, @user.skills.build do |skill|
+        = skill.hidden_field :discipline , :value => val
+        = skill.label :since , "Working professionally since "
+        = skill.text_field :since , :value => "2011"
+        = skill.submit("Add expert status in " << val)
+
+  - form_for @user , :html => { :multipart => true } do |form|
+    %h2 Personal Information
+    %p
+      = form.label :name, "Appriasor Name"
+      = form.text_field :name
+    %h2 Standards
+    %p
+      = form.label :uspap , "USPAP"
+      = form.check_box :uspap
+
+    %h2 Notification settings
+    %p
+      = form.label :notify_by_sms
+      = form.check_box :notify_by_sms
+    %p
+      = form.label :notify_by_email
+      = form.check_box :notify_by_email
+
+    %p
+      = form.label :next_notification_interval_in_minutes  , "Minimum time between notifications (minutes)"
+      = form.text_field :next_notification_interval_in_minutes
+
+    %h2 Profile picture
+    = form.fields_for :photos do |photo|
+      - if photo.object.new_record?
+        = photo.file_field :asset
+
+      - else
+        = link_to( image_tag(photo.object.asset.url(:thumb)), photo.object.asset.url(:original) )
+        = link_to "Remove" , photo.object , :confirm => 'Are you sure?', :method => :delete
+    = form.submit
+
+
