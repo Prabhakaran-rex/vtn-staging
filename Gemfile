@@ -28,7 +28,8 @@ gem 'aws-s3'
 # authentication
 gem 'devise' #this is our usermanagement system
 gem "omniauth"
-gem "oa-oauth", :require => "omniauth/oauth"  #this allows us to use things like facebook sign in
+# gem "oa-oauth", :require => "omniauth/oauth"  #this allows us to use things like facebook sign in
+gem 'omniauth-facebook'
 gem "cancan" #this form the basis of user permissions
 
 gem 'heroku'

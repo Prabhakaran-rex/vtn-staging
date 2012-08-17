@@ -11,7 +11,7 @@
       <%= form.text_field :email %>
     </div>
   <% else %>
-     <%= form.hidden_field :name, :value => current_user.name %>
+     <%= form.hidden_field :name, :value => current_user.name || "Not provided" %>
      <%= form.hidden_field :email, :value => current_user.email %> 
   <% end %>
     <div class="field">

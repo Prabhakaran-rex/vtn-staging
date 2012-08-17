@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable
+  :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
     # Setup accessible (or protected) attributes for your model
     attr_accessible :email, :password, :password_confirmation, :remember_me, :skills_attributes,
@@ -48,6 +48,41 @@ class User < ActiveRecord::Base
       UserMailer.notify_appraiser_of_new_appraisal( appraiser ,
         appraisal ).deliver
     end
+  end
+  
+  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
+    data = access_token['extra']['raw_info']
+    token = access_token['credentials']['token']
+    users = User.where("facebook_id=? OR email=?", data['id'], data["email"])
+
+    if user = users.find_by_facebook_id(data['id'])
+      user
+    else # Create a user with a stub password.
+      if user = users.find_by_email(data['email'])
+        user
+      else
+        user = User.new(:email => data["email"],
+                        :password => Devise.friendly_token[0, 20]
+        )
+        user.role = "user"
+      end
+    end
+  puts "DATA:::::::"
+  p data
+    user.facebook_id = data['id'] unless user.facebook_id
+    user.name = data['name']
+    user.facebook_token = token
+    user.email = data["email"]
+  if (!data['location'].nil?)
+    user.facebook_location = data['location']['name']
+    user.facebook_location_id = data['location']['id']
+  end
+    user.facebook_gender = data['gender']
+    user.facebook_verified = data['verified']
+    user.facebook_updated = data['updated_time']
+    user.facebook_locale = data['locale']
+    user.save
+    user
   end
 
   def self.roles
