@@ -1,4 +1,6 @@
 PurexNew::Application.routes.draw do
+  resources :photos
+
   resources :appraisals
 
   devise_for :users

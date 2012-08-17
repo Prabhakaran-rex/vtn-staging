@@ -11,7 +11,44 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120817001457) do
+ActiveRecord::Schema.define(:version => 20120817003456) do
+
+  create_table "appraisals", :force => true do |t|
+    t.string   "name"
+    t.string   "dimensions"
+    t.string   "materials"
+    t.string   "country_of_origin"
+    t.string   "makers_marks"
+    t.string   "damage"
+    t.string   "year_of_manufacture"
+    t.string   "where_was_it_obtained"
+    t.string   "how_was_it_obtained"
+    t.string   "appraiser_number"
+    t.string   "value_of_item"
+    t.string   "historical_significance"
+    t.string   "number_of_pieces_created"
+    t.string   "where_it_was_manufactured"
+    t.string   "when_it_was_used"
+    t.string   "how_it_was_used"
+    t.integer  "selected_plan"
+    t.integer  "status"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "photos", :force => true do |t|
+    t.integer  "appraisal_id"
+    t.integer  "user_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "asset_file_name"
+    t.string   "asset_content_type"
+    t.integer  "asset_file_size"
+    t.datetime "asset_updated_at"
+  end
+
+  add_index "photos", ["appraisal_id"], :name => "index_photos_on_appraisal_id"
+  add_index "photos", ["user_id"], :name => "index_photos_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
