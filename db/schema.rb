@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120817005711) do
+ActiveRecord::Schema.define(:version => 20120817010659) do
 
   create_table "appraisal_activities", :force => true do |t|
     t.integer  "appraisal_id"
@@ -76,6 +76,21 @@ ActiveRecord::Schema.define(:version => 20120817005711) do
 
   add_index "appraiser_access_tokens", ["user_id"], :name => "index_appraiser_access_tokens_on_user_id"
 
+  create_table "payments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "appraisal_id"
+    t.boolean  "is_charged"
+    t.string   "auth_code"
+    t.string   "ccnum"
+    t.float    "amount"
+    t.boolean  "is_refund"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "payments", ["appraisal_id"], :name => "index_payments_on_appraisal_id"
+  add_index "payments", ["user_id"], :name => "index_payments_on_user_id"
+
   create_table "photos", :force => true do |t|
     t.integer  "appraisal_id"
     t.integer  "user_id"
@@ -130,6 +145,7 @@ ActiveRecord::Schema.define(:version => 20120817005711) do
     t.datetime "next_notification_due_at",              :default => '2012-08-17 00:46:32'
     t.string   "payment_method",                        :default => "cheque"
     t.boolean  "uspap",                                 :default => false
+    t.string   "name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

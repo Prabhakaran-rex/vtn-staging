@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @payment.user %>
+</p>
+
+<p>
+  <b>Appraisal:</b>
+  <%= @payment.appraisal %>
+</p>
+
+<p>
+  <b>Is charged:</b>
+  <%= @payment.is_charged %>
+</p>
+
+<p>
+  <b>Auth code:</b>
+  <%= @payment.auth_code %>
+</p>
+
+<p>
+  <b>Ccnum:</b>
+  <%= @payment.ccnum %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @payment.amount %>
+</p>
+
+<p>
+  <b>Is refund:</b>
+  <%= @payment.is_refund %>
+</p>
+
+
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', payments_path %>

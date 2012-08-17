@@ -1,4 +1,6 @@
 PurexNew::Application.routes.draw do
+  resources :payments
+
   resources :appraisal_data
 
   resources :appraisal_activities
