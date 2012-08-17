@@ -3,5 +3,50 @@
 #
 # Examples:
 #
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
+#   Mayor.create(:name => 'Daley', :city => cities.first)
+
+
+
+admins = [
+    {
+        :user =>
+            {
+                :email => 'rjohnston@colosses.com',
+                :role => 'admin',
+            }
+    }
+].each do |admin|
+  if user = User.where(:email => admin[:user][:email]).first
+    user.role = "admin"
+    user.password = 'purex123' unless user.password
+    user.save!
+  else
+    admin[:user][:password] = 'purex123'
+    admin[:user][:password_confirmation] = admin[:user][:password]
+    admin[:user][:role] = "admin"
+    user = User.create!(admin[:user])
+  end
+end
+
+appraisers = [
+    {
+        :user =>
+            {
+                :email => 'rjohnston@colosses.com',
+                :role => 'appraiser',
+            }
+    }
+].each do |admin|
+  if user = User.where(:email => admin[:user][:email]).first
+    user.role = "appraiser"
+    user.password = 'purex123' unless user.password
+    user.save!
+  else
+    admin[:user][:password] = 'purex123'
+    admin[:user][:password_confirmation] = admin[:user][:password]
+    admin[:user][:role] = "appraiser"
+    user = User.create!(admin[:user])
+  end
+
+ end

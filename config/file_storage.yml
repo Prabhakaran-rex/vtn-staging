@@ -1,0 +1,24 @@
+development:
+    storage: 'filesystem'
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename"
+    url: "/system/:attachment/:id/:style/:filename"
+
+test:
+    storage: 'filesystem'
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename"
+    url: "/system/:attachment/:id/:style/:filename"
+
+cucumber:
+    storage: 'filesystem' #:filesystem
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename"
+    url: "/system/:attachment/:id/:style/:filename"
+
+production:
+    storage: 's3' #:s3
+    path: ":attachment/:id/:style/:filename"
+    url: ":s3_domain_url/:attachment/:id/:style/:filename"
+
+staging:
+    storage: 's3' #:s3
+    path: ":attachment/:id/:style/:filename"
+    url: ":s3_domain_url/:attachment/:id/:style/:filename"

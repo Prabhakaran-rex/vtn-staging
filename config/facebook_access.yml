@@ -1,0 +1,19 @@
+development:
+    app_id: '202619959787004'
+    app_secret: '1226e13ee69153672b7030beba6d2e25'
+
+test:
+    app_id: '202619959787004'
+    app_secret: '1226e13ee69153672b7030beba6d2e25'
+
+cucumber:
+    app_id: '202619959787004'
+    app_secret: '1226e13ee69153672b7030beba6d2e25'
+
+production:
+    app_id: '205320576165334'
+    app_secret: '219d27cdcd3d6635e787db60bdeee1ef'
+
+staging:
+    app_id: '202619959787004'
+    app_secret: '1226e13ee69153672b7030beba6d2e25'

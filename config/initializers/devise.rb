@@ -1,3 +1,4 @@
+FACEBOOK_ACCESS = YAML.load_file(File.join(Rails.root, "config", "facebook_access.yml"))
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -229,4 +230,5 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
+  # config.omniauth :facebook, FACEBOOK_ACCESS[Rails.env]['app_id'], FACEBOOK_ACCESS[Rails.env]['app_secret']
 end

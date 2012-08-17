@@ -34,4 +34,22 @@ PurexNew::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+    ActionMailer::Base.smtp_settings = {
+  :address        => 'smtp.sendgrid.net',
+  :port           => '587',
+  :authentication => :plain,
+  :user_name      => 'app4334028@heroku.com',
+  :password       => 'uu1nfkq3',
+  :domain         => 'heroku.com'
+}
+ActionMailer::Base.delivery_method = :smtp
+
+  if RUBY_PLATFORM.downcase.include?("darwin")
+    Paperclip.options[:command_path] = "/usr/local/bin"
+  end
+  
+  ActiveMerchant::Billing::Base.mode = :test
 end

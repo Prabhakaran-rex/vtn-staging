@@ -3,3 +3,4 @@ require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
 PurexNew::Application.initialize!
+PAYMENT_PLAN = Array.[](4.99, 9.99) #define in appraisals.selected_plan (0=>4.99, 1=>9.99)
