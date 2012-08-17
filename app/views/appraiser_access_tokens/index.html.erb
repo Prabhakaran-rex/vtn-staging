@@ -1,0 +1,31 @@
+<h1>Listing appraiser_access_tokens</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Token</th>
+    <th>Email</th>
+    <th>Name</th>
+    <th>Used at</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @appraiser_access_tokens.each do |appraiser_access_token| %>
+  <tr>
+    <td><%= appraiser_access_token.user %></td>
+    <td><%= appraiser_access_token.token %></td>
+    <td><%= appraiser_access_token.email %></td>
+    <td><%= appraiser_access_token.name %></td>
+    <td><%= appraiser_access_token.used_at %></td>
+    <td><%= link_to 'Show', appraiser_access_token %></td>
+    <td><%= link_to 'Edit', edit_appraiser_access_token_path(appraiser_access_token) %></td>
+    <td><%= link_to 'Destroy', appraiser_access_token, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Appraiser access token', new_appraiser_access_token_path %>

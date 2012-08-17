@@ -1,0 +1,37 @@
+<%= form_for(@appraisal_activity) do |f| %>
+  <% if @appraisal_activity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@appraisal_activity.errors.count, "error") %> prohibited this appraisal_activity from being saved:</h2>
+
+      <ul>
+      <% @appraisal_activity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :appraisal %><br />
+    <%= f.text_field :appraisal %>
+  </div>
+  <div class="field">
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </div>
+  <div class="field">
+    <%= f.label :activity_type %><br />
+    <%= f.number_field :activity_type %>
+  </div>
+  <div class="field">
+    <%= f.label :activity_value %><br />
+    <%= f.number_field :activity_value %>
+  </div>
+  <div class="field">
+    <%= f.label :activity_datetime %><br />
+    <%= f.datetime_select :activity_datetime %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

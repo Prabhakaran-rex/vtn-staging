@@ -1,0 +1,37 @@
+<%= form_for(@appraiser_access_token) do |f| %>
+  <% if @appraiser_access_token.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@appraiser_access_token.errors.count, "error") %> prohibited this appraiser_access_token from being saved:</h2>
+
+      <ul>
+      <% @appraiser_access_token.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </div>
+  <div class="field">
+    <%= f.label :token %><br />
+    <%= f.text_field :token %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :used_at %><br />
+    <%= f.datetime_select :used_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

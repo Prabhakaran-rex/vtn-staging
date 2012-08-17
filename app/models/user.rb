@@ -8,7 +8,13 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
+  has_one  :appraiser_access_token
+  has_many :appraisals
   has_many :photos, :dependent => :destroy
+  has_many :skills
+
+  accepts_nested_attributes_for :photos, :allow_destroy => true
+
   
   # attr_accessible :title, :body
 end

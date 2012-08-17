@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Appraisal:</b>
+  <%= @appraisal_activity.appraisal %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @appraisal_activity.user %>
+</p>
+
+<p>
+  <b>Activity type:</b>
+  <%= @appraisal_activity.activity_type %>
+</p>
+
+<p>
+  <b>Activity value:</b>
+  <%= @appraisal_activity.activity_value %>
+</p>
+
+<p>
+  <b>Activity datetime:</b>
+  <%= @appraisal_activity.activity_datetime %>
+</p>
+
+
+<%= link_to 'Edit', edit_appraisal_activity_path(@appraisal_activity) %> |
+<%= link_to 'Back', appraisal_activities_path %>

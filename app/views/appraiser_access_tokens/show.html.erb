@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @appraiser_access_token.user %>
+</p>
+
+<p>
+  <b>Token:</b>
+  <%= @appraiser_access_token.token %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @appraiser_access_token.email %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @appraiser_access_token.name %>
+</p>
+
+<p>
+  <b>Used at:</b>
+  <%= @appraiser_access_token.used_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_appraiser_access_token_path(@appraiser_access_token) %> |
+<%= link_to 'Back', appraiser_access_tokens_path %>

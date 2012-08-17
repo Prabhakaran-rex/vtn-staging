@@ -1,0 +1,2 @@
+module AppraiserAccessTokensHelper
+end

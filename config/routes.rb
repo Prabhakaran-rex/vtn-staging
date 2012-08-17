@@ -1,4 +1,12 @@
 PurexNew::Application.routes.draw do
+  resources :appraisal_data
+
+  resources :appraisal_activities
+
+  resources :skills
+
+  resources :appraiser_access_tokens
+
   resources :photos
 
   resources :appraisals

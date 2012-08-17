@@ -1,0 +1,27 @@
+<h1>Listing appraisal_data</h1>
+
+<table>
+  <tr>
+    <th>Appraisal</th>
+    <th>Datatype</th>
+    <th>Value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @appraisal_data.each do |appraisal_datum| %>
+  <tr>
+    <td><%= appraisal_datum.appraisal %></td>
+    <td><%= appraisal_datum.datatype %></td>
+    <td><%= appraisal_datum.value %></td>
+    <td><%= link_to 'Show', appraisal_datum %></td>
+    <td><%= link_to 'Edit', edit_appraisal_datum_path(appraisal_datum) %></td>
+    <td><%= link_to 'Destroy', appraisal_datum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Appraisal datum', new_appraisal_datum_path %>

@@ -1,0 +1,29 @@
+<%= form_for(@appraisal_datum) do |f| %>
+  <% if @appraisal_datum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@appraisal_datum.errors.count, "error") %> prohibited this appraisal_datum from being saved:</h2>
+
+      <ul>
+      <% @appraisal_datum.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :appraisal %><br />
+    <%= f.text_field :appraisal %>
+  </div>
+  <div class="field">
+    <%= f.label :datatype %><br />
+    <%= f.number_field :datatype %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
