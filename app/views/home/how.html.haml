@@ -35,5 +35,5 @@
 
 	%p Signup is easy just start here: Appraiser Signup 
 -else
-	%p= link_to 'Consumers', url_for(how_path, :role => "consumer")
-	%p= link_to 'Appraisers', url_for(how_path, :role => "appraiser")
+	%p= link_to 'Consumers', how_path, :role => "consumer"
+	%p= link_to 'Appraisers', how_path, :role => "appraiser"

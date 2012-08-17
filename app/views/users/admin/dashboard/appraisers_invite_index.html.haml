@@ -1,0 +1,9 @@
+#logout
+  = link_to "Sign out", destroy_user_session_url
+= link_to "Dashboard" , admin_dashboard_path
+#panel
+  %h2 Appraisers on file:
+  %h5= page_entries_info @appraiser_access_tokens
+  = will_paginate @appraiser_access_tokens
+  .users.clear= render :partial => 'appraiser_access_tokens/list', :collection => @appraiser_access_tokens , :as => :appraiser_access_token
+  = will_paginate @appraiser_access_tokens

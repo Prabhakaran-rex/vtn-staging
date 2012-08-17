@@ -1,0 +1,40 @@
+Admin dashboard
+<% flash.each do |key, msg| %>
+    <%= content_tag :div, msg, :class => [key, " message"], :id => "notice_ #{key}" %>
+<% end %>
+
+<%= form_for(@appraiser_access_token ) do |f| %>
+  <% if @appraiser_access_token.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@appraiser_access_token.errors.count, "error") %> prohibited this Appraiser Access Token from being saved:</h2>
+
+      <ul>
+      <% @appraiser_access_token.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
+
+<%= link_to "Appraisers" , admin_dashboard_appraisers_path %>
+<%= link_to "Invites" , admin_dashboard_invites_path %>

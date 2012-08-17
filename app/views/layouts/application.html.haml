@@ -22,7 +22,7 @@
             -else
               = link_to("My Appraisals", users_path, :class => "class2") + " | "
             = link_to("Support", contact_path, :class => "class2") + " | "
-            = link_to("Signout", destroy_user_session_url, :class => "class2")
+            = link_to("Signout", destroy_user_session_path, :method => :delete, :class => "class2")
           - else
             = link_to("Login", new_user_session_url, :class => "class2") + " | "
             = link_to("Register", new_user_registration_path, :class => "class2")

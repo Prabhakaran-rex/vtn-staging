@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     # Setup accessible (or protected) attributes for your model
     attr_accessible :email, :password, :password_confirmation, :remember_me, :skills_attributes,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos
+    :payment_method, :uspap, :name, :agree_to_tos, :role
 
   # Set requirement for signup
   validates :agree_to_tos, :acceptance => true, :on => :create
