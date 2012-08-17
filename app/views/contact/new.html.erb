@@ -1,0 +1,31 @@
+<%= form_for @message, :url => contact_path do |form| %>
+  <fieldset class="fields">
+  <% if !current_user %>    
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :email %>
+      <%= form.text_field :email %>
+    </div>
+  <% else %>
+     <%= form.hidden_field :name, :value => current_user.name %>
+     <%= form.hidden_field :email, :value => current_user.email %> 
+  <% end %>
+    <div class="field">
+      <%= form.label :subject %>
+      <%= form.text_field :subject %>
+    </div>
+    
+    <div class="field">
+      <%= form.label :body %>
+      <%= form.text_area :body %>
+    </div>
+  </fieldset>
+  
+  <fieldset class="actions">
+    <%= form.submit "Send" %>
+  </fieldset>
+<% end %>

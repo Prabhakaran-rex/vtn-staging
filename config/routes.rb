@@ -1,4 +1,21 @@
 PurexNew::Application.routes.draw do
+  get "contact/new"
+
+  get "contact/create"
+
+  match 'contact' => 'contact#new', :as => 'contact', :via => :get
+  match 'contact' => 'contact#create', :as => 'contact', :via => :post
+  
+  get "home/index"
+  get '/home/how' => 'home#how', :as => 'how'
+  get '/home/become' => 'home#become', :as => 'become'
+  get '/home/privacy' => 'home#privacy', :as => 'privacy'
+  get '/home/terms' => 'home#terms', :as => 'terms'
+  get '/home/categories' => 'home#categories', :as => 'categories'
+  get '/home/exclusions' => 'home#exclusions', :as => 'exclusions'
+  get '/photos/create'
+  post '/photos/create'
+
   resources :payments
 
   resources :appraisal_data
@@ -64,7 +81,7 @@ PurexNew::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'home#index'
 
   # See how all your routes lay out with "rake routes"
 
