@@ -31,7 +31,7 @@ gem "oa-oauth", :require => "omniauth/oauth"  #this allows us to use things like
 gem "cancan" #this form the basis of user permissions
 
 gem 'heroku'
-gem "heroku_backup_task"   #takes care of backing up the database via a cron job
+# gem "heroku_backup_task"   #takes care of backing up the database via a cron job
 # gem 'will_paginate', '~> 3.0.pre2'  #means lists of active objects can be paginated
 gem 'haml' #more consise template files, easier to read and maintain
 

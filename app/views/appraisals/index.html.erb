@@ -1,0 +1,57 @@
+<h1>Listing appraisals</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Dimensions</th>
+    <th>Materials</th>
+    <th>Country of origin</th>
+    <th>Makers marks</th>
+    <th>Damage</th>
+    <th>Year of manufacture</th>
+    <th>Where was it obtained</th>
+    <th>How was it obtained</th>
+    <th>Appraiser number</th>
+    <th>Value of item</th>
+    <th>Historical significance</th>
+    <th>Number of pieces created</th>
+    <th>Where it was manufactured</th>
+    <th>When it was used</th>
+    <th>How it was used</th>
+    <th>Selected plan</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @appraisals.each do |appraisal| %>
+  <tr>
+    <td><%= appraisal.name %></td>
+    <td><%= appraisal.dimensions %></td>
+    <td><%= appraisal.materials %></td>
+    <td><%= appraisal.country_of_origin %></td>
+    <td><%= appraisal.makers_marks %></td>
+    <td><%= appraisal.damage %></td>
+    <td><%= appraisal.year_of_manufacture %></td>
+    <td><%= appraisal.where_was_it_obtained %></td>
+    <td><%= appraisal.how_was_it_obtained %></td>
+    <td><%= appraisal.appraiser_number %></td>
+    <td><%= appraisal.value_of_item %></td>
+    <td><%= appraisal.historical_significance %></td>
+    <td><%= appraisal.number_of_pieces_created %></td>
+    <td><%= appraisal.where_it_was_manufactured %></td>
+    <td><%= appraisal.when_it_was_used %></td>
+    <td><%= appraisal.how_it_was_used %></td>
+    <td><%= appraisal.selected_plan %></td>
+    <td><%= appraisal.status %></td>
+    <td><%= link_to 'Show', appraisal %></td>
+    <td><%= link_to 'Edit', edit_appraisal_path(appraisal) %></td>
+    <td><%= link_to 'Destroy', appraisal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Appraisal', new_appraisal_path %>

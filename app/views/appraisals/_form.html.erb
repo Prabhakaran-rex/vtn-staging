@@ -1,0 +1,89 @@
+<%= form_for(@appraisal) do |f| %>
+  <% if @appraisal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@appraisal.errors.count, "error") %> prohibited this appraisal from being saved:</h2>
+
+      <ul>
+      <% @appraisal.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :dimensions %><br />
+    <%= f.text_field :dimensions %>
+  </div>
+  <div class="field">
+    <%= f.label :materials %><br />
+    <%= f.text_field :materials %>
+  </div>
+  <div class="field">
+    <%= f.label :country_of_origin %><br />
+    <%= f.text_field :country_of_origin %>
+  </div>
+  <div class="field">
+    <%= f.label :makers_marks %><br />
+    <%= f.text_field :makers_marks %>
+  </div>
+  <div class="field">
+    <%= f.label :damage %><br />
+    <%= f.text_field :damage %>
+  </div>
+  <div class="field">
+    <%= f.label :year_of_manufacture %><br />
+    <%= f.text_field :year_of_manufacture %>
+  </div>
+  <div class="field">
+    <%= f.label :where_was_it_obtained %><br />
+    <%= f.text_field :where_was_it_obtained %>
+  </div>
+  <div class="field">
+    <%= f.label :how_was_it_obtained %><br />
+    <%= f.text_field :how_was_it_obtained %>
+  </div>
+  <div class="field">
+    <%= f.label :appraiser_number %><br />
+    <%= f.text_field :appraiser_number %>
+  </div>
+  <div class="field">
+    <%= f.label :value_of_item %><br />
+    <%= f.text_field :value_of_item %>
+  </div>
+  <div class="field">
+    <%= f.label :historical_significance %><br />
+    <%= f.text_field :historical_significance %>
+  </div>
+  <div class="field">
+    <%= f.label :number_of_pieces_created %><br />
+    <%= f.text_field :number_of_pieces_created %>
+  </div>
+  <div class="field">
+    <%= f.label :where_it_was_manufactured %><br />
+    <%= f.text_field :where_it_was_manufactured %>
+  </div>
+  <div class="field">
+    <%= f.label :when_it_was_used %><br />
+    <%= f.text_field :when_it_was_used %>
+  </div>
+  <div class="field">
+    <%= f.label :how_it_was_used %><br />
+    <%= f.text_field :how_it_was_used %>
+  </div>
+  <div class="field">
+    <%= f.label :selected_plan %><br />
+    <%= f.number_field :selected_plan %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.number_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
