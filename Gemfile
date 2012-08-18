@@ -42,6 +42,8 @@ gem 'activemerchant'#, '1.23.0', :require => 'active_merchant'
 # To use Jbuilder templates for JSON
 gem 'jbuilder'
 
+gem 'simple_form'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'spork'
