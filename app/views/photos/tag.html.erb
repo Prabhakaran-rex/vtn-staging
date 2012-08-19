@@ -1,0 +1,29 @@
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js'></script>
+<%= javascript_include_tag "jquery.tag" %>
+<%= stylesheet_link_tag "jquery.tag" %>
+<%= stylesheet_link_tag "jquery-ui.custom" %>
+<h4>Tag Photo</h4>
+<div class="sub_box">
+
+<img src="<%= path_to_image(@photo.asset.url(:large)) %>", id="img">
+
+<script>
+ 		$(document).ready(function(){
+			
+ 			$("#img").tag({showTag: 'always', defaultTags: <%=  raw @photo.tags.to_json 
+  %>
+ 			,
+ 				save: function(width,height,top_pos,left,label,the_tag){
+ 					$.post("<%= url_for annotate_path%>.json",{'action':'save','width':width,'height':height,'top':top_pos,'left':left,'label':label,'photo_id':<%= @photo.id %>},function(id){
+ 						the_tag.setId(id);
+ 					});
+ 				},
+ 				remove: function(id){
+ 					$.post("<%= url_for(destroy_tag_path) %>.json",{'id':id});
+ 				}
+ 			});			
+ 		});
+	</script>
+<pre><%= @photo.to_json %></pre>
+</div>

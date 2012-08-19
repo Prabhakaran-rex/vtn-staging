@@ -1,31 +1,17 @@
-<%= form_for @message, :url => contact_path do |form| %>
-  <fieldset class="fields">
-  <% if !current_user %>    
-    <div class="field">
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-
-    <div class="field">
-      <%= form.label :email %>
-      <%= form.text_field :email %>
-    </div>
+<div class="sub_box">
+<%= simple_form_for @message, :url => contact_path, :html => {:class => "form-horizontal"}  do |f| %>
+  <% if !current_user %>
+    <%= f.input :name %>
+    <%= f.input :email %>
   <% else %>
-     <%= form.hidden_field :name, :value => current_user.name || "Not provided" %>
-     <%= form.hidden_field :email, :value => current_user.email %> 
+    <%= f.input :name, :input_html => {:value => current_user.name || "Not provided"}, :as => :hidden %>
+    <%= f.input :email, :input_html => {:value => current_user.email}, :as => :hidden %>
   <% end %>
-    <div class="field">
-      <%= form.label :subject %>
-      <%= form.text_field :subject %>
-    </div>
-    
-    <div class="field">
-      <%= form.label :body %>
-      <%= form.text_area :body %>
-    </div>
-  </fieldset>
-  
-  <fieldset class="actions">
-    <%= form.submit "Send" %>
-  </fieldset>
+  <%= f.input :subject %>
+  <%= f.input :body, :as => :text %>
+
+  <div class="form-actions">
+    <%= f.submit "Send", :class => "btn btn-primary"%>
+  </div>
 <% end %>
+</div>

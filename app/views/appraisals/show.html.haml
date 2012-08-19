@@ -1,12 +1,14 @@
 = javascript_include_tag "jquery.tag"
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-=# javascript_include_tag "jquery.ui.widget.js" 
+= javascript_include_tag "jquery.ui.widget.js" 
 <!-- The Templates plugin is included to render the upload/download listings -->
 = javascript_include_tag "tmpl.min.js"
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
 = javascript_include_tag "load-image.min.js"
 <!-- The Canvas to Blob plugin is included for image resizing functionality -->
 = javascript_include_tag "canvas-to-blob.min.js"
+<!-- Bootstrap JS and Bootstrap Image Gallery are not required, but included for the demo -->
+<!-- <%= javascript_include_tag "bootstrap-image-gallery.min.js" %> -->
 <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
 = javascript_include_tag "jquery.iframe-transport.js"
 <!-- The basic File Upload plugin -->
@@ -22,9 +24,10 @@
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="js/cors/jquery.xdr-transport.js"></script><![endif]-->
 
+= stylesheet_link_tag "style"
 = stylesheet_link_tag "jquery.fileupload-ui"
 = stylesheet_link_tag "jquery.tag"
-= stylesheet_link_tag "ui-lightness/jquery-ui-1.8.14.custom"
+= stylesheet_link_tag "jquery-ui.custom"
 
 -#:javascript
   (function(d, s, id) {
@@ -40,7 +43,8 @@
 .form
   -# %h4= flash[:title]
   .sub_box.clearfix
-    - if @user.role.eql?("appraiser")
+    - if current_user.role.eql?("appraiser")
       = render :partial => "appraiser_show"
     - else
       = render :partial => "user_show"
+      = render :partial => "multiple_photo_upload"

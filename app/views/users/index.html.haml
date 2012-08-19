@@ -34,4 +34,4 @@
           %td= number_to_currency(appraisal.value_of_item, :precision => 0)
           %td= getStringForAppraisalType(appraisal.selected_plan)
           %td{:class => "small"}= link_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete)
-    = link_to 'Create Appraisal', new_appraisal_path
+    = link_to 'Create Appraisal', new_appraisal_path, :class => "btn"

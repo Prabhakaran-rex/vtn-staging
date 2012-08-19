@@ -1,83 +1,75 @@
+require 'paypal'
+
 class PaymentsController < ApplicationController
-  # GET /payments
-  # GET /payments.json
+  before_filter :is_login?
+
   def index
-    @payments = Payment.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @payments }
-    end
-  end
-
-  # GET /payments/1
-  # GET /payments/1.json
-  def show
-    @payment = Payment.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @payment }
-    end
-  end
-
-  # GET /payments/new
-  # GET /payments/new.json
-  def new
     @payment = Payment.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @payment }
+  end
+  
+  def is_login?
+    @user = current_user if current_user
+    @appraisal = session[:new_appraisal]
+    
+    if @user.nil?
+      redirect_to new_user_session_url
     end
-  end
+    if @appraisal.nil?
+      redirect_to new_appraisal_url
+    end
+  end  
 
-  # GET /payments/1/edit
-  def edit
-    @payment = Payment.find(params[:id])
-  end
-
-  # POST /payments
-  # POST /payments.json
   def create
-    @payment = Payment.new(params[:payment])
-
-    respond_to do |format|
-      if @payment.save
-        format.html { redirect_to @payment, notice: 'Payment was successfully created.' }
-        format.json { render json: @payment, status: :created, location: @payment }
+    
+    ccparam = params[:payment]
+    
+    if ccparam
+      ccnumber = ccparam[:number]
+      cvv = ccparam[:cvv]
+      expmon = ccparam[:expmon]
+      expyear = ccparam[:expyear]
+      amount  = PAYMENT_PLAN[ @appraisal.selected_plan ]
+      name = @user.name
+      
+      if not Payment.is_payment_exists?(@appraisal.id)
+        credit_card = Payment::CreditCard.new(ccnumber, cvv, expmon, expyear, name, amount)
+        #status, msg = Paypal::PayGateway.new.charge(credit_card, request.remote_ip)
+        status, msg = Paypal::PayGateway.new.authorize(credit_card, request.remote_ip)      
+        #status, msg = Paypal::PayGateway.new.refund(amount, auth_code)
+         
+        if status
+          Payment.add_payment(msg, ccnumber, amount, @user.id, @appraisal.id)
+          
+          # Notification Hook - Send Appraiser email/sms
+          User.notify_appraisers_of_new_appraisal( @appraisal )
+          flash[:notice] = "Congratulations your item has been submitted for a certified USPAP valuation!"
+          flash[:title]  = "Thank You!"
+          
+          respond_to do |format|
+            format.html { redirect_to appraisal_path(@appraisal) }
+            format.xml  { render :xml => @appraisal, :status => :created, :location => @appraisal }
+          end
+        else        
+          flash[:notice] = "Declined: " + msg
+          redirect_to payments_path
+        end
       else
-        format.html { render action: "new" }
-        format.json { render json: @payment.errors, status: :unprocessable_entity }
+        flash[:notice] = "Cannot process: previous payment exists"
+        redirect_to payments_path
       end
+    else
+      flash[:notice] = "System error: invalid input params"
+      redirect_to payments_path       
     end
+
   end
 
-  # PUT /payments/1
-  # PUT /payments/1.json
-  def update
-    @payment = Payment.find(params[:id])
-
-    respond_to do |format|
-      if @payment.update_attributes(params[:payment])
-        format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @payment.errors, status: :unprocessable_entity }
-      end
-    end
+  private 
+  
+  
+  def is_payment_exist(appraisal_id)
+       
+  
   end
-
-  # DELETE /payments/1
-  # DELETE /payments/1.json
-  def destroy
-    @payment = Payment.find(params[:id])
-    @payment.destroy
-
-    respond_to do |format|
-      format.html { redirect_to payments_url }
-      format.json { head :no_content }
-    end
-  end
+  
 end

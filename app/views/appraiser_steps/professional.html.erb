@@ -1,0 +1,19 @@
+<h4>Appraiser Information</h4>
+<div class="sub_box">
+<%= render :partial => "appraiser_tabs" %>
+
+	<%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
+	<%= render :partial => "validation_errors" %>
+
+	<%= f.simple_fields_for :appraiser_info, @user.appraiser_info do |a| %>
+	<%= a.input :years_appraising, :label => "Number of years appraising" %>
+	<%= a.input :affiliated_with, :label => "List any related organization you are a member or affiliated with", :as => :text%>
+	<%= a.input :certifications, :label => "Do you currently hold any appraisal certifications? If so, please list them", :as => :text%>
+	<%= a.input :description, :label => "Please give a detailed description of yourself, your experience and qualifications", :as => :text%>
+	<% end %>
+	<%= f.input :uspap, :label => "Do you write to the standards of USPAP or are you considered a subject matter expert in the field?", :inline_label => "Yes" %>
+	<div class="form-actions">
+		<%= f.submit "Continue", :class => "btn btn-primary"%>
+	</div>
+		<% end%> 
+</div>

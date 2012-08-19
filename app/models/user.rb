@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :appraisal_activities
   has_many :photos, :dependent => :destroy
   has_many :payments
+  has_many :tags
+  serialize :appraiser_info, AppraiserInfo
 
   accepts_nested_attributes_for :photos, :allow_destroy => true
   accepts_nested_attributes_for :skills
@@ -18,10 +20,14 @@ class User < ActiveRecord::Base
     # Setup accessible (or protected) attributes for your model
     attr_accessible :email, :password, :password_confirmation, :remember_me, :skills_attributes,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token
+
+  # Used for appraiser signup
+  attr_accessor :access_token
 
   # Set requirement for signup
   validates :agree_to_tos, :acceptance => true, :on => :create
+  validates_presence_of :name
 
   def consume_appraiser_access_token(appraiser_access_token)
     self.appraiser_access_token = appraiser_access_token

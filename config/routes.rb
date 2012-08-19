@@ -1,5 +1,8 @@
 PurexNew::Application.routes.draw do
   
+  match "tags/create" => "tags#create", :as => :annotate
+  match "tags/destroy" => "tags#destroy", :as => :destroy_tag
+
   resources :payments
   get "appraisal_data/create"
   match '/facebook/' => "users#facebook_login"
@@ -12,8 +15,9 @@ PurexNew::Application.routes.draw do
   end
 
 
-
+  resources :appraiser_steps
   resources :photos
+  get '/photos/tag/:appraisal_id/:photo_id' => 'photos#tag', :as => :photo_tag
 
   resources :appraisals do
     resources :photos

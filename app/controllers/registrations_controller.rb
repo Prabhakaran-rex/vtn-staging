@@ -6,16 +6,20 @@ class RegistrationsController < Devise::RegistrationsController
 
   def new_appraiser
     @role = "appraiser"
+    if params[:token]
+      @theToken = AppraiserAccessToken.find_by_token(params[:token])
+      @email = @theToken.email
+      @token = @theToken.token
+      @name = @theToken.name
+    end
     resource = build_resource({})
     respond_with resource
   end
 
   def create
     if params["user"]["role"] == "appraiser"
-      Rails.logger.debug "*** This is an appraiser"
-      appraiser_access_token = AppraiserAccessToken.find_by_token(params["access_token"])
+      appraiser_access_token = AppraiserAccessToken.find_by_token(params["user"]["access_token"])
       if (appraiser_access_token.nil? || appraiser_access_token.user)
-        Rails.logger.debug "*** Wrong token"
         build_resource
         clean_up_passwords(resource)
         flash.now[:alert] = "There was an error with the access token. Please re-enter the token."      
@@ -25,7 +29,17 @@ class RegistrationsController < Devise::RegistrationsController
         current_user.consume_appraiser_access_token(appraiser_access_token) if current_user
       end
     else
+      # params["user"]["role"] = "user"
       super
     end
   end
+
+  def after_sign_up_path_for(resource)
+    if resource.role == "appraiser"
+      appraiser_steps_path
+    else
+      after_sign_in_path_for(resource)
+    end
+  end
+
 end

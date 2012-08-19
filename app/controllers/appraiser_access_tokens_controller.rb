@@ -11,6 +11,7 @@ class AppraiserAccessTokensController < ApplicationController
     @token = AppraiserAccessToken.find_by_token(params[:id])
     @user = User.new
     @user.email = @token.email
+    redirect_to new_appraiser_registration_path(:token => @token)
 
   end
 

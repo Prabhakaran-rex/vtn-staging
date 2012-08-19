@@ -5,6 +5,10 @@ class Photo < ActiveRecord::Base
   belongs_to :appraisal
   belongs_to :user
 
+  has_many :tags
+
+  attr_accessible :asset
+
   has_attached_file :asset, 
   					:styles => {
               :large => "500x500>",

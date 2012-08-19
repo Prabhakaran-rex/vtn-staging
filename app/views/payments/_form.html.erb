@@ -1,45 +1,80 @@
+<% content_for(:javascript) do %>
+	<%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" %>
+	<%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" %>	
+	<%= stylesheet_link_tag 'jquery/sunny/jquery-ui-1.8.5.custom' 
+  %>
+	<script type="text/javascript">
+	$(function() {
+		$("#dialog-message").hide();
+	});
+
+	function wait_diag() {
+		$( "#dialog-message" ).dialog({
+			modal: true,
+			resizable: false,
+			draggable: false,
+			closeOnEscape: false,
+			open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); }
+
+		});
+	}
+	</script>		
+<% end %>
+
 <%= form_for(@payment) do |f| %>
   <% if @payment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+      <h2><%= pluralize(@payment.errors.count, "error") %> Payment error:</h2>
 
       <ul>
       <% @payment.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
+      
     </div>
   <% end %>
+      
+  <% flash.each do |key, msg| %>
+  <div id="<%=key%>">
+  	<p><%=msg%></p>
+  </div>  
+  <% end %>
+  <% flash.clear %>
+  
+  <table align="left" width="400" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="3">Credit Card Number:<br/>
+		<%= f.text_field :number, :size=>16, :maxlength=>16 %></td>
+    <td>CVV:<br />
+		<%= f.text_field :cvv, :size=>4, :maxlength=>4 %></td>
+  </tr>
 
-  <div class="field">
-    <%= f.label :user %><br />
-    <%= f.text_field :user %>
-  </div>
-  <div class="field">
-    <%= f.label :appraisal %><br />
-    <%= f.text_field :appraisal %>
-  </div>
-  <div class="field">
-    <%= f.label :is_charged %><br />
-    <%= f.check_box :is_charged %>
-  </div>
-  <div class="field">
-    <%= f.label :auth_code %><br />
-    <%= f.text_field :auth_code %>
-  </div>
-  <div class="field">
-    <%= f.label :ccnum %><br />
-    <%= f.text_field :ccnum %>
-  </div>
-  <div class="field">
-    <%= f.label :amount %><br />
-    <%= f.text_field :amount %>
-  </div>
-  <div class="field">
-    <%= f.label :is_refund %><br />
-    <%= f.check_box :is_refund %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <% date = Time.now %>
+  <tr>
+    <td colspan="4">
+		Expiration Month and Year:<br/>
+		<%= select_month date, :use_month_numbers => true, :prefix => 'payment', :field_name => 'expmon' %>
+		<%= select_year date.year+1, :start_year => date.year, :end_year => date.year + 10, :prefix => 'payment', :field_name => 'expyear' %></td>
+    	
+  </tr>    
+
+  <tr>
+    <td colspan="4" align="center">
+    	<div class='create_but3'>
+           <div class='Button'><a href="#" onclick="document.forms['new_payment'].submit(); wait_diag();">Send Appraisal</a></div>
+        </div>
+    </td>
+  </tr>
+</table>
+
+<div id="dialog-message" title="Processing payment . . . ">
+	<p>		
+		<b>Please wait . . . . . . </b> 
+	</p>
+	<p>
+		<img src="/assets/animated_progress_bar.gif" border="0" width="196" height="20"/>
+	</p>
+</div>
+
 <% end %>

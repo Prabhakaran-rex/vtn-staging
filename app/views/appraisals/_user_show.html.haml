@@ -4,8 +4,7 @@
       .uploaded_photo
         - @appraisal.photos.each do |photo|
           %div
-            =link_to image_tag(photo.asset.url(:medium)), photo.asset.url(:original), :title => h(@appraisal.name), :rel => "lightbox", :target_id => "photo_#{photo.id}"
-        = render :partial => "multiple_photo_upload"
+            =link_to image_tag(photo.asset.url(:medium)), photo.asset.url(:original), :title => h(@appraisal.name), :rel => "lightbox", :target_id => "photo_#{photo.id}" 
   .choose_plan{:style => "height:220px;"}
     %center
       %p
@@ -74,7 +73,7 @@
     .photo_box
       .uploaded_photo
         - @appraisal.photos.each do |photo|
-          =link_to image_tag(photo.asset.url(:medium)), photo.asset.url(:original), :title => h(@appraisal.name), :rel => "lightbox", :target_id => "photo_#{photo.id}"
+          =link_to image_tag(photo.asset.url(:thumb)), photo.asset.url(:original), :title => h(@appraisal.name), :rel => "lightbox", :target_id => "photo_#{photo.id}"
   .choose_plan
     %p{:align => "center"}= "Status: #{getStringForActivityValue(@appraisal.status)}"
 
@@ -120,5 +119,3 @@
     %tr
       %td.label How was it Obtained
       %td= @appraisal.how_was_it_obtained
-
-= render :partial => "multiple_photo_upload"

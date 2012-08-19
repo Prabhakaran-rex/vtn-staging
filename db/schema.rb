@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120817013319) do
+ActiveRecord::Schema.define(:version => 20120819032700) do
 
   create_table "appraisal_activities", :force => true do |t|
     t.integer  "appraisal_id"
@@ -125,6 +125,21 @@ ActiveRecord::Schema.define(:version => 20120817013319) do
 
   add_index "skills", ["user_id"], :name => "index_skills_on_user_id"
 
+  create_table "tags", :force => true do |t|
+    t.integer  "photo_id"
+    t.string   "label"
+    t.integer  "width"
+    t.integer  "height"
+    t.integer  "top"
+    t.integer  "left"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+  end
+
+  add_index "tags", ["photo_id"], :name => "index_tags_on_photo_id"
+  add_index "tags", ["user_id"], :name => "index_tags_on_user_id"
+
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",                    :null => false
     t.string   "encrypted_password",                    :default => "",                    :null => false
@@ -154,6 +169,7 @@ ActiveRecord::Schema.define(:version => 20120817013319) do
     t.string   "facebook_updated"
     t.string   "facebook_locale"
     t.string   "facebook_id"
+    t.text     "appraiser_info"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

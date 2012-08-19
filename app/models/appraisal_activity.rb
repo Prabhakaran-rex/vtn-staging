@@ -8,6 +8,8 @@ class AppraisalActivity < ActiveRecord::Base
   has_one :user
   
   before_create :add_datetime
+
+  attr_accessible :appraisal_id, :user_id, :activity_type, :activity_value
   
   def add_datetime
   	self.activity_datetime = Time.now

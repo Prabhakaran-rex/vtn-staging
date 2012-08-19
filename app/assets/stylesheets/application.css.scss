@@ -10,6 +10,9 @@
  *
  *= require_self
  *= require_tree .
+ *= require jquery.tag
+ *= require jquery-ui.custom
+ *= require site
  */
 @import "bootstrap";
 @import "bootstrap-responsive";
