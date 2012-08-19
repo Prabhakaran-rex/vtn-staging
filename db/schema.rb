@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120819032700) do
+ActiveRecord::Schema.define(:version => 20120819172131) do
 
   create_table "appraisal_activities", :force => true do |t|
     t.integer  "appraisal_id"
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(:version => 20120819032700) do
 
   add_index "appraiser_access_tokens", ["user_id"], :name => "index_appraiser_access_tokens_on_user_id"
 
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.string   "ancestry"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "categories", ["ancestry"], :name => "index_categories_on_ancestry"
+
   create_table "payments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "appraisal_id"
@@ -119,10 +128,12 @@ ActiveRecord::Schema.define(:version => 20120819032700) do
     t.string   "discipline"
     t.integer  "since"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "category_id"
   end
 
+  add_index "skills", ["category_id"], :name => "index_skills_on_category_id"
   add_index "skills", ["user_id"], :name => "index_skills_on_user_id"
 
   create_table "tags", :force => true do |t|

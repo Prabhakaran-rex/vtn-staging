@@ -1,7 +1,8 @@
 class Skill < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :discipline, :since
-  validate :check_for_duplicate
+  belongs_to :category
+  attr_accessible :discipline, :since, :user_id, :category_id
+  # validate :check_for_duplicate
 
   def check_for_duplicate
     unless self == self.user.skills.find_by_discipline(self.discipline)

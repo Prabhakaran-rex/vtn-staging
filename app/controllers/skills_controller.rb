@@ -40,6 +40,7 @@ class SkillsController < ApplicationController
   # POST /skills
   # POST /skills.json
   def create
+    Rails.logger.debug "*** params is #{params.to_json}"
     @skill = Skill.new(params[:skill])
 
     respond_to do |format|
@@ -80,4 +81,32 @@ class SkillsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def getSkillset(user)
+    Skill.joins(:categories).where("user_id = ?",user)
+  end
+
+  def getCategories
+    parent = Category.find(params[:id])
+    respond_to do |format|
+      format.json { render :json => parent.to_json}
+    end
+  end
+
+  def getRootCategories
+    if params[:id]
+      @categories = Category.find(params[:id]).children
+    else
+      @categories = Category.roots
+    end
+    h = Hash.new
+    @categories.each do |c|
+      h[c.id] = c.name
+    end
+
+    respond_to do |format|
+      format.json { render :json => h.to_json}
+    end
+  end
+
 end

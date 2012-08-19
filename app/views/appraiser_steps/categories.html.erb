@@ -1,19 +1,92 @@
 <h4>Appraisal Category Requests</h4>
 <div class="sub_box">
-<%= render :partial => "appraiser_tabs" %>
+	<%= render :partial => "appraiser_tabs" %>
+    <h3>Please select the categories you want to appraise in</h3>
+    <div>
+        <input type="hidden" name="demo6" />
+        <button class="btn btn-primary" id='addSkillBtn'>Add</button>
+    </div>
+    <div class="results" id="demo6-result"></div>
+    <div>
+        <table class="table" id="skillTable">
+            <thead>
+            <tr>
+            <th>Category</th>
+            <th>Subcategory</th>
+            <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% current_user.skills.order(:category_id).each do |s| %>
+                <tr>
+                    <td><%= s.category.is_root? ? s.category.name : s.category.parent.name %></td>
+                    <td><%= s.category.is_root? ? "" : s.category.name%></td>
+                    <td><button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'<%= "#{s.id}" %>')">Remove</button>
+                    </td>
+                </tr>  
+                
+            <% end %>
 
-	<%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
-	<%= render :partial => "validation_errors" %>
-
-	<%= f.simple_fields_for :appraiser_info, @user.appraiser_info do |a| %>
-	<%= a.input :years_appraising, :label => "Number of years appraising" %>
-	<%= a.input :affiliated_with, :label => "List any related organization you are a member or affiliated with", :as => :text%>
-	<%= a.input :certifications, :label => "Do you currently hold any appraisal certifications? If so, please list them", :as => :text%>
-	<%= a.input :description, :label => "Please give a detailed description of yourself, your experience and qualifications", :as => :text%>
-	<% end %>
-	<%= f.input :uspap, :label => "Do you write to the standards of USPAP or are you considered a subject matter expert in the field?", :inline_label => "Yes" %>
-	<div class="form-actions">
-		<%= f.submit "Continue", :class => "btn btn-primary"%>
-	</div>
-		<% end%> 
+            </tbody>
+        </table>
+    </div>
 </div>
+
+
+
+
+<script type="text/javascript">
+/* Delete Task */
+function deleteCategory(caller, id ) {
+    $.ajax({
+                url: "<%= url_for skills_path %>/" + id+'.json',
+                type: 'post',
+                dataType: 'script',
+                data: { '_method': 'delete' },
+                success: function() {
+                    console.log ('Removed id'+ id);
+                    $(caller).closest('tr').remove();
+                }
+            });
+}
+
+$(function() {
+
+	var options = {
+		empty_value: 'null',
+            indexed: true,
+            on_each_change: '<%= url_for :controller => :skills, :action => :getRootCategories %>',
+            set_value_on: 'each',
+            choose: function(level) {
+            	return 'Choose level ' + level;
+            },
+            preselect: {'demo6': ['220','226']}, 
+            preselect_only_once: true,
+            get_parent_value_if_empty: true,
+            attr: "id"
+        };
+
+        var displayParents = function() {
+            var labels = []; 
+            $(this).siblings('select')
+            .find(':selected')
+            .each(function() { labels.push($(this).text()); }); 
+            $('').text(this.value + ':' + labels.join(' > ')).appendTo('#demo6-result');
+        }
+
+    $.getJSON('<%= url_for :controller => :skills, :action => :getRootCategories %>', function(tree) { 
+    	$('input[name=demo6]').optionTree(tree, options).change(displayParents);
+    });
+
+    $("#addSkillBtn").click(function() {
+    	$.post('<%= url_for skills_path %>.json',{ 'skill[user_id]': '<%= current_user.id %>', 'skill[category_id]': $('input[name=demo6]').val() },function(data) {
+            var category = $('select[name=demo6_] option:selected').text();
+            var subcategory = $('select[name=demo6__] option:selected').text();
+            $('#skillTable > tbody:last').append('<tr><td>'+category +'</td><td>'+ subcategory+'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+data.id+')">Remove</button>'
+                +'</td></tr>');
+
+       } );
+    });
+});
+</script>
+<%= javascript_include_tag "jquery.optionTree" %>

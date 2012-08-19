@@ -33,6 +33,10 @@ PurexNew::Application.routes.draw do
     resources :skills
     resources :photos
   end
+
+  get '/skills/getRootCategories' => 'skills#getRootCategories'
+  get '/skills/getCategories' => 'skills#getCategories'
+  
   resources :skills
   resources :users
 

@@ -42,6 +42,9 @@ gem 'activemerchant'#, '1.23.0', :require => 'active_merchant'
 # To use Jbuilder templates for JSON
 gem 'jbuilder'
 
+# For the skills categories and subcategories
+gem 'ancestry'
+
 gem 'simple_form'
 gem 'country_select'
 gem 'wicked' # For wizard-type appraiser registration

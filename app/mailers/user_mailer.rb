@@ -26,14 +26,14 @@ class UserMailer < ActionMailer::Base
 
   def contact_us(message)
     @message = message
-    mail( :to => "wapankh@gmail.com",
+    mail( :to => "support@myluckytreasure.com",
           :subject => "[Contact Us] #{message.subject}")
   end
 
   def appraiser_support(message)
     @message = message
     mail( #:to => "appraiser_support@colosses.com", 
-          :to => "wapankh@gmail.com",
+          :to => "appraiser_support@yluckytreasure.com",
           :subject => "[Appraiser Support] #{message.subject}")
   end
 
