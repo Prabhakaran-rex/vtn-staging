@@ -407,7 +407,7 @@ A.class2:active {
         -webkit-border-radius: 3px; /* Safari, Chrome */
 }
 
-img.btn_close { Position the close button
+img.btn_close {
 	float: right;
 	margin: -28px -28px 0 0;
 }
