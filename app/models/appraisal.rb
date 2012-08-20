@@ -13,5 +13,5 @@ class Appraisal < ActiveRecord::Base
 
   validates_presence_of :created_by
 
-  attr_accessible :selected_plan, :name, :dimensions, :materials, :country_of_origin, :makers_marks, :damage, :year_of_manufacture, :where_was_it_obtained, :how_was_it_obtained
+  attr_accessible :selected_plan, :name, :dimensions, :materials, :country_of_origin, :makers_marks, :damage, :year_of_manufacture, :where_was_it_obtained, :how_was_it_obtained, :photos_attributes
 end

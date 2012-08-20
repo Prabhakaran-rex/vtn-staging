@@ -61,7 +61,7 @@
             %td= f.label :how_was_it_obtained, "How was it Obtained"
             %td= f.text_area :how_was_it_obtained, :cols => 30, :rows => 3
 
-          = f.fields_for :photos do |photo|
-            %tr
-              %td= f.label "Please upload photo(s)"
-              %td= photo.file_field :asset
+          -#= f.fields_for :photos do |photo|
+          -#  %tr
+          -#    %td= f.label "Please upload photo(s)"
+          -#    %td= photo.file_field :asset
