@@ -86,13 +86,6 @@ class SkillsController < ApplicationController
     Skill.joins(:categories).where("user_id = ?",user)
   end
 
-  def getCategories
-    parent = Category.find(params[:id])
-    respond_to do |format|
-      format.json { render :json => parent.to_json}
-    end
-  end
-
   def getRootCategories
     if params[:id]
       @categories = Category.find(params[:id]).children

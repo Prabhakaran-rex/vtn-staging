@@ -220,7 +220,7 @@ a:active {
 A.class2 {color:#000;}
 A.class2:link {text-decoration: none; color:#000;}
 A.class2:visited {text-decoration: none; color:#000;}
-A.class2:hover {text-decoration: ; color:#fff;}
+A.class2:hover {text-decoration: none; color:#fff;}
 A.class2:active {
 	text-decoration: none;
 	color:#fff;
