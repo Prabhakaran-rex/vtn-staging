@@ -35,7 +35,6 @@ PurexNew::Application.routes.draw do
   end
 
   get '/skills/getRootCategories' => 'skills#getRootCategories'
-  get '/skills/getCategories' => 'skills#getCategories'
   
   resources :skills
   resources :users
