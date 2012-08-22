@@ -19,7 +19,7 @@ gem 'jquery-rails'
 
 # For Twitter bootstrap
 gem 'sass-rails',   '~> 3.2.3'
-gem 'bootstrap-sass', '~> 2.0.3'
+gem 'bootstrap-sass', '~> 2.0.4.0'
 
 # For storage of assets
 gem 'paperclip'

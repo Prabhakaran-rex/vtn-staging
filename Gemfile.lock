@@ -251,7 +251,7 @@ DEPENDENCIES
   activemerchant
   ancestry
   aws-s3
-  bootstrap-sass (~> 2.0.3)
+  bootstrap-sass (~> 2.0.4.0)
   cancan
   capybara
   coffee-rails (~> 3.2.1)
