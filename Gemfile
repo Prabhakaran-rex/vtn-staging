@@ -24,6 +24,7 @@ gem 'bootstrap-sass', '~> 2.0.4.0'
 # For storage of assets
 gem 'paperclip'
 gem 'aws-s3'
+gem 'aws-sdk'
 
 # authentication
 gem 'devise' #this is our usermanagement system
