@@ -1,0 +1,17 @@
+<% appraisal = Appraisal.find(params[:id]) %>
+<table>
+	<thead>
+		<tr>
+			<th>Field</th>
+			<th>Value</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% appraisal.appraisal_info.instance_variables.each do |v| %>
+		<tr>
+			<td><%= v %></td>
+			<td><%= appraisal.appraisal_info.instance_variable_get(v) %></td>
+		</tr>
+		<% end%>
+	</tbody>
+</table>

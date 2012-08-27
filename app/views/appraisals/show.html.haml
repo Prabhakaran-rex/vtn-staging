@@ -29,6 +29,14 @@
 = stylesheet_link_tag "jquery.tag"
 = stylesheet_link_tag "jquery-ui.custom"
 
+:javascript
+  $(document).ready(function() {
+    $('.carousel').carousel({
+      interval: 4000
+    })
+  });
+
+
 -#:javascript
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -46,5 +54,4 @@
     - if current_user.role.eql?("appraiser")
       = render :partial => "appraiser_show"
     - else
-      = render :partial => "user_show"
-      = render :partial => "multiple_photo_upload"
+      = render :partial => "user_show_2"

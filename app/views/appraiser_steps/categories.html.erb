@@ -12,7 +12,6 @@
             <thead>
             <tr>
             <th>Category</th>
-            <th>Subcategory</th>
             <th>Actions</th>
             </tr>
             </thead>
@@ -20,7 +19,6 @@
             <% current_user.skills.order(:category_id).each do |s| %>
                 <tr>
                     <td><%= s.category.is_root? ? s.category.name : s.category.parent.name %></td>
-                    <td><%= s.category.is_root? ? "" : s.category.name%></td>
                     <td><button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'<%= "#{s.id}" %>')">Remove</button>
                     </td>
                 </tr>  
@@ -53,15 +51,14 @@ function deleteCategory(caller, id ) {
 $(function() {
 
 	var options = {
-		empty_value: 'null',
+            choose: 'Choose a category...',
+            empty_value: 'null',
             indexed: true,
             on_each_change: '<%= url_for :controller => :skills, :action => :getRootCategories %>',
             set_value_on: 'each',
             choose: function(level) {
-            	return 'Choose level ' + level;
+            	return 'Choose a category...';
             },
-            preselect: {'demo6': ['220','226']}, 
-            preselect_only_once: true,
             get_parent_value_if_empty: true,
             attr: "id"
         };
@@ -82,7 +79,7 @@ $(function() {
     	$.post('<%= url_for skills_path %>.json',{ 'skill[user_id]': '<%= current_user.id %>', 'skill[category_id]': $('input[name=demo6]').val() },function(data) {
             var category = $('select[name=demo6_] option:selected').text();
             var subcategory = $('select[name=demo6__] option:selected').text();
-            $('#skillTable > tbody:last').append('<tr><td>'+category +'</td><td>'+ subcategory+'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+data.id+')">Remove</button>'
+            $('#skillTable > tbody:last').append('<tr><td>'+category +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+data.id+')">Remove</button>'
                 +'</td></tr>');
 
        } );

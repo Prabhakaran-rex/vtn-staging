@@ -12,5 +12,4 @@ class Users::Admin::DashboardController < ApplicationController
   def appraisers_invite_index
     @appraiser_access_tokens = AppraiserAccessToken.paginate(:page => params[:page], :per_page => params[:per_page] || 100, :order => "created_at DESC")
   end
-
 end

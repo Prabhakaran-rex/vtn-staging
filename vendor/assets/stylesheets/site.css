@@ -707,3 +707,122 @@ div.terms li {font:normal 11px/15px arial;color:#333;}
 div.terms h3 {font:bold 14px/19px arial;color:#000;}
 div.terms h4 {font:bold 12px/17px arial;color:#000;}
 div.terms strong {color:#000;}
+
+textarea {
+	width: 640px;
+	height: 90px;
+}
+
+/* line 4, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel {
+  position: relative;
+  margin-bottom: 18px;
+  line-height: 1;
+}
+
+/* line 10, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel-inner {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* line 18, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel .item {
+  display: none;
+  position: relative;
+  -webkit-transition: 0.6s ease-in-out left;
+  -moz-transition: 0.6s ease-in-out left;
+  -ms-transition: 0.6s ease-in-out left;
+  -o-transition: 0.6s ease-in-out left;
+  transition: 0.6s ease-in-out left;
+}
+/* line 25, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel .item > img {
+  display: block;
+  line-height: 1;
+}
+/* line 30, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel .active, .carousel .next, .carousel .prev {
+  display: block;
+}
+/* line 32, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel .active {
+  left: 0;
+}
+/* line 36, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel .next, .carousel .prev {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+/* line 42, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel .next {
+  left: 100%;
+}
+/* line 45, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel .prev {
+  left: -100%;
+}
+/* line 48, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel .next.left, .carousel .prev.right {
+  left: 0;
+}
+/* line 52, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel .active.left {
+  left: -100%;
+}
+/* line 55, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel .active.right {
+  left: 100%;
+}
+
+/* line 64, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel-control {
+  position: absolute;
+  top: 40%;
+  left: 15px;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  font-size: 60px;
+  font-weight: 100;
+  line-height: 30px;
+  color: white;
+  text-align: center;
+  background: #222222;
+  border: 3px solid white;
+  -webkit-border-radius: 23px;
+  -moz-border-radius: 23px;
+  border-radius: 23px;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+/* line 89, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel-control.right {
+  left: auto;
+  right: 15px;
+}
+/* line 95, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel-control:hover {
+  color: white;
+  text-decoration: none;
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+
+/* line 105, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 15px 5px;
+  background: #333333;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* line 114, ../../../../../.rvm/gems/ruby-1.9.3-p125/gems/bootstrap-sass-2.0.4.0/vendor/assets/stylesheets/bootstrap/_carousel.scss */
+.carousel-caption h4, .carousel-caption p {
+  color: white;
+}

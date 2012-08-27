@@ -1,16 +1,19 @@
-
+<% can_tag ||= can_tag.nil?
+   can_delete ||= can_delete.nil?
+   can_upload ||= can_upload.nil? %>
 <!-- Multiple image uploads -->
 <form id="fileupload" action="<%= appraisal_photos_path(@appraisal) %>" method="POST" enctype="multipart/form-data">
   <div class="row">
     <div class="page-header span12">
-      <h2>Uploaded images</h2>
+      <h2>Upload and Tag Images</h2>
 </div>
   </div>
   <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
   <div class="row fileupload-buttonbar">
     <div class="span7">
       <!-- The fileinput-button span is used to style the file input field as button -->
-      <span class="btn btn-success fileinput-button">
+      <% if can_upload %>
+      <span class="btn btn-success fileinput-button" style="height: 18px; margin-top: 0px;margin-right: 3px;">
         <i class="icon-plus icon-white"></i>
         <span>Add files...</span>
         <input type="file" name="photo[asset]" multiple>
@@ -23,11 +26,13 @@
         <i class="icon-ban-circle icon-white"></i>
         <span>Cancel upload</span>
       </button>
+      <% end %>
+      <% if can_delete %>
       <button type="button" class="btn btn-danger delete">
         <i class="icon-trash icon-white"></i>
         <span>Delete</span>
       </button>
-      <input type="checkbox" class="toggle">
+      <% end %>
     </div>
     <div class="span5">
       <!-- The global progress bar -->
@@ -93,13 +98,16 @@
         </td>
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
         <td colspan="2">
-        <a href="{%=file.tag_url%}">Tag</a> </td>
+        <% if can_tag %>
+        <a href="{%=file.tag_url%}" class="btn btn-primary" style="color:white;"><i class="icon-tag icon-white"></i> Tag</a><% end %> </td>
         {% } %}
       <td class="delete">
+        <% if can_delete %>
         <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
           <i class="icon-trash icon-white"></i>
           <span>{%=locale.fileupload.destroy%}</span>
         </button>
+        <% end %>
         
       </td>
     </tr>

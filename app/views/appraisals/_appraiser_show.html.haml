@@ -1,117 +1,120 @@
-%h4= h(@appraisal.name)
-.right
-  - @appraisal.photos.each do |photo|
-    .photo= image_tag(photo.asset.url(:large), :id => "photo_#{photo.id}", :height => 500, :width => 500)
-    :javascript
-      $("#photo_#{photo.id}").annotateImage({
-        editable: true,
-        useAjax: false,
-        notes: [ { "top": 16,
-                   "left": 11,
-                   "width": 52,
-                   "height": 37,
-                   "text": "Looks like touchup work was done",
-                   "id": "e69213d0-2eef-40fa-a04b-0ed998f9f1f5",
-                   "editable": false },
-                 { "top": 20,
-                   "left": 110,
-                   "width": 68,
-                   "height": 74,
-                   "text": "Chip on the Wing",
-                   "id": "e7f44ac5-bcf2-412d-b440-6dbb8b19ffbe",
-                   "editable": true } ]
-      });
+.container-fluid
+  .row-fluid
+    .span7
+      #notice
+        %p= notice
+        %p{ :id=>"alert"}= alert
 
-.left
-  #notice
-    %p= notice
-    %p{ :id=>"alert"}= alert
+      - if @appraisal.status != EActivityValueFinalized
+        %p
+          %b Item Description:
+          = @appraisal.name
 
-  %p
-    %b Name:
-    = @appraisal.name
+        %p
+          %b Country of Origin:
+          = @appraisal.appraisal_info.country_of_origin
 
-  %p
-    %b Dimensions:
-    = @appraisal.dimensions
+        %p
+          %b Signatures, Maker/Maker's, dates, etc.:
+          = @appraisal.appraisal_info.makers_marks
+        %p
+          %b Materials:
+          = @appraisal.appraisal_info.materials
+        %p
+          %b Inscriptions:
+          = @appraisal.appraisal_info.inscriptions
+        %p
+          %b Dimensions:
+          = @appraisal.appraisal_info.dimensions
+        %p
+          %b Condition:
+          = @appraisal.appraisal_info.damage
+        %p
+          %b Item history:
+          = @appraisal.appraisal_info.item_history
 
-  %p
-    %b Materials:
-    = @appraisal.materials
+      - if @appraisal.status == EActivityValueFinalized
+        %h2 Appraisers report
 
-  %p
-    %b Country of origin:
-    = @appraisal.country_of_origin
+        %p
+          %b Item Description:
+          = @appraisal.name
+        %p
+          %b Appraiser Number:
+          = @appraisal.assigned_to.id
 
-  %p
-    %b Makers marks:
-    = @appraisal.makers_marks
+        %p
+          %b Approx. Date of Manufacture:
+          = @appraisal.appraisal_info.year_of_manufacture
 
-  %p
-    %b Country of origin:
-    = @appraisal.country_of_origin
+        %p
+          %b Country of Origin:
+          = @appraisal.appraisal_info.country_of_origin
 
-  %p
-    %b Damage:
-    = @appraisal.damage
+        %p
+          %b Signatures, Maker/Maker's, dates, etc.:
+          = @appraisal.appraisal_info.makers_marks
+        %p
+          %b Materials:
+          = @appraisal.appraisal_info.materials
+        %p
+          %b Inscriptions:
+          = @appraisal.appraisal_info.inscriptions
+        %p
+          %b Dimensions:
+          = @appraisal.appraisal_info.dimensions
+        %p
+          %b Condition:
+          = @appraisal.appraisal_info.damage
+        %p
+          %b Item history:
+          = @appraisal.appraisal_info.item_history
 
-  %p
-    %b Year of manufacture:
-    = @appraisal.year_of_manufacture
+        %p
+          %b Additional Extraordinary Assumptions:
+          = @appraisal.appraisal_info.additional_ea
 
-  %p
-    %b Where it was obtained:
-    = @appraisal.where_was_it_obtained
+        %p
+          %b Additional Comments including market data:
+          = @appraisal.appraisal_info.appraiser_comments
 
-  %p
-    %b How it was obtained:
-    = @appraisal.how_was_it_obtained
+        %p
+          %b Replacement Value (comparable) Minimum:
+          = @appraisal.appraisal_info.replacement_cost_min
 
-  - if @appraisal.status == EActivityValueFinalized
+        %p
+          %b Replacement Value (comparable) Maximum:
+          = @appraisal.appraisal_info.replacement_cost_max
 
-    %hr
-    %h2 Appraisers report
-    %p
-      %b Appraiser Number:
-      = @appraisal.appraiser_number
+        %p
+          %b Fair Market Value Minimum:
+          = @appraisal.appraisal_info.fair_market_value_min
 
-    %p
-      %b Value of item:
-      = number_to_currency(@appraisal.value_of_item, :precision => 0)
+        %p
+          %b Fair Market Value Maximum:
+          = @appraisal.appraisal_info.fair_market_value_max
 
-    %p
-      %b Historical significance:
-      = @appraisal.historical_significance
+        %p
+          %b Additional notes:
+          %ul
+            - @appraisal.appraisal_datums.each do |data|
+              %li= data.value
 
-    %p
-      %b Number of pieces created:
-      = @appraisal.number_of_pieces_created
+      - if @user
+        - if @user.role.eql?("user")
+          = link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn", :style => "color:white;"
+          |
+        - else
+          - if @appraisal.status == EActivityValuePayed
+            = link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-primary", :style => "color:white;"
+            |
+          - if @appraisal.status == EActivityValueClaimed
+            = link_to 'Edit notes', reply_appraisal_path(@appraisal), :class => "btn btn-primary", :style => "color:white;"
+            |
 
-    %p
-      %b Where it was manufactured:
-      = @appraisal.where_it_was_manufactured
-
-    %p
-      %b When it was used:
-      = @appraisal.when_it_was_used
-    %p
-      %b How it was used:
-      = @appraisal.how_it_was_used
-
-
-    %p
-      %b Additional notes:
-      %ul
-        - @appraisal.appraisal_datums.each do |data|
-          %li= data.value
-
-  - if @user
-    - if @user.role.eql?("user")
-      = link_to 'Edit', edit_appraisal_path(@appraisal)
-      |
-    - else
-      - if @appraisal.status == EActivityValueCreated
-        = link_to 'Claim', claim_appraisal_path(@appraisal)
-        |
-
-  = link_to 'Back', appraisals_path
+      = link_to 'Back', appraisals_path, :class => "btn"
+    .span5
+      = render :partial => "photo_carousel"
+  .row-fluid
+    .span12
+    = render :partial => "multiple_photo_upload" unless @appraisal.status == EActivityValueFinalized

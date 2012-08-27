@@ -94,4 +94,8 @@ class User < ActiveRecord::Base
   def self.roles
     %w[admin user appraiser]
   end
+
+  def admin?
+    self.role == "admin"
+  end
 end

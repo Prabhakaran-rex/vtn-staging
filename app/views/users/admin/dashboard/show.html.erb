@@ -1,4 +1,3 @@
-Admin dashboard
 <% flash.each do |key, msg| %>
     <%= content_tag :div, msg, :class => [key, " message"], :id => "notice_ #{key}" %>
 <% end %>
@@ -36,5 +35,5 @@ Admin dashboard
 <% end %>
 
 
-<%= link_to "Appraisers" , admin_dashboard_appraisers_path %>
-<%= link_to "Invites" , admin_dashboard_invites_path %>
+<%= link_to "Appraisers" , admin_appraisers_path %>
+<%= link_to "Invites" , admin_invites_path %>

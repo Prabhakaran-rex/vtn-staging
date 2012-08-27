@@ -1,0 +1,15 @@
+<% if @appraisal.photos.count != 0 %>
+<div id="myCarousel" class="carousel slide">
+	<!-- Carousel items -->
+	<div class="carousel-inner">
+		<% @appraisal.photos.each_with_index do |image,i| %>
+		<div class="<%= i == 0 ? "active" : "" %> item">
+			<%= image_tag image.asset.url(:carrousel), :size => "460x460" %>
+		</div>
+		<% end%>
+	</div>
+	<!-- Carousel nav -->
+	<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+	<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+<% end %>

@@ -1,4 +1,6 @@
 class PhotosController < ApplicationController
+  load_and_authorize_resource
+  
   before_filter :load_appraisal
   # GET /photos
   # GET /photos.json
@@ -78,6 +80,7 @@ class PhotosController < ApplicationController
   end
 
   def tag
+    @appraisal = Appraisal.find(params[:appraisal_id])
     @photo = Photo.find(params[:photo_id])
   end
 

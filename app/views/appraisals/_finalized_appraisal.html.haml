@@ -1,0 +1,90 @@
+.create_appraisal_table_1
+  .photo_box
+    .uploaded_photo
+      %div
+        =link_to image_tag(@appraisal.photos.first.asset.url(:medium)), @appraisal.photos.first.asset.url(:original), :title => h(@appraisal.name), :rel => "lightbox", :target_id => "photo_#{@appraisal.photos.first.id}" 
+.choose_plan{:style => "height:220px;"}
+  %center
+    %p
+      = link_to(image_tag("icons/google-plus.png"), "#")
+      = link_to(image_tag("icons/twitter.png"), "#")
+      = link_to(image_tag("icons/facebook.png"), "#")
+    %p
+      .Button= link_to "Download Certified Appraisal", "#"
+    %p
+      .Button= link_to "Send To Auction", "#"
+
+-# #notice= flash[:notice]
+
+%table{:width => "468", :cellspacing => "0", :cellpadding => "3", :border => "0"}
+
+  %tr.title
+    %td.label{:width => 165}= @appraisal.name
+    %td= ""
+
+  %tr
+    %td.label{:width => 165} Prepared By
+    %td= @appraiser.name + " - Appraiser #" + @appraiser.id.to_s
+
+    %tr
+      %td.label Item Description:
+      %td= @appraisal.name
+
+    %tr
+      %td.label Approx. Date of Manufacture:
+      %td= @appraisal.appraisal_info.year_of_manufacture
+
+    %tr
+      %td.label Country of Origin:
+      %td= @appraisal.appraisal_info.country_of_origin
+
+    %tr
+      %td.label Signatures, Maker/Maker's, dates, etc.:
+      %td= @appraisal.appraisal_info.makers_marks
+    %tr
+      %td.label Materials:
+      %td= @appraisal.appraisal_info.materials
+    %tr
+      %td.label  Inscriptions:
+      %td= @appraisal.appraisal_info.inscriptions
+    %tr
+      %td.label  Dimensions:
+      %td= @appraisal.appraisal_info.dimensions
+    %tr
+      %td.label  Condition:
+      %td= @appraisal.appraisal_info.damage
+    %tr
+      %td.label  Item history:
+      %td= @appraisal.appraisal_info.item_history
+
+    %tr
+      %td.label  Additional Extraordinary Assumptions:
+      %td= @appraisal.appraisal_info.additional_ea
+
+    %tr
+      %td.label  Additional Comments including market data:
+      %td= @appraisal.appraisal_info.appraiser_comments
+
+    %tr
+      %td.label  Replacement Value (comparable) Minimum:
+      %td= @appraisal.appraisal_info.replacement_cost_min
+
+    %tr
+      %td.label  Replacement Value (comparable) Maximum:
+      %td= @appraisal.appraisal_info.replacement_cost_max
+
+    %tr
+      %td.label  Fair Market Value Minimum:
+      %td= @appraisal.appraisal_info.fair_market_value_min
+
+    %tr
+      %td.label  Fair Market Value Maximum:
+      %td= @appraisal.appraisal_info.fair_market_value_max
+
+  %tr
+    %td.label Appraiser Signature
+    %td= image_tag("signature_example.gif")
+
+%p This appraisal report was prepared in accordance with the standards of #{link_to("USPAP", "http://en.wikipedia.org/wiki/Uniform_Standards_of_Professional_Appraisal_Practice")}
+%p{:align => "center"}
+  = link_to("Appraisal Disclaimer", "#")

@@ -1,5 +1,5 @@
 PurexNew::Application.routes.draw do
-  
+
   match "tags/create" => "tags#create", :as => :annotate
   match "tags/destroy" => "tags#destroy", :as => :destroy_tag
 
@@ -9,8 +9,8 @@ PurexNew::Application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations"}  do
     get '/admin/dashboard' => 'users/admin/dashboard#show'
-    get '/admin/dashboard/appraisers' => 'users/admin/dashboard#appraisers_index'
-    get '/admin/dashboard/invites' => 'users/admin/dashboard#appraisers_invite_index'
+    get '/admin/dashboard/appraisers' => 'users/admin/dashboard#appraisers_index', :as => :admin_appraisers
+    get '/admin/dashboard/invites' => 'users/admin/dashboard#appraisers_invite_index', :as => :admin_invites
     get '/users/appraiser_sign_up' => 'registrations#new_appraiser', :as => :new_appraiser_registration
   end
 
@@ -53,7 +53,7 @@ PurexNew::Application.routes.draw do
   get '/photos/create'
   post '/photos/create'
 
-
+  ActiveAdmin.routes(self)
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   match ':controller(/:action(/:id))(.:format)'

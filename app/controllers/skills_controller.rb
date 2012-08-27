@@ -40,7 +40,6 @@ class SkillsController < ApplicationController
   # POST /skills
   # POST /skills.json
   def create
-    Rails.logger.debug "*** params is #{params.to_json}"
     @skill = Skill.new(params[:skill])
 
     respond_to do |format|

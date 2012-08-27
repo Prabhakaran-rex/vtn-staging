@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  load_and_authorize_resource
   # POST /tags.json
   def create
     photo = Photo.find(params["photo_id"])
@@ -8,7 +9,7 @@ class TagsController < ApplicationController
     theTag.top = params["top"]
     theTag.left = params["left"]
     theTag.label = params["label"]
-    theTag.user_id = current_user
+    theTag.user_id = params["user_id"]
     @tag = theTag
 
     respond_to do |format|

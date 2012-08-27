@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120819172131) do
+ActiveRecord::Schema.define(:version => 20120825030828) do
 
   create_table "appraisal_activities", :force => true do |t|
     t.integer  "appraisal_id"
@@ -59,6 +59,9 @@ ActiveRecord::Schema.define(:version => 20120819172131) do
     t.integer  "created_by"
     t.integer  "assigned_to"
     t.integer  "assigned_on"
+    t.text     "inscriptions"
+    t.text     "item_history"
+    t.text     "appraisal_info"
   end
 
   add_index "appraisals", ["assigned_to"], :name => "index_appraisals_on_assigned_to"
@@ -168,7 +171,7 @@ ActiveRecord::Schema.define(:version => 20120819172131) do
     t.boolean  "notify_by_sms",                         :default => false
     t.boolean  "notify_by_email",                       :default => true
     t.integer  "next_notification_interval_in_minutes", :default => 60
-    t.datetime "next_notification_due_at",              :default => '2012-08-17 00:46:32'
+    t.datetime "next_notification_due_at",              :default => '2012-08-25 03:12:26'
     t.string   "payment_method",                        :default => "cheque"
     t.boolean  "uspap",                                 :default => false
     t.string   "name"

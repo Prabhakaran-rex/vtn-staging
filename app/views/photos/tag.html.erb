@@ -1,3 +1,4 @@
+<%= csrf_meta_tag %>
 <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'></script>
 <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js'></script>
 <%= javascript_include_tag "jquery.tag" %>
@@ -5,25 +6,78 @@
 <%= stylesheet_link_tag "jquery-ui.custom" %>
 <h4>Tag Photo</h4>
 <div class="sub_box">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span5">
+				<em>Click the image to add a tag</em>
+				<img src="<%= path_to_image(@photo.asset.url(:large)) %>", id="img">
 
-<img src="<%= path_to_image(@photo.asset.url(:large)) %>", id="img">
+				<script>
+				$(document).ready(function(){
 
-<script>
- 		$(document).ready(function(){
-			
- 			$("#img").tag({showTag: 'always', defaultTags: <%=  raw @photo.tags.to_json 
-  %>
- 			,
- 				save: function(width,height,top_pos,left,label,the_tag){
- 					$.post("<%= url_for annotate_path%>.json",{'action':'save','width':width,'height':height,'top':top_pos,'left':left,'label':label,'photo_id':<%= @photo.id %>},function(id){
- 						the_tag.setId(id);
- 					});
- 				},
- 				remove: function(id){
- 					$.post("<%= url_for(destroy_tag_path) %>.json",{'id':id});
- 				}
- 			});			
- 		});
-	</script>
-<pre><%= @photo.to_json %></pre>
+					$("#img").tag({showTag: 'always', showLabels: false, defaultTags: <%=  raw @photo.tags.to_json 
+						%>
+						,
+						save: function(width,height,top_pos,left,label,the_tag){
+							$.ajax({
+								url: "<%= url_for annotate_path%>.json",
+								type: "POST",
+								dataType: 'json',
+								data: {'action':'save','width':width,'height':height,'top':top_pos,'left':left,'label':label,'photo_id':<%= @photo.id %>, 'user_id':<%= current_user.id %>},
+
+								beforeSend: function(xhr) {
+									xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+								},
+								error: function() {
+									alert("error"); 
+								},
+								success: function(id) {
+									the_tag.setId(id);
+								}
+							});
+						},
+						remove: function(id){
+							$.ajax({
+								url: "<%= url_for(destroy_tag_path) %>.json",
+								type: "POST",
+								dataType: 'json',
+								data: {'id':id},
+								beforeSend: function(xhr) {
+									xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+								}
+
+							});
+
+						}
+
+					});			
+});
+</script>
+</div> <!-- Span5 -->
+<div class="span7">
+	<%= link_to 'Go back to appraisal', @appraisal, :class => "btn btn-primary", :style=>"color:white;" %>
+	<table class="table condensed hover" id='tagTable'>
+		<thead>
+			<tr>
+				<th>Tag</th>
+				<th>Created at</th>
+				<th>Created by</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @photo.tags.each do |t| %>
+			<tr>
+				<td><%= t.label %></td>
+				<td><%= t.created_at %></td>
+				<td><%= "#{User.find(t.user_id).name} (#{User.find(t.user_id).role})" %></td>
+			</tr>			
+			<% end%>
+		</tbody>
+	</table>
+</div>
+</div>
+</div>
+
+
+
 </div>

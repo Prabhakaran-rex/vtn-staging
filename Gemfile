@@ -7,6 +7,12 @@ gem 'rails', '3.2.6'
 
 gem 'pg'
 
+# group :production, :staging do
+#   gem "wkhtmltopdf-heroku", "~> 1.0.0"
+# end
+
+gem 'wkhtmltopdf-binary'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -49,6 +55,9 @@ gem 'ancestry'
 gem 'simple_form'
 gem 'country_select'
 gem 'wicked' # For wizard-type appraiser registration
+gem 'wicked_pdf' # for PDF generation
+gem 'activeadmin'
+gem 'meta_search',    '>= 1.1.0.pre'
 
 group :test, :development do
   gem 'rspec-rails'

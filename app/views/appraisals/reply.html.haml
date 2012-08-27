@@ -1,88 +1,38 @@
-%table
-  %tr
-    %td= h(@appraisal.name)
-    %td
-      %ul
-        - @appraisal.photos.each do |photo|
-          %li= link_to image_tag(photo.asset.url(:thumb)), photo.asset.url(:original), :title => h(@appraisal.name), :rel => "lightbox"
+.page-header
+  %h5== Status "#{getStringForActivityValue(@appraisal.status)}"
+  %h1= @appraisal.name
+.container-fluid
+  .row-fluid
+    .span7
+      .form
+        =simple_form_for(@appraisal, :html => {:class => 'form-horizontal'}) do |f|
+          %h3 Please complete the following
+          = f.input :name, :label => "Description/Title", :hint => "(noun name, circa date, condition, country of origin, etc.):"
+          = f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a|
+            = a.input :year_of_manufacture, :label => "Approx. Date of Manufacture"
+            = a.input :country_of_origin, :label => "Country of Origin", :hint => "(If determinable, else 'unknown')"
+            = a.input :makers_marks
+            = a.input :materials
+            = a.input :inscriptions, :label => "Inscriptions, etc."
+            = a.input :dimensions
+            = a.input :damage, :label => "Condition"
+            = a.input :item_history, :label => "Item history", :as => :text
+            = a.input :additional_ea, :label => "Additional Extraordinary Assumptions", :hint => "(E.g., history of the item or its maker, how the item was used, historical significance, association with important personages, extraordinary assumptions being made by the appraisers, market data on which opinion of value was based (i.e., past comparable sales or current asking prices for similar items), how to best care for or preserve the item, relevant club to join or periodical to subscribe to if interested in learning more about the item, web sites of interest, etc.)", :as => :text
+            = a.input :appraiser_comments, :label => "Comments", :hint => "(History, uses, etc.)", :as => :text
+            = a.input :replacement_cost_min, :label => "Replacement Cost (comparable) Minimum"
+            = a.input :replacement_cost_max, :label => "Replacement Cost (comparable) Maximum"
 
-.form
-  %h4 Reply to Appraisal
-  =form_for(@appraisal) do |f|
-    %h2 User entered item info.
+            = a.input :fair_market_value_min, :label => "Fair Market Value Minimum"
+            = a.input :fair_market_value_max, :label => "Fair Market Value Maximum"
 
-    .field
-      %p= f.label :name
-      = f.text_field :name , :disabled => true
-
-    .field
-      %p= f.label :dimensions
-      = f.text_field :dimensions  , :disabled => true
-
-    .field
-      %p= f.label :materials
-      = f.text_field :materials  , :disabled => true
-
-    .field
-      %p= f.label :country_of_origin
-      = f.text_field :country_of_origin    , :disabled => true
-
-    .field
-      %p= f.label :makers_marks
-      = f.text_field :makers_marks   , :disabled => true
-    .field
-      %p= f.label :damage
-      = f.text_field :damage    , :disabled => true
-
-    .field
-      %p= f.label :year_of_manufacture
-      = f.text_field :year_of_manufacture   , :disabled => true
-
-    .field
-      %p= f.label :where_was_it_obtained
-      = f.text_area :where_was_it_obtained  , :disabled => true
-
-    .field
-      %p= f.label :how_was_it_obtained
-      = f.text_area :how_was_it_obtained    , :disabled => true
-
-    %hr
-    %h2 Please compete the following
-    .field
-      %p= f.label :appraiser_number
-      = f.text_area :appraiser_number
-
-    .field
-      %p= f.label :value_of_item
-      = f.text_area :value_of_item
-
-
-    .field
-      %p= f.label :historical_significance
-      = f.text_area :historical_significance
-
-    .field
-      %p= f.label :number_of_pieces_created
-      = f.text_area :number_of_pieces_created
-
-    .field
-      %p= f.label :where_it_was_manufactured
-      = f.text_area :where_it_was_manufactured
-
-    .field
-      %p= f.label :when_it_was_used
-      = f.text_area :when_it_was_used
-
-    .field
-      %p= f.label :how_it_was_used
-      = f.text_area :how_it_was_used
-
-
-    %p Please add notes for this appraisal
-    - f.fields_for :appraisal_datums do |data|
-      %p Create a note
-      = data.text_field :value
-    %p Select Status:
-    = f.select :status , {"Send report back to user."=> EActivityValueFinalized, "I want to save but not hand back to user yet." => @appraisal.status }  , :selected => EActivityValueFinalized
-    .actions
-      =f.submit
+          .page-header
+            %h3 Please add notes for this appraisal
+          - f.simple_fields_for :appraisal_datums do |data|
+            %p Create a note
+            = data.input :value
+          %p Select Status:
+          = f.select :status , {"Send report back to user."=> EActivityValueFinalized, "I want to save but not hand back to user yet." => @appraisal.status }  , :selected => EActivityValueFinalized
+          .actions
+            =f.submit
+    .span5
+      = render :partial => "photo_carousel"

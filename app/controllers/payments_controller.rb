@@ -9,7 +9,7 @@ class PaymentsController < ApplicationController
   
   def is_login?
     @user = current_user if current_user
-    @appraisal = session[:new_appraisal]
+    @appraisal = Appraisal.find(session[:new_appraisal])
     
     if @user.nil?
       redirect_to new_user_session_url
@@ -39,6 +39,8 @@ class PaymentsController < ApplicationController
          
         if status
           Payment.add_payment(msg, ccnumber, amount, @user.id, @appraisal.id)
+          @appraisal.status = EActivityValuePayed
+          @appraisal.save
           
           # Notification Hook - Send Appraiser email/sms
           User.notify_appraisers_of_new_appraisal( @appraisal )

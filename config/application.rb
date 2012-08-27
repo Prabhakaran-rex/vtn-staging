@@ -62,5 +62,10 @@ module PurexNew
     config.assets.initialize_on_precompile = false
 
     # config.assets.precompile = ['*.css']
+
+    # Added to override InheritedBase generators created by ActiveAdmin
+    config.generators do |g|
+      g.scaffold_controller "scaffold_controller"
+    end
   end
 end

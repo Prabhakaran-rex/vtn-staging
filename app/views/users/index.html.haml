@@ -20,13 +20,11 @@
         %th Estimated<br>Retail&nbsp;Value
         %th Estimated<br>Replacement&nbsp;Value
         %th Appraisal&nbsp;Type
-        %th Auction&nbsp;Status
+        %th Actions
       - @appraisals.each do |appraisal|
         %tr{:class => (@appraisals.index(appraisal) % 2 == 0 ? "even" : "odd")}
           %td= check_box_tag("","")
-          %td
-            - appraisal.photos.each do |photo|
-              = link_to image_tag(photo.asset.url(:thumb)), photo.asset.url(:original), :title => h(appraisal.name), :rel => "lightbox"
+          %td= link_to image_tag(appraisal.photos.first.asset.url(:thumb)), appraisal.photos.first.asset.url(:original), :title => h(appraisal.name), :rel => "lightbox" unless appraisal.photos.count == 0
           %td= link_to(h(appraisal.name) + " ##{appraisal.id}", appraisal)
           %td= getStringForActivityValue(appraisal.status)
           %td= appraisal.status == EActivityValueFinalized ? distance_of_time_in_words(Time.now,appraisal.updated_at) + " ago" : "-"

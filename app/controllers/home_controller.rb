@@ -30,4 +30,16 @@ class HomeController < ApplicationController
   # Become an Appraiser page
   def become
   end
+
+  # Appraiser code of Ethics
+  def ethics
+  end
+
+  # Determining Value
+  def determining
+  end
+
+  # Limiting Conditions and Extraordinary Assumptions
+  def limiting
+  end
 end

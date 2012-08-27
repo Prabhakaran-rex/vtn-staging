@@ -28,7 +28,8 @@ module ApplicationHelper
               EActivityValueViewed    => "Viewed",
               EActivityValueClaimed   => "Claimed",
               EActivityValueFinalized => "Finalized",
-              EActivityValueWithdrawn => "Withdrawn"}
+              EActivityValueWithdrawn => "Withdrawn",
+              EActivityValuePayed     => "Payed"}
 
     if hItems[eValue].empty?
       return ""

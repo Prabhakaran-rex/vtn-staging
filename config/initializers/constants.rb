@@ -17,6 +17,7 @@ EActivityValueViewed    =  8
 EActivityValueClaimed   =  9
 EActivityValueFinalized = 10
 EActivityValueWithdrawn = 11
+EActivityValuePayed   = 12
 ## AppraisalDataType
 EAppraisalDataTypeString    = 0
 EAppraisalDataTypeLocation  = 1
