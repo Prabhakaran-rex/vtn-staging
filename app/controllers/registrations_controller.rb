@@ -19,7 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     if params["user"]["role"] == "appraiser"
       appraiser_access_token = AppraiserAccessToken.find_by_token(params["user"]["access_token"])
-      if (appraiser_access_token.nil? || appraiser_access_token.used_at.nil?)
+      if (appraiser_access_token.nil? || !appraiser_access_token.used_at.nil?)
         build_resource
         clean_up_passwords(resource)
         flash.now[:alert] = "There was an error with the access token. Please re-enter the token."      
