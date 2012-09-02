@@ -1,14 +1,16 @@
 %h4= "Sign up User"
 .sub_box
     = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => "form-horizontal"}) do |f|
-        %p= devise_error_messages!
-        = f.hidden_field :role, {:value => @role}
-        = f.input :name
-        = f.input :email
-        = f.input :password
-        = f.input :password_confirmation
-        .terms
-            = render :partial => "home/terms_and_conditions"
-        = f.input :agree_to_tos, :as => :boolean, :label => "Agree to terms and conditions", :hint => false
-        = f.button :submit, "Sign in"
-    = render :partial => "devise/shared/links"
+        .form-inputs
+            %p= devise_error_messages!
+            = f.hidden_field :role, {:value => @role}
+            = f.input :name, :input_html => {:class => "input-xxlarge"}
+            = f.input :email, :input_html => {:class => "input-xxlarge"}
+            = f.input :password, :input_html => {:class => "input-xxlarge"}
+            = f.input :password_confirmation, :input_html => {:class => "input-xxlarge"}
+            .terms
+                = render :partial => "home/terms_and_conditions"
+            = f.input :agree_to_tos, :as => :boolean, :label => "Agree to terms and conditions", :hint => false
+        .form-actions
+            = f.button :submit, "Sign up", :class => "btn btn-success"
+            %p= render :partial => "devise/shared/links"

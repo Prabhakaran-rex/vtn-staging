@@ -4,7 +4,9 @@ class PaymentsController < ApplicationController
   before_filter :is_login?
 
   def index
+    Rails.logger.debug "*** Inside payments#index where params is #{params.to_json}"
     @payment = Payment.new
+    @appraisal = Appraisal.find(params[:appraisal_id])
   end
   
   def is_login?

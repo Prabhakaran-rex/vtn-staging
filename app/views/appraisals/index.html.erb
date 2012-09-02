@@ -1,0 +1,33 @@
+<div class="row">
+  <% if @appraisals.empty? %>
+    <h3>There are currently no new items available to appraise.</h3>
+  <% else %>
+    <h3>The following items are available to appraise:</h3>
+    <table class="table table-striped table-condensed ">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Item #</th>
+          <th>Date Created</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @appraisals.each do |appraisal| %>
+          <tr>
+            <td><%= link_to image_tag(appraisal.photos.first.asset.url(:thumb)), appraisal.photos.first.asset.url(:original), :title => h(appraisal.name) unless appraisal.photos.count == 0 %></td>
+            <td><%= link_to(h(appraisal.name) + " ##{appraisal.id}", appraisal) %></td>
+            <td><%= appraisal.status == EActivityValueFinalized ? distance_of_time_in_words(Time.now,appraisal.updated_at) + " ago" : "-" %></td>
+            <td><%= getStringForActivityValue(appraisal.status) %></td>
+            <td><% if appraisal.status == EActivityValueClaimed %>
+                  <%= link_to('Reply', reply_appraisal_path(appraisal)) %>
+                <% else %>
+                  <%= link_to('View', appraisal) %></td>
+                <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

@@ -69,7 +69,7 @@ class AppraisalsController < ApplicationController
       if @appraisal.save
         session[:new_appraisal] = @appraisal.id
         log_activity(@appraisal)
-        redirect_to payments_path        
+        redirect_to payments_path(:appraisal_id => @appraisal.id)      
       else
         respond_to do |format|
           flash[:error] = 'Appraisal cannot be created!'

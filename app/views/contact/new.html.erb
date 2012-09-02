@@ -1,3 +1,4 @@
+<h4>Contact Value My Treasure</h4>
 <div class="sub_box">
 <%= simple_form_for @message, :url => contact_path, :html => {:class => "form-horizontal"}  do |f| %>
   <% if !current_user %>
@@ -7,11 +8,11 @@
     <%= f.input :name, :input_html => {:value => current_user.name || "Not provided"}, :as => :hidden %>
     <%= f.input :email, :input_html => {:value => current_user.email}, :as => :hidden %>
   <% end %>
-  <%= f.input :subject %>
-  <%= f.input :body, :as => :text %>
+  <%= f.input :subject, :input_html => {:class => "input-xxlarge"} %>
+  <%= f.input :body, :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4} %>
 
   <div class="form-actions">
-    <%= f.submit "Send", :class => "btn btn-primary"%>
+    <%= f.submit "Send", :class => "btn btn-success"%>
   </div>
 <% end %>
 </div>

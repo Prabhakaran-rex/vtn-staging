@@ -1,40 +1,16 @@
-<% content_for(:javascript) do %>
-	<%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" %>
-	<%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" %>	
-	<%= stylesheet_link_tag 'jquery/sunny/jquery-ui-1.8.5.custom' 
-  %>
-	<script type="text/javascript">
-	$(function() {
-		$("#dialog-message").hide();
-	});
-
-	function wait_diag() {
-		$( "#dialog-message" ).dialog({
-			modal: true,
-			resizable: false,
-			draggable: false,
-			closeOnEscape: false,
-			open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); }
-
-		});
-	}
-	</script>		
-<% end %>
-
-<%= form_for(@payment) do |f| %>
+<%= simple_form_for(@payment, :html => {:class => "form-horizontal"}) do |f| %>
   <% if @payment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@payment.errors.count, "error") %> Payment error:</h2>
-
       <ul>
       <% @payment.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
-      
     </div>
   <% end %>
-      
+
+  <% # TODO Move this to global flash notices %>    
   <% flash.each do |key, msg| %>
   <div id="<%=key%>">
   	<p><%=msg%></p>
@@ -42,39 +18,15 @@
   <% end %>
   <% flash.clear %>
   
-  <table align="left" width="400" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td colspan="3">Credit Card Number:<br/>
-		<%= f.text_field :number, :size=>16, :maxlength=>16 %></td>
-    <td>CVV:<br />
-		<%= f.text_field :cvv, :size=>4, :maxlength=>4 %></td>
-  </tr>
-
+  <div class="form-inputs">
+  <%= f.input :number, :label => "Credit Card Number", :input_html => {:maxlength => 16} %>
+  <%= f.input :cvv, :label => "CVV", :input_html => {:maxlength => 4} %>
+  <%= f.input :expmon, :label => "Expiration Month", :as => :select, :collection => 1..12 %>
   <% date = Time.now %>
-  <tr>
-    <td colspan="4">
-		Expiration Month and Year:<br/>
-		<%= select_month date, :use_month_numbers => true, :prefix => 'payment', :field_name => 'expmon' %>
-		<%= select_year date.year+1, :start_year => date.year, :end_year => date.year + 10, :prefix => 'payment', :field_name => 'expyear' %></td>
-    	
-  </tr>    
-
-  <tr>
-    <td colspan="4" align="center">
-    	<div class='create_but3'>
-           <div class='Button'><a href="#" onclick="document.forms['new_payment'].submit(); wait_diag();">Send Appraisal</a></div>
-        </div>
-    </td>
-  </tr>
-</table>
-
-<div id="dialog-message" title="Processing payment . . . ">
-	<p>		
-		<b>Please wait . . . . . . </b> 
-	</p>
-	<p>
-		<img src="/assets/animated_progress_bar.gif" border="0" width="196" height="20"/>
-	</p>
-</div>
-
+  <%= f.input :expyear, :label => "Expiration Year", :as => :select, :collection => date.year..date.year+10 %>
+  <%= f.input :appraisal_id, :as => :hidden,  :input_html => {:value => @appraisal.id} %>
+  </div>
+  <div class="form-controls">
+           <a href="#" class="btn btn-success" onclick="document.forms['new_payment'].submit();">Send Appraisal</a></div>
+  </div>
 <% end %>

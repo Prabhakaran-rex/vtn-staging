@@ -1,13 +1,22 @@
 <div class="page-header">
 	<h5>Status : <%= getStringForActivityValue(@appraisal.status) %></h5>
 	<h1><%= @appraisal.name %>
-<%= link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn btn-primary right", :style => "color:white;" unless @appraisal.status == EActivityValueFinalized %>
+		<% if @appraisal.status == EActivityValueCreated %>
+		<% @payment = Payment.new %>
+		<%= link_to 'Pay', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right" %>
+		<% end %>
+		<% if @appraisal.status != EActivityValueFinalized %>
+		<%= link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
+		<% end %>
+		<% if @appraisal.status == EActivityValueFinalized %>
+		<%= link_to "Download PDF", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success pull-right" %>
+		<% end %>
 	</h1>
 </div>
-<div class="container-fluid">
-	<div class="row-fluid">
+<div class="container">
+	<div class="row">
 		<div class="span7">
-			<table>
+			<table class="table table-condensed">
 				<tbody>
 					<tr>
 						<td width="165">Item description</td>
@@ -46,12 +55,13 @@
 		</div>
 		<div class="span5">
 			<%= render :partial => "photo_carousel" %>
+			<% if  @appraisal.status != EActivityValueFinalized %>
+				<a href="#tag" class="btn btn-success btn-mini pull-right">Upload and tag images</a>
+			<% end %>
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row">
 			<%= render :partial => "multiple_photo_upload" unless @appraisal.status == EActivityValueFinalized%>
-			<%= link_to "Download PDF", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-primary", :style => "color: white;" if @appraisal.status == EActivityValueFinalized %>
-		</div>
+			<%= link_to "Download PDF", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" if @appraisal.status == EActivityValueFinalized %>
 	</div>
 </div>

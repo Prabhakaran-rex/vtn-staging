@@ -1,0 +1,93 @@
+<div class="page-header">
+	<h5>Status : <%= getStringForActivityValue(@appraisal.status) %></h5>
+	<h1><%= @appraisal.name %>
+		<% if @appraisal.status == EActivityValuePayed %>
+            <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
+        <% end %>
+        <% if @appraisal.status == EActivityValueClaimed %>
+            <%= link_to 'Edit notes', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
+		<% end %>
+	</h1>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="span7">
+			<table class="table table-condensed">
+				<tbody>
+					<% if @appraisal.status != EActivityValueFinalized %>
+					<tr>
+						<td width="165">Item description</td>
+						<td><%= @appraisal.name %></td>
+					</tr>
+					<tr>
+						<td>Item history</td>
+						<td><%= @appraisal.appraisal_info.item_history %></td>
+					</tr>
+					<tr>
+						<td>Signatures, maker's marks, dates</td>
+						<td><%= @appraisal.appraisal_info.makers_marks %></td>
+					</tr>
+					<tr>
+						<td>Inscriptions,etc</td>
+						<td><%= @appraisal.appraisal_info.inscriptions %></td>
+					</tr>
+					<tr>
+						<td>Dimensions</td>
+						<td><%= @appraisal.appraisal_info.dimensions %></td>
+					</tr>
+					<tr>
+						<td>Materials</td>
+						<td><%= @appraisal.appraisal_info.materials %></td>
+					</tr>
+					<tr>
+						<td>Country of Origin</td>
+						<td><%= @appraisal.appraisal_info.country_of_origin %></td>
+					</tr>
+					<tr>
+						<td>Aprox. Date of Manufacture</td>
+						<td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
+					</tr>
+					<tr>
+						<td>Condition</td>
+						<td><%= @appraisal.appraisal_info.damage %></td>
+					</tr>
+					<tr>
+						<td>Additional Extraordinary Assumptions</td>
+						<td><%= @appraisal.appraisal_info.additional_ea %></td>
+					</tr>
+					<tr>
+						<td>Appraiser Comments</td>
+						<td><%= @appraisal.appraisal_info.appraiser_comments %></td>
+					</tr>
+					<tr>
+						<td>Replacement Cost (comparable) Minimum</td>
+						<td><%= @appraisal.appraisal_info.replacement_cost_min %></td>
+					</tr>
+					<tr>
+						<td>Replacement Cost (comparable) Maximum</td>
+						<td><%= @appraisal.appraisal_info.replacement_cost_max %></td>
+					</tr>
+					<tr>
+						<td>Fair Market Value Minimum</td>
+						<td><%= @appraisal.appraisal_info.fair_market_value_min %></td>
+					</tr>
+					<tr>
+						<td>Fair Market Value Maximum</td>
+						<td><%= @appraisal.appraisal_info.fair_market_value_max %></td>
+					</tr>
+
+					<% elsif @appraisal.status == EActivityValueFinalized %>
+					Finalized
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<div class="span5">
+			<%= render :partial => "photo_carousel" %>
+		</div>
+	</div>
+	<div class="row">
+			<%= render :partial => "multiple_photo_upload" if @appraisal.status == EActivityValueClaimed %>
+			<%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValuePayed %>
+	</div>
+</div>

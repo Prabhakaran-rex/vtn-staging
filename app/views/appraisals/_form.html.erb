@@ -1,5 +1,5 @@
 <%= simple_form_for(@appraisal, :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
-<div class="container">
+<div class="row sub_box">
 	<div>
 		<div>
 			<% if @appraisal.errors.any? %>
@@ -16,17 +16,17 @@
 	</div>
 	<div>
 		<div>
-			<div class="form">
-				<%= f.input :name, :label => "Item description", :hint => "(Enter a noun name and brief description including age, country of origin, and material made of, if known)" %>
+			<div class="form-inputs">
+				<%= f.input :name, :label => "Item description", :hint => "(Enter a noun name and brief description including age, country of origin, and material made of, if known)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
 				<%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
-					<%= a.input :item_history, :label => "Item history", :as => :text, :hint => "(Where did you get it? Purchase at auction, flea market? Family Heirloom? How long have you owned it?)" %>
-					<%= a.input :makers_marks, :label => "Signatures, maker's marks, dates", :hint => "(List any signatures, maker's marks or dates. If none, enter 'none'.)" %>
-					<%= a.input :inscriptions, :label => "Inscriptions,etc", :hint => "(List any inscriptions, monograms, dedications or other such markings. If none, enter 'none'.)," %>
-					<%= a.input :dimensions, :label => "Dimensions", :hint => "(Enter the height, width, depth, diameter as appropriate.)"%>
-					<%= a.input :materials, :label => "Materials" %>
+					<%= a.input :item_history, :label => "Item history", :as => :text, :hint => "(Where did you get it? Purchase at auction, flea market? Family Heirloom? How long have you owned it?)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
+					<%= a.input :makers_marks, :label => "Signatures, maker's marks, dates", :as => :text, :hint => "(List any signatures, maker's marks or dates. If none, enter 'none'.)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
+					<%= a.input :inscriptions, :label => "Inscriptions,etc", :as => :text, :hint => "(List any inscriptions, monograms, dedications or other such markings. If none, enter 'none'.)," , :input_html => {:class => "input-xxlarge", :rows => 4}%>
+					<%= a.input :dimensions, :label => "Dimensions", :as => :text, :hint => "(Enter the height, width, depth, diameter as appropriate.)" , :input_html => {:class => "input-xxlarge", :rows => 4}%>
+					<%= a.input :materials, :label => "Materials", :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4} %>
 					<%= a.input :country_of_origin, :label => "Country of Origin", :as => :country %>
 
-					<%= a.input :damage, :label => "Condition", :hint => "(List any damages, old repairs, soiling, staining, or other defects.)" %>
+					<%= a.input :damage, :label => "Condition", :as => :text,:hint => "(List any damages, old repairs, soiling, staining, or other defects.)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
 				<% end %>
 		</div>
 	</div>
@@ -49,17 +49,17 @@
 	</div>
 </div>
 <% end %>
-<div class="well" style="width: 960px;">
+<div class="well">
 	<div>
 		<strong>Notice</strong>
 		<small><p>This online appraisal will provide an estimate of worth that is based on the subject property's value-relevant characteristics as provided to the appraiser by the client by means of written photographs and written descriptions. As will be noted in the body of the final appraisal report, the online appraiser did not personally inspect the property. The Uniform Standards of Professional Appraisal Practice (USPAP) does not require the appraiser to personally inspect the property. However, USPAP does require that the appraiser "identify" the property and its "value-relevant characteristics." This can be accomplished either by a personal inspection of the property or by other parties providing the identifying information to the client.</p>
 		<p>The appraiser will provide ranges of values reflecting the property's fair market value as well as its replacement value (comparable). The former reflects what a seller most often accepts and a buyer most often pays for comparable properties, often within the online or onsite auction markets. The latter reflects the appraiser's opinion of what the seller would probaly have to pay from within the retail market to replace the subject property with a comparable property within a reasonable amount of time from within the most convenient marketplace. Fair market value reflects the gross amount one would expect to realize if selling the item at auction. Replacement value (comparable) reflects the amount one would expect to pay at retail when attempting to replace the property with a comparable item.</p>
 		<p>Appraisals are opinions based on documented market data. Myluckytreasures.com does not (indeed, no appraiser can) guarantee that an item will be sold for the appraised amount (items may sell for more or less) nor that a comparable property can be purchased for the appraised amount (a buyer might have to pay more or less).</p></small>
-		</div>
 	</div>
+</div>
 	<div>
-		<div>
-			<%= f.button :submit, :label => "Create appraisal", :class => "button" %>
+		<div class="form-actions">
+			<%= f.button :submit, :label => "Create appraisal", :class => "btn btn-success" %>
 		</div>
 	</div>
 

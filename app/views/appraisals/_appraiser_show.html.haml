@@ -106,10 +106,10 @@
           |
         - else
           - if @appraisal.status == EActivityValuePayed
-            = link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-primary", :style => "color:white;"
+            = link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success", :style => "color:white;"
             |
           - if @appraisal.status == EActivityValueClaimed
-            = link_to 'Edit notes', reply_appraisal_path(@appraisal), :class => "btn btn-primary", :style => "color:white;"
+            = link_to 'Edit notes', reply_appraisal_path(@appraisal), :class => "btn btn-success", :style => "color:white;"
             |
 
       = link_to 'Back', appraisals_path, :class => "btn"
@@ -117,4 +117,4 @@
       = render :partial => "photo_carousel"
   .row-fluid
     .span12
-    = render :partial => "multiple_photo_upload" unless @appraisal.status == EActivityValueFinalized
+    = render :partial => "multiple_photo_upload" if @appraisal.status == EActivityValueClaimed

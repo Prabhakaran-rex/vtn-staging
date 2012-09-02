@@ -1,0 +1,39 @@
+<div class="navbar navbar-fixed-top" >
+  <div class="navbar-inner">
+    <div class="container">
+      <div class="logo"><%= link_to image_tag("logo.png"), root_path %>
+        <span class="nav_menu">
+          <ul class="nav">
+            <% if current_user %>
+            <% if current_user.role.eql?("appraiser") %>
+            <li><%= link_to("My Account", appraiser_steps_path) %></li>
+            <li><a href="#">|</a></li>
+            <li><%= link_to("My Appraisals", appraisals_path) %></li>
+            <% else %>
+            <li><%= link_to("My Account",edit_user_registration_path) %></li>
+            <li><a href="#">|</a></li>
+            <li><%= link_to("My Appraisals", users_path) %></li>
+            <% end %>
+            <li><a href="#">|</a></li>
+            <li><%= link_to("Support", contact_path) %></li>
+            <% else %>
+            <li><%= link_to "How it works", how_path %></li>
+            <li><a href="#">|</a></li>
+            <li><%= link_to("Become a Value My Treasure Appraiser", become_path) %></li>
+            <li><a href="#">|</a></li>
+            <li><%= link_to("Contact Us", contact_path) %></li>
+            <% end %>
+          </ul>
+        </span>
+      </div>
+      <div class="btn-group pull-right">
+        <% if current_user %>
+        <%= link_to("Signout", destroy_user_session_path, :method => :delete, :class => "btn btn-success") %>
+        <% else %>
+        <%= link_to "Log In", new_user_session_url, :class => "btn btn-success" %>
+        <%= link_to "Register", new_user_registration_path, :class => "btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

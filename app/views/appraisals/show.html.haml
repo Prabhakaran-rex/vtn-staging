@@ -36,22 +36,8 @@
     })
   });
 
-
--#:javascript
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-  .fb-like{ 'data-href'=> request.url , "data-send"=>"true", 'data-width'=>"450", "data-show-faces"=>"true" }
-
 .form
-  -# %h4= flash[:title]
-  .sub_box.clearfix
-    - if current_user.role.eql?("appraiser")
-      = render :partial => "appraiser_show"
-    - else
-      = render :partial => "user_show_2"
+  - if current_user.role.eql?("appraiser")
+    = render :partial => "appraiser_show"
+  - else
+    = render :partial => "user_show"

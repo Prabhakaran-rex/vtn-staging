@@ -35,5 +35,6 @@
 
 	%p Signup is easy just start here: Appraiser Signup 
 -else
-	%p= link_to 'Consumers', how_path(:role => "consumer")
-	%p= link_to 'Appraisers', how_path(:role => "appraiser")
+	%h4 How it works
+	%p= link_to 'For Consumers', how_path(:role => "consumer"), :class => "btn btn-primary"
+	%p= link_to 'For Appraisers', how_path(:role => "appraiser"), :class => "btn btn-primary"
