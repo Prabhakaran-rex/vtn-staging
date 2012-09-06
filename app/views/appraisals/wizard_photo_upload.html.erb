@@ -1,0 +1,15 @@
+<%= render :partial => "includes_for_photo_upload"%>
+<div class="row">
+	<h4>Step 2 - Upload Photos</h4>
+</div>
+<div class="container">
+	<div class="row sub_box">
+		<%= render  :partial => "multiple_photo_upload" %>
+		<div class="form-actions">
+			<% if @appraisal.status == EActivityValueCreated %>
+			<% @payment = Payment.new %>
+			<%= link_to 'Next step', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right" %>
+			<% end %>
+		</div>
+	</div>
+</div>

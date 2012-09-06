@@ -19,6 +19,7 @@ PurexNew::Application.routes.draw do
   resources :photos
   get '/photos/tag/:appraisal_id/:photo_id' => 'photos#tag', :as => :photo_tag
 
+  match '/appraisals/wizard_photo_upload/:appraisal_id' => 'appraisals#wizard_photo_upload', :as => :wizard_photo_upload
   resources :appraisals do
     resources :photos
     member do

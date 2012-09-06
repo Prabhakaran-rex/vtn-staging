@@ -69,7 +69,8 @@ class AppraisalsController < ApplicationController
       if @appraisal.save
         session[:new_appraisal] = @appraisal.id
         log_activity(@appraisal)
-        redirect_to payments_path(:appraisal_id => @appraisal.id)      
+        # redirect_to payments_path(:appraisal_id => @appraisal.id) 
+        redirect_to wizard_photo_upload_path(:appraisal_id => @appraisal.id)     
       else
         respond_to do |format|
           flash[:error] = 'Appraisal cannot be created!'
@@ -148,6 +149,11 @@ class AppraisalsController < ApplicationController
     end
   end
 
+  def wizard_photo_upload
+    @appraisal = Appraisal.find(params[:appraisal_id])
+  end
+
+
   protected
 
   def log_activity(appraisal)
@@ -158,5 +164,7 @@ class AppraisalsController < ApplicationController
                                      })
     activity.save
   end
+
+
     
 end

@@ -26,7 +26,7 @@
   <%= f.input :expyear, :label => "Expiration Year", :as => :select, :collection => date.year..date.year+10 %>
   <%= f.input :appraisal_id, :as => :hidden,  :input_html => {:value => @appraisal.id} %>
   </div>
-  <div class="form-controls">
+  <div class="form-actions">
            <a href="#" class="btn btn-success" onclick="document.forms['new_payment'].submit();">Send Appraisal</a></div>
   </div>
 <% end %>

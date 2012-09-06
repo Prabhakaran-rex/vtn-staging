@@ -3,7 +3,7 @@
 	<h1><%= @appraisal.name %>
 		<% if @appraisal.status == EActivityValueCreated %>
 		<% @payment = Payment.new %>
-		<%= link_to 'Pay', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right" %>
+		<%= link_to 'Enter Payment', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right" %>
 		<% end %>
 		<% if @appraisal.status != EActivityValueFinalized %>
 		<%= link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
@@ -55,9 +55,6 @@
 		</div>
 		<div class="span5">
 			<%= render :partial => "photo_carousel" %>
-			<% if  @appraisal.status != EActivityValueFinalized %>
-				<a href="#tag" class="btn btn-success btn-mini pull-right">Upload and tag images</a>
-			<% end %>
 		</div>
 	</div>
 	<div class="row">

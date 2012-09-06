@@ -59,7 +59,11 @@
 </div>
 	<div>
 		<div class="form-actions">
-			<%= f.button :submit, :label => "Create appraisal", :class => "btn btn-success" %>
+			<% if params[:action]  != "edit" %>
+			<%= f.button :submit, :label => "Next step", :class => "btn btn-success pull-right" %>
+			<% else %>
+			<%= f.button :submit, :label => "Edit appraisal", :class => "btn btn-success" %>
+			<% end %>
 		</div>
 	</div>
 
