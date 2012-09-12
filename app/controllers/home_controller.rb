@@ -48,6 +48,6 @@ class HomeController < ApplicationController
 
   # Limiting Conditions and Extraordinary Assumptions
   def limiting
-    render cms_page: '/limiting'
+    # render cms_page: '/limiting'
   end
 end
