@@ -12,14 +12,16 @@ admins = [
     {
         :user =>
             {
-                :email => 'rjohnston@colosses.com',
+                :name => 'Sergio Lopez',
+                :email => 'wapankh+a@gmail.com',
                 :role => 'admin',
             }
     }
 ].each do |admin|
   if user = User.where(:email => admin[:user][:email]).first
     user.role = "admin"
-    user.password = 'purex123' unless user.password
+    user.add_role :admin
+    user.password = 'abcd1234' unless user.password
     user.save!
   else
     admin[:user][:password] = 'purex123'
@@ -33,17 +35,19 @@ appraisers = [
     {
         :user =>
             {
-                :email => 'rjohnston@colosses.com',
+                :name => 'Sergio Lopez',
+                :email => 'wapankh+apraiser@gmail.com',
                 :role => 'appraiser',
             }
     }
 ].each do |admin|
   if user = User.where(:email => admin[:user][:email]).first
     user.role = "appraiser"
-    user.password = 'purex123' unless user.password
+    user.add_role :appraiser
+    user.password = 'abcd1234' unless user.password
     user.save!
   else
-    admin[:user][:password] = 'purex123'
+    admin[:user][:password] = 'abcd1234'
     admin[:user][:password_confirmation] = admin[:user][:password]
     admin[:user][:role] = "appraiser"
     user = User.create!(admin[:user])

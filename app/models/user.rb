@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify
   has_one  :appraiser_access_token
   has_many :skills
   has_many :appraisals

@@ -34,6 +34,7 @@ gem 'aws-sdk'
 
 # authentication
 gem 'devise' #this is our usermanagement system
+gem "rolify"
 gem "omniauth"
 # gem "oa-oauth", :require => "omniauth/oauth"  #this allows us to use things like facebook sign in
 gem 'omniauth-facebook'
