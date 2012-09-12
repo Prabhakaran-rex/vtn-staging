@@ -127,3 +127,17 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
 end
+
+module ActiveAdmin
+  module Views
+    class HeaderRenderer
+      def to_html
+        title + global_navigation + static_content_link + utility_navigation
+      end
+
+      def static_content_link
+        link_to "Static Content", cms_admin_sites_path, :class => "header-item"
+      end
+    end
+  end
+end

@@ -60,6 +60,8 @@ gem 'wicked_pdf' # for PDF generation
 gem 'activeadmin'
 gem 'meta_search',    '>= 1.1.0.pre'
 
+gem 'comfortable_mexican_sofa'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'spork'
