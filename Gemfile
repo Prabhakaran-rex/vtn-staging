@@ -61,6 +61,7 @@ gem 'activeadmin'
 gem 'meta_search',    '>= 1.1.0.pre'
 
 gem 'comfortable_mexican_sofa'
+gem 'newrelic_rpm'
 
 group :test, :development do
   gem 'rspec-rails'
