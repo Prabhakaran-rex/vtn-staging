@@ -68,6 +68,8 @@ module ApplicationHelper
     if img[0].chr == "/" # images from paperclip
       new_image = img.slice 1..-1
       image_tag "file://#{Rails.root.join('public', new_image)}", options
+    elsif img[0].chr == "h" # images stored in s3
+      image_tag img, options
     else
       image_tag "file://#{Rails.root.join('public', 'images', img)}", options
     end
