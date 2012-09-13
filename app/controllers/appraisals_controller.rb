@@ -9,7 +9,7 @@ class AppraisalsController < ApplicationController
     if @user.role.eql?("user")
       redirect_to users_url
     else
-      @appraisals = Appraisal.where("(assigned_to = ? and status =?) or (status = ?)",current_user,EActivityValueClaimed,EActivityValuePayed)
+      @appraisals = Appraisal.where("(assigned_to = ? and status =?) or (status = ? or status = ?)",current_user,EActivityValueClaimed,EActivityValuePayed, EActivityValueFinalized)
       @appraisals = Appraisal.where(:status => EActivityValuePayed) unless @appraisals.count > 0
 
       respond_to do |format|
@@ -23,6 +23,7 @@ class AppraisalsController < ApplicationController
   # GET /appraisals/1.xml
   def show
     @appraisal = Appraisal.find(params[:id])
+    @long ||= params[:pdf_long]
     @user = User.find_by_id(current_user)
     if (!@appraisal.assigned_to.nil?)
       @appraiser = User.find_by_id(@appraisal.assigned_to)
@@ -32,7 +33,7 @@ class AppraisalsController < ApplicationController
     respond_to do |format|
       format.html #{ render :layout => 'shareable' }# show.html.erb
       format.xml  { render :xml => @appraisal }
-      format.pdf { render :pdf => 'file_name.pdf', :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.haml" }
+      format.pdf { render :pdf => 'file_name.pdf', :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb", :footer => {:font_size => 8, :left => "Security Code: #{Digest::SHA1.hexdigest(@appraisal.to_json)}",  :right => '[page] of [topage]' } }
     end
   end
 
@@ -145,7 +146,7 @@ class AppraisalsController < ApplicationController
     respond_to do |format|
       format.html #{ render :layout => 'shareable' }# show.html.erb
       format.xml  { render :xml => @appraisal }
-      format.pdf { render :pdf => 'file_name.pdf', :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.haml" }
+      format.pdf { render :pdf => 'file_name.pdf', :page_size => "letter", :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb" }
     end
   end
 

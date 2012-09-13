@@ -15,7 +15,7 @@
         <th>Item #</th>
         <th>Status</th>
         <th>Date Appraised</th>
-        <th>Estimated<br>Retails Value</th>
+        <th>Estimated<br>Retail Value</th>
         <th>Estimated<br>Replacement Value</th>
         <th>Appraisal Type</th>
         <th></th>
@@ -30,8 +30,8 @@
         <td><%= link_to(h(appraisal.name) + " ##{appraisal.id}", appraisal) %></td>
         <td><%= getStringForActivityValue(appraisal.status) %></td>
         <td><%= appraisal.status == EActivityValueFinalized ? distance_of_time_in_words(Time.now,appraisal.updated_at) + " ago" : "-" %></td>
-        <td><%= number_to_currency(appraisal.value_of_item, :precision => 0) %></td>
-        <td><%= number_to_currency(appraisal.value_of_item, :precision => 0) %></td>
+        <td><%= appraisal.status == EActivityValueFinalized ? "#{number_to_currency(appraisal.appraisal_info.fair_market_value_min, :precision => 0)} to #{number_to_currency(appraisal.appraisal_info.fair_market_value_max, :precision => 0)}" : "-" %></td>
+        <td><%= appraisal.status == EActivityValueFinalized ? "#{number_to_currency(appraisal.appraisal_info.replacement_cost_min, :precision => 0)} to #{number_to_currency(appraisal.appraisal_info.replacement_cost_max, :precision => 0)}" : "-" %></td>
         <td><%= getStringForAppraisalType(appraisal.selected_plan) %></td>
         <td><%= link_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-success btn-mini") %></td>
         <td><% if appraisal.status == EActivityValueCreated %>

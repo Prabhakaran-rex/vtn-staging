@@ -7,6 +7,10 @@
         <% if @appraisal.status == EActivityValueClaimed %>
             <%= link_to 'Edit notes', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
 		<% end %>
+		<% if @appraisal.status == EActivityValueFinalized %>
+		<%= link_to "Download Certified Long Appraisal", appraisal_path(@appraisal, :format => :pdf, :pdf_long => true), :class => "btn btn-success  btn-mini  pull-right" %>
+		<%= link_to "Download Certified Short Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini pull-right" %>
+		<% end %>
 	</h1>
 </div>
 <div class="container">
@@ -14,7 +18,7 @@
 		<div class="span7">
 			<table class="table table-condensed">
 				<tbody>
-					<% if @appraisal.status != EActivityValueFinalized %>
+					<% if true %>
 					<tr>
 						<td width="165">Item description</td>
 						<td><%= @appraisal.name %></td>
@@ -89,5 +93,9 @@
 	<div class="row">
 			<%= render :partial => "multiple_photo_upload" if @appraisal.status == EActivityValueClaimed %>
 			<%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValuePayed %>
+			<% if @appraisal.status == EActivityValueFinalized %>
+				<%= link_to "Download Certified Short Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" %>
+				<%= link_to "Download Certified Long Appraisal", appraisal_path(@appraisal, :format => :pdf, :pdf_long => true), :class => "btn btn-success" %>
+			<% end %>
 	</div>
 </div>

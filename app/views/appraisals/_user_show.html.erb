@@ -9,7 +9,8 @@
 		<%= link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
 		<% end %>
 		<% if @appraisal.status == EActivityValueFinalized %>
-		<%= link_to "Download PDF", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success pull-right" %>
+		<%= link_to "Download Certified Long Appraisal", appraisal_path(@appraisal, :format => :pdf, :pdf_long => true), :class => "btn btn-success  btn-mini  pull-right" %>
+		<%= link_to "Download Certified Short Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini pull-right" %>
 		<% end %>
 	</h1>
 </div>
@@ -59,6 +60,9 @@
 	</div>
 	<div class="row">
 			<%= render :partial => "multiple_photo_upload" unless @appraisal.status == EActivityValueFinalized%>
-			<%= link_to "Download PDF", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" if @appraisal.status == EActivityValueFinalized %>
+			<% if @appraisal.status == EActivityValueFinalized %>
+				<%= link_to "Download Certified Short Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" %>
+				<%= link_to "Download Certified Long Appraisal", appraisal_path(@appraisal, :format => :pdf, :pdf_long => true), :class => "btn btn-success" %>
+			<% end %>
 	</div>
 </div>

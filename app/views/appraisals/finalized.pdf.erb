@@ -1,0 +1,134 @@
+<html>
+<head>
+	<title>ValueMyTreasure.com | Certified Appraisal</title>
+	<%= wicked_pdf_stylesheet_link_tag    "application" %>
+	<%= wicked_pdf_javascript_include_tag "application" %>
+	<style type="text/css">
+	div {
+		margin-bottom: 10px;
+	}
+	.page-break { display:block; clear:both; page-break-after:always; }
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="page-header">
+		<h1>ValueMyTreasure.com<small class="pull-right">Certified Appraisal</small></h1>
+	</div>
+	<div class="row">
+		<div class="span6">
+			<b>File #:</b> <%= @appraisal.id %>
+		</div>
+		<div class="span6">
+			<span class="pull-right"><b>Effective Date of Report :</b> <%= @appraisal.updated_at.strftime("%d %b. %Y") %></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			<b>Description/Title :</b>
+		</div>
+		<div class="span9">
+			<%= @appraisal.name %>
+		</div>
+	</div>
+	<% if @long %>
+	<div class="row">
+		<div class="span3">
+			<b>Approx. Date of Manufacture :</b>
+		</div>
+		<div class="span9">
+			<%= @appraisal.appraisal_info.year_of_manufacture %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			<b>Country of Origin :</b>
+		</div>
+		<div class="span9">
+			<%= @appraisal.appraisal_info.country_of_origin %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			<b>Signatures, Maker/Maker's, Dates, etc. :</b>
+		</div>
+		<div class="span9">
+			<%= @appraisal.appraisal_info.makers_marks %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			<b>Inscriptions :</b>
+		</div>
+		<div class="span9">
+			<%= @appraisal.appraisal_info.inscriptions %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			<b>Dimensions :</b>
+		</div>
+		<div class="span9">
+			<%= @appraisal.appraisal_info.dimensions %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			<b>Item History :</b>
+		</div>
+		<div class="span9">
+			<%= @appraisal.appraisal_info.item_history %>
+		</div>
+	</div>
+	<% end %>
+	<div class="row">
+		<div class="span3">
+			<b>Additional Extraordinary Assumptions :</b>
+		</div>
+		<div class="span9">
+			<%= @appraisal.appraisal_info.additional_ea %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			<b>Comments :</b>
+		</div>
+		<div class="span9">
+			<%= @appraisal.appraisal_info.appraiser_comments %>
+		</div>
+	</div>	
+	<div class="row">
+		<div class="span3">
+			<b>Replacement Cost :</b></br><small>(Comparable)</small>
+		</div>
+		<div class="span9">
+			<%= "$ #{@appraisal.appraisal_info.replacement_cost_min} to $ #{@appraisal.appraisal_info.replacement_cost_max} " %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			<b>Fair Market Value : </b>
+		</div>
+		<div class="span9">
+			<%= "$ #{@appraisal.appraisal_info.fair_market_value_min} to $ #{@appraisal.appraisal_info.fair_market_value_max} " %>
+		</div>
+	</div>
+	<% if @appraisal.photos.count != 0 %>
+	<div class="page-break"></div>
+	<div class="page-header">
+	<h2>Item Pictures</h2>
+	</div>
+	<ul class="thumbnails">
+		<% @appraisal.photos.each_with_index do |image,i| %>
+		<li class="span3">
+			<a href="#" class="thumbnail">
+				<%= wicked_pdf_image_tag image.asset.url(:carrousel), :size => "460x460" %>
+			</a>
+		</li>
+		<% end%>
+	</ul>
+	<% end %>
+
+</div>
+</body>
+</html>
