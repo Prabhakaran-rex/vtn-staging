@@ -16,13 +16,14 @@
             </tr>
             </thead>
             <tbody>
-            <% current_user.skills.order(:category_id).each do |s| %>
+            <% current_user.skills.order(:category_id).each do |s|
+                unless s.category.nil? %>
                 <tr>
                     <td><%= s.category.is_root? ? s.category.name : s.category.parent.name %></td>
                     <td><button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'<%= "#{s.id}" %>')">Remove</button>
                     </td>
-                </tr>  
-                
+                </tr>
+                <% end %>                
             <% end %>
 
             </tbody>
