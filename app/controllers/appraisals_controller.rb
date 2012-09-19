@@ -9,7 +9,14 @@ class AppraisalsController < ApplicationController
     if @user.role.eql?("user")
       redirect_to users_url
     else
-      @appraisals = Appraisal.where("(assigned_to = ? and status =?) or (status = ? or status = ?)",current_user,EActivityValueClaimed,EActivityValuePayed, EActivityValueFinalized)
+      # TODO Check if performance can be improved
+      # Order appraisals by specific status
+      @appraisals = []
+      @appraisals << Appraisal.where('status = ?', EActivityValuePayed)
+      @appraisals << Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueClaimed)
+      @appraisals << Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueFinalized)
+      @appraisals = @appraisals.flatten
+
       @appraisals = Appraisal.where(:status => EActivityValuePayed) unless @appraisals.count > 0
 
       respond_to do |format|

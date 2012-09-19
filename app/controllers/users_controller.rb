@@ -3,7 +3,13 @@ class UsersController < ApplicationController
   before_filter :get_user, :except => [:facebook_login]
 
   def index
-    @appraisals = Appraisal.where(:created_by => @user.id)
+    # TODO Check if performance can be improved
+    # Order appraisals by specific status
+    @appraisals = []
+    [EActivityValueCreated, EActivityValuePayed, EActivityValueClaimed, EActivityValueFinalized].each do |s|
+      @appraisals << Appraisal.where(:created_by => @user.id, :status =>s )
+    end
+    @appraisals = @appraisals.flatten
 
     if @appraisals.empty?
       @appraisal = Appraisal.new
@@ -35,5 +41,7 @@ class UsersController < ApplicationController
     @user = params[:id].nil? ? current_user : User.find(params[:id])
     redirect_to root_path if @user.nil?# || @user.role != "admin"
   end
+
+
 
 end
