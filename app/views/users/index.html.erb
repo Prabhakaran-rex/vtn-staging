@@ -10,7 +10,6 @@
   <table class="table table-striped table-condensed ">
     <thead>
       <tr>
-        <th>Select</th>
         <th>Item</th>
         <th>Item #</th>
         <th>Status</th>
@@ -18,6 +17,7 @@
         <th>Estimated<br>Retail Value</th>
         <th>Estimated<br>Replacement Value</th>
         <th>Appraisal Type</th>
+        <th>Use</th>
         <th></th>
         <th></th>
       </tr>
@@ -25,7 +25,6 @@
     <tbody>
       <% @appraisals.each do |appraisal| %>
       <tr>
-        <td><%= check_box_tag("","") %></td>
         <td><%= link_to image_tag(appraisal.photos.first.asset.url(:thumb)), appraisal.photos.first.asset.url(:original), :title => h(appraisal.name) unless appraisal.photos.count == 0 %></td>
         <td><%= link_to(h(appraisal.name) + " ##{appraisal.id}", appraisal) %></td>
         <td><%= getStringForActivityValue(appraisal.status) %></td>
@@ -33,10 +32,15 @@
         <td><%= appraisal.status == EActivityValueFinalized ? "#{number_to_currency(appraisal.appraisal_info.fair_market_value_min, :precision => 0)} to #{number_to_currency(appraisal.appraisal_info.fair_market_value_max, :precision => 0)}" : "-" %></td>
         <td><%= appraisal.status == EActivityValueFinalized ? "#{number_to_currency(appraisal.appraisal_info.replacement_cost_min, :precision => 0)} to #{number_to_currency(appraisal.appraisal_info.replacement_cost_max, :precision => 0)}" : "-" %></td>
         <td><%= getStringForAppraisalType(appraisal.selected_plan) %></td>
+        <td><%=  %></td>
         <td><%= link_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-success btn-mini") %></td>
         <td><% if appraisal.status == EActivityValueCreated %>
               <% @payment = Payment.new %>
               <%= link_to 'Enter Payment', payments_path(@payment, :appraisal_id => appraisal), :class => "btn btn-success btn-mini" %>
+              <% end %>
+            <% if appraisal.status == EActivityValueFinalized %>
+              <% @payment = Payment.new %>
+              <%= link_to 'Push to Auction', "http://www.google.com" , :class => "btn btn-success btn-mini" %>
               <% end %></td>
       </tr>
       <% end %>

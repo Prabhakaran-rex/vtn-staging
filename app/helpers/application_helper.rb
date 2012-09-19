@@ -17,7 +17,7 @@ module ApplicationHelper
 
   def getStringForActivityValue(eValue)
 
-    hItems = {EActivityValueCreated   => "Created",
+    hItems = {EActivityValueCreated   => "Incomplete",
               EActivityValueEdited    => "Edited",
               EActivityValueResponded => "Responded",
               EActivityValueCommented => "Commented",
@@ -26,10 +26,10 @@ module ApplicationHelper
               EActivityValueDeleted   => "Deleted",
               EActivityValueAppealed  => "Appealed",
               EActivityValueViewed    => "Viewed",
-              EActivityValueClaimed   => "Claimed",
-              EActivityValueFinalized => "Finalized",
+              EActivityValueClaimed   => "Processing",
+              EActivityValueFinalized => "Complete",
               EActivityValueWithdrawn => "Withdrawn",
-              EActivityValuePayed     => "Payed"}
+              EActivityValuePayed     => "Unclaimed"}
 
     if hItems[eValue].empty?
       return ""
