@@ -16,15 +16,19 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :authentication_keys => [:login]
 
     # Setup accessible (or protected) attributes for your model
-    attr_accessible :email, :password, :password_confirmation, :remember_me, :skills_attributes,
+    attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :skills_attributes,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login
 
   # Used for appraiser signup
   attr_accessor :access_token
+
+  # Virtual attribute for authenticating by either username or email
+  # This is in addition to a real persisted field like 'username'
+  attr_accessor :login
 
   # Set requirement for signup
   validates :agree_to_tos, :acceptance => true, :on => :create
@@ -90,6 +94,16 @@ class User < ActiveRecord::Base
     user.facebook_locale = data['locale']
     user.save
     user
+  end
+  # Override to allow users to sign up with their username or email
+  # https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
   end
 
   def self.roles

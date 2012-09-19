@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120919035642) do
+ActiveRecord::Schema.define(:version => 20120919041840) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -328,6 +328,7 @@ ActiveRecord::Schema.define(:version => 20120919035642) do
     t.string   "facebook_locale"
     t.string   "facebook_id"
     t.text     "appraiser_info"
+    t.string   "username"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

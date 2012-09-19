@@ -5,6 +5,7 @@
             %p= devise_error_messages!
             = f.hidden_field :role, {:value => @role}
             = f.input :name, :input_html => {:class => "input-xxlarge"}
+            = f.input :username, :input_html => {:class => "input-xxlarge"}, :required => true
             = f.input :email, :input_html => {:class => "input-xxlarge"}
             = f.input :password, :input_html => {:class => "input-xxlarge"}
             = f.input :password_confirmation, :input_html => {:class => "input-xxlarge"}
