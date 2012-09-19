@@ -5719,3 +5719,25 @@ div.terms strong {color:#000;}
 #footer a {
   color: white;
 }
+
+.fileupload-buttonbar .btn {
+  color: black;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
+  background: -moz-linear-gradient(top, #ffffff 0%, #ffffff 49%, #fafafa 50%, #fafafa 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(49%,#ffffff), color-stop(50%,#fafafa), color-stop(100%,#fafafa)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ffffff 0%,#ffffff 49%,#fafafa 50%,#fafafa 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ffffff 0%,#ffffff 49%,#fafafa 50%,#fafafa 100%); /* Opera11.10+ */
+  background: -ms-linear-gradient(top, #ffffff 0%,#ffffff 49%,#fafafa 50%,#fafafa 100%); /* IE10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fafafa',GradientType=0 ); /* IE6-9 */
+  background: linear-gradient(top, #ffffff 0%,#ffffff 49%,#fafafa 50%,#fafafa 100%); /* W3C */
+}
+
+.fileupload-buttonbar .btn:hover {
+  background: -moz-linear-gradient(top, #fafafa 0%, #fafafa 49%, #f1f1f1 50%, #f1f1f1 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fafafa), color-stop(49%,#fafafa), color-stop(50%,#f1f1f1), color-stop(100%,#f1f1f1)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #fafafa 0%,#fafafa 49%,#f1f1f1 50%,#f1f1f1 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #fafafa 0%,#fafafa 49%,#f1f1f1 50%,#f1f1f1 100%); /* Opera11.10+ */
+  background: -ms-linear-gradient(top, #fafafa 0%,#fafafa 49%,#f1f1f1 50%,#f1f1f1 100%); /* IE10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#f1f1f1',GradientType=0 ); /* IE6-9 */
+  background: linear-gradient(top, #fafafa 0%,#fafafa 49%,#f1f1f1 50%,#f1f1f1 100%); /* W3C */
+}

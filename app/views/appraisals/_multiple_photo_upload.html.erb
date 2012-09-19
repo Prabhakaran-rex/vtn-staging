@@ -12,23 +12,23 @@
       <div class="span7">
         <!-- The fileinput-button span is used to style the file input field as button -->
         <% if can_upload %>
-        <span class="btn btn-success fileinput-button" style="height: 18px; margin-top: 0px;margin-right: 3px;">
-          <i class="icon-plus icon-white"></i>
+        <span class="btn btn-success fileinput-button" style="height: 20px; margin-top: 0px;margin-right: 3px;">
+          <i class="icon-plus"></i>
           <span>Add files...</span>
           <input type="file" name="photo[asset]" multiple>
         </span>
         <button type="submit" class="btn btn-success start">
-          <i class="icon-upload icon-white"></i>
+          <i class="icon-upload"></i>
           <span>Start upload</span>
         </button>
         <button type="reset" class="btn btn-warning cancel">
-          <i class="icon-ban-circle icon-white"></i>
+          <i class="icon-ban-circle"></i>
           <span>Cancel upload</span>
         </button>
         <% end %>
         <% if can_delete %>
         <button type="button" class="btn btn-danger delete">
-          <i class="icon-trash icon-white"></i>
+          <i class="icon-trash"></i>
           <span>Delete</span>
         </button>
         <% end %>
@@ -72,8 +72,8 @@
         <td colspan="2"></td>
         {% } %}
       <td class="cancel">{% if (!i) { %}
-        <button class="btn btn-warning">
-          <i class="icon-ban-circle icon-white"></i>
+        <button class="fileupload-buttonbar btn">
+          <i class="icon-ban-circle"></i>
           <span>{%=locale.fileupload.cancel%}</span>
         </button>
         {% } %}</td>
@@ -103,8 +103,8 @@
         {% } %}
       <td class="delete">
         <% if can_delete %>
-        <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
-          <i class="icon-trash icon-white"></i>
+        <button class="fileupload-buttonbar btn" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+          <i class="icon-trash"></i>
           <span>{%=locale.fileupload.destroy%}</span>
         </button>
         <% end %>
