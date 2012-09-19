@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120912000603) do
+ActiveRecord::Schema.define(:version => 20120919035642) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20120912000603) do
     t.text     "inscriptions"
     t.text     "item_history"
     t.text     "appraisal_info"
+    t.integer  "appraisal_type"
   end
 
   add_index "appraisals", ["assigned_to"], :name => "index_appraisals_on_assigned_to"

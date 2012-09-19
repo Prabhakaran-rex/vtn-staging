@@ -63,6 +63,16 @@ module ApplicationHelper
     end
   end
 
+  def getStringForExpectedUse(nType)
+    aTypes = ["Summary","Restricted"]
+
+    if nType.nil? || nType < 0 || nType >= aTypes.length
+      return ""
+    else
+      return aTypes[nType]
+    end
+  end
+
   
   def wicked_pdf_image_tag(img, options={})
     if img[0].chr == "/" # images from paperclip

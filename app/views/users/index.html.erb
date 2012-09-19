@@ -16,8 +16,8 @@
         <th>Date Appraised</th>
         <th>Estimated<br>Retail Value</th>
         <th>Estimated<br>Replacement Value</th>
+        <th>Selected Plan</th>
         <th>Appraisal Type</th>
-        <th>Use</th>
         <th></th>
         <th></th>
       </tr>
@@ -32,7 +32,7 @@
         <td><%= appraisal.status == EActivityValueFinalized ? "#{number_to_currency(appraisal.appraisal_info.fair_market_value_min, :precision => 0)} to #{number_to_currency(appraisal.appraisal_info.fair_market_value_max, :precision => 0)}" : "-" %></td>
         <td><%= appraisal.status == EActivityValueFinalized ? "#{number_to_currency(appraisal.appraisal_info.replacement_cost_min, :precision => 0)} to #{number_to_currency(appraisal.appraisal_info.replacement_cost_max, :precision => 0)}" : "-" %></td>
         <td><%= getStringForAppraisalType(appraisal.selected_plan) %></td>
-        <td><%=  %></td>
+        <td><%= getStringForExpectedUse(appraisal.appraisal_type)  %></td>
         <td><%= link_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-success btn-mini") %></td>
         <td><% if appraisal.status == EActivityValueCreated %>
               <% @payment = Payment.new %>

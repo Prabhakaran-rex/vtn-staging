@@ -15,5 +15,5 @@ class Appraisal < ActiveRecord::Base
 
   serialize :appraisal_info, AppraisalInfo
 
-  attr_accessible :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status
+  attr_accessible :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type
 end
