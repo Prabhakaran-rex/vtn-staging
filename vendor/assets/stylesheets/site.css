@@ -5719,3 +5719,19 @@ div.terms strong {color:#000;}
 #footer a {
   color: white;
 }
+
+#myCarousel .carousel-inner {
+  border:1px solid rgb(97, 97, 97);
+  -webkit-box-shadow:rgba(0, 0, 0, 0.40625) 1px 1px 2px 2px;
+  -moz-box-shadow:rgba(0, 0, 0, 0.40625) 1px 1px 2px 2px;
+  box-shadow:rgba(0, 0, 0, 0.40625) 1px 1px 2px 2px;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+}
+#myCarousel .item > img {
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+  
+}
