@@ -5749,7 +5749,7 @@ box-shadow:rgba(0, 0, 0, 0.128906) 1px 1px 1px 2px;
 -webkit-border-radius:5px;
 -moz-border-radius:5px;
 border-radius:5px;
-
+}
 
 #myCarousel .carousel-inner {
   border:1px solid rgb(97, 97, 97);
@@ -5765,3 +5765,17 @@ border-radius:5px;
   -moz-border-radius:10px;
   border-radius:10px;
 }
+
+.appraisal-info {
+  border: 1px solid black;
+  min-height:380px;
+  height:auto !important;
+  height:380px; 
+  margin-bottom: 10px;
+  border:1px solid rgba(0, 0, 0, 0.109375);
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+}
+.appraisal-info .table-condensed td {
+  padding: 10px 10px 10px 10px;
