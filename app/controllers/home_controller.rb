@@ -50,4 +50,7 @@ class HomeController < ApplicationController
   def limiting
     render cms_page: '/limiting'
   end
+
+  def appraier_invite
+  end
 end
