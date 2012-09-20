@@ -54,6 +54,7 @@ PurexNew::Application.routes.draw do
   get '/home/ethics' => 'home#ethics', :as => 'ethics'
   get '/home/determining' => 'home#determining', :as => 'determining'
   get '/home/limiting' => 'home#limiting', :as => 'limiting'
+  get '/home/appraiser_invite' => 'home#appraiser_invite'
   get '/photos/create'
   post '/photos/create'
 
