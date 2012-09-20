@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :photos, :dependent => :destroy
   has_many :payments
   has_many :tags
+  has_many :tickets
   serialize :appraiser_info, AppraiserInfo
 
   accepts_nested_attributes_for :photos, :allow_destroy => true

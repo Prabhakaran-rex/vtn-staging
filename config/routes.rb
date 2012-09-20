@@ -44,6 +44,11 @@ PurexNew::Application.routes.draw do
     
   match 'contact' => 'contact#new', :as => 'contact', :via => :get
   match 'contact' => 'contact#create', :as => 'contact', :via => :post
+  match 'complaint' => 'contact#complaint', :as => 'complaints', :via => :get
+  get 'tickets' => 'contact#tickets', :as => :tickets
+  get 'ticket' => 'contact#ticket', :as => :new_ticket
+  post 'ticket' => 'contact#ticket_create', :as => :ticket_create
+  match '/tickets/:id' => "contact#show", :as => :show_ticket
   
   get '/home/how' => 'home#how', :as => 'how'
   get '/home/become' => 'home#become', :as => 'become'

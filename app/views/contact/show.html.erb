@@ -1,0 +1,48 @@
+<h4>Customer Support</h4>
+<div class="sub_box">
+	<%= render :partial => "contact_tabs" %>
+	<% if !(@ticket.nil?) %>
+
+		<h3><%= "##{@tmTicket.number} #{@tmTicket.title}" %></h3>
+	<div>
+		<table class="table table-striped table-hover table table-condensed">
+		<tbody>
+			<tr>
+				<td>Status</td>
+				<td><%= @tmTicket.state %></td>
+			</tr>
+			<tr>
+				<td>Created</td>
+				<td><%= @tmTicket.created_at %></td>
+			</tr>
+			<tr>
+				<td>Description</td>
+				<td><%= simple_format(@tmTicket.latest_body) %></td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<div>
+		<% unless @comments.nil? or @comments.empty? %>
+		<table class="table table-striped table-hover table table-condensed">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Comment</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @comments.each do |c| %>
+				<tr>
+					<td><%= c.created_at %></td>
+					<td><%= c.body %></td>
+				</tr>	
+				<% end %>
+			</tbody>
+		</table>
+		<% end %>
+	</div>
+	<% else %>
+	Ticket cannot be found
+	<% end %>
+</div>

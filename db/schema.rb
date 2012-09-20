@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120919041840) do
+ActiveRecord::Schema.define(:version => 20120919180404) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -297,6 +297,18 @@ ActiveRecord::Schema.define(:version => 20120919041840) do
 
   add_index "tags", ["photo_id"], :name => "index_tags_on_photo_id"
   add_index "tags", ["user_id"], :name => "index_tags_on_user_id"
+
+  create_table "tickets", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "appraisal_id"
+    t.integer  "task_mapper_id"
+    t.string   "task_mapper_provider"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "tickets", ["appraisal_id"], :name => "index_tickets_on_appraisal_id"
+  add_index "tickets", ["user_id"], :name => "index_tickets_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",                    :null => false

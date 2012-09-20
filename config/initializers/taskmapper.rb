@@ -1,0 +1,1 @@
+TASK_MAPPER = YAML.load_file(File.join(Rails.root, "config", "task_mapper.yml"))

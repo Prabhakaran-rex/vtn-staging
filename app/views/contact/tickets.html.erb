@@ -1,0 +1,40 @@
+<h4>Customer Support</h4>
+<div class="sub_box">
+<%= render :partial => "contact_tabs" %>
+<div class="row">
+		<%= link_to new_ticket_path, :class => "btn btn-success pull-right" do %><i class="icon-plus icon-white"></i> New Ticket <% end %>
+</div>
+<% if @tickets.count > 0 %>
+<table class="table table-striped table-hover table table-condensed">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Id</th>
+			<th>Created</th>
+			<th>Appraisal</th>
+			<th>Status</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @tickets.each do |t| %>
+		<% a = Appraisal.find(t.appraisal_id) %>
+		<tr>
+			<td><span class="label label-success"><%= raw @ticketConnector.getTicket(t.id).closed ? "<i class='icon-folder-close icon-white'></i>" : "<i class='icon-folder-open icon-white'></i>"%></span></td>
+			<td><%= @ticketConnector.getTicket(t.id).number %></td>
+			<td><%= @ticketConnector.getTicket(t.id).created_at %></td>
+			<td><%= link_to "# #{a.id} - #{a.name}", appraisal_path(a)  %></td>
+			<td><%= @ticketConnector.getTicket(t.id).state.upcase %></td>
+			<td><%= link_to show_ticket_path(t) do %>View <% end %></td>
+		</tr>			
+		<% end %>
+	</tbody>
+</table>
+<% else %>
+<div class="row">
+	<div class="span12">
+		You have not created any customer support tickets
+	</div>
+</div>
+<% end %>
+</div>

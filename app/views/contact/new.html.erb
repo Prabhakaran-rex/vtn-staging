@@ -1,7 +1,9 @@
 <h4>Contact Value My Treasure</h4>
 <div class="sub_box">
+<%= render :partial => "contact_tabs" if current_user %>
 <%= simple_form_for @message, :url => contact_path, :html => {:class => "form-horizontal"}  do |f| %>
   <% if !current_user %>
+
     <%= f.input :name %>
     <%= f.input :email %>
   <% else %>

@@ -1,6 +1,7 @@
 class Appraisal < ActiveRecord::Base
   has_many :appraisal_activities
   has_many :photos, :dependent => :destroy
+  has_many :tickets
 
   has_many :appraisal_datums , :dependent => :destroy  , :class_name => "AppraisalDatum"
   has_one :payment

@@ -63,6 +63,10 @@ gem 'meta_search',    '>= 1.1.0.pre'
 gem 'comfortable_mexican_sofa'
 gem 'newrelic_rpm'
 
+# Complaint system linked to Lighthouse
+gem "taskmapper", "~> 0.8.0"
+gem "taskmapper-lighthouse", "~> 0.9.0"
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'spork'

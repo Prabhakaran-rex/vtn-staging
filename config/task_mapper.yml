@@ -1,0 +1,34 @@
+development:
+    provider: 'lighthouse'
+    subdomain: 'hpandaco'
+    account: 'hpandaco'
+    token: '76dc05e9685090e52364e4a621013cec86ca3f00'
+    project_id: '100163'
+
+test:
+    provider: 'lighthouse'
+    subdomain: # TODO Add this
+    account:  # TODO Add this
+    token: # TODO Add this
+    project_id: # TODO Add this
+
+cucumber:
+    provider: 'lighthouse'
+    subdomain: # TODO Add this
+    account:  # TODO Add this
+    token: # TODO Add this
+    project_id: # TODO Add this
+
+production:
+    provider: 'lighthouse'
+    subdomain: # TODO Add this
+    account:  # TODO Add this
+    token: # TODO Add this
+    project_id: # TODO Add this
+
+staging:
+    provider: 'lighthouse'
+    subdomain: # TODO Add this
+    account:  # TODO Add this
+    token: # TODO Add this
+    project_id: # TODO Add this
