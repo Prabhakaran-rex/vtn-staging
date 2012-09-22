@@ -129,6 +129,7 @@ GEM
       actionpack (~> 3.0)
     gherkin (2.4.21)
       json (>= 1.4.6)
+    gravatar-ultimate (1.0.3)
     haml (3.1.7)
     has_scope (0.5.1)
     hashie (1.2.0)
@@ -328,6 +329,7 @@ DEPENDENCIES
   email_spec
   factory_girl
   factory_girl_rails
+  gravatar-ultimate
   haml
   heroku
   jbuilder

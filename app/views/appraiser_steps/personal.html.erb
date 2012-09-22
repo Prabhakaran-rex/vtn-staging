@@ -1,6 +1,9 @@
 <h4>Contact Information</h4>
 <div class="sub_box">
   <%= render :partial => "appraiser_tabs" %>
+  <div class="alert alert-error">
+    <i class="icon-warning-sign"></i>  <strong>NOTICE:</strong> The information entered here is private and will <strong>NOT</strong> be displayed to other users.
+  </div>
 <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
 <%= render :partial => "validation_errors" %>
 
@@ -9,14 +12,14 @@ f.input :name %>
 
 <%= f.simple_fields_for :appraiser_info, @user.appraiser_info do |a| %>
   <%= a.input :address %>
-  <%= a.input :address2 %>
+  <%= a.input :address2, :label => "Addres 2" %>
   <%= a.input :city %>
   <%= a.input :state %>
   <%= a.input :country, :priority => [ "United States" ] %>
   <%= a.input :zip %>
-  <%= a.input :phone1 %>
-  <%= a.input :phone2 %>
-  <%= a.input :phone3 %>
+  <%= a.input :phone1, :label => "Phone 1" %>
+  <%= a.input :phone2, :label => "Phone 2" %>
+  <%= a.input :phone3, :label => "Phone 3" %>
   <%= a.input :fax %>
 
 

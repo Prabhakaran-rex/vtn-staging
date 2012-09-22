@@ -67,6 +67,9 @@ gem 'newrelic_rpm'
 gem "taskmapper", "~> 0.8.0"
 gem "taskmapper-lighthouse", "~> 0.9.0"
 
+# To retrieve Gravatar for appraiser and user profile
+gem 'gravatar-ultimate'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'spork'

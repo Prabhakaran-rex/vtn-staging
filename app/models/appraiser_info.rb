@@ -8,6 +8,10 @@ class AppraiserInfo
 	:years_appraising, 
 	:affiliated_with, :certifications, :description, :bank_name, :bank_routing_number
 
+	# Public profile fields
+	attr_accessor :public_name, :public_address, :public_phone, :public_email
+
+
 	def initialize(attributes = {})
 		attributes.each do |name, value|
 			send("#{name}=", value)
