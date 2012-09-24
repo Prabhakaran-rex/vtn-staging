@@ -7,28 +7,28 @@ development:
 
 test:
     provider: 'lighthouse'
-    subdomain: # TODO Add this
-    account:  # TODO Add this
-    token: # TODO Add this
-    project_id: # TODO Add this
+    subdomain: 'hpandaco'
+    account: 'hpandaco'
+    token: '76dc05e9685090e52364e4a621013cec86ca3f00'
+    project_id: '100163'
 
 cucumber:
     provider: 'lighthouse'
-    subdomain: # TODO Add this
-    account:  # TODO Add this
-    token: # TODO Add this
-    project_id: # TODO Add this
+    subdomain: 'hpandaco'
+    account: 'hpandaco'
+    token: '76dc05e9685090e52364e4a621013cec86ca3f00'
+    project_id: '100163'
 
 production:
     provider: 'lighthouse'
-    subdomain: # TODO Add this
-    account:  # TODO Add this
-    token: # TODO Add this
-    project_id: # TODO Add this
+    subdomain: 'hpandaco'
+    account: 'hpandaco'
+    token: '76dc05e9685090e52364e4a621013cec86ca3f00'
+    project_id: '100163'
 
 staging:
     provider: 'lighthouse'
-    subdomain: # TODO Add this
-    account:  # TODO Add this
-    token: # TODO Add this
-    project_id: # TODO Add this
+    subdomain: 'hpandaco'
+    account: 'hpandaco'
+    token: '76dc05e9685090e52364e4a621013cec86ca3f00'
+    project_id: '100163'
