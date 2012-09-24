@@ -4,7 +4,8 @@
 		<% if @appraisal.status == EActivityValuePayed %>
             <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
         <% end %>
-        <% if @appraisal.status == EActivityValueClaimed %>
+        <% if false # @appraisal.status == EActivityValueClaimed 
+        	%>
             <%= link_to 'Edit notes', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
 		<% end %>
 		<% if @appraisal.status == EActivityValueFinalized %>
