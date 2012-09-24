@@ -3,6 +3,10 @@
 	<title>ValueMyTreasure.com | Certified Appraisal</title>
 	<%= wicked_pdf_stylesheet_link_tag    "application" %>
 	<%= wicked_pdf_javascript_include_tag "application" %>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	<script src="http://screencasts.valuemytreasure.com.s3.amazonaws.com/js/jquery.signature-panel.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://screencasts.valuemytreasure.com.s3.amazonaws.com/js/jquery.signature-panel.css" />
+
 	<style type="text/css">
 	div {
 		margin-bottom: 10px;
@@ -20,6 +24,13 @@
 	border-radius:15px;
 	}
 	</style>
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+            var signatureData = JSON.parse('<%= raw @appraiser.signature_json %>');
+            $('#appraiser-signature').signaturePanel("drawClickstreamToCanvas",signatureData);
+        });
+	</script>
 </head>
 <body>
 <div class="container">
@@ -139,6 +150,20 @@
 		<% end%>
 	</ul>
 	<% end %>
+
+	<div class="row">
+		<div class="pull-right" id="appraiser-info">
+			<% if !(@appraiser.signature_file_name.nil?) %> 
+                <%= wicked_pdf_image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
+            <% elsif !(@appraiser.signature_json.nil? || @appraiser.signature_json.empty?) %>
+            	<canvas id="appraiser-signature" height="100" width="250"></canvas>
+            <% end %>
+			<h4>Appraised by <%= @appraiser.appraiser_info.public_name.empty? ? "#{@appraiser.name}" : "#{@appraiser.appraiser_info.public_name}" %></h4>
+			<h5><%= @appraiser.appraiser_info.public_address.empty? ? "" : "#{@appraiser.appraiser_info.public_address}" %></h5>
+			<h5><%= @appraiser.appraiser_info.public_phone.empty? ? "" : "#{@appraiser.appraiser_info.public_phone}" %></h5>
+			<h5><%= @appraiser.appraiser_info.public_email.empty? ? "" : "#{@appraiser.appraiser_info.public_email}" %></h5>
+		</div>
+	</div>
 
 </div>
 </body>
