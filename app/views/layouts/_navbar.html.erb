@@ -5,13 +5,11 @@
         <span class="nav_menu">
           <ul class="nav">
             <% if current_user %>
-              <% if current_user.role.eql?("appraiser") %>
-                <li><%= link_to appraiser_steps_path do %><img class="gravatar-tiny" src="<%= Gravatar.new(@user.appraiser_info.public_email).image_url %>?s=20&d=mm" class="img-gravatar"> My Account <% end %></li>
+              <li><%= link_to appraiser_steps_path do %><img class="gravatar-tiny" src="<%= Gravatar.new(@user.appraiser_info.public_email || @user.email).image_url %>?s=20&d=mm" class="img-gravatar"> My Account <% end %></li>
                 <li><a href="#">|</a></li>
+              <% if current_user.role.eql?("appraiser") %>
                 <li><%= link_to("My Appraisals", appraisals_path) %></li>
               <% else %>
-                <li><%= link_to("My Account",edit_user_registration_path) %></li>
-                <li><a href="#">|</a></li>
                 <li><%= link_to("My Appraisals", users_path) %></li>
               <% end %>
                 <li><a href="#">|</a></li>

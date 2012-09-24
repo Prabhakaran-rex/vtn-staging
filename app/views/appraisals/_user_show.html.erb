@@ -19,6 +19,12 @@
 		<div class="span7 appraisal-info">
 			<table class="table table-condensed">
 				<tbody>
+					<% if @appraisal.status == EActivityValueFinalized || @appraisal.status == EActivityValueClaimed%>
+						<tr>
+							<td><%= "Appraised by".upcase %></td>
+							<td><%= getProfileForUser(@appraisal.assigned_to) %></td>
+						</tr>
+					<% end %>
 					<tr>
 						<td width="165"><%= "Item description".upcase %></td>
 						<td><%= @appraisal.name %></td>

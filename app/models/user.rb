@@ -10,6 +10,21 @@ class User < ActiveRecord::Base
   has_many :tickets
   serialize :appraiser_info, AppraiserInfo
 
+  # The following is used for cropping & storing the signature image
+  validates_attachment_size :signature, :less_than => 8.megabytes
+  validates_attachment_content_type :signature, :content_type => /image/
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  after_update :reprocess_signature, :if => :cropping?
+  has_attached_file :signature, :styles => {:standard => "550x550>", :small => { :processors => [:cropper], :geometry => '250x100!' }},
+                    :convert_options => {
+                      :all => '-auto-orient'
+                    },
+                    :storage => FILE_STORAGE[Rails.env]['storage'],
+                    :path => FILE_STORAGE[Rails.env]['path'],
+                    :url => FILE_STORAGE[Rails.env]['url'],
+                    :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
+                    :default_url => '/images/interface/missing.png'
+
   accepts_nested_attributes_for :photos, :allow_destroy => true
   accepts_nested_attributes_for :skills
 
@@ -22,7 +37,7 @@ class User < ActiveRecord::Base
     # Setup accessible (or protected) attributes for your model
     attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :skills_attributes,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :signature_json, :signature
 
   # Used for appraiser signup
   attr_accessor :access_token
@@ -113,5 +128,19 @@ class User < ActiveRecord::Base
 
   def admin?
     self.role == "admin"
+  end
+
+  def cropping?
+    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+  end
+
+  def signature_geometry(style = :original)
+    @geometry ||= {}
+    @geometry[style] ||= Paperclip::Geometry.from_file(signature.path(style))
+  end
+
+  private
+  def reprocess_signature
+    signature.reprocess!
   end
 end

@@ -85,4 +85,10 @@ module ApplicationHelper
     end
   end
 
+  def getProfileForUser(user)
+    u = User.find(user)
+    raw "<img src='#{Gravatar.new(u.appraiser_info.public_email).image_url}?s=20&d=mm' class='gravatar-tiny'> #{u.name}"
+    
+  end
+
 end

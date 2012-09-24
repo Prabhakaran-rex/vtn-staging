@@ -6,7 +6,7 @@
 	<%= render :partial => "validation_errors" %>
 
 	<%= f.simple_fields_for :appraiser_info, @user.appraiser_info do |a| %>
-	<%= a.input :years_appraising, :label => "Number of years appraising" %>
+	<%= a.input :years_appraising, :label => "Number of years appraising", :input_html => {:class => "input-xxlarge"} %>
 	<%= a.input :affiliated_with, :label => "List any related organization you are a member or affiliated with", :as => :text,  :input_html => {:class => "input-xxlarge", :rows => 4}%>
 	<%= a.input :certifications, :label => "Do you currently hold any appraisal certifications? If so, please list them", :as => :text,  :input_html => {:class => "input-xxlarge", :rows => 4}%>
 	<%= a.input :description, :label => "Please give a detailed description of yourself, your experience and qualifications", :as => :text,  :input_html => {:class => "input-xxlarge", :rows => 4}%>

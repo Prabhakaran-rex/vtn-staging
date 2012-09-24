@@ -14,6 +14,10 @@ PurexNew::Application.routes.draw do
     get '/users/appraiser_sign_up' => 'registrations#new_appraiser', :as => :new_appraiser_registration
   end
 
+    get '/users/save_json_signature' => 'users#save_json_signature', :as => :save_json_signature
+    get '/users/new_signature' => 'users#new_signature', :as => :new_signature
+    post '/users/save_signature' => 'users#save_signature', :as => :save_signature
+    match '/users/crop_signature' => 'users#crop_signature', :as => :crop_signature
 
   resources :appraiser_steps
   resources :photos

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120919180404) do
+ActiveRecord::Schema.define(:version => 20120924002313) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -341,6 +341,11 @@ ActiveRecord::Schema.define(:version => 20120919180404) do
     t.string   "facebook_id"
     t.text     "appraiser_info"
     t.string   "username"
+    t.text     "signature_json"
+    t.string   "signature_file_name"
+    t.string   "signature_content_type"
+    t.integer  "signature_file_size"
+    t.datetime "signature_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

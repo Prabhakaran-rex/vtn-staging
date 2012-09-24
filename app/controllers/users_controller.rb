@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :get_user, :except => [:facebook_login]
+  before_filter :get_user, :except => [:facebook_login, :save_signature]
 
   def index
     # TODO Check if performance can be improved
@@ -42,6 +42,42 @@ class UsersController < ApplicationController
     redirect_to root_path if @user.nil?# || @user.role != "admin"
   end
 
+  def save_json_signature
+    u = User.find(current_user)
+    u.signature_json = params.except(:controller, :action, :user).to_json
+    u.signature = nil
+    render :json => u.save
+  end
 
+  def new_signature
+    @user = current_user
+  end
 
+  def save_signature
+    @user = User.find(current_user)
+    @user.signature = params[:user][:signature]
+
+    if @user.save
+      respond_to do |format|
+        format.html # new.html.erb
+    end
+    else
+      render new_signature
+    end
+  end
+
+  def crop_signature
+    @user = User.find(current_user)
+    if (params[:user])
+      @user.crop_x = params[:user][:crop_x]
+      @user.crop_y = params[:user][:crop_y]
+      @user.crop_w = params[:user][:crop_w]
+      @user.crop_h = params[:user][:crop_h]
+      if @user.save
+        redirect_to root_path, :notice => "Signature saved succesfully"
+      else
+        redirect_to new_signature, :error => "Unable to save signature. Please try again"
+      end
+    end
+  end
 end

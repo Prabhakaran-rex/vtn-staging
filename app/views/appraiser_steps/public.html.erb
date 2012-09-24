@@ -22,7 +22,7 @@
       <% end %>
     </div>
     <div class="span3 div-gravatar">
-      <a href="http://www.gravatar.com/emails" rel="popover" data-content=" Your Gravatar is an image that follows you from site to site appearing beside your name when you do things like comment or post on a blog." data-original-title="What's a Gravatar?" id="gravatar"><img src="<%= Gravatar.new(@user.appraiser_info.public_email).image_url %>?s=180&d=mm" class="img-gravatar"></a></br>
+      <a href="http://www.gravatar.com/emails" rel="popover" data-content=" Your Gravatar is an image that follows you from site to site appearing beside your name when you do things like comment or post on a blog." data-original-title="What's a Gravatar?" id="gravatar"><img src="<%= Gravatar.new(@user.appraiser_info.public_email || @user.email).image_url %>?s=180&d=mm" class="img-gravatar"></a></br>
       <h5><a href="http://www.gravatar.com/emails" class="btn btn-success btn-mini" target="_new"><i class="icon-camera icon-white"></i> Change your gravatar</a></h5>
           
     </div>

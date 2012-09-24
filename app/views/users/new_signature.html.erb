@@ -1,0 +1,9 @@
+<h4>Upload your signature image file</h4>
+<div class="sub_box">
+	<%= simple_form_for @user, :url => :save_signature, :method => :post, :html => { :multipart => true } do |form| %>
+	<%= form.input :signature, :label => "Please upload a picture of your signature. A white or transparent background is highly recommended. " %>
+	<div class="form-actions">
+		<%= form.submit "Continue", :class => "btn btn-success"%>
+	</div>
+	<% end %>
+</div>

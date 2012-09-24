@@ -1,0 +1,72 @@
+<%= stylesheet_link_tag("jquery.signature-panel") %>
+<%= javascript_include_tag("jquery.signature-panel.js") %>
+<style type="text/css">
+.signature-panel {
+  padding-left: 10px;
+}
+#latest-signature {
+    <%= @user.signature_file_name.nil? ? "" : "display:none;" %>
+}
+</style>
+<script type="text/javascript">
+        function signatureOK(signatureData) {
+            // Show the user the signature they've entered.
+            $("#latest-signature").signaturePanel("drawClickstreamToCanvas", signatureData);
+            // Send the signature to the server and generate an image file.
+            $.ajax({
+                url:"<%= url_for save_json_signature_path %>",
+                type:"POST",
+                data: JSON.stringify(signatureData),
+                contentType:"application/json; charset=utf-8",
+                dataType:"text",
+                success: function(data, textStatus, jqXHR){
+                    alert("Signature saved succesfully");
+                    $("#latest-signature").attr("src", data);
+                    $("#current-signature").empty();
+                    $("#latest-signature").show();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            });
+            $("#my-signature").signaturePanel("clear");
+        }
+
+        function signatureCancel() {
+            $("#my-signature").signaturePanel("clear");
+        }
+
+        $(document).ready(function() {
+            $("#my-signature").signaturePanel({
+                okCallback: signatureOK,
+                cancelCallback: signatureCancel,
+                clearElementType: "link",
+                okElementType: "link",
+                cancelCaption: ""
+            });
+            var signatureData = JSON.parse('<%= raw current_user.signature_json %>');
+            $('#latest-signature').signaturePanel("drawClickstreamToCanvas",signatureData);
+        });
+</script>
+<h4>My Signature</h4>
+<div class="sub_box">
+    <%= render :partial => "appraiser_tabs" %>
+    <h5>Please capture your signature. It will be included in all of your appraisals.</h5>
+    <div class="row">
+        <div class="span8 signature-panel">
+            <div id="my-signature" style="height: 200px; width: 500px;  border: 10px solid gray"></div>
+        </div>
+        <div class="span3">
+            <div id="current-signature">
+                <% unless @user.signature_file_name.nil? %> 
+                <%= image_tag @user.signature(:small), :style=>"border: 1px solid gray;", :height => "100", :width => "250"%>
+                <% end %>
+            </div>
+            <canvas id="latest-signature" height="100" width="250" style="border: 1px solid gray;" ></canvas></br>
+            <p>Your current signature</p>
+        </div>
+    </div>
+    <h5>You can also upload an image file by clicking <%= link_to new_signature_path, :class => "btn btn-mini btn-success" do %><i class="icon-upload icon-white"></i> here <% end %></h5>
+
+</div>
