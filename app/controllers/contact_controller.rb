@@ -27,21 +27,25 @@ class ContactController < ApplicationController
 	end
 
 	def complaint
+		@user = current_user
 		lighthouse = TaskMapper.new(TASK_MAPPER[Rails.env]['provider'], {:token => TASK_MAPPER[Rails.env]['token'], :account => TASK_MAPPER[Rails.env]['account']})
 		project =  lighthouse.project.find(TASK_MAPPER[Rails.env]['project_id'])
 	end
 
 	def tickets
+		@user = current_user
 		@ticketConnector = Complaints::Lighthouse.new()
 		@tickets = current_user.tickets
 	end
 
 	def ticket
+		@user = current_user
 		@ticket = Ticket.new(:user_id => current_user)
 		@appraisals = Appraisal.where("created_by =? or assigned_to = ? ",current_user, current_user).order("id ASC")
 	end
 
 	def ticket_create
+		@user = current_user
 		@ticketConnector = Complaints::Lighthouse.new()
 		a = Appraisal.find(params[:ticket][:appraisal_id])
 		body = "Appraisal: #{a.id}-#{a.name}\n"
@@ -53,6 +57,7 @@ class ContactController < ApplicationController
 	end
 
 	def show
+		@user = current_user
 		@ticket = Ticket.where('id = ? and user_id =? ', params[:id], current_user.id).first
 		unless @ticket.nil?
 			ticketConnector = Complaints::Lighthouse.new()
