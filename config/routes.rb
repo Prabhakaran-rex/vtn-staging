@@ -24,6 +24,7 @@ PurexNew::Application.routes.draw do
   get '/photos/tag/:appraisal_id/:photo_id' => 'photos#tag', :as => :photo_tag
 
   match '/appraisals/wizard_photo_upload/:appraisal_id' => 'appraisals#wizard_photo_upload', :as => :wizard_photo_upload
+  match '/appraisals/wizard_categories/:appraisal_id' => 'appraisals#wizard_categories', :as => :wizard_categories
   resources :appraisals do
     resources :photos
     member do
@@ -40,7 +41,7 @@ PurexNew::Application.routes.draw do
   end
 
   get '/skills/getRootCategories' => 'skills#getRootCategories'
-  
+  resources :classifications
   resources :skills
   resources :users
 

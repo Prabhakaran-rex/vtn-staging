@@ -2,6 +2,7 @@ class Category < ActiveRecord::Base
 	has_ancestry
 	attr_accessible :ancestry, :name
 	has_many :skills
+	has_many :classifications
 
 	def self.json_tree(nodes)
 		nodes.map do |node, sub_nodes|

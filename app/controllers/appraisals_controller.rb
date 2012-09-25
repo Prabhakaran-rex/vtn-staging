@@ -161,6 +161,10 @@ class AppraisalsController < ApplicationController
     @appraisal = Appraisal.find(params[:appraisal_id])
   end
 
+  def wizard_categories
+    @appraisal = Appraisal.find(params[:appraisal_id])
+  end
+
 
   protected
 

@@ -1,0 +1,98 @@
+<div class="row">
+	<h4>Step 3 - Select Categories</h4>
+</div>
+<div class="container">
+	<div class="row sub_box">
+		<h3>Please assign some categories to the item</h3>
+
+		<div>
+			<input type="hidden" name="demo6" />
+			<button class="btn btn-success btn-mini" id='addClassificationBtn'>Add</button>
+		</div>
+		<div class="results" id="demo6-result"></div>
+		<div>
+			<table class="table" id="classificationTable">
+				<thead>
+					<tr>
+						<th>Category</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @appraisal.classifications.order(:category_id).each do |s|
+						unless s.category.nil? %>
+						<tr>
+							<td><%= s.category.is_root? ? s.category.name : s.category.parent.name %></td>
+							<td><button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'<%= "#{s.id}" %>')">Remove</button>
+							</td>
+						</tr>
+						<% end %>                
+						<% end %>
+				</tbody>
+			</table>
+		</div>
+		<div class="form-actions">
+			<% if @appraisal.status == EActivityValueCreated && !params[:pay] %>
+			<% @payment = Payment.new %>
+			<%= link_to 'Next step', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right" %>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+
+
+	<script type="text/javascript">
+	/* Delete Task */
+	function deleteCategory(caller, id ) {
+		$.ajax({
+			url: "<%= url_for classifications_path %>/" + id+'.json',
+			type: 'post',
+			dataType: 'script',
+			data: { '_method': 'delete' },
+			success: function() {
+				console.log ('Removed id'+ id);
+				$(caller).closest('tr').remove();
+			}
+		});
+	}
+
+	$(function() {
+
+		var options = {
+			choose: 'Choose a category...',
+			empty_value: 'null',
+			indexed: true,
+			on_each_change: '<%= url_for :controller => :skills, :action => :getRootCategories %>',
+			set_value_on: 'each',
+			choose: function(level) {
+				return 'Choose a category...';
+			},
+			get_parent_value_if_empty: true,
+			attr: "id"
+		};
+
+		var displayParents = function() {
+			var labels = []; 
+			$(this).siblings('select')
+			.find(':selected')
+			.each(function() { labels.push($(this).text()); }); 
+			$('').text(this.value + ':' + labels.join(' > ')).appendTo('#demo6-result');
+		}
+
+		$.getJSON('<%= url_for :controller => :skills, :action => :getRootCategories %>', function(tree) { 
+			$('input[name=demo6]').optionTree(tree, options).change(displayParents);
+		});
+
+		$("#addClassificationBtn").click(function() {
+			$.post('<%= url_for classifications_path %>.json',{ 'classification[appraisal_id]': '<%= @appraisal.id %>', 'classification[category_id]': $('input[name=demo6]').val() },function(data) {
+				var category = $('select[name=demo6_] option:selected').text();
+				var subcategory = $('select[name=demo6__] option:selected').text();
+				$('#classificationTable > tbody:last').append('<tr><td>'+category +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+data.id+')">Remove</button>'
+					+'</td></tr>');
+
+			} );
+		});
+	});
+</script>
+<%= javascript_include_tag "jquery.optionTree" %>
