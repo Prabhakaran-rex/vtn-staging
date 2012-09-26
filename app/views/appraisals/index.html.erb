@@ -1,3 +1,7 @@
+<ul class="nav nav-pills">
+  <li class="<%= @specializedAppraisals.nil? ? "" : "active" %> pull-right" ><%= link_to appraisals_path(:specialized => true) do %>View only items I specialize in<% end %></li>
+  <li class="<%= @specializedAppraisals.nil? ? "active" : "" %> pull-right"><%= link_to appraisals_path do %>View all items<% end %></li>
+</ul>
 <div class="row">
   <% if @appraisals.empty? %>
     <h3>There are currently no new items available to appraise.</h3>

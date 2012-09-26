@@ -9,15 +9,22 @@ class AppraisalsController < ApplicationController
     if @user.role.eql?("user")
       redirect_to users_url
     else
-      # TODO Check if performance can be improved
-      # Order appraisals by specific status
       @appraisals = []
-      @appraisals << Appraisal.where('status = ?', EActivityValuePayed)
-      @appraisals << Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueClaimed)
-      @appraisals << Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueFinalized)
+      if params[:specialized]
+        @specializedAppraisals = Appraisal.select("appraisals.id").joins(:classifications => {:category => {:skills => :user}}).where('appraisals.status in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ]).pluck('appraisals.id').uniq
+        @appraisals << Appraisal.where('status = ? and id in(?) ', EActivityValuePayed,@specializedAppraisals)
+        @appraisals << Appraisal.where("assigned_to = ? and status = ? and id in(?)",current_user,EActivityValueClaimed,@specializedAppraisals)
+        @appraisals << Appraisal.where("assigned_to = ? and status = ? and id in(?)",current_user,EActivityValueFinalized, @specializedAppraisals)
+      else
+        # TODO Check if performance can be improved
+        # Order appraisals by specific status
+        @specializedAppraisals = nil
+        @appraisals << Appraisal.where('status = ?', EActivityValuePayed)
+        @appraisals << Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueClaimed)
+        @appraisals << Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueFinalized)
+      end
       @appraisals = @appraisals.flatten
-
-      @appraisals = Appraisal.where(:status => EActivityValuePayed) unless @appraisals.count > 0
+      # @appraisals = Appraisal.where(:status => EActivityValuePayed) unless @appraisals.count > 0
 
       respond_to do |format|
         format.html # index.html.haml

@@ -26,6 +26,13 @@
 						</tr>
 					<% end %>
 					<tr>
+						<td><%= "Categories".upcase %><%= link_to wizard_categories_path(@appraisal.id, :pay => false), :class => "btn btn-mini btn-success", :target => "_new" do %><i class="icon-plus icon-white"></i> Edit categories <% end %></td>
+						<td><% @appraisal.classifications.order('classifications.category_id').each do |c| %>
+							<%= "#{Category.find(c.category_id).name}" %></br>
+						<% end %>
+						</td>
+					</tr>
+					<tr>
 						<td width="165"><%= "Item description".upcase %></td>
 						<td><%= @appraisal.name %></td>
 					</tr>
