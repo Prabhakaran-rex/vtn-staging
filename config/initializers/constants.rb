@@ -22,4 +22,7 @@ EActivityValuePayed   = 12
 EAppraisalDataTypeString    = 0
 EAppraisalDataTypeLocation  = 1
 EAppraisalDataTypeValuation = 2
-
+## UserStatus
+EAUserStatusPending = 1
+EAUserStatusConfirmed = 2
+EAUserStatusBlocked = 3

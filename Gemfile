@@ -52,6 +52,7 @@ gem 'jbuilder'
 
 # For the skills categories and subcategories
 gem 'ancestry'
+gem "activerecord-import", "~> 0.2.11"
 
 gem 'simple_form'
 gem 'country_select'

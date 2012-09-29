@@ -5,6 +5,7 @@
     <div>
         <input type="hidden" name="demo6" />
         <button class="btn btn-success btn-mini" id='addSkillBtn'>Add</button>
+        <a href="#addAllSkillsModal" role="button" class="btn btn-mini" data-toggle="modal">Add All Categories</a>
     </div>
     <div class="results" id="demo6-result"></div>
     <div>
@@ -25,14 +26,24 @@
                 </tr>
                 <% end %>                
             <% end %>
-
             </tbody>
         </table>
     </div>
 </div>
 
-
-
+<div class="modal hide fade" id="addAllSkillsModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Warning</h3>
+  </div>
+  <div class="modal-body">
+    <p>You are about to add all <%= Category.count %> categories. Are you sure?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+    <button class="btn btn-success" id="addAllSkillsBtn">Continue</a>
+  </div>
+</div>
 
 <script type="text/javascript">
 /* Delete Task */
@@ -43,7 +54,6 @@ function deleteCategory(caller, id ) {
                 dataType: 'script',
                 data: { '_method': 'delete' },
                 success: function() {
-                    console.log ('Removed id'+ id);
                     $(caller).closest('tr').remove();
                 }
             });
@@ -52,25 +62,25 @@ function deleteCategory(caller, id ) {
 $(function() {
 
 	var options = {
-            choose: 'Choose a category...',
-            empty_value: 'null',
-            indexed: true,
-            on_each_change: '<%= url_for :controller => :skills, :action => :getRootCategories %>',
-            set_value_on: 'each',
-            choose: function(level) {
-            	return 'Choose a category...';
-            },
-            get_parent_value_if_empty: true,
-            attr: "id"
-        };
+        choose: 'Choose a category...',
+        empty_value: 'null',
+        indexed: true,
+        on_each_change: '<%= url_for :controller => :skills, :action => :getRootCategories %>',
+        set_value_on: 'each',
+        choose: function(level) {
+        	return 'Choose a category...';
+        },
+        get_parent_value_if_empty: true,
+        attr: "id"
+    };
 
-        var displayParents = function() {
-            var labels = []; 
-            $(this).siblings('select')
-            .find(':selected')
-            .each(function() { labels.push($(this).text()); }); 
-            $('').text(this.value + ':' + labels.join(' > ')).appendTo('#demo6-result');
-        }
+    var displayParents = function() {
+        var labels = []; 
+        $(this).siblings('select')
+        .find(':selected')
+        .each(function() { labels.push($(this).text()); }); 
+        $('').text(this.value + ':' + labels.join(' > ')).appendTo('#demo6-result');
+    }
 
     $.getJSON('<%= url_for :controller => :skills, :action => :getRootCategories %>', function(tree) { 
     	$('input[name=demo6]').optionTree(tree, options).change(displayParents);
@@ -84,6 +94,20 @@ $(function() {
                 +'</td></tr>');
 
        } );
+    });
+
+    $('#addAllSkillsModal').modal(
+        {show: false}
+    );
+
+
+    $('#addAllSkillsBtn').click(function(){
+        $.post('<%= url_for skills_path %>.json',{'skill[all]' : 'true', 'skill[user_id]': '<%= current_user.id %>', 'skill[category_id]': $('input[name=demo6]').val() },function(data) {
+            $.each(data, function(index, value) { 
+              $('#skillTable > tbody:last').append('<tr><td>'+value.name +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+value.id+')">Remove</button>');
+            });
+        });
+        $('#addAllSkillsModal').modal('hide')
     });
 });
 </script>

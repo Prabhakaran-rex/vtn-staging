@@ -40,15 +40,23 @@ class SkillsController < ApplicationController
   # POST /skills
   # POST /skills.json
   def create
-    @skill = Skill.new(params[:skill])
-
-    respond_to do |format|
-      if @skill.save
-        format.html { redirect_to @skill, notice: 'Skill was successfully created.' }
-        format.json { render json: @skill, status: :created, location: @skill }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @skill.errors, status: :unprocessable_entity }
+    if params[:skill]['all']
+      skills = []
+      Category.all.each {|c| skills << c.skills.new(:user_id => params[:skill][:user_id])}
+      @result = Skill.import skills
+      if @result.failed_instances.empty?
+        respond_to {|format| format.json {render :json => current_user.skills.select('skills.id, categories.name').joins(:category)} }
+      end
+    else
+      @skill = Skill.new(params[:skill])
+      respond_to do |format|
+        if @skill.save
+          format.html { redirect_to @skill, notice: 'Skill was successfully created.' }
+          format.json { render json: @skill, status: :created, location: @skill }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @skill.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

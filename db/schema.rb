@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120925004628) do
+ActiveRecord::Schema.define(:version => 20120928161225) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -231,6 +231,22 @@ ActiveRecord::Schema.define(:version => 20120925004628) do
   add_index "cms_snippets", ["site_id", "identifier"], :name => "index_cms_snippets_on_site_id_and_identifier", :unique => true
   add_index "cms_snippets", ["site_id", "position"], :name => "index_cms_snippets_on_site_id_and_position"
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
   create_table "payments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "appraisal_id"
@@ -356,6 +372,7 @@ ActiveRecord::Schema.define(:version => 20120925004628) do
     t.string   "signature_content_type"
     t.integer  "signature_file_size"
     t.datetime "signature_updated_at"
+    t.integer  "status"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
