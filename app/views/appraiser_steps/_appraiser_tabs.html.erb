@@ -4,12 +4,24 @@
 	</li>
 	<% unless current_user.role == "user" %>
 	<li <%= current_page?(wizard_path(:professional)) ? "class='active'" : "" %>><%= link_to "Professional", wizard_path(:professional)%></li>
-	<li <%= current_page?(wizard_path(:signature)) ? "class='active'" : "" %>><%= link_to "Signature", wizard_path(:signature)%></li>
+		<% unless current_user.status != EAUserStatusConfirmed %>
+			<li <%= current_page?(wizard_path(:signature)) ? "class='active'" : "" %>><%= link_to "Signature", wizard_path(:signature)%></li>		
+		<% end %>
+	
 	<li <%= current_page?(wizard_path(:categories)) ? "class='active'" : "" %>><%= link_to "Categories", wizard_path(:categories)%></li>
-	<li <%= current_page?(wizard_path(:bank)) ? "class='active'" : "" %>><%= link_to "Bank Account", wizard_path(:bank)%></li>
+		<% unless current_user.status != EAUserStatusConfirmed %>
+		<li <%= current_page?(wizard_path(:bank)) ? "class='active'" : "" %>><%= link_to "Bank Account", wizard_path(:bank)%></li>
+		<% end %>
 	<% end %>
+	<% unless current_user.status != EAUserStatusConfirmed %>
 	<li <%= current_page?(wizard_path(:preferences)) ? "class='active'" : "" %>><%= link_to "Notifications", wizard_path(:preferences)%></li>
+	<% end %>
 
 	<li <%= current_page?(wizard_path(:public)) ? "class='active'" : "" %>><%= link_to "Public Profile", wizard_path(:public)%></li>
 	<li <%= current_page?(edit_user_registration_path) ? "class='active'" : "" %>><%= link_to "Account", edit_user_registration_path%></li>
 </ul>
+<% if current_user.role == "appraiser" && current_user.status != EAUserStatusConfirmed %>
+<div class="alert alert-error">
+    <i class="icon-warning-info"></i>  <strong>NOTICE: </strong> Please complete your application and submit it for approval by clicking <a href="#">here</a>.
+</div>
+<% end %>

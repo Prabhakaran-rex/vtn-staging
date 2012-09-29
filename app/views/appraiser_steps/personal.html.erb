@@ -1,7 +1,7 @@
 <h4>Contact Information</h4>
 <div class="sub_box">
   <%= render :partial => "appraiser_tabs" %>
-  <div class="alert alert-error">
+  <div class="alert alert-info">
     <i class="icon-warning-sign"></i>  <strong>NOTICE:</strong> The information entered here is private and will <strong>NOT</strong> be displayed to other users.
   </div>
 <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>

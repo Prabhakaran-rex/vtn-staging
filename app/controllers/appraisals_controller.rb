@@ -1,5 +1,6 @@
 class AppraisalsController < ApplicationController
   load_and_authorize_resource
+  before_filter :is_appraiser_confirmed, :except => [:wizard_photo_upload, :wizard_categories]
 
   # GET /appraisals
   # GET /appraisals.xml
@@ -184,6 +185,7 @@ class AppraisalsController < ApplicationController
     activity.save
   end
 
-
-    
+  def is_appraiser_confirmed
+    redirect_to :appraiser_steps if current_user.role == 'appraiser' && current_user.status != EAUserStatusConfirmed
+  end    
 end

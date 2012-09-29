@@ -34,10 +34,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :authentication_keys => [:login]
 
-    # Setup accessible (or protected) attributes for your model
-    attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :skills_attributes,
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :skills_attributes,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :signature_json, :signature
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :signature_json, :signature, :status
 
   # Used for appraiser signup
   attr_accessor :access_token
@@ -55,7 +55,9 @@ class User < ActiveRecord::Base
     appraiser_access_token.used_at = Time.now
     appraiser_access_token.save
     self.role = "appraiser" if self.role.nil?
+    self.status = EAUserStatusConfirmed
     self.name = appraiser_access_token.name
+    self.appraiser_info.public_name = appraiser_access_token.name
     self.save
   end
 
@@ -128,6 +130,10 @@ class User < ActiveRecord::Base
 
   def admin?
     self.role == "admin"
+  end
+
+  def confirmed
+    self.status == EAUserStatusConfirmed
   end
 
   def cropping?

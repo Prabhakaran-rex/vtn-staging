@@ -6,10 +6,12 @@ class AppraiserStepsController < ApplicationController
 	def show
 		@user = current_user
 		case step
-		when :professional, :signature, :categories, :bank
-			if @user.role == "user"
-				skip_step
-			end
+			when :signature, :bank
+				skip_step if @user.role == "user" || !is_appraiser_confirmed
+			when :professional, :categories
+				skip_step if @user.role == "user"
+			when :preferences
+				skip_step if !is_appraiser_confirmed
 		end
 		render_wizard
 	end
@@ -25,4 +27,8 @@ class AppraiserStepsController < ApplicationController
 		render_wizard @user
 	end
 
+	protected
+	def is_appraiser_confirmed
+		current_user.role == 'appraiser' && current_user.status == EAUserStatusConfirmed
+	end 
 end
