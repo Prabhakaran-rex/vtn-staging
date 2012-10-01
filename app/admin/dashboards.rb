@@ -7,6 +7,14 @@ ActiveAdmin::Dashboards.build do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
+  section "Applications Pending Review", :priority => 9 do
+    ul do
+      User.order("created_at ASC").where("status = ?",EAUserStatusReview).collect do |user|
+        li link_to(user.name, admin_user_path(user))
+      end     
+    end    
+  end
+
   section "Recent Appraisals" do
     ul do
       Appraisal.order("created_at DESC").limit(5).collect do |appraisal|
@@ -46,7 +54,7 @@ ActiveAdmin::Dashboards.build do
   # bottom right. The default priority is 10. By giving a section numerically lower
   # priority it will be sorted higher. For example:
   #
-  #   section "Recent Posts", :priority => 10
+  #   section "Recent Posts", 
   #   section "Recent User", :priority => 1
   #
   # Will render the "Recent Users" then the "Recent Posts" sections on the dashboard.

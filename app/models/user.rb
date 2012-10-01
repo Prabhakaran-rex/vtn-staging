@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :payments
   has_many :tags
   has_many :tickets
+  has_many :trade_references, :dependent => :destroy
   serialize :appraiser_info, AppraiserInfo
 
   # The following is used for cropping & storing the signature image
@@ -27,6 +28,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :photos, :allow_destroy => true
   accepts_nested_attributes_for :skills
+  accepts_nested_attributes_for :trade_references, :allow_destroy => true
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -37,7 +39,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :skills_attributes,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :signature_json, :signature, :status
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :signature_json, :signature, :status, :trade_references_attributes
 
   # Used for appraiser signup
   attr_accessor :access_token
@@ -145,8 +147,29 @@ class User < ActiveRecord::Base
     @geometry[style] ||= Paperclip::Geometry.from_file(signature.path(style))
   end
 
+  def is_appraiser_application_complete
+    !self.name.empty? && !self.appraiser_info.address.empty? && !self.appraiser_info.city.empty? &&
+      !self.appraiser_info.state.empty? && !self.appraiser_info.country.empty? && !self.appraiser_info.zip.empty? &&
+      !self.appraiser_info.phone1.empty? && !self.appraiser_info.years_appraising.empty? && !self.appraiser_info.affiliated_with.empty? &&
+      !self.appraiser_info.certifications.empty? && !self.appraiser_info.description.empty? && !self.appraiser_info.uspap.empty? &&
+      self.skills.count > 0 && self.trade_references.count >= 3
+  end
+
+  def submit_application
+    self.status = EAUserStatusReview
+    self.save
+    notify_admin_of_new_application
+  end
+
   private
   def reprocess_signature
     signature.reprocess!
   end
+
+  def notify_admin_of_new_application
+    message = Message.new(:name => self.name, :email => self.email )
+    UserMailer.notify_admin_of_new_application(message).deliver
+  end
+
+
 end

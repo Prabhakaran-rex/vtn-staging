@@ -40,10 +40,14 @@ PurexNew::Application.routes.draw do
     resources :photos
   end
 
+  get '/appraiser/submit_application' => 'appraiser#submit_application', :as => :submit_application
+
   get '/skills/getRootCategories' => 'skills#getRootCategories'
   resources :classifications
   resources :skills
-  resources :users
+  resources :users do
+    resources :trade_references
+  end
 
   root :to => 'home#index'
     

@@ -26,3 +26,10 @@ EAppraisalDataTypeValuation = 2
 EAUserStatusPending = 1
 EAUserStatusConfirmed = 2
 EAUserStatusBlocked = 3
+EAUserStatusRejected = 4
+EAUserStatusReview = 5
+## USPAP
+EAAppraiserUSPAPFamiliar = 1 # I am familiar with and write to the standards of USPAP
+EAAppraiserUSPAPSubjectExpert = 2 # I am a subject matter expert in my field
+EAAppraiserUSPAPExperienced = 3 # I have experience writing restricted use reports and summary reports
+EAAppraiserUSPAPExtensive = 4 # I am a subject matter expert with extensive market - related experience and knowledge in my areas of specialization

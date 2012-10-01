@@ -13,6 +13,10 @@ class AppraiserController < ApplicationController
     end
   end
 
+  def submit_application
+    current_user.submit_application
+    redirect_to appraiser_steps_path, :notice => "Your application was submitted succesfully"
+  end
 end
 
 

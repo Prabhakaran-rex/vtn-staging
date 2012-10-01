@@ -6,7 +6,6 @@ class ContactController < ApplicationController
 	end
 
 	def create
-		Rails.logger.debug "*** params is #{params.to_json}"
 		@message = Message.new(params[:message])
 
 		if @message.valid?

@@ -1,0 +1,7 @@
+<%= form.simple_fields_for :trade_references, :html => {:class => "form-horizontal"} do |trade_form| %>
+  <%= trade_form.error_notification %>
+
+  <div class="form-inputs">
+    <%= render :partial => "trade_references/trade_reference_fields", :locals => {:f => trade_form} %>
+  </div>
+<% end %>

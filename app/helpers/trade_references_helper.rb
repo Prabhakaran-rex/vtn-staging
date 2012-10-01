@@ -1,0 +1,2 @@
+module TradeReferencesHelper
+end

@@ -4,26 +4,36 @@
   <div class="alert alert-info">
     <i class="icon-warning-sign"></i>  <strong>NOTICE:</strong> The information entered here is private and will <strong>NOT</strong> be displayed to other users.
   </div>
-<%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
-<%= render :partial => "validation_errors" %>
+  <div class="row">
+    <div class="span6">
+      <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
+      <%= render :partial => "validation_errors" %>
 
-<%= f.input :email, :disabled => true
-f.input :name %>
+      <%= f.input :email, :disabled => true
+      f.input :name %>
 
-<%= f.simple_fields_for :appraiser_info, @user.appraiser_info do |a| %>
-  <%= a.input :address %>
-  <%= a.input :address2, :label => "Addres 2" %>
-  <%= a.input :city %>
-  <%= a.input :state %>
-  <%= a.input :country, :priority => [ "United States" ] %>
-  <%= a.input :zip %>
-  <%= a.input :phone1, :label => "Phone 1" %>
-  <%= a.input :phone2, :label => "Phone 2" %>
-  <%= a.input :phone3, :label => "Phone 3" %>
-  <%= a.input :fax %>
-
-
-<% end %>
+      <%= f.simple_fields_for :appraiser_info, @user.appraiser_info do |a| %>
+        <%= a.input :address %>
+        <%= a.input :address2, :label => "Addres 2" %>
+        <%= a.input :city %>
+        <%= a.input :state %>
+        <%= a.input :country, :priority => [ "United States" ] %>
+        <%= a.input :zip %>
+        <%= a.input :phone1, :label => "Phone 1" %>
+        <%= a.input :phone2, :label => "Phone 2" %>
+        <%= a.input :phone3, :label => "Phone 3" %>
+        <%= a.input :fax %>
+      <% end %>
+  </div>
+  <div class="span3 div-gravatar">
+      <a href="http://www.gravatar.com/emails" rel="popover" data-content=" Your Gravatar is an image that follows you from site to site appearing beside your name when you do things like comment or post on a blog." data-original-title="What's a Gravatar?" id="gravatar"><img src="<%= Gravatar.new(@user.appraiser_info.public_email || @user.email).image_url %>?s=180&d=mm" class="img-gravatar"></a></br>
+      <h5><a href="http://www.gravatar.com/emails" class="btn btn-success btn-mini" target="_new"><i class="icon-camera icon-white"></i> Change your gravatar</a></h5>        
+  </div>
+  <div class="span3">
+      <p>Remember that you can change your Gravatar as many times as you like at <a href="http://www.gravatar.com/emails" target="_new">Gravatar.com</a></p>
+      <p>Changes to your Gravatar will take 5 to 10 minutes before they are reflected on our site.</p>
+  </div>
+</div>
 <div class="form-actions">
     <%= f.submit "Continue", :class => "btn btn-success"%>
   </div>

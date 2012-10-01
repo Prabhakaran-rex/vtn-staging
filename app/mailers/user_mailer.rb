@@ -44,6 +44,13 @@ class UserMailer < ActionMailer::Base
           :subject => "[User Support] #{message.subject}")
   end
 
+  def notify_admin_of_new_application(message)
+    @message = message
+    mail( #:to => "appraiser_support@colosses.com", 
+          :to => "wapankh@gmail.com",
+          :subject => "[New Appraiser Application] #{message.name}")
+  end
+
   private
 
   def add_attachment(attachment_name)

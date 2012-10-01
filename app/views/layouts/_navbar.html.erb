@@ -6,10 +6,11 @@
           <ul class="nav">
             <% if current_user %>
               <li><%= link_to appraiser_steps_path do %><img class="gravatar-tiny" src="<%= Gravatar.new(current_user.appraiser_info.public_email || current_user.email).image_url %>?s=20&d=mm" class="img-gravatar"> My Account <% end %></li>
+              <% if current_user.role.eql?("appraiser") && current_user.status.eql?(EAUserStatusConfirmed) %>
                 <li><a href="#">|</a></li>
-              <% if current_user.role.eql?("appraiser") %>
                 <li><%= link_to("My Appraisals", appraisals_path) %></li>
-              <% else %>
+              <% elsif current_user.role.eql?("user") %>
+                <li><a href="#">|</a></li>
                 <li><%= link_to("My Appraisals", users_path) %></li>
               <% end %>
                 <li><a href="#">|</a></li>

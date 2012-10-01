@@ -1,13 +1,6 @@
-class TradeReference
-	include ActiveModel::Validations
-	include ActiveModel::Conversion
-	extend ActiveModel::Naming
+class TradeReference < ActiveRecord::Base
+  belongs_to :user
+  attr_accessible :company, :contact, :phone, :user_id
 
-	attr_accessor :company, :contact, :phone
-
-	def initialize(attributes = {})
-		attributes.each do |name, value|
-			send("#{name}=", value)
-		end
-	end
+  validates_presence_of :company, :contact, :phone 
 end

@@ -88,7 +88,15 @@ module ApplicationHelper
   def getProfileForUser(user)
     u = User.find(user)
     raw "<img src='#{Gravatar.new(u.appraiser_info.public_email).image_url}?s=20&d=mm' class='gravatar-tiny'> #{u.name}"
-    
+  end
+
+  def link_to_add_fields(name, f, association)
+    new_object = f.object.send(association).klass.new
+    id = new_object.object_id
+    fields = f.simple_fields_for(association, new_object, child_index: id) do |builder|
+      render(association.to_s + "/" + association.to_s.singularize + "_fields", f: builder)
+    end
+    link_to(name, '#', class: "btn btn-success add_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
 end

@@ -1,0 +1,15 @@
+<h4>Trade References</h4>
+<div class="sub_box">
+<%= render :partial => "appraiser_tabs" %>
+<h4>Please enter at least 3 trade references. Remember to click on the Continue button at the bottom of the page.</h4>
+
+	<%= simple_form_for [@user], :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
+	<%= render :partial => "validation_errors" %>
+	<%= render :partial => "trade_references/form", :locals => {:form => f}%>
+	<hr>
+	<%= link_to_add_fields "Add Reference", f, :trade_references %>
+	<div class="form-actions">
+		<%= f.submit "Save and continue", :class => "btn btn-success"%>
+	</div>
+	<% end%> 
+</div>
