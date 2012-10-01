@@ -148,11 +148,16 @@ class User < ActiveRecord::Base
   end
 
   def is_appraiser_application_complete
-    !self.name.empty? && !self.appraiser_info.address.empty? && !self.appraiser_info.city.empty? &&
+    begin
+      !self.name.empty? && !self.appraiser_info.address.empty? && !self.appraiser_info.city.empty? &&
       !self.appraiser_info.state.empty? && !self.appraiser_info.country.empty? && !self.appraiser_info.zip.empty? &&
       !self.appraiser_info.phone1.empty? && !self.appraiser_info.years_appraising.empty? && !self.appraiser_info.affiliated_with.empty? &&
       !self.appraiser_info.certifications.empty? && !self.appraiser_info.description.empty? && !self.appraiser_info.uspap.empty? &&
       self.skills.count > 0 && self.trade_references.count >= 3
+    rescue Exception => e
+      return false
+    end
+    
   end
 
   def submit_application
