@@ -4,14 +4,12 @@
 	</li>
 	<% unless current_user.role == "user" %>
 	<li <%= current_page?(wizard_path(:professional)) ? "class='active'" : "" %>><%= link_to "Professional", wizard_path(:professional)%></li>
-	<li <%= current_page?(wizard_path(:trade)) ? "class='active'" : "" %>><%= link_to "References", wizard_path(:trade)%></li>
-		<% unless current_user.status != EAUserStatusConfirmed %>
-			<li <%= current_page?(wizard_path(:signature)) ? "class='active'" : "" %>><%= link_to "Signature", wizard_path(:signature)%></li>		
-		<% end %>
+	<li <%= current_page?(wizard_path(:trade)) ? "class='active'" : "" %>><%= link_to "References", wizard_path(:trade)%></li>		
 	<li <%= current_page?(wizard_path(:categories)) ? "class='active'" : "" %>><%= link_to "Categories", wizard_path(:categories)%></li>
-		<% unless current_user.status != EAUserStatusConfirmed %>
+	<% unless current_user.status != EAUserStatusConfirmed %>
+		<li <%= current_page?(wizard_path(:signature)) ? "class='active'" : "" %>><%= link_to "Signature", wizard_path(:signature)%></li>		
 		<li <%= current_page?(wizard_path(:bank)) ? "class='active'" : "" %>><%= link_to "Bank Account", wizard_path(:bank)%></li>
-		<% end %>
+	<% end %>
 	<% end %>
 	<% if current_user.status == EAUserStatusConfirmed %>
 	<li <%= current_page?(wizard_path(:preferences)) ? "class='active'" : "" %>><%= link_to "Notifications", wizard_path(:preferences)%></li>
