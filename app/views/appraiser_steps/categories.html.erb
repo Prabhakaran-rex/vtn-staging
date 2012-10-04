@@ -87,6 +87,7 @@ $(function() {
     });
 
     $("#addSkillBtn").click(function() {
+        if ($('input[name=demo6]').val() != "") {
     	$.post('<%= url_for skills_path %>.json',{ 'skill[user_id]': '<%= current_user.id %>', 'skill[category_id]': $('input[name=demo6]').val() },function(data) {
             var category = $('select[name=demo6_] option:selected').text();
             var subcategory = $('select[name=demo6__] option:selected').text();
@@ -94,6 +95,7 @@ $(function() {
                 +'</td></tr>');
 
        } );
+        }
     });
 
     $('#addAllSkillsModal').modal(

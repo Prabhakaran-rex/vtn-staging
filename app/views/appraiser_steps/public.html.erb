@@ -17,7 +17,7 @@
         <%= f.simple_fields_for :appraiser_info, @user.appraiser_info do |a| %>
         <%= a.input :public_name, :label => "Name", :required => true %>
         <%= a.input :public_address, :address => "Address" %>
-        <%= a.input :public_phone, :label => "Phone" %>
+        <%= a.input :public_phone, :label => "Phone", :input_html => {:class => "phone-input"} %>
         <%= a.input :public_email %>
       <% end %>
     </div>

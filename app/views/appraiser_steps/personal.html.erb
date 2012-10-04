@@ -19,10 +19,10 @@
         <%= a.input :state %>
         <%= a.input :country, :priority => [ "United States" ] %>
         <%= a.input :zip %>
-        <%= a.input :phone1, :label => "Phone 1" %>
-        <%= a.input :phone2, :label => "Phone 2" %>
-        <%= a.input :phone3, :label => "Phone 3" %>
-        <%= a.input :fax %>
+        <%= a.input :phone1, :label => "Phone 1", :input_html => {:class => "phone-input"} %>
+        <%= a.input :phone2, :label => "Phone 2", :input_html => {:class => "phone-input"} %>
+        <%= a.input :phone3, :label => "Phone 3", :input_html => {:class => "phone-input"} %>
+        <%= a.input :fax, :input_html => {:class => "phone-input"} %>
       <% end %>
   </div>
   <div class="span3 div-gravatar">
