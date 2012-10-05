@@ -19,6 +19,7 @@
   <% flash.clear %>
   
   <div class="form-inputs">
+  <div class="alert alert-info">Your credit card will be charged <%= number_to_currency(PAYMENT_PLAN[ @appraisal.selected_plan]) %> USD</div>
   <%= f.input :number, :label => "Credit Card Number", :input_html => {:maxlength => 16} %>
   <%= f.input :cvv, :label => "CVV", :input_html => {:maxlength => 4} %>
   <%= f.input :expmon, :label => "Expiration Month", :as => :select, :collection => 1..12 %>

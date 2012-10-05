@@ -55,7 +55,7 @@
 			<%= @appraisal.name %>
 		</div>
 	</div>
-	<% if @long %>
+	<% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling %>
 	<div class="row">
 		<div class="span3">
 			<b>Approx. Date of Manufacture :</b>
@@ -153,6 +153,28 @@
 	</ul>
 	<% end %>
 
+	<div class="page-break"></div>
+		<% selected_plan = @appraisal.selected_plan
+		appraiser_type = @appraiser.appraiser_info.uspap.to_i
+
+		if (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type == EAAppraiserUSPAPFamiliar
+			format = "appraisal_body_restricteduse_USPAP_compliant_yes"
+			option = 1
+		elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type == EAAppraiserUSPAPFamiliar
+			format = "appraisal_body_summary_forselling_USPAP_compliant_yes"
+			option =2
+		elsif (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type != EAAppraiserUSPAPFamiliar
+			format = "appraisal_body_restricteduse_USPAP_compliant_no"
+			option =3
+		elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type != EAAppraiserUSPAPFamiliar
+			format = "appraisal_body_summary_forselling_USPAP_compliant_no"
+			option =4
+		else
+			raise "Invalid selected_plan and appraiser_type combination"
+		end
+	 %>
+	<%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
+
 	<div class="row">
 		<div class="pull-right" id="appraiser-info">
 			<% if !(@appraiser.signature_file_name.nil?) %> 
@@ -160,10 +182,10 @@
             <% elsif !(@appraiser.signature_json.nil? || @appraiser.signature_json.empty?) %>
             	<canvas id="appraiser-signature" height="100" width="250"></canvas>
             <% end %>
-			<h4>Appraised by <%= @appraiser.appraiser_info.public_name.empty? ? "#{@appraiser.name}" : "#{@appraiser.appraiser_info.public_name}" %></h4>
-			<h5><%= @appraiser.appraiser_info.public_address.empty? ? "" : "#{@appraiser.appraiser_info.public_address}" %></h5>
-			<h5><%= @appraiser.appraiser_info.public_phone.empty? ? "" : "#{@appraiser.appraiser_info.public_phone}" %></h5>
-			<h5><%= @appraiser.appraiser_info.public_email.empty? ? "" : "#{@appraiser.appraiser_info.public_email}" %></h5>
+			<h4>Appraised by <%= @appraiser.appraiser_info.public_name.nil? || @appraiser.appraiser_info.public_name.empty? ? "#{@appraiser.name}" : "#{@appraiser.appraiser_info.public_name}" %></h4>
+			<h5><%= @appraiser.appraiser_info.public_address.nil? || @appraiser.appraiser_info.public_address.empty? ? "" : "#{@appraiser.appraiser_info.public_address}" %></h5>
+			<h5><%= @appraiser.appraiser_info.public_phone.nil? || @appraiser.appraiser_info.public_phone.empty? ? "" : "#{@appraiser.appraiser_info.public_phone}" %></h5>
+			<h5><%= @appraiser.appraiser_info.public_email.nil? || @appraiser.appraiser_info.public_email.empty? ? "" : "#{@appraiser.appraiser_info.public_email}" %></h5>
 		</div>
 	</div>
 

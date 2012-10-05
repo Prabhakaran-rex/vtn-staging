@@ -37,34 +37,12 @@
 		<div>
 			<h4>Selected Plan</h4>
 			<%= f.input :selected_plan, 
-			:collection => [[0, 'Social Light Appraisal $19.00 (SLA 3 days)'] ,[1, 'Social Full Appraisal $29.00 (SLA 3 days)']], 
-			:label_method => :last, 
+			:collection => [[EAAppraisalTypeShortRestricted, "<b>Social Light Restricted Use Appraisal</b> ($17.00)<br/><ul><li>For personal use only!</li><li>Provides streamlined feedback and valuation</li><li>(SLA 3 days)</li></ul>"],[EAAppraisalTypeLongRestricted, "<b>Social Full Restricted Use Appraisal</b> ($27.00)<br/><ul><li>For personal use only!</li><li>Provides comprehensive feedback and valuation</li><li>(SLA 3 days)</li></ul>"],[EAAppraisalTypeShortForSelling, "<b>Social Light Summary Appraisal</b> ($19.00)<br/><ul><li>For viewing by others and proving the value of an object!</li><li>Provides streamlined feedback for viewing by others</li><li>(SLA 3 days)</li></ul>"],[EAAppraisalTypeLongForSelling, "<b>Social Full Summary Appraisal</b> ($29.00)<br/><ul><li>For viewing by others and proving the value of an object!</li><li>Provides comprehensive feedback for viewing by others</li><li>(SLA 3 days)</li></ul>"]], 
+			:label_method => lambda {|a| raw a[1]}, 
 			:value_method => :first,
 			:as => :radio_buttons, 
 			:item_wrapper_class => 'radio',
-			:checked => 1,
-			:label => ""
-			%>
-		</div>
-	</div>
-</div>
-<script type="text/javascript">
-	$(function (){ 
-		$("#example").popover();
-	});
-
-</script>
-<div>
-	<div>
-		<div>
-			<h4>Appraisal Type <a href="#" class="btn btn-mini btn-success" rel="popover" data-content="Restricted Use Reports are only for the property owner and the appraiser to understand while a Summary Report is written so anyone can understand it (ie. Insurance Companies, IRS, Property Buyers, etc.)" data-original-title="What's the difference?" id="example">?</a></h4>
-			<%= f.input :appraisal_type, 
-			:collection => [[0, 'Appraisal is for my own use and is not to be used by others [Restricted Use Report]'] ,[1, 'Appraisal will be used by myself as well as by others [Summary Report]']], 
-			:label_method => :last, 
-			:value_method => :first,
-			:as => :radio_buttons, 
-			:item_wrapper_class => 'radio',
-			:checked => 1,
+			:required => true,
 			:label => ""
 			%>
 		</div>
