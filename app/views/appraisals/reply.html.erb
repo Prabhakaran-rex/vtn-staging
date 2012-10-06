@@ -2,7 +2,7 @@
 	<h4>Edit</h1>
 </div>
 	<%= simple_form_for(@appraisal, :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
-	<div class="row sub_box">
+	<div class="sub_box">
 		<div>
 			<div>
 				<% if @appraisal.errors.any? %>
@@ -17,8 +17,8 @@
 				<% end %>
 			</div>
 		</div>
-		<div>
-			<div>
+		<div class="row">
+			<div class="span8">
 				<div class="form-inputs">
 					<% if @appraisal.selected_plan == EAAppraisalTypeShortRestricted  || @appraisal.selected_plan == EAAppraisalTypeShortForSelling%>
 						<%= f.input :name, :label => "Description / Title", :hint => "(Noun name, circa date, condition, country of origin, etc.)", :input_html => {:class => "input-xxlarge"} %>
@@ -49,6 +49,9 @@
 						<%= a.input :fair_market_value_max, :label => "Fair Market Value Maximum", :input_html => {:class => "currency-input"}  %>
 					<% end %>
 				</div>
+			</div>
+			<div class="span3 pull-right">
+				<%= render :partial => "photo_carousel" %>
 			</div>
 		</div>
 		<div>
