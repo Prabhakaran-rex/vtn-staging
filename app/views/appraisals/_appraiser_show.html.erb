@@ -20,6 +20,13 @@
 						<td><%= getProfileForUser(@appraisal.created_by) %></td>
 					</tr>
 					<tr>
+						<td><%= "Category".upcase %></td>
+						<td><% @appraisal.classifications.order('classifications.category_id').each do |c| %>
+							<%= "#{Category.find(c.category_id).name}" %></br>
+						<% end %>
+						</td>
+					</tr>
+					<tr>
 						<td width="165"><%= "Item description".upcase %></td>
 						<td><%= @appraisal.name %></td>
 					</tr>
