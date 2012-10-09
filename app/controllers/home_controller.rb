@@ -51,6 +51,6 @@ class HomeController < ApplicationController
     render cms_page: '/limiting'
   end
 
-  def appraier_invite
+  def appraiser_invite
   end
 end
