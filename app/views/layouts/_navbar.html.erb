@@ -16,11 +16,13 @@
                 <li><a href="#">|</a></li>
                 <li><%= link_to("Support", tickets_path) %></li>
             <% else %>
-              <li><%= link_to "How it works", how_path %></li>
-              <li><a href="#">|</a></li>
-              <li><%= link_to("Become a Value This Now Appraiser", become_path) %></li>
-              <li><a href="#">|</a></li>
-              <li><%= link_to("Contact Us", contact_path) %></li>
+              <li style="font-size:13px;"><%= link_to "How it works", how_path %></li>
+              <li style="font-size:13px;"><a href="#">|</a></li>
+              <li style="font-size:13px;"><%= link_to 'What makes us different?', what_makes_path %></li>
+              <li style="font-size:13px;"><a href="#">|</a> </li>
+              <li style="font-size:13px;"><%= link_to("Become an Appraiser", become_path) %></li>
+              <li style="font-size:13px;"><a href="#">|</a></li>
+              <li style="font-size:13px;"><%= link_to("Contact Us", contact_path) %></li>
             <% end %>
           </ul>
         </span>
