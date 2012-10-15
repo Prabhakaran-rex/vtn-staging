@@ -27,7 +27,6 @@ module Complaints
       unless t.nil?
         tmTicket = @project.tickets(:id => t.task_mapper_id).first
       end
-        return Ticket.new()
     end
 
     def getComments(ticket_id)
