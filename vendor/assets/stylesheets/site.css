@@ -3076,15 +3076,19 @@ button.close {
 #footer .inner {
     background: none repeat scroll 0 0 #282727;
     border-top: 1px solid #9b9a9a;
-  height:85px;
+/*  height:85px;*/
 }
 #footer {
+  text-align: center;
     border-top: 1px solid #9b9a9a;
 }
-#footer-copyright{}
+#footer-copyright{   margin-top: 35px;
+  color:#fff;
+  font-weight: bold;}
 #subpage {
     margin-bottom: 2.5em;
     margin-top: 110px;
+
 }
 .btn {
   border-color: #c5c5c5;
