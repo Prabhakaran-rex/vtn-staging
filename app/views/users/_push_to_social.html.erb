@@ -1,0 +1,26 @@
+<script type="text/javascript">
+$(document).ready(function() {
+$('#<%= "myModal-#{appraisal.id}" %>').on('shown', function () {
+  selectedAppraisal = <%= appraisal.id %>;
+});
+});
+</script>
+
+<div class="modal hide" id="<%= "myModal-#{appraisal.id}" %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Push to social</h3>
+  </div>
+  <div class="modal-body">
+    <h4><%= appraisal.name %></h4>
+    <span class='st_facebook' displayText='Facebook' st_url="<%= appraisal_url(appraisal) %>" st_title="Value This Now"></span>
+    <span class='st_twitter' displayText='Tweet' st_url="<%= appraisal_url(appraisal) %>" st_title="Value This Now"></span>
+    <span class='st_linkedin' displayText='LinkedIn' st_url="<%= appraisal_url(appraisal) %>" st_title="Value This Now"></span>
+    <span class='st_pinterest' displayText='Pinterest' st_url="<%= appraisal_url(appraisal) %>" st_title="Value This Now"></span>
+    <span class='st_googleplus' displayText='Google +' st_url="<%= appraisal_url(appraisal) %>" st_title="Value This Now"></span>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+

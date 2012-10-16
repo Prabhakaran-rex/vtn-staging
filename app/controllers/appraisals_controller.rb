@@ -173,6 +173,17 @@ class AppraisalsController < ApplicationController
     @appraisal = Appraisal.find(params[:appraisal_id])
   end
 
+  def share
+    @appraisal = Appraisal.find(params[:appraisal_id])
+    if !@appraisal.nil? && current_user.id == @appraisal.created_by
+      @appraisal.shared = true
+      @appraisal.save
+    end
+    respond_to do |format|
+      format.json  { render :json =>  @appraisal }
+    end
+  end
+
 
   protected
 

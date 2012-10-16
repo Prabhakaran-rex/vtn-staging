@@ -1,3 +1,20 @@
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "e499a8d7-42db-4445-9636-9141483d9fbe"});</script>
+<script type="text/javascript">
+var selectedAppraisal;
+function myCallbackFunction (event,service)
+{
+   $.ajax({
+    url: "<%= url_for share_appraisal_path %>.json",
+    type: 'post',
+    dataType: 'script',
+    data: { 'appraisal_id': selectedAppraisal },
+    success: function() {
+    }
+  });
+}
+stLight.subscribe("click",myCallbackFunction); //register the callback function with sharethis 
+</script>
 <div class="row">
 <h4><%= @user.name %>, lets get your items valued!</h4>
 </div>
@@ -38,8 +55,9 @@
               <% end %>
             <% if appraisal.status == EActivityValueFinalized %>
               <% @payment = Payment.new %>
-              <%= link_to 'Push to Auction', "http://www.google.com" , :class => "btn btn-success btn-mini" %>
+              <a href="#myModal-<%= appraisal.id %>" role="button" class="btn btn-mini btn-success" data-toggle="modal">Push to social</a>
               <% end %></td>
+        <td><%= render :partial => "push_to_social", :locals => {:appraisal => appraisal} %></td>
       </tr>
       <% end %>
     </tbody>

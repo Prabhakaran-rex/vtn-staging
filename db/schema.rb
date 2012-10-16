@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120930234700) do
+ActiveRecord::Schema.define(:version => 20121016045548) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(:version => 20120930234700) do
     t.string   "how_it_was_used"
     t.integer  "selected_plan"
     t.integer  "status"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.integer  "created_by"
     t.integer  "assigned_to"
     t.integer  "assigned_on"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20120930234700) do
     t.text     "item_history"
     t.text     "appraisal_info"
     t.integer  "appraisal_type"
+    t.boolean  "shared",                    :default => false
   end
 
   add_index "appraisals", ["assigned_to"], :name => "index_appraisals_on_assigned_to"
