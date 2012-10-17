@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
                     :path => FILE_STORAGE[Rails.env]['path'],
                     :url => FILE_STORAGE[Rails.env]['url'],
                     :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
-                    :default_url => '/images/interface/missing.png'
+                    :default_url => 'http://media.valuethisnow.com.s3.amazonaws.com/images/missingAvatar.png'
 
 
   accepts_nested_attributes_for :photos, :allow_destroy => true
