@@ -13,11 +13,11 @@ $('#<%= "myModal-#{appraisal.id}" %>').on('shown', function () {
   </div>
   <div class="modal-body">
     <h4><%= appraisal.name %></h4>
-    <span class='st_facebook' displayText='Facebook' st_url="<%= appraisal_url(appraisal) %>" st_title="Value This Now"></span>
-    <span class='st_twitter' displayText='Tweet' st_url="<%= appraisal_url(appraisal) %>" st_title="Value This Now"></span>
-    <span class='st_linkedin' displayText='LinkedIn' st_url="<%= appraisal_url(appraisal) %>" st_title="Value This Now"></span>
-    <span class='st_pinterest' displayText='Pinterest' st_url="<%= appraisal_url(appraisal) %>" st_title="Value This Now"></span>
-    <span class='st_googleplus' displayText='Google +' st_url="<%= appraisal_url(appraisal) %>" st_title="Value This Now"></span>
+    <span class='st_facebook' displayText='Facebook' st_url="<%= get_url_for_shared_appraisal(appraisal) %>" st_title="Value This Now"></span>
+    <span class='st_twitter' displayText='Tweet' st_url="<%= get_url_for_shared_appraisal(appraisal) %>" st_title="Value This Now"></span>
+    <span class='st_linkedin' displayText='LinkedIn' st_url="<%= get_url_for_shared_appraisal(appraisal) %>" st_title="Value This Now"></span>
+    <span class='st_pinterest' displayText='Pinterest' st_url="<%= get_url_for_shared_appraisal(appraisal) %>" st_title="Value This Now"></span>
+    <span class='st_googleplus' displayText='Google +' st_url="<%= get_url_for_shared_appraisal(appraisal) %>" st_title="Value This Now"></span>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

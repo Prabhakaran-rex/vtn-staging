@@ -1,0 +1,67 @@
+<div class="page-header">
+	<h1><%= @appraisal.name %></h1>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="span7 appraisal-info">
+			<table class="table table-condensed">
+				<tbody>
+					<% if @appraisal.status == EActivityValueFinalized || @appraisal.status == EActivityValueClaimed%>
+						<tr>
+							<td><%= "Appraised by".upcase %></td>
+							<td><%= getProfileForUser(@appraisal.assigned_to) %></td>
+						</tr>
+					<% end %>
+					<tr>
+						<td><%= "Categories".upcase %></td>
+						<td><% @appraisal.classifications.order('classifications.category_id').each do |c| %>
+							<%= "#{Category.find(c.category_id).name}" %></br>
+						<% end %>
+						</td>
+					</tr>
+					<tr>
+						<td width="165"><%= "Item description".upcase %></td>
+						<td><%= @appraisal.name %></td>
+					</tr>
+					<tr>
+						<td><%= "Item history".upcase %></td>
+						<td><%= @appraisal.appraisal_info.item_history %></td>
+					</tr>
+					<tr>
+						<td><%= "Signatures, maker's marks, dates".upcase %></td>
+						<td><%= @appraisal.appraisal_info.makers_marks %></td>
+					</tr>
+					<tr>
+						<td><%= "Inscriptions,etc".upcase %></td>
+						<td><%= @appraisal.appraisal_info.inscriptions %></td>
+					</tr>
+					<tr>
+						<td><%= "Dimensions".upcase %></td>
+						<td><%= @appraisal.appraisal_info.dimensions %></td>
+					</tr>
+					<tr>
+						<td><%= "Materials".upcase %></td>
+						<td><%= @appraisal.appraisal_info.materials %></td>
+					</tr>
+					<tr>
+						<td><%= "Country of Origin".upcase %></td>
+						<td><%= @appraisal.appraisal_info.country_of_origin %></td>
+					</tr>
+					<tr>
+						<td><%= "Condition".upcase %></td>
+						<td><%= @appraisal.appraisal_info.damage %></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="span5">
+			<%= render :partial => "photo_carousel" %>
+		</div>
+	</div>
+	<div class="row">
+	<!-- 		<% if @appraisal.status == EActivityValueFinalized %>
+				<%= link_to "Download Certified Short Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" %>
+				<%= link_to "Download Certified Long Appraisal", appraisal_path(@appraisal, :format => :pdf, :pdf_long => true), :class => "btn btn-success" %>
+			<% end %> -->
+	</div>
+</div>

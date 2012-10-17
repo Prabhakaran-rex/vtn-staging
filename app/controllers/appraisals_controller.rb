@@ -1,6 +1,6 @@
 class AppraisalsController < ApplicationController
   load_and_authorize_resource
-  before_filter :is_appraiser_confirmed, :except => [:wizard_photo_upload, :wizard_categories]
+  before_filter :is_appraiser_confirmed, :except => [:wizard_photo_upload, :wizard_categories, :show_shared]
 
   # GET /appraisals
   # GET /appraisals.xml
@@ -49,6 +49,19 @@ class AppraisalsController < ApplicationController
       format.html #{ render :layout => 'shareable' }# show.html.erb
       format.xml  { render :xml => @appraisal }
       format.pdf { render :pdf => 'file_name.pdf', :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb", :footer => {:font_size => 8, :left => "Security Code: #{Digest::SHA1.hexdigest(@appraisal.to_json)}",  :right => '[page] of [topage]' } }
+    end
+  end
+
+  def show_shared
+    @appraisal = Appraisal.find(params[:id])
+
+    if @appraisal.shared
+      respond_to do |format|
+        format.html
+      end
+    else
+      redirect_to root_path
+
     end
   end
 

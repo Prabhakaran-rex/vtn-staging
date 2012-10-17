@@ -26,6 +26,7 @@ PurexNew::Application.routes.draw do
   match '/appraisals/wizard_photo_upload/:appraisal_id' => 'appraisals#wizard_photo_upload', :as => :wizard_photo_upload
   match '/appraisals/wizard_categories/:appraisal_id' => 'appraisals#wizard_categories', :as => :wizard_categories
   match '/appraisals/share' => 'appraisals#share', :as => :share_appraisal
+  get '/appraisals/show_shared/:id' => 'appraisals#show_shared', :as => :show_shared
   resources :appraisals do
     resources :photos
     member do
