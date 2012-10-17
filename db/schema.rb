@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121016045548) do
+ActiveRecord::Schema.define(:version => 20121017224841) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -385,6 +385,10 @@ ActiveRecord::Schema.define(:version => 20121016045548) do
     t.integer  "signature_file_size"
     t.datetime "signature_updated_at"
     t.integer  "status"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

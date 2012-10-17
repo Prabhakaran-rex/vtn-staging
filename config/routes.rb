@@ -19,6 +19,11 @@ PurexNew::Application.routes.draw do
     post '/users/save_signature' => 'users#save_signature', :as => :save_signature
     match '/users/crop_signature' => 'users#crop_signature', :as => :crop_signature
 
+    get '/users/save_json_avatar' => 'users#save_json_avatar', :as => :save_json_avatar
+    get '/users/new_avatar' => 'users#new_avatar', :as => :new_avatar
+    post '/users/save_avatar' => 'users#save_avatar', :as => :save_avatar
+    match '/users/crop_avatar' => 'users#crop_avatar', :as => :crop_avatar
+
   resources :appraiser_steps
   resources :photos
   get '/photos/tag/:appraisal_id/:photo_id' => 'photos#tag', :as => :photo_tag

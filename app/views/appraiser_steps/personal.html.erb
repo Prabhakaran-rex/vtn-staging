@@ -26,14 +26,13 @@
       <% end %>
   </div>
   <div class="span3 div-gravatar">
-      <a href="http://www.gravatar.com/emails" rel="popover" data-content=" Your Gravatar is an image that follows you from site to site appearing beside your name when you do things like comment or post on a blog." data-original-title="What's a Gravatar?" id="gravatar"><img src="<%= Gravatar.new(@user.appraiser_info.public_email || @user.email).image_url %>?s=180&d=mm" class="img-gravatar"></a></br>
-      <h5><a href="http://www.gravatar.com/emails" class="btn btn-success btn-mini" target="_new"><i class="icon-camera icon-white"></i> Change your Image</a></h5>
-          
-    </div>
-    <div class="span3">
-      <p>Remember that you can change your Image as many times as you like at <a href="http://www.gravatar.com/emails" target="_new">Gravatar.com</a></p>
-      <p>Changes to your Image will take 5 to 10 minutes before they are reflected on our site.</p>
-    </div>
+      <%= image_tag @user.avatar(:small), :size => "180x180", :class => "img-gravatar"%></br>
+      <h5>
+      <%= link_to new_avatar_path, :class => "btn btn-success btn-mini" do %><i class="icon-camera icon-white"></i> Change your Image<% end %>
+      </h5>
+  </div>
+  <div class="span3">      
+  </div>
 </div>
 <div class="form-actions">
     <%= f.submit "Continue", :class => "btn btn-success"%>

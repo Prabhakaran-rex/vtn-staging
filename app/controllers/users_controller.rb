@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :get_user, :except => [:facebook_login, :save_signature]
+  before_filter :get_user, :except => [:facebook_login, :save_signature, :save_avatar]
 
   def index
     # TODO Check if performance can be improved
@@ -47,6 +47,38 @@ class UsersController < ApplicationController
     u.signature_json = params.except(:controller, :action, :user).to_json
     u.signature = nil
     render :json => u.save
+  end
+
+  def new_avatar
+    @user = current_user
+  end
+
+  def save_avatar
+    @user = User.find(current_user)
+    @user.avatar = params[:user][:avatar]
+
+    if @user.save
+      respond_to do |format|
+        format.html # new.html.erb
+    end
+    else
+      render new_avatar
+    end
+  end
+
+  def crop_avatar
+    @user = User.find(current_user)
+    if (params[:user])
+      @user.crop_x = params[:user][:crop_x]
+      @user.crop_y = params[:user][:crop_y]
+      @user.crop_w = params[:user][:crop_w]
+      @user.crop_h = params[:user][:crop_h]
+      if @user.save
+        redirect_to root_path, :notice => "Avatar saved succesfully"
+      else
+        redirect_to new_avatar, :error => "Unable to save avatar. Please try again"
+      end
+    end
   end
 
   def new_signature

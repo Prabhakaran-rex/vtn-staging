@@ -89,7 +89,7 @@ module ApplicationHelper
   def getProfileForUser(user)
     u = User.find(user)
     if !u.nil? && !u.appraiser_info.public_email.nil? && !u.appraiser_info.public_email.blank? && !u.appraiser_info.public_email.empty?
-      return raw "<img src='#{Gravatar.new(u.appraiser_info.public_email).image_url}?s=20&d=mm' class='gravatar-tiny'> #{u.name}"
+      return raw "#{image_tag u.avatar(:small), :size => '20x20', :class=>'gravatar-tiny'} #{u.name}" 
     else
       return "#{u.name}"
     end

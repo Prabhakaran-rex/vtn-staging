@@ -1,0 +1,93 @@
+<style type="text/css">
+#avatar-preview-div {
+  width: 121px; height: 121px; overflow:hidden;
+  border:1px solid rgba(51, 51, 51, 0.707031);
+  -webkit-box-shadow:rgba(0, 0, 0, 0.449219) 1px 1px 1px 1px;
+  -moz-box-shadow:rgba(0, 0, 0, 0.449219) 1px 1px 1px 1px;
+  box-shadow:rgba(0, 0, 0, 0.449219) 1px 1px 1px 1px;
+}
+#avatar-preview {
+  max-width: none;
+}
+
+#avatar-original-div {
+  border:1px solid rgba(51, 51, 51, 0.707031);
+  -webkit-box-shadow:rgba(0, 0, 0, 0.449219) 1px 1px 1px 1px;
+  -moz-box-shadow:rgba(0, 0, 0, 0.449219) 1px 1px 1px 1px;
+  box-shadow:rgba(0, 0, 0, 0.449219) 1px 1px 1px 1px;
+  margin-left: 30px;
+}
+</style>
+
+<%= stylesheet_link_tag("jquery.Jcrop.min") %>
+<%= javascript_include_tag("jquery.Jcrop.min") %>
+<script type="text/javascript">
+var AvatarCropper,
+__bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+jQuery(function() {
+  return new AvatarCropper();
+});
+
+AvatarCropper = (function() {
+
+  function AvatarCropper() {
+    this.updatePreview = __bind(this.updatePreview, this);
+
+    this.update = __bind(this.update, this);
+    $('#cropbox').Jcrop({
+      setSelect: [0, 0, 121, 121],
+      onSelect: this.update,
+      onChange: this.update,
+      aspectRatio: 1
+    });
+  }
+
+  AvatarCropper.prototype.update = function(coords) {
+    $('#user_crop_x').val(coords.x);
+    $('#user_crop_y').val(coords.y);
+    $('#user_crop_w').val(coords.w);
+    $('#user_crop_h').val(coords.h);
+    return this.updatePreview(coords);
+  };
+
+  AvatarCropper.prototype.updatePreview = function(coords) {
+    var rx = 121 / coords.w;
+    var ry = 121 / coords.h;
+
+    return $('#avatar-preview').css({
+      width: Math.round(121/coords.w * $('#cropbox').width()) + 'px',
+      height: Math.round(121/coords.h * $('#cropbox').height()) + 'px',
+      marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+      marginTop: '-' + Math.round(ry * coords.y) + 'px'
+    });
+  };
+
+  return AvatarCropper;
+
+})();
+</script>
+<h4>Crop avatar</h4>
+<div class="sub_box">
+
+  <div class="row">
+    <div class="span6" id="avatar-original-div">
+      <%= image_tag @user.avatar(:standard), id: "cropbox" %>
+    </div>
+    <div class="span6 pull-right">
+
+      <div id="avatar-preview-div">
+        <%= image_tag @user.avatar.url(:standard), :id => "avatar-preview"%>
+      </div>
+      <h4 style="margin-left: 95px;">Preview</h4>
+      <%= simple_form_for @user, :url => crop_avatar_path  do |f| %>
+      <% %w[x y w h].each do |attribute| %>
+      <%= f.input "crop_#{attribute}", :as => :hidden %>
+      <% end %>
+    </div>
+  </div>
+  <div class="form-actions">
+    <%= f.submit "Crop", :class => "btn btn-success" %>
+  </div>
+  <% end %>
+</div>
