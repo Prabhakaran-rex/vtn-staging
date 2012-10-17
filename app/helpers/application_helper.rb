@@ -54,6 +54,8 @@ module ApplicationHelper
   end
 
   def getStringForAppraisalType(nType)
+    return "" if nType.nil?
+
     hItems = {EAAppraisalTypeShortRestricted => "Social Light Restricted Use Appraisal",
               EAAppraisalTypeLongRestricted  => "Social Full Restricted Use Appraisal",
               EAAppraisalTypeShortForSelling => "Social Light Summary Appraisal",
@@ -100,6 +102,10 @@ module ApplicationHelper
       render(association.to_s + "/" + association.to_s.singularize + "_fields", f: builder)
     end
     link_to(name, '#', class: "btn btn-success add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+  end
+
+  def get_url_for_shared_appraisal(appraisal)
+    show_shared_url(appraisal)
   end
 
 end
