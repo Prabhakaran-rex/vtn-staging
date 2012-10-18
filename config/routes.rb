@@ -66,6 +66,7 @@ PurexNew::Application.routes.draw do
   post 'ticket' => 'contact#ticket_create', :as => :ticket_create
   match '/tickets/:id' => "contact#show", :as => :show_ticket
   
+  # Static pages linked from CMS
   get '/home/how' => 'home#how', :as => 'how'
   get '/home/become' => 'home#become', :as => 'become'
   get '/home/privacy' => 'home#privacy', :as => 'privacy'
@@ -77,6 +78,13 @@ PurexNew::Application.routes.draw do
   get '/home/limiting' => 'home#limiting', :as => 'limiting'
   get '/home/what_makes' => 'home#what_makes', :as => 'what_makes'
   get '/home/appraiser_invite' => 'home#appraiser_invite'
+  get '/home/static1' => 'home#static1'
+  get '/home/static2' => 'home#static2'
+  get '/home/static3' => 'home#static3'
+  get '/home/static4' => 'home#static4'
+  get '/home/static5' => 'home#static5'
+  get '/home/static6' => 'home#static6'
+
   get '/photos/create'
   post '/photos/create'
 
