@@ -19,10 +19,13 @@ stLight.subscribe("click",myCallbackFunction); //register the callback function 
 <h4><%= @user.name %>, lets get your items valued!</h4>
 </div>
 <div class="row">
-  <% if @appraisals.empty? %>
-  <%= link_to "Get an item evaluated" , new_appraisal_path, :class => "btn btn-primary" %>
-  <% else %>
-  <%= link_to "Get an item evaluated" , new_appraisal_path, :class => "btn btn-success pull-right" %>
+  <% if @appraisals.empty?
+   btnText, btnClass = "Get an item evaluated","btn btn-primary"
+    else
+     btnText, btnClass = "Add an additional item for appraisal", "btn btn-success pull-right"
+   end %>
+  <%= link_to btnText , new_appraisal_path, :class => btnClass %>
+  <% unless @appraisals.empty? %>  
   <h2>What you entered so far:</h2>
   <table class="table table-striped table-condensed ">
     <thead>
@@ -62,7 +65,8 @@ stLight.subscribe("click",myCallbackFunction); //register the callback function 
       <% end %>
     </tbody>
   </table>
+<%= link_to btnText , new_appraisal_path, :class => btnClass %>
   <% end %>
-<%= link_to "Get an item evaluated" , new_appraisal_path, :class => "btn btn-success pull-right" %>
+
 </div>
 
