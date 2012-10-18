@@ -156,7 +156,8 @@ namespace :purex do
 		inserts << {:parent=>"Vanity collectibles (perfume bottles, purses, etc.)",:child=>""}
 		inserts << {:parent=>"Video game memorabilia ",:child=>""}
 		inserts << {:parent=>"Watches (pocket, wrist)",:child=>""}
-inserts << {:parent=>"Western Americana (cowboy, saddles, chaps, barbed wire, Buffalo Bill, etc.)",:child=>""}
+		inserts << {:parent=>"Western Americana (cowboy, saddles, chaps, barbed wire, Buffalo Bill, etc.)",:child=>""}
+		inserts << {:parent => "Other", :child => ""}
 
 		inserts.each do |insert|
 			pId = Category.find_or_create_by_name(insert[:parent])
