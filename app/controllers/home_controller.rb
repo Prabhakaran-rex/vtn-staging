@@ -58,6 +58,10 @@ class HomeController < ApplicationController
   def appraiser_invite
   end
 
+  def fee-schedule
+    render cms_page: '/fee-schedule'
+  end
+
   # Examples of supplementary information
   def appraisal_body_restricteduse_USPAP_compliant_no
     render cms_page: '/appraisal-body-restricteduse-uspap-compliant-no'
