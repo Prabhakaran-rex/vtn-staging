@@ -11,7 +11,7 @@ PurexNew::Application.routes.draw do
     get '/admin/dashboard' => 'users/admin/dashboard#show'
     get '/admin/dashboard/appraisers' => 'users/admin/dashboard#appraisers_index', :as => :admin_appraisers
     get '/admin/dashboard/invites' => 'users/admin/dashboard#appraisers_invite_index', :as => :admin_invites
-    get '/users/appraiser_sign_up' => 'registrations#new_appraiser', :as => :new_appraiser_registration
+    match '/users/appraiser_sign_up' => 'registrations#new_appraiser', :as => :new_appraiser_registration
   end
 
     get '/users/save_json_signature' => 'users#save_json_signature', :as => :save_json_signature
