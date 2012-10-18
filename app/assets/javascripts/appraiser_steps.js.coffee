@@ -18,6 +18,6 @@ jQuery ->
 	$(".phone-input").mask("(999)-999-9999")
 
 	$("#btn-appraiser_steps-add_references").click (event) ->
-		if $(".trade-references-inputs:visible").length <= 3
+		if $(".trade-references-inputs:visible").length < 3
 			alert "You must add at least 3 references"
 			event.preventDefault()
