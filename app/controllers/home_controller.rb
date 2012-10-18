@@ -57,4 +57,30 @@ class HomeController < ApplicationController
 
   def appraiser_invite
   end
+
+  # Begin For future use
+  def static1
+    render cms_page: '/static1'
+  end
+
+  def static2
+    render cms_page: '/static2'
+  end
+
+  def static3
+    render cms_page: '/static3'
+  end
+
+  def static4
+    render cms_page: '/static4'
+  end
+
+  def static5
+    render cms_page: '/static5'
+  end
+
+  def static6
+    render cms_page: '/static6'
+  end
+  # End For Future Use
 end
