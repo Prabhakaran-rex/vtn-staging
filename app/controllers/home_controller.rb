@@ -58,6 +58,23 @@ class HomeController < ApplicationController
   def appraiser_invite
   end
 
+  # Examples of supplementary information
+  def appraisal_body_restricteduse_USPAP_compliant_no
+    render cms_page: '/appraisal_body_restricteduse_USPAP_compliant_no'
+  end
+
+  def appraisal_body_restricteduse_USPAP_compliant_yes
+    render cms_page: '/appraisal_body_restricteduse_USPAP_compliant_yes'
+  end
+
+  def appraisal_body_summary_forselling_USPAP_compliant_no
+    render cms_page: '/appraisal_body_summary_forselling_USPAP_compliant_no'
+  end
+
+  def appraisal_body_summary_forselling_USPAP_compliant_yes
+    render cms_page: '/appraisal_body_summary_forselling_USPAP_compliant_yes'
+  end
+
   # Begin For future use
   def static1
     render cms_page: '/static1'
