@@ -1,11 +1,11 @@
 <div class="row">
-	<h4>Step 3 - Select Categories</h4>
+	<h4>Step 3 - Select Categories <%= @appraisal.classifications.count %></h4>
 </div>
 <div class="container">
 	<div class="row sub_box">
-		<h3>Please assign some categories to the item</h3>
+		<h3>Please assign one category to the item</h3>
 
-		<div>
+		<div id="divCategoriesSelect" <%= "style='display:none;'" if @appraisal.classifications.count != 0%>>
 			<input type="hidden" name="demo6" />
 			<button class="btn btn-success btn-mini" id='addClassificationBtn'>Add</button>
 		</div>
@@ -51,8 +51,8 @@
 			dataType: 'script',
 			data: { '_method': 'delete' },
 			success: function() {
-				console.log ('Removed id'+ id);
 				$(caller).closest('tr').remove();
+				$('#divCategoriesSelect').show();
 			}
 		});
 	}
@@ -90,6 +90,7 @@
 				var subcategory = $('select[name=demo6__] option:selected').text();
 				$('#classificationTable > tbody:last').append('<tr><td>'+category +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+data.id+')">Remove</button>'
 					+'</td></tr>');
+				$('#divCategoriesSelect').hide();
 
 			} );
 		});
