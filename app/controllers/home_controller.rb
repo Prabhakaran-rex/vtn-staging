@@ -60,19 +60,19 @@ class HomeController < ApplicationController
 
   # Examples of supplementary information
   def appraisal_body_restricteduse_USPAP_compliant_no
-    render cms_page: '/appraisal-body-restricteduse-USPAP-compliant-no'
+    render cms_page: '/appraisal-body-restricteduse-uspap-compliant-no'
   end
 
   def appraisal_body_restricteduse_USPAP_compliant_yes
-    render cms_page: '/appraisal-body-restricteduse-USPAP-compliant-yes'
+    render cms_page: '/appraisal-body-restricteduse-uspap-compliant-yes'
   end
 
   def appraisal_body_summary_forselling_USPAP_compliant_no
-    render cms_page: '/appraisal-body-summary-forselling-USPAP-compliant-no'
+    render cms_page: '/appraisal-body-summary-forselling-uspap-compliant-no'
   end
 
   def appraisal_body_summary_forselling_USPAP_compliant_yes
-    render cms_page: '/appraisal-body-summary-forselling-USPAP-compliant-yes'
+    render cms_page: '/appraisal-body-summary-forselling-uspap-compliant-yes'
   end
 
   # Begin For future use
