@@ -58,8 +58,12 @@ class HomeController < ApplicationController
   def appraiser_invite
   end
 
-  def fee-schedule
+  def fee_schedule
     render cms_page: '/fee-schedule'
+  end
+
+  def uspap_compliance
+    render cms_page: '/uspap-compliance'
   end
 
   # Examples of supplementary information
