@@ -9,8 +9,7 @@
 		<%= link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
 		<% end %>
 		<% if @appraisal.status == EActivityValueFinalized %>
-		<%= link_to "Download Certified Long Appraisal", appraisal_path(@appraisal, :format => :pdf, :pdf_long => true), :class => "btn btn-success  btn-mini  pull-right" %>
-		<%= link_to "Download Certified Short Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini pull-right" %>
+		<%= link_to "Download Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini pull-right" %>
 		<% end %>
 	</h1>
 </div>
@@ -26,7 +25,7 @@
 						</tr>
 					<% end %>
 					<tr>
-						<td><%= "Categories".upcase %><%= link_to wizard_categories_path(@appraisal.id, :pay => false), :class => "btn btn-mini btn-success", :target => "_new" do %><i class="icon-plus icon-white"></i> Edit categories <% end %></td>
+						<td><%= "Categories".upcase %><% unless @appraisal.status == EActivityValueFinalized %><%= link_to wizard_categories_path(@appraisal.id, :pay => false), :class => "btn btn-mini btn-success", :target => "_new" do %><i class="icon-plus icon-white"></i> Edit categories <% end %><% end %></td>
 						<td><% @appraisal.classifications.order('classifications.category_id').each do |c| %>
 							<%= "#{Category.find(c.category_id).name}" %></br>
 						<% end %>
@@ -74,8 +73,7 @@
 	<div class="row">
 			<%= render :partial => "multiple_photo_upload" unless @appraisal.status == EActivityValueFinalized%>
 			<% if @appraisal.status == EActivityValueFinalized %>
-				<%= link_to "Download Certified Short Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" %>
-				<%= link_to "Download Certified Long Appraisal", appraisal_path(@appraisal, :format => :pdf, :pdf_long => true), :class => "btn btn-success" %>
+				<%= link_to "Download Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" %>
 			<% end %>
 	</div>
 </div>
