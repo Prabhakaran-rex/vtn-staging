@@ -2,10 +2,10 @@ ActiveAdmin.register User do
 menu :if => proc{ can?(:manage, User) }     
 
   action_item :only => :show do
-    link_to('Approve', update_appraiser_status_path(:user => user, :status => EAUserStatusConfirmed)) if user.role == "appraiser" && user.status == EAUserStatusPending
+    link_to('Approve', update_appraiser_status_path(:user => user, :status => EAUserStatusConfirmed)) if user.role == "appraiser" && user.status == EAUserStatusReview
   end  
   action_item :only => :show do
-    link_to('Reject', update_appraiser_status_path(:user => user, :status => EAUserStatusRejected)) if user.role == "appraiser" && user.status == EAUserStatusPending
+    link_to('Reject', update_appraiser_status_path(:user => user, :status => EAUserStatusRejected)) if user.role == "appraiser" && user.status == EAUserStatusReview
   end  
  
  
