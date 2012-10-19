@@ -42,6 +42,17 @@ class UsersController < ApplicationController
     redirect_to root_path if @user.nil?# || @user.role != "admin"
   end
 
+  def update_appraiser_status
+    if current_user.role == "admin"
+      u = User.find(params[:user])
+      u.status = params[:status]
+      u.save
+       message = Message.new(:name => u.name, :email => u.email)
+       UserMailer.notify_appraiser_of_application_result(u,message).deliver
+    end
+    redirect_to root_path
+  end
+
   def save_json_signature
     u = User.find(current_user)
     u.signature_json = params.except(:controller, :action, :user).to_json

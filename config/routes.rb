@@ -6,6 +6,7 @@ PurexNew::Application.routes.draw do
   resources :payments
   get "appraisal_data/create"
   match '/facebook/' => "users#facebook_login"
+  match '/users/update_appraiser_status' => "users#update_appraiser_status", :as => :update_appraiser_status
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations"}  do
     get '/admin/dashboard' => 'users/admin/dashboard#show'

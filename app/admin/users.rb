@@ -1,6 +1,14 @@
 ActiveAdmin.register User do
 menu :if => proc{ can?(:manage, User) }     
 
+  action_item :only => :show do
+    link_to('Approve', update_appraiser_status_path(:user => user, :status => EAUserStatusConfirmed)) if user.role == "appraiser" && user.status == EAUserStatusPending
+  end  
+  action_item :only => :show do
+    link_to('Reject', update_appraiser_status_path(:user => user, :status => EAUserStatusRejected)) if user.role == "appraiser" && user.status == EAUserStatusPending
+  end  
+ 
+ 
 	index do
 		column :id
 		column :email
@@ -44,11 +52,22 @@ menu :if => proc{ can?(:manage, User) }
   show :title => :name do
     attributes_table do
       row("Name") {user.name}
+      row("Email") {user.email}
+      row("Created") {user.created_at}
       row("Role") {user.role}
+      row("Status") {user.status}
     end
+
+    # panel "Avatar" do
+    #   render "appraiser_avatar", :locals => {:user => user}
+    # end
 
     panel "Additional Information" do
       render "appraiser_info", :locals => {:appraiser_info => user.appraiser_info}
+    end
+
+    panel "Trade References" do
+      render "trade_references", :locals => {:user => user}      
     end
   end
 end
