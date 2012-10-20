@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from    => "admin@example.com",
+  default :from    => "no-reply@valuethisnow.com",
           :sent_on => Time.now.to_s
 
 
