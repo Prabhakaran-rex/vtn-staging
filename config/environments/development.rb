@@ -52,4 +52,7 @@ ActionMailer::Base.delivery_method = :smtp
   end
   
   ActiveMerchant::Billing::Base.mode = :test
+
+  SendgridToolkit.api_user = "app4334028@heroku.com"
+  SendgridToolkit.api_key = "uu1nfkq3"
 end

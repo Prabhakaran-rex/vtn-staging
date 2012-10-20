@@ -38,6 +38,28 @@ ActiveAdmin::Dashboards.build do
       end
     end
   end
+
+  ActiveAdmin.register_page "Email Reports" do
+    content do
+      panel "Email bounces" do
+        SendgridToolkit::Bounces.new.retrieve_with_timestamps.each do |e|
+          li "#{e["email"]} (#{e["created"]}) - #{e["reason"]}" 
+        end
+      end
+
+      panel "Invalid emails" do
+        SendgridToolkit::InvalidEmails.new.retrieve_with_timestamps.each do |e|
+          li "#{e["email"]} (#{e["created"]}) - #{e["reason"]}" 
+        end
+      end
+
+      panel "Spam Reports" do
+        SendgridToolkit::SpamReports.new.retrieve_with_timestamps.each do |e|
+          li "#{e["email"]} (#{e["created"]}) - #{e["reason"]}" 
+        end
+      end
+    end  
+  end
   
   # == Render Partial Section
   # The block is rendered within the context of the view, so you can

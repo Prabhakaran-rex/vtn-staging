@@ -82,4 +82,7 @@ ActionMailer::Base.delivery_method = :smtp
 
   # Google Analytics tracking
   GA.tracker = "UA-35640664-1"
+
+  SendgridToolkit.api_user = ENV['SENDGRID_USERNAME']
+  SendgridToolkit.api_key = ENV['SENDGRID_PASSWORD']
 end

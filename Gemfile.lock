@@ -273,6 +273,8 @@ GEM
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
       rubyzip
+    sendgrid_toolkit (1.2.0)
+      httparty (>= 0.7.6)
     simple_form (2.0.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -352,6 +354,7 @@ DEPENDENCIES
   rspec
   rspec-rails
   sass-rails (~> 3.2.3)
+  sendgrid_toolkit (>= 1.1.1)
   simple_form
   spork
   taskmapper (~> 0.8.0)

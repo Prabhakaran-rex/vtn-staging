@@ -74,6 +74,9 @@ gem 'gravatar-ultimate'
 # For Google Analytics tracking
 gem 'google-analytics-rails'
 
+# To track Sendgrid bounces in Admin panel
+gem 'sendgrid_toolkit', '>= 1.1.1'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'spork'
