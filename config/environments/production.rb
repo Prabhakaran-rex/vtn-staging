@@ -79,4 +79,7 @@ PurexNew::Application.configure do
 ActionMailer::Base.delivery_method = :smtp
 
   ActiveMerchant::Billing::Base.mode = :live
+
+  # Google Analytics tracking
+  GA.tracker = "UA-35640664-1"
 end

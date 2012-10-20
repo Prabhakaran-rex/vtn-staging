@@ -71,6 +71,9 @@ gem "taskmapper-lighthouse", "~> 0.9.0"
 # To retrieve Gravatar for appraiser and user profile
 gem 'gravatar-ultimate'
 
+# For Google Analytics tracking
+gem 'google-analytics-rails'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'spork'
