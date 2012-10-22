@@ -10,7 +10,7 @@
             = f.input :password, :input_html => {:class => "input-xxlarge"}
             = f.input :password_confirmation, :input_html => {:class => "input-xxlarge"}
             .terms
-                = render :partial => "home/terms_and_conditions"
+                = raw "#{Cms::Page.find_by_full_path('/terms-and-conditions').content}"
             = f.input :agree_to_tos, :as => :boolean, :label => "Agree to terms and conditions", :hint => false
         .form-actions
             = f.button :submit, "Sign up", :class => "btn btn-success"

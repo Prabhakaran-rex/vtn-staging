@@ -22,8 +22,8 @@
             = f.input :password_confirmation, :input_html => {:class => "input-xxlarge"}
             = f.input :access_token, :input_html => { :value => @token , :class => "input-xxlarge"}
             .terms
-                = render :partial => "home/terms_and_conditions"
-            = f.input :agree_to_tos, :as => :boolean, :label => "Agree to terms and conditions", :hint => false
+                = raw "#{Cms::Page.find_by_full_path('/appraisal-provider-agreement').content}"
+            = f.input :agree_to_tos, :as => :boolean, :label => "Agree to Appraisal Provider Agreement", :hint => false
             = f.input :agree_to_code_of_ethics, :as => :boolean, :label => "I comply with the  #{link_to 'Appraiser Code of Ethics', ethics_path}", :hint => false
         .form-actions
             = f.button :submit, "Sign up", :class => "btn btn-success"
