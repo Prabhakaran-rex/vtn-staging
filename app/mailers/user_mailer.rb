@@ -2,15 +2,6 @@ class UserMailer < ActionMailer::Base
   default :from    => "no-reply@valuethisnow.com",
           :sent_on => Time.now.to_s
 
-
-  def invite_appraiser( token )
-    @name  = token.name
-    @token = token.token
-
-    mail( :to      => token.email ,
-          :subject => "Invite to create appraiser account" )
-  end
-
   def notify_appraiser_of_new_appraisal(appraiser,appraisal)
     @appraiser = appraiser
     @appraisal = appraisal

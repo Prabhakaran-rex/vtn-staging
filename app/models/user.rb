@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   rolify
-  has_one  :appraiser_access_token
   has_many :skills
   has_many :appraisals
   has_many :appraisal_activities
@@ -68,23 +67,6 @@ class User < ActiveRecord::Base
   # Set requirement for signup
   validates :agree_to_tos, :acceptance => true, :on => :create
   validates_presence_of :name
-
-  def consume_appraiser_access_token(appraiser_access_token)
-    self.appraiser_access_token = appraiser_access_token
-    appraiser_access_token.used_at = Time.now
-    appraiser_access_token.save
-    self.role = "appraiser" if self.role.nil?
-    self.status = EAUserStatusConfirmed
-    self.name = appraiser_access_token.name
-    self.appraiser_info.public_name = appraiser_access_token.name
-    self.save
-  end
-
-  def invite_appraiser_by_email(appraiser_access_token)
-    message = UserMailer.invite_appraiser(appraiser_access_token)
-    message.deliver
-    appraiser_access_token
-  end
 
   def notify_creator_of_appraisal_update( appraisal )
     UserMailer.notify_creator_of_appraisal_update( appraisal ).deliver

@@ -20,7 +20,6 @@
             = f.input :email, :input_html => { :value => @email, :class => "input-xxlarge" }
             = f.input :password, :input_html => {:class => "input-xxlarge"}
             = f.input :password_confirmation, :input_html => {:class => "input-xxlarge"}
-            = f.input :access_token, :input_html => { :value => @token , :class => "input-xxlarge"}
             .terms
                 = raw "#{Cms::Page.find_by_full_path('/appraisal-provider-agreement').content}"
             = f.input :agree_to_tos, :as => :boolean, :label => "Agree to Appraisal Provider Agreement", :hint => false
