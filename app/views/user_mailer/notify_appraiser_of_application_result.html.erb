@@ -1,0 +1,4 @@
+Dear <%= @message.name %>,
+
+<% body = @status == EAUserStatusConfirmed ? '/appraiser-approved' : '/appraiser-rejected'  %>
+<%= raw "#{Cms::Page.find_by_full_path(body).content}" %>
