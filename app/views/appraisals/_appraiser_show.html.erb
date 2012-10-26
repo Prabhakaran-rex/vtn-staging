@@ -100,10 +100,42 @@
 			<%= render :partial => "multiple_photo_upload" if @appraisal.status == EActivityValueClaimed %>
 			<%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValuePayed %>
 			<%= link_to 'Reply', reply_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValueClaimed %>
-			<div class="span11">
+			<div class="span11" style="margin-bottom:10px;">
 				<% if @appraisal.status == EActivityValueFinalized %>
 				<%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
 			<% end %>
 			</div>
+	</div>
+	<div class="row">
+		<div class="span11">
+			<% if @appraisal.status == EActivityValueFinalized %>
+			<button type="button" class="btn btn-mini btn-success" data-toggle="collapse" data-target="#supplemental_information">
+				<i class="icon-file icon-white"></i>
+				More (important supplemental information)
+			</button>
+			<% selected_plan = @appraisal.selected_plan
+			appraiser_type = @appraiser.appraiser_info.uspap.to_i
+
+			if (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type == EAAppraiserUSPAPFamiliar
+				format = "appraisal_body_restricteduse_USPAP_compliant_yes"
+				option = 1
+			elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type == EAAppraiserUSPAPFamiliar
+				format = "appraisal_body_summary_forselling_USPAP_compliant_yes"
+				option =2
+			elsif (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type != EAAppraiserUSPAPFamiliar
+				format = "appraisal_body_restricteduse_USPAP_compliant_no"
+				option =3
+			elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type != EAAppraiserUSPAPFamiliar
+				format = "appraisal_body_summary_forselling_USPAP_compliant_no"
+				option =4
+			else
+				raise "Invalid selected_plan and appraiser_type combination"
+			end
+			%>
+			<div id="supplemental_information" class="collapse">
+				<%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
+			</div>
+			<% end %>
+		</div>
 	</div>
 </div>
