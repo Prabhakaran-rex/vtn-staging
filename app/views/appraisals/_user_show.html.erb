@@ -9,7 +9,7 @@
 		<%= link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
 		<% end %>
 		<% if @appraisal.status == EActivityValueFinalized %>
-		<%= link_to "Download Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini pull-right" %>
+		<%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
 		<% end %>
 	</h1>
 </div>
@@ -18,50 +18,78 @@
 		<div class="span7 appraisal-info">
 			<table class="table table-condensed">
 				<tbody>
-					<% if @appraisal.status == EActivityValueFinalized || @appraisal.status == EActivityValueClaimed%>
+					<% if @appraisal.status == EActivityValueFinalized%>
+						<tr>
+							<td><%= "File #".upcase %></td>
+							<td><%= @appraisal.id %></td>
+						</tr>
+						<tr>
+							<td><%= "Effective Date of Report".upcase %></td>
+							<td><%= @appraisal.updated_at.strftime("%d %b. %Y") %></td>
+						</tr>
+					<% end %>
+					<% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized %>
 						<tr>
 							<td><%= "Appraised by".upcase %></td>
 							<td><%= getProfileForUser(@appraisal.assigned_to) %></td>
 						</tr>
 					<% end %>
 					<tr>
-						<td><%= "Categories".upcase %><% unless @appraisal.status == EActivityValueFinalized %><%= link_to wizard_categories_path(@appraisal.id, :pay => false), :class => "btn btn-mini btn-success", :target => "_new" do %><i class="icon-plus icon-white"></i> Edit categories <% end %><% end %></td>
+						<td><%= "Category".upcase %><% unless @appraisal.status == EActivityValueFinalized %><%= link_to wizard_categories_path(@appraisal.id, :pay => false), :class => "btn btn-mini btn-success", :target => "_new" do %><i class="icon-plus icon-white"></i> Edit categories <% end %><% end %></td>
 						<td><% @appraisal.classifications.order('classifications.category_id').each do |c| %>
 							<%= "#{Category.find(c.category_id).name}" %></br>
 						<% end %>
 						</td>
 					</tr>
-					<tr>
-						<td width="165"><%= "Item description".upcase %></td>
+					<tr width="165px">
+						<td><%= "Description / Title".upcase %></td>
 						<td><%= @appraisal.name %></td>
 					</tr>
+					<% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling %>
+						<tr>
+							<td><%= "Approx. Date of Manufacture".upcase %></td>
+							<td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
+						</tr>
+						<tr>
+							<td><%= "Country of Origin".upcase %></td>
+							<td><%= @appraisal.appraisal_info.country_of_origin %></td>
+						</tr>
+						<tr>
+							<td><%= "Signatures, Maker/Maker's, Dates, etc.".upcase %></td>
+							<td><%= @appraisal.appraisal_info.makers_marks %></td>
+						</tr>
+						<tr>
+							<td><%= "Inscriptions".upcase %></td>
+							<td><%= @appraisal.appraisal_info.inscriptions %></td>
+						</tr>
+						<tr>
+							<td><%= "Dimensions".upcase %></td>
+							<td><%= @appraisal.appraisal_info.dimensions %></td>
+						</tr>
+						<tr>
+							<td><%= "Condition".upcase %></td>
+							<td><%= @appraisal.appraisal_info.damage %></td>
+						</tr>
+						<tr>
+							<td><%= "Item History".upcase %></td>
+							<td><%= @appraisal.appraisal_info.item_history %></td>
+						</tr>
+					<% end %>
 					<tr>
-						<td><%= "Item history".upcase %></td>
-						<td><%= @appraisal.appraisal_info.item_history %></td>
+						<td><%= "Additional Extraordinary Assumptions".upcase %></td>
+						<td><%= @appraisal.appraisal_info.additional_ea %></td>
 					</tr>
 					<tr>
-						<td><%= "Signatures, maker's marks, dates".upcase %></td>
-						<td><%= @appraisal.appraisal_info.makers_marks %></td>
+						<td><%= "Comments".upcase %></td>
+						<td><%= @appraisal.appraisal_info.appraiser_comments %></td>
 					</tr>
 					<tr>
-						<td><%= "Inscriptions,etc".upcase %></td>
-						<td><%= @appraisal.appraisal_info.inscriptions %></td>
+						<td><%= "Replacement Cost".upcase%></br><small>(Comparable)</small></td>
+						<td><%= "$ #{@appraisal.appraisal_info.replacement_cost_min} to $ #{@appraisal.appraisal_info.replacement_cost_max} " %></td>
 					</tr>
 					<tr>
-						<td><%= "Dimensions".upcase %></td>
-						<td><%= @appraisal.appraisal_info.dimensions %></td>
-					</tr>
-					<tr>
-						<td><%= "Materials".upcase %></td>
-						<td><%= @appraisal.appraisal_info.materials %></td>
-					</tr>
-					<tr>
-						<td><%= "Country of Origin".upcase %></td>
-						<td><%= @appraisal.appraisal_info.country_of_origin %></td>
-					</tr>
-					<tr>
-						<td><%= "Condition".upcase %></td>
-						<td><%= @appraisal.appraisal_info.damage %></td>
+						<td><%= "Fair Market Value".upcase %></td>
+						<td><%= "$ #{@appraisal.appraisal_info.fair_market_value_min} to $ #{@appraisal.appraisal_info.fair_market_value_max} " %></td>
 					</tr>
 				</tbody>
 			</table>
@@ -72,8 +100,10 @@
 	</div>
 	<div class="row">
 			<%= render :partial => "multiple_photo_upload" unless @appraisal.status == EActivityValueFinalized%>
-			<% if @appraisal.status == EActivityValueFinalized %>
-				<%= link_to "Download Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" %>
+			<div class="span11">
+				<% if @appraisal.status == EActivityValueFinalized %>
+				<%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
 			<% end %>
+			</div>
 	</div>
 </div>

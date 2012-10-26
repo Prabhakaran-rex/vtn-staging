@@ -8,6 +8,9 @@
         	%>
             <%= link_to 'Edit notes', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
 		<% end %>
+		<% if @appraisal.status == EActivityValueFinalized %>
+		<%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
+		<% end %>
 	</h1>
 </div>
 <div class="container">
@@ -15,6 +18,16 @@
 		<div class="span7 appraisal-info">
 			<table class="table table-condensed">
 				<tbody>
+					<% if @appraisal.status == EActivityValueFinalized%>
+						<tr>
+							<td><%= "File #".upcase %></td>
+							<td><%= @appraisal.id %></td>
+						</tr>
+						<tr>
+							<td><%= "Effective Date of Report".upcase %></td>
+							<td><%= @appraisal.updated_at.strftime("%d %b. %Y") %></td>
+						</tr>
+					<% end %>
 					<tr>
 						<td><%= "Created by".upcase %></td>
 						<td><%= getProfileForUser(@appraisal.created_by) %></td>
@@ -26,65 +39,55 @@
 						<% end %>
 						</td>
 					</tr>
-					<tr>
-						<td width="165"><%= "Item description".upcase %></td>
+					<tr width="165px">
+						<td><%= "Description / Title".upcase %></td>
 						<td><%= @appraisal.name %></td>
 					</tr>
-					<tr>
-						<td><%= "Item history".upcase %></td>
-						<td><%= @appraisal.appraisal_info.item_history %></td>
-					</tr>
-					<tr>
-						<td><%= "Signatures, maker's marks, dates".upcase %></td>
-						<td><%= @appraisal.appraisal_info.makers_marks %></td>
-					</tr>
-					<tr>
-						<td><%= "Inscriptions,etc".upcase %></td>
-						<td><%= @appraisal.appraisal_info.inscriptions %></td>
-					</tr>
-					<tr>
-						<td><%= "Dimensions".upcase %></td>
-						<td><%= @appraisal.appraisal_info.dimensions %></td>
-					</tr>
-					<tr>
-						<td><%= "Materials".upcase %></td>
-						<td><%= @appraisal.appraisal_info.materials %></td>
-					</tr>
-					<tr>
-						<td><%= "Country of Origin".upcase %></td>
-						<td><%= @appraisal.appraisal_info.country_of_origin %></td>
-					</tr>
-					<tr>
-						<td><%= "Aprox. Date of Manufacture".upcase %></td>
-						<td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
-					</tr>
-					<tr>
-						<td><%= "Condition".upcase %></td>
-						<td><%= @appraisal.appraisal_info.damage %></td>
-					</tr>
+					<% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling %>
+						<tr>
+							<td><%= "Approx. Date of Manufacture".upcase %></td>
+							<td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
+						</tr>
+						<tr>
+							<td><%= "Country of Origin".upcase %></td>
+							<td><%= @appraisal.appraisal_info.country_of_origin %></td>
+						</tr>
+						<tr>
+							<td><%= "Signatures, Maker/Maker's, Dates, etc.".upcase %></td>
+							<td><%= @appraisal.appraisal_info.makers_marks %></td>
+						</tr>
+						<tr>
+							<td><%= "Inscriptions".upcase %></td>
+							<td><%= @appraisal.appraisal_info.inscriptions %></td>
+						</tr>
+						<tr>
+							<td><%= "Dimensions".upcase %></td>
+							<td><%= @appraisal.appraisal_info.dimensions %></td>
+						</tr>
+						<tr>
+							<td><%= "Condition".upcase %></td>
+							<td><%= @appraisal.appraisal_info.damage %></td>
+						</tr>
+						<tr>
+							<td><%= "Item History".upcase %></td>
+							<td><%= @appraisal.appraisal_info.item_history %></td>
+						</tr>
+					<% end %>
 					<tr>
 						<td><%= "Additional Extraordinary Assumptions".upcase %></td>
 						<td><%= @appraisal.appraisal_info.additional_ea %></td>
 					</tr>
 					<tr>
-						<td><%= "Appraiser Comments".upcase %></td>
+						<td><%= "Comments".upcase %></td>
 						<td><%= @appraisal.appraisal_info.appraiser_comments %></td>
 					</tr>
 					<tr>
-						<td><%= "Replacement Cost (comparable) Minimum".upcase %></td>
-						<td><%= @appraisal.appraisal_info.replacement_cost_min %></td>
+						<td><%= "Replacement Cost".upcase%></br><small>(Comparable)</small></td>
+						<td><%= "$ #{@appraisal.appraisal_info.replacement_cost_min} to $ #{@appraisal.appraisal_info.replacement_cost_max} " %></td>
 					</tr>
 					<tr>
-						<td><%= "Replacement Cost (comparable) Maximum".upcase %></td>
-						<td><%= @appraisal.appraisal_info.replacement_cost_max %></td>
-					</tr>
-					<tr>
-						<td><%= "Fair Market Value Minimum".upcase %></td>
-						<td><%= @appraisal.appraisal_info.fair_market_value_min %></td>
-					</tr>
-					<tr>
-						<td><%= "Fair Market Value Maximum".upcase %></td>
-						<td><%= @appraisal.appraisal_info.fair_market_value_max %></td>
+						<td><%= "Fair Market Value".upcase %></td>
+						<td><%= "$ #{@appraisal.appraisal_info.fair_market_value_min} to $ #{@appraisal.appraisal_info.fair_market_value_max} " %></td>
 					</tr>
 				</tbody>
 			</table>
@@ -97,8 +100,10 @@
 			<%= render :partial => "multiple_photo_upload" if @appraisal.status == EActivityValueClaimed %>
 			<%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValuePayed %>
 			<%= link_to 'Reply', reply_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValueClaimed %>
-			<% if @appraisal.status == EActivityValueFinalized %>
-				<%= link_to "Download Certified Appraisal", appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success pull-right" %>
+			<div class="span11">
+				<% if @appraisal.status == EActivityValueFinalized %>
+				<%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
 			<% end %>
+			</div>
 	</div>
 </div>

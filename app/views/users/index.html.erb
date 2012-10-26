@@ -51,7 +51,8 @@ stLight.subscribe("click",myCallbackFunction); //register the callback function 
         <td><%= appraisal.status == EActivityValueFinalized ? "#{number_to_currency(appraisal.appraisal_info.fair_market_value_min, :precision => 0)} to #{number_to_currency(appraisal.appraisal_info.fair_market_value_max, :precision => 0)}" : "-" %></td>
         <td><%= appraisal.status == EActivityValueFinalized ? "#{number_to_currency(appraisal.appraisal_info.replacement_cost_min, :precision => 0)} to #{number_to_currency(appraisal.appraisal_info.replacement_cost_max, :precision => 0)}" : "-" %></td>
         <td><%= getStringForAppraisalType(appraisal.selected_plan) %></td>
-        <td><%= link_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-success btn-mini") %></td>
+        <td><%= link_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-success btn-mini") if appraisal.status == EActivityValueCreated %>
+          <%= link_to appraisal_path(appraisal, :format => :pdf), :class => "btn btn-success btn-mini" do %><i class="icon-download-alt icon-white"></i><% end if appraisal.status == EActivityValueFinalized%></td>
         <td><% if appraisal.status == EActivityValueCreated %>
               <% @payment = Payment.new %>
               <%= link_to 'Enter Payment', payments_path(@payment, :appraisal_id => appraisal), :class => "btn btn-success btn-mini" %>

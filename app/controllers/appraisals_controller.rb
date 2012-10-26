@@ -54,6 +54,7 @@ class AppraisalsController < ApplicationController
 
   def show_shared
     @appraisal = Appraisal.find(params[:id])
+    @appraiser = @appraisal.assigned_to
 
     if @appraisal.shared
       respond_to do |format|
@@ -61,7 +62,6 @@ class AppraisalsController < ApplicationController
       end
     else
       redirect_to root_path
-
     end
   end
 

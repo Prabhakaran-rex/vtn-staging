@@ -3,4 +3,5 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 //= require jquery.maskMoney.min
 jQuery ->
-	$(".currency-input").maskMoney();
+	$(".currency-input").maskMoney()
+	$("#supplemental_information").collapse({toggle:false})
