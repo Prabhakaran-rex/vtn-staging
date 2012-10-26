@@ -1,7 +1,7 @@
 <h4>Upload your avatar image file</h4>
 <div class="sub_box">
 	<%= simple_form_for @user, :url => :save_avatar, :method => :post, :html => { :multipart => true } do |form| %>
-	<%= form.input :avatar, :label => "Please upload an image file with your avatar." %>
+	<%= form.input :avatar, :label => "Please upload an image file with your avatar. Only JPG or PNG files can be uploaded. " %>
 	<div class="form-actions">
 		<%= form.submit "Continue", :class => "btn btn-success"%>
 	</div>
