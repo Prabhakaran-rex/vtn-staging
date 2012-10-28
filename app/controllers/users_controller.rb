@@ -80,10 +80,10 @@ class UsersController < ApplicationController
   def crop_avatar
     @user = User.find(current_user)
     if (params[:user])
-      @user.crop_x = params[:user][:crop_x]
-      @user.crop_y = params[:user][:crop_y]
-      @user.crop_w = params[:user][:crop_w]
-      @user.crop_h = params[:user][:crop_h]
+      @user.crop_avatar_x = params[:user][:crop_avatar_x]
+      @user.crop_avatar_y = params[:user][:crop_avatar_y]
+      @user.crop_avatar_w = params[:user][:crop_avatar_w]
+      @user.crop_avatar_h = params[:user][:crop_avatar_h]
       if @user.save
         redirect_to root_path, :notice => "Avatar saved succesfully"
       else

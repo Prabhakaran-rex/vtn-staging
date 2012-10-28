@@ -16,11 +16,6 @@ class User < ActiveRecord::Base
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   after_update :reprocess_signature, :if => :cropping?
 
-  validates_attachment_size :avatar, :less_than => 8.megabytes
-  validates_attachment_content_type :avatar, :content_type => /image/
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  after_update :reprocess_avatar, :if => :cropping_avatar?
-  
   has_attached_file :signature, :styles => {:standard => "550x550>", :small => { :processors => [:cropper], :geometry => '250x100!' }},
                     :convert_options => {
                       :all => '-auto-orient'
@@ -31,16 +26,9 @@ class User < ActiveRecord::Base
                     :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
                     :default_url => '/images/interface/missing.png'
 
-  has_attached_file :avatar, :styles => {:standard => "550x550>", :small => { :processors => [:avatar_cropper], :geometry => '211x211!' }},
-                    :convert_options => {
-                      :all => '-auto-orient'
-                    },
-                    :storage => FILE_STORAGE[Rails.env]['storage'],
-                    :path => FILE_STORAGE[Rails.env]['path'],
-                    :url => FILE_STORAGE[Rails.env]['url'],
-                    :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
-                    :default_url => 'http://media.valuethisnow.com.s3.amazonaws.com/images/missingAvatar.png'
-
+  mount_uploader :avatar, AvatarUploader
+  attr_accessor :crop_avatar_x, :crop_avatar_y, :crop_avatar_w, :crop_avatar_h
+  after_update :crop_avatar
 
   accepts_nested_attributes_for :photos, :allow_destroy => true
   accepts_nested_attributes_for :skills
@@ -55,7 +43,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :skills_attributes,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :signature_json, :signature, :status, :trade_references_attributes, :avatar, :agree_to_code_of_ethics
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :signature_json, :signature, :status, :trade_references_attributes, :agree_to_code_of_ethics, :avatar, :avatar_cache, :remove_avatar
 
   # Used for appraiser signup
   attr_accessor :access_token, :agree_to_code_of_ethics
@@ -141,18 +129,9 @@ class User < ActiveRecord::Base
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
 
-  def cropping_avatar?
-    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
-  end
-
   def signature_geometry(style = :original)
     @geometry ||= {}
     @geometry[style] ||= Paperclip::Geometry.from_file(signature.path(style))
-  end
-
-  def avatar_geometry(style = :original)
-    @geometry ||= {}
-    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
   end
 
   def is_appraiser_application_complete
@@ -174,13 +153,13 @@ class User < ActiveRecord::Base
     notify_admin_of_new_application
   end
 
+  def crop_avatar
+    avatar.recreate_versions! if crop_avatar_x.present?
+  end
+
   private
   def reprocess_signature
     signature.reprocess!
-  end
-
-  def reprocess_avatar
-    avatar.reprocess!
   end
 
   def notify_admin_of_new_application

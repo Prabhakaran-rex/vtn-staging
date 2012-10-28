@@ -29,6 +29,8 @@ gem 'bootstrap-sass', '~> 2.0.4.0'
 
 # For storage of assets
 gem 'paperclip'
+gem 'carrierwave'
+gem 'rmagick'
 gem 'aws-s3'
 gem 'aws-sdk'
 
