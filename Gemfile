@@ -28,11 +28,13 @@ gem 'sass-rails',   '~> 3.2.3'
 gem 'bootstrap-sass', '~> 2.0.4.0'
 
 # For storage of assets
+# TODO Move all storage from Paperclip to Carrierwave
 gem 'paperclip'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'aws-s3'
 gem 'aws-sdk'
+gem "fog"
 
 # authentication
 gem 'devise' #this is our usermanagement system

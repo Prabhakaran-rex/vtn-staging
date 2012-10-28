@@ -15,4 +15,5 @@
 /tmp
 routes.out
 /public/system/*
+/public/uploads/*
 log.out
