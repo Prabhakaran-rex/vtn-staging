@@ -30,7 +30,7 @@ gem 'bootstrap-sass', '~> 2.0.4.0'
 # For storage of assets
 # TODO Move all storage from Paperclip to Carrierwave
 gem 'paperclip'
-gem 'carrierwave'
+gem 'carrierwave', '~> 0.7.0'
 gem 'rmagick'
 gem 'aws-s3'
 gem 'aws-sdk'
