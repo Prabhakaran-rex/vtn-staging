@@ -106,6 +106,7 @@
 			<% end %>
 			</div>
 	</div>
+	<% if @appraisal.status == EActivityValueFinalized %>
 	<div class="row">
 		<div class="span11">
 			<div class="pull-right" id="appraiser-info">
@@ -153,4 +154,5 @@
 			<% end %>
 		</div>
 	</div>
+	<% end %>
 </div>
