@@ -6,23 +6,24 @@
 	<%= render :partial => "validation_errors" %>
 
 	<%= f.simple_fields_for :appraiser_info, @user.appraiser_info do |a| %>
-	<%= a.input :years_appraising, :label => "Number of years appraising", :input_html => {:class => "input-xxlarge"} %>
-	<%= a.input :affiliated_with, :label => "List any related organization you are a member or affiliated with", :as => :text,  :input_html => {:class => "input-xxlarge", :rows => 4}%>
-	<%= a.input :certifications, :label => "Do you currently hold any appraisal certifications? If so, please list them", :as => :text,  :input_html => {:class => "input-xxlarge", :rows => 4}%>
+	<%= a.input :years_appraising, :label => "Number of years appraising and/or of market-related experience", :hint => "(e.g. as a dealer, auctioneer, estate liquidator, claims adjuster etc.)", :input_html => {:class => "input-xxlarge"} %>
+	<%= a.input :affiliated_with, :label => "List any related organizations that you are a member of or with which you are affiliated", :as => :text,  :input_html => {:class => "input-xxlarge", :rows => 4}%>
+	<%= a.input :certifications, :label => "Do you currently hold any designations from a recognized personal property appraisal society? If so, please list them.", :as => :text,  :input_html => {:class => "input-xxlarge", :rows => 4}%>
 	<%= a.input :description, :label => "Please give a detailed description of yourself, your experience and qualifications", :as => :text,  :input_html => {:class => "input-xxlarge", :rows => 4}%>
-
+<% # TODO Check how this values will affect the complementary information PDF (Issue #125)
+%>
 	<%= a.input :uspap, 
 			:collection => [[EAAppraiserUSPAPFamiliar, "I am familiar with and write to the standards of USPAP"],[EAAppraiserUSPAPSubjectExpert, "I am a subject matter expert in my field"],[EAAppraiserUSPAPExperienced, "I have experience writing restricted use reports and summary reports"],[EAAppraiserUSPAPExtensive,"I am a subject matter expert with extensive market - related experience and knowledge in my areas of specialization"]], 
 			:label_method => :last, 
 			:value_method => :first,
 			:as => :radio_buttons, 
 			:item_wrapper_class => 'radio',
-			:label => "Do you write to the standards of USPAP or are you considered a subject matter expert in the field?",
+			:label => "Check the boxes that apply",
 			:input_html => {:class => "input-xxlarge"}
 			%>
 	<% end %>
 	<div class="form-actions">
-		<%= f.submit "Continue", :class => "btn btn-success"%>
+		<%= f.submit "Save and Continue", :class => "btn btn-success"%>
 	</div>
 		<% end%> 
 </div>

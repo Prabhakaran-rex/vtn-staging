@@ -43,8 +43,8 @@
 					<% end %>
 					<%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
 						
-						<%= a.input :replacement_cost_min, :label => "Replacement Cost (comparable) Minimum", :input_html => {:class => "currency-input"} %>
-						<%= a.input :replacement_cost_max, :label => "Replacement Cost (comparable) Maximum", :input_html => {:class => "currency-input"}  %>
+						<%= a.input :replacement_cost_min, :label => "Replacement Value (comparable) Minimum", :input_html => {:class => "currency-input"} %>
+						<%= a.input :replacement_cost_max, :label => "Replacement Value (comparable) Maximum", :input_html => {:class => "currency-input"}  %>
 						<%= a.input :fair_market_value_min, :label => "Fair Market Value Minimum", :input_html => {:class => "currency-input"}  %>
 						<%= a.input :fair_market_value_max, :label => "Fair Market Value Maximum", :input_html => {:class => "currency-input"}  %>
 					<% end %>
@@ -64,7 +64,7 @@
 			</div> -->
 			<h3>Select Status:</h3>
 			<div>
-				<%= f.select :status , {"Send report back to user."=> EActivityValueFinalized, "I want to save but not hand back to user yet." => @appraisal.status }  , :selected => EActivityValueFinalized %>
+				<%= f.select :status , { "Save but do not send to Client" => @appraisal.status, "Send appraisal to Client."=> EActivityValueFinalized }  , :selected => @appraisal.status %>
 			</div>
 		</div>
 		<div>

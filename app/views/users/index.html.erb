@@ -55,7 +55,7 @@ stLight.subscribe("click",myCallbackFunction); //register the callback function 
           <%= link_to appraisal_path(appraisal, :format => :pdf), :class => "btn btn-success btn-mini" do %><i class="icon-download-alt icon-white"></i><% end if appraisal.status == EActivityValueFinalized%></td>
         <td><% if appraisal.status == EActivityValueCreated %>
               <% @payment = Payment.new %>
-              <%= link_to 'Enter Payment', payments_path(@payment, :appraisal_id => appraisal), :class => "btn btn-success btn-mini" %>
+              <%= link_to 'Make Payment', payments_path(@payment, :appraisal_id => appraisal), :class => "btn btn-success btn-mini" %>
               <% end %>
             <% if appraisal.status == EActivityValueFinalized %>
               <% @payment = Payment.new %>

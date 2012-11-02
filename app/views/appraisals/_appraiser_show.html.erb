@@ -3,10 +3,10 @@
 	<h5>Type : <%= getStringForAppraisalType(@appraisal.selected_plan) %></h5>
 	<h1><%= @appraisal.name %>
         <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValuePayed %>
-        <%= link_to 'Edit notes', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValueClaimed %>
+        <%= link_to 'Appraise', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValueClaimed %>
         <% if false # @appraisal.status == EActivityValueClaimed 
         	%>
-            <%= link_to 'Edit notes', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
+            <%= link_to 'Appraise', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
 		<% end %>
 		<% if @appraisal.status == EActivityValueFinalized %>
 		<%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
@@ -82,7 +82,7 @@
 						<td><%= @appraisal.appraisal_info.appraiser_comments %></td>
 					</tr>
 					<tr>
-						<td><%= "Replacement Cost".upcase%></br><small>(Comparable)</small></td>
+						<td><%= "Replacement Value".upcase%></br><small>(Comparable)</small></td>
 						<td><%= "$ #{@appraisal.appraisal_info.replacement_cost_min} to $ #{@appraisal.appraisal_info.replacement_cost_max} " %></td>
 					</tr>
 					<tr>

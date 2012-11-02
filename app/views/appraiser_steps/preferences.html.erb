@@ -7,7 +7,7 @@
 	<% if (!@user.appraiser_info.phone1.nil? && !@user.appraiser_info.phone1.blank? && !@user.appraiser_info.phone1.empty?)%>
 	<%= f.input :notify_by_sms, :label => "Receive notifications by SMS (SMS notifications will be sent to <b>#{@user.appraiser_info.phone1}</b>)<small><br>Note: We do not reimburse appraisers for any voice or data usage</small>", :inline_label => "Yes"%>
 	<% else %>
-	<div class="alert"><b>Please add a phone number in the Contact tab to enable SMS notifications</b></div>
+	<div class="alert"><b>Please add a phone number in the Contact tab if you would like to have SMS (text message) notifications sent to your phone.</b></div>
 	<% end %>
 	<%= f.input :notify_by_email, :label => "Receive notifications by Email (Email notifications will be sent to <b>#{@user.email})</b>",  :inline_label => "Yes"%>
 	<% if @user.role != "user" %>
@@ -15,7 +15,7 @@
 		<%= f.collection_radio_buttons :next_notification_interval_in_minutes, [['0', 'As they arrive'] ,['1', 'Once an hour'],['4','Every 6 hours'],['24','Once per day']], :first, :last, item_wrapper_class: 'checkbox inline' %>
 	<% end %>
 	<div class="form-actions">
-		<%= f.submit "Continue", :class => "btn btn-success"%>
+		<%= f.submit "Save and Continue", :class => "btn btn-success"%>
 	</div>
 		<% end%> 
 </div>

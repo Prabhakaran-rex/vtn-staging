@@ -158,7 +158,7 @@ class AppraisalsController < ApplicationController
       log_activity(@appraisal) unless !@appraisal.save
       redirect_to reply_appraisal_path(@appraisal)
     else
-      redirect_to(@appraisal, :alert => "You cannot claim this appraisal at this time")
+      redirect_to(@appraisal, :alert => "Please try claiming this item again in a few minutes.")
     end
   end
 

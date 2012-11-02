@@ -16,9 +16,9 @@
         <%= a.input :address %>
         <%= a.input :address2, :label => "Addres 2" %>
         <%= a.input :city %>
-        <%= a.input :state %>
+        <%= a.input :state, :label => "State/Province" %>
         <%= a.input :country, :priority => [ "United States" ] %>
-        <%= a.input :zip %>
+        <%= a.input :zip, :label => "Postal Code" %>
         <%= a.input :phone1, :label => "Phone 1", :input_html => {:class => "phone-input"} %>
         <%= a.input :phone2, :label => "Phone 2", :input_html => {:class => "phone-input"} %>
         <%= a.input :phone3, :label => "Phone 3", :input_html => {:class => "phone-input"} %>
@@ -35,6 +35,6 @@
   </div>
 </div>
 <div class="form-actions">
-    <%= f.submit "Continue", :class => "btn btn-success"%>
+    <%= f.submit "Save and Continue", :class => "btn btn-success"%>
   </div>
 <% end%> 
