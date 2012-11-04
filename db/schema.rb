@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121028001002) do
+ActiveRecord::Schema.define(:version => 20121104011127) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -27,6 +27,24 @@ ActiveRecord::Schema.define(:version => 20121028001002) do
   add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
   add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
+
+  create_table "addresses", :force => true do |t|
+    t.string   "address"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "zip"
+    t.string   "phone1"
+    t.string   "phone2"
+    t.string   "phone3"
+    t.string   "fax"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
 
   create_table "appraisal_activities", :force => true do |t|
     t.integer  "appraisal_id"
@@ -95,6 +113,22 @@ ActiveRecord::Schema.define(:version => 20121028001002) do
   end
 
   add_index "appraiser_access_tokens", ["user_id"], :name => "index_appraiser_access_tokens_on_user_id"
+
+  create_table "appraiser_extras", :force => true do |t|
+    t.string   "years_appraising"
+    t.string   "affiliated_with"
+    t.string   "certifications"
+    t.string   "description"
+    t.string   "bank_name"
+    t.string   "bank_routing_number"
+    t.integer  "uspap"
+    t.text     "signature_json"
+    t.integer  "appraiser_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "appraiser_extras", ["appraiser_id"], :name => "index_appraiser_extras_on_appraiser_id"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -231,6 +265,15 @@ ActiveRecord::Schema.define(:version => 20121028001002) do
 
   add_index "cms_snippets", ["site_id", "identifier"], :name => "index_cms_snippets_on_site_id_and_identifier", :unique => true
   add_index "cms_snippets", ["site_id", "position"], :name => "index_cms_snippets_on_site_id_and_position"
+
+  create_table "customer_extras", :force => true do |t|
+    t.string   "placeholder"
+    t.integer  "customer_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "customer_extras", ["customer_id"], :name => "index_customer_extras_on_customer_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -389,6 +432,7 @@ ActiveRecord::Schema.define(:version => 20121028001002) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "avatar"
+    t.string   "type"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

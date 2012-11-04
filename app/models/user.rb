@@ -10,6 +10,14 @@ class User < ActiveRecord::Base
   has_many :trade_references, :dependent => :destroy
   serialize :appraiser_info, AppraiserInfo
 
+# STI Migration
+  attr_accessible :type
+  has_one :address
+  accepts_nested_attributes_for :address
+  after_create :create_address
+
+# END STI Migration
+
   # The following is used for cropping & storing the signature image
   validates_attachment_size :signature, :less_than => 8.megabytes
   validates_attachment_content_type :signature, :content_type => /image/
