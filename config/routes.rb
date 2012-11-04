@@ -10,7 +10,7 @@ PurexNew::Application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations"}  do
     get '/admin/dashboard' => 'users/admin/dashboard#show'
-    match '/users/appraiser_sign_up' => 'registrations#new_appraiser', :as => :new_appraiser_registration
+    match '/users/sign_up/:role' => 'registrations#new', :as => :new_appraiser_registration
   end
 
     get '/users/save_json_signature' => 'users#save_json_signature', :as => :save_json_signature

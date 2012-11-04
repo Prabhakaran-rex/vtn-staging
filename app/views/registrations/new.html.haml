@@ -1,9 +1,22 @@
-%h4= "Sign up"
+- @role ||= params[:user][:role] || "customer"
+:javascript
+    $(document).ready(function() {
+        $('#new_user').submit(function() {
+            if ($('input:checkbox', this).length == $('input:checked', this).length ) {
+                console.log ("Everything is fine");
+            } else {
+                alert('Please tick all checkboxes to continue');
+                return false;
+            }
+        });
+    });
+%h4= "#{@role} sign up"
 .sub_box
     = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => "form-horizontal"}) do |f|
         .form-inputs
             %p= devise_error_messages!
             = f.hidden_field :role, {:value => @role}
+            = f.hidden_field :type, {:value => @role.capitalize}
             = f.input :name, :input_html => {:class => "input-xxlarge"}
             = f.input :username, :input_html => {:class => "input-xxlarge"}, :required => true
             = f.input :email, :input_html => {:class => "input-xxlarge"}
@@ -12,6 +25,7 @@
             .terms
                 = raw "#{Cms::Page.find_by_full_path('/terms-and-conditions').content}"
             = f.input :agree_to_tos, :as => :boolean, :label => "Agree to terms and conditions", :hint => false
+            = f.input :agree_to_code_of_ethics, :as => :boolean, :label => "I comply with the  #{link_to 'Appraiser Code of Ethics', ethics_path}", :hint => false if @role == "appraiser"
         .form-actions
             = f.button :submit, "Sign up", :class => "btn btn-success"
     = render :partial => "devise/shared/links"

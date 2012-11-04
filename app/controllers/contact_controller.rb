@@ -13,7 +13,7 @@ class ContactController < ApplicationController
 			role = current_user.role if current_user
 			if role == "appraiser"
 				mailer_method = "appraiser_support"
-			elsif role == "user"
+			elsif role == "customer"
 				mailer_method = "user_support"
 			else
 				mailer_method = "contact_us"

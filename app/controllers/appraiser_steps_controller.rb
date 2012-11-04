@@ -8,11 +8,11 @@ class AppraiserStepsController < ApplicationController
 		@trade_reference = TradeReference.new
 		case step
 			when :signature, :bank
-				skip_step if @user.role == "user" || !is_appraiser_confirmed
+				skip_step if @user.role == "customer" || !is_appraiser_confirmed
 			when :professional, :categories, :trade
-				skip_step if @user.role == "user"
+				skip_step if @user.role == "customer"
 			when :preferences
-				unless @user.role == "user"
+				unless @user.role == "customer"
 					skip_step if !is_appraiser_confirmed
 				end
 		end
