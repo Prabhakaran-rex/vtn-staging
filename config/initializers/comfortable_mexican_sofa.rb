@@ -112,7 +112,7 @@ ComfortableMexicanSofa::HttpAuth.password = 'password'
 
 module CmsDeviseAuth
   def authenticate
-    unless (current_user) && (current_user.has_role? :admin)
+    unless (current_user) && (current_user.role == "admin")
       redirect_to new_admin_session_path
     end
   end
