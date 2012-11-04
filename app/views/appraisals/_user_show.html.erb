@@ -115,10 +115,7 @@
             <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
             	<canvas id="appraiser-signature" height="100" width="250"></canvas>
             <% end %>
-			<h4>Appraised by <%= @appraiser.appraiser_info.public_name.nil? || @appraiser.appraiser_info.public_name.empty? ? "#{@appraiser.name}" : "#{@appraiser.appraiser_info.public_name}" %></h4>
-			<h5><%= @appraiser.appraiser_info.public_address.nil? || @appraiser.appraiser_info.public_address.empty? ? "" : "#{@appraiser.appraiser_info.public_address}" %></h5>
-			<h5><%= @appraiser.appraiser_info.public_phone.nil? || @appraiser.appraiser_info.public_phone.empty? ? "" : "#{@appraiser.appraiser_info.public_phone}" %></h5>
-			<h5><%= @appraiser.appraiser_info.public_email.nil? || @appraiser.appraiser_info.public_email.empty? ? "" : "#{@appraiser.appraiser_info.public_email}" %></h5>
+			<h4>Appraised by <%= @appraiser.name.nil? || @appraiser.name.empty? ? "#{@appraiser.name}" : "#{@appraiser.name}" %></h4>
 		</div>
 		</div>
 	</div>

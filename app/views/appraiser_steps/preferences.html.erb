@@ -4,8 +4,8 @@
 
 	<%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-vertical"} do |f| %>
 	<%= render :partial => "validation_errors" %>
-	<% if (!@user.appraiser_info.phone1.nil? && !@user.appraiser_info.phone1.blank? && !@user.appraiser_info.phone1.empty?)%>
-	<%= f.input :notify_by_sms, :label => "Receive notifications by SMS (SMS notifications will be sent to <b>#{@user.appraiser_info.phone1}</b>)<small><br>Note: We do not reimburse appraisers for any voice or data usage</small>", :inline_label => "Yes"%>
+	<% if (!@user.address.phone1.nil? && !@user.address.phone1.blank? && !@user.address.phone1.empty?)%>
+	<%= f.input :notify_by_sms, :label => "Receive notifications by SMS (SMS notifications will be sent to <b>#{@user.address.phone1}</b>)<small><br>Note: We do not reimburse appraisers for any voice or data usage</small>", :inline_label => "Yes"%>
 	<% else %>
 	<div class="alert"><b>Please add a phone number in the Contact tab if you would like to have SMS (text message) notifications sent to your phone.</b></div>
 	<% end %>

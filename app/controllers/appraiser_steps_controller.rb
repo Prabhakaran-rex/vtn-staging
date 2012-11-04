@@ -1,7 +1,7 @@
 # Handles the appraiser profile wizard
 class AppraiserStepsController < ApplicationController
 	include Wicked::Wizard
-	steps :personal, :professional, :trade,:categories, :signature,  :bank, :preferences, :public
+	steps :personal, :professional, :trade,:categories, :signature,  :bank, :preferences
 
 	def show
 		@user = current_user
@@ -11,7 +11,7 @@ class AppraiserStepsController < ApplicationController
 				skip_step if @user.role == "user" || !is_appraiser_confirmed
 			when :professional, :categories, :trade
 				skip_step if @user.role == "user"
-			when :preferences, :public
+			when :preferences
 				unless @user.role == "user"
 					skip_step if !is_appraiser_confirmed
 				end
@@ -21,12 +21,6 @@ class AppraiserStepsController < ApplicationController
 
 	def update
 		@user = current_user
-		# TODO [slm] Refactor this
-		params[:user] = params[:appraiser] if params[:appraiser]
-		params[:user][:appraiser_info] = Hash.new if params[:user][:appraiser_info].nil?
-		current_appraiser_info = @user.appraiser_info.instance_values
-		current_appraiser_info.merge!(AppraiserInfo.new(params[:user][:appraiser_info]).instance_values)
-		params[:user][:appraiser_info] = AppraiserInfo.new(current_appraiser_info)
 		@user.attributes = params[:user]
 		render_wizard @user
 	end

@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :check_uri # keep first
+  before_filter :rename_params
   
   def check_uri
     if /^www/.match(request.host) && (Rails.env == 'staging' || Rails.env == 'production')
@@ -45,6 +46,13 @@ class ApplicationController < ActionController::Base
     if current_user.nil? || current_user.role != "admin"
       redirect_to root_path
     end
+  end
+
+  private
+  # Added for Devise STI compatibility between Customer and Appraiser
+  def rename_params
+    self.params[:user] = params[:appraiser] if params[:appraiser]
+    self.params[:user] = params[:customer] if params[:customer]
   end
 
 end

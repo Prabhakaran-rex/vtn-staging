@@ -88,10 +88,10 @@ module ApplicationHelper
 
   def getProfileForUser(user)
     u = User.find(user)
-    if !u.nil? && !u.appraiser_info.public_email.nil? && !u.appraiser_info.public_email.blank? && !u.appraiser_info.public_email.empty?
+    if !u.nil?
       return raw "#{image_tag u.avatar_url(:small), :size => '20x20', :class=>'gravatar-tiny'} #{u.name}" 
     else
-      return "#{u.name}"
+      return ""
     end
   end
 

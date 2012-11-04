@@ -124,12 +124,4 @@ class UsersController < ApplicationController
       end
     end
   end
-
-  private
-
-  # Added for Devise STI compatibility between Customer and Appraiser
-  def rename_params
-    self.params[:user] = params[:appraiser] if params[:appraiser]
-    self.params[:user] = params[:customer] if params[:customer]
-  end
 end

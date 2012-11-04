@@ -2,17 +2,18 @@ class User < ActiveRecord::Base
   rolify
   has_many :appraisals
   has_many :appraisal_activities
+  # TODO Photos could be removed from the User model
   has_many :photos, :dependent => :destroy
   has_many :payments
   has_many :tags
   has_many :tickets
-  serialize :appraiser_info, AppraiserInfo
 
 # STI Migration
   attr_accessible :type
   has_one :address
   accepts_nested_attributes_for :address
   after_create :create_address
+  attr_accessible :address_attributes
 # END STI Migration
 
   mount_uploader :avatar, AvatarUploader
@@ -30,7 +31,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :status, :agree_to_code_of_ethics, :avatar, :avatar_cache, :remove_avatar
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :access_token, :login, :status, :agree_to_code_of_ethics, :avatar, :avatar_cache, :remove_avatar
 
   # Used for appraiser signup
   attr_accessor :access_token, :agree_to_code_of_ethics
@@ -112,32 +113,7 @@ class User < ActiveRecord::Base
     self.status == EAUserStatusConfirmed
   end
 
-  def is_appraiser_application_complete
-    begin
-      !self.name.empty? && !self.appraiser_info.address.empty? && !self.appraiser_info.city.empty? &&
-      !self.appraiser_info.state.empty? && !self.appraiser_info.country.empty? && !self.appraiser_info.zip.empty? &&
-      !self.appraiser_info.phone1.empty? && !self.appraiser_info.years_appraising.empty? && !self.appraiser_info.affiliated_with.empty? &&
-      !self.appraiser_info.certifications.empty? && !self.appraiser_info.description.empty? && !self.appraiser_info.uspap.empty? &&
-      self.skills.count > 0 && self.trade_references.count >= 3
-    rescue Exception => e
-      return false
-    end
-    
-  end
-
-  def submit_application
-    self.status = EAUserStatusReview
-    self.save
-    notify_admin_of_new_application
-  end
-
   def crop_avatar
     avatar.recreate_versions! if crop_avatar_x.present?
-  end
-
-  private
-  def notify_admin_of_new_application
-    message = Message.new(:name => self.name, :email => self.email )
-    UserMailer.notify_admin_of_new_application(message).deliver
   end
 end

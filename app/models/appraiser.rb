@@ -3,8 +3,10 @@ class Appraiser < User
   alias_attribute :user_id, :id
 
   has_one :appraiser_extra
+  alias_attribute :appraiser_info, :appraiser_extra
   accepts_nested_attributes_for :appraiser_extra
   after_create :create_appraiser_extra
+  attr_accessible :appraiser_extra_attributes
 
   has_many :trade_references, :dependent => :destroy
   accepts_nested_attributes_for :trade_references, :allow_destroy => true
@@ -30,6 +32,23 @@ class Appraiser < User
                     :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
                     :default_url => '/images/interface/missing.png'
 
+  def is_appraiser_application_complete
+    begin
+      !self.name.empty? && !self.adress.address.empty? && !self.adress.city.empty? &&
+      !self.adress.state.empty? && !self.adress.country.empty? && !self.adress.zip.empty? &&
+      !self.adress.phone1.empty? && !self.appraiser_info.years_appraising.empty? && !self.appraiser_info.affiliated_with.empty? &&
+      !self.appraiser_info.certifications.empty? && !self.appraiser_info.description.empty? && !self.appraiser_info.uspap.empty? &&
+      self.skills.count > 0 && self.trade_references.count >= 3
+    rescue Exception => e
+      return false
+    end
+  end
+
+  def submit_application
+    self.status = EAUserStatusReview
+    self.save
+    notify_admin_of_new_application
+  end
 
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
@@ -43,5 +62,10 @@ class Appraiser < User
   private
   def reprocess_signature
     signature.reprocess!
+  end
+
+  def notify_admin_of_new_application
+    message = Message.new(:name => self.name, :email => self.email )
+    UserMailer.notify_admin_of_new_application(message).deliver
   end
 end
