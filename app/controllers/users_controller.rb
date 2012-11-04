@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+  before_filter :rename_params
   before_filter :get_user, :except => [:facebook_login, :save_signature, :save_avatar]
 
   def index
@@ -54,8 +55,8 @@ class UsersController < ApplicationController
   end
 
   def save_json_signature
-    u = User.find(current_user)
-    u.signature_json = params.except(:controller, :action, :user).to_json
+    u = Appraiser.find(current_user)
+    u.appraiser_extra.signature_json = params.except(:controller, :action, :user).to_json
     u.signature = nil
     render :json => u.save
   end
@@ -97,7 +98,7 @@ class UsersController < ApplicationController
   end
 
   def save_signature
-    @user = User.find(current_user)
+    @user = Appraiser.find(current_user)
     @user.signature = params[:user][:signature]
 
     if @user.save
@@ -122,5 +123,13 @@ class UsersController < ApplicationController
         redirect_to new_signature, :error => "Unable to save signature. Please try again"
       end
     end
+  end
+
+  private
+
+  # Added for Devise STI compatibility between Customer and Appraiser
+  def rename_params
+    self.params[:user] = params[:appraiser] if params[:appraiser]
+    self.params[:user] = params[:customer] if params[:customer]
   end
 end

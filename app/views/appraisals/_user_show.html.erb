@@ -112,7 +112,7 @@
 			<div class="pull-right" id="appraiser-info">
 			<% if !(@appraiser.signature_file_name.nil?) %> 
                 <%= image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
-            <% elsif !(@appraiser.signature_json.nil? || @appraiser.signature_json.empty?) %>
+            <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
             	<canvas id="appraiser-signature" height="100" width="250"></canvas>
             <% end %>
 			<h4>Appraised by <%= @appraiser.appraiser_info.public_name.nil? || @appraiser.appraiser_info.public_name.empty? ? "#{@appraiser.name}" : "#{@appraiser.appraiser_info.public_name}" %></h4>

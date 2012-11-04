@@ -1,13 +1,11 @@
 class User < ActiveRecord::Base
   rolify
-  # has_many :skills
   has_many :appraisals
   has_many :appraisal_activities
   has_many :photos, :dependent => :destroy
   has_many :payments
   has_many :tags
   has_many :tickets
-  # has_many :trade_references, :dependent => :destroy
   serialize :appraiser_info, AppraiserInfo
 
 # STI Migration
@@ -17,29 +15,11 @@ class User < ActiveRecord::Base
   after_create :create_address
 # END STI Migration
 
-  # The following is used for cropping & storing the signature image
-  validates_attachment_size :signature, :less_than => 8.megabytes
-  validates_attachment_content_type :signature, :content_type => /image/
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  after_update :reprocess_signature, :if => :cropping?
-
-  has_attached_file :signature, :styles => {:standard => "550x550>", :small => { :processors => [:cropper], :geometry => '250x100!' }},
-                    :convert_options => {
-                      :all => '-auto-orient'
-                    },
-                    :storage => FILE_STORAGE[Rails.env]['storage'],
-                    :path => FILE_STORAGE[Rails.env]['path'],
-                    :url => FILE_STORAGE[Rails.env]['url'],
-                    :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
-                    :default_url => '/images/interface/missing.png'
-
   mount_uploader :avatar, AvatarUploader
   attr_accessor :crop_avatar_x, :crop_avatar_y, :crop_avatar_w, :crop_avatar_h
   after_update :crop_avatar
 
   accepts_nested_attributes_for :photos, :allow_destroy => true
-  # accepts_nested_attributes_for :skills
-  # accepts_nested_attributes_for :trade_references, :allow_destroy => true
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -50,7 +30,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :signature_json, :signature, :status, :agree_to_code_of_ethics, :avatar, :avatar_cache, :remove_avatar
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :status, :agree_to_code_of_ethics, :avatar, :avatar_cache, :remove_avatar
 
   # Used for appraiser signup
   attr_accessor :access_token, :agree_to_code_of_ethics
@@ -132,15 +112,6 @@ class User < ActiveRecord::Base
     self.status == EAUserStatusConfirmed
   end
 
-  def cropping?
-    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
-  end
-
-  def signature_geometry(style = :original)
-    @geometry ||= {}
-    @geometry[style] ||= Paperclip::Geometry.from_file(signature.path(style))
-  end
-
   def is_appraiser_application_complete
     begin
       !self.name.empty? && !self.appraiser_info.address.empty? && !self.appraiser_info.city.empty? &&
@@ -165,14 +136,8 @@ class User < ActiveRecord::Base
   end
 
   private
-  def reprocess_signature
-    signature.reprocess!
-  end
-
   def notify_admin_of_new_application
     message = Message.new(:name => self.name, :email => self.email )
     UserMailer.notify_admin_of_new_application(message).deliver
   end
-
-
 end

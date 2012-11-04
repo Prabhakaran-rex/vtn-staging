@@ -45,7 +45,7 @@
                 okElementType: "link",
                 cancelCaption: ""
             });
-            var signatureData = JSON.parse('<%= raw current_user.signature_json %>');
+            var signatureData = JSON.parse('<%= raw current_user.appraiser_extra.signature_json %>');
             $('#latest-signature').signaturePanel("drawClickstreamToCanvas",signatureData);
         });
 </script>
