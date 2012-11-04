@@ -1,0 +1,1 @@
+ENCRYPTION_KEY = (Rails.env == "development" || Rails.env == "test") ? "abcd1234" : ENV['ATTR_ENCRYPTED_KEY']

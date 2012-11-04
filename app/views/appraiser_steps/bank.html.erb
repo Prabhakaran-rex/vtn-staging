@@ -6,8 +6,8 @@
 	<%= render :partial => "validation_errors" %>
 
 	<%= f.simple_fields_for :appraiser_extra, @user.appraiser_extra do |a| %>
-	<%= a.input :bank_name, :label => "Bank name" %>
-	<%= a.input :bank_routing_number, :label => "Routing Number" %>
+	<%= a.input :bank_name_plain, :label => "Bank name" %>
+	<%= a.input :bank_routing_number_plain, :label => "Routing Number" %>
 	<% end %>
 	<div class="form-actions">
 		<%= f.submit "Save and Continue", :class => "btn btn-success"%>
