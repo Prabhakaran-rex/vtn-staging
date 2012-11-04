@@ -5,6 +5,9 @@ class Appraiser < User
 
   has_many :trade_references, :dependent => :destroy
   accepts_nested_attributes_for :trade_references, :allow_destroy => true
-
   attr_accessible :trade_references_attributes
+
+  has_many :skills, :dependent => :destroy
+  accepts_nested_attributes_for :skills, :allow_destroy => true
+  attr_accessible :skills_attributes
 end

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   rolify
-  has_many :skills
+  # has_many :skills
   has_many :appraisals
   has_many :appraisal_activities
   has_many :photos, :dependent => :destroy
@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   after_update :crop_avatar
 
   accepts_nested_attributes_for :photos, :allow_destroy => true
-  accepts_nested_attributes_for :skills
+  # accepts_nested_attributes_for :skills
   # accepts_nested_attributes_for :trade_references, :allow_destroy => true
 
   # Include default devise modules. Others available are:
@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable, :authentication_keys => [:login]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :skills_attributes,
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
     :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :signature_json, :signature, :status, :agree_to_code_of_ethics, :avatar, :avatar_cache, :remove_avatar
 
