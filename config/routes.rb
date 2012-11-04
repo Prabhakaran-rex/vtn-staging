@@ -10,8 +10,6 @@ PurexNew::Application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations"}  do
     get '/admin/dashboard' => 'users/admin/dashboard#show'
-    get '/admin/dashboard/appraisers' => 'users/admin/dashboard#appraisers_index', :as => :admin_appraisers
-    get '/admin/dashboard/invites' => 'users/admin/dashboard#appraisers_invite_index', :as => :admin_invites
     match '/users/appraiser_sign_up' => 'registrations#new_appraiser', :as => :new_appraiser_registration
   end
 

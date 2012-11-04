@@ -26,7 +26,7 @@ ActiveAdmin::Dashboards.build do
   section "Recent Users" do
     ul do
       User.order("created_at DESC").limit(5).collect do |user|
-        li link_to(user.name, admin_user_path(user))
+        li link_to(user.name, admin_customer_path(user))
       end
     end
   end

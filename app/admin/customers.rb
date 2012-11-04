@@ -1,13 +1,5 @@
-ActiveAdmin.register User do
-menu :if => proc{ can?(:manage, User) }     
-
-  action_item :only => :show do
-    link_to('Approve', update_appraiser_status_path(:user => user, :status => EAUserStatusConfirmed)) if user.role == "appraiser" && user.status == EAUserStatusReview
-  end  
-  action_item :only => :show do
-    link_to('Reject', update_appraiser_status_path(:user => user, :status => EAUserStatusRejected)) if user.role == "appraiser" && user.status == EAUserStatusReview
-  end  
- 
+ActiveAdmin.register Customer do
+menu :if => proc{ can?(:manage, Customer) }     
  
 	index do
 		column :id
@@ -51,11 +43,11 @@ menu :if => proc{ can?(:manage, User) }
 
   show :title => :name do
     attributes_table do
-      row("Name") {user.name}
-      row("Email") {user.email}
-      row("Created") {user.created_at}
-      row("Role") {user.role}
-      row("Status") {user.status}
+      row("Name") {customer.name}
+      row("Email") {customer.email}
+      row("Created") {customer.created_at}
+      row("Role") {customer.role}
+      row("Status") {customer.status}
     end
 
     # panel "Avatar" do
@@ -63,11 +55,7 @@ menu :if => proc{ can?(:manage, User) }
     # end
 
     panel "Additional Information" do
-      render "appraiser_info", :locals => {:appraiser_info => user.appraiser_info}
-    end
-
-    panel "Trade References" do
-      render "trade_references", :locals => {:user => user}      
+      render :partial=> "admin/users/appraiser_info", :locals => {:extra_info => customer.customer_extra}
     end
   end
 end

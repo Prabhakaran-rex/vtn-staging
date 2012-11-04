@@ -1,6 +1,0 @@
-#panel
-  %h2 Appraisers on file:
-  %h5= page_entries_info @users
-  = will_paginate @users
-  .users.clear= render :partial => 'appraisers/list', :collection => @users , :as => :user
-  = will_paginate @users
