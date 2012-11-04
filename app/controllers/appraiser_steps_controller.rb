@@ -22,6 +22,7 @@ class AppraiserStepsController < ApplicationController
 	def update
 		@user = current_user
 		# TODO [slm] Refactor this
+		params[:user] = params[:appraiser] if params[:appraiser]
 		params[:user][:appraiser_info] = Hash.new if params[:user][:appraiser_info].nil?
 		current_appraiser_info = @user.appraiser_info.instance_values
 		current_appraiser_info.merge!(AppraiserInfo.new(params[:user][:appraiser_info]).instance_values)
