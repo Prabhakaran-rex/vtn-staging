@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
 
   # Set requirement for signup
   validates :agree_to_tos, :acceptance => true, :on => :create
-  validates_presence_of :name
+  validates_presence_of :name, :username
 
   def notify_creator_of_appraisal_update( appraisal )
     UserMailer.notify_creator_of_appraisal_update( appraisal ).deliver
