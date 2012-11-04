@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :payments
   has_many :tags
   has_many :tickets
-  has_many :trade_references, :dependent => :destroy
+  # has_many :trade_references, :dependent => :destroy
   serialize :appraiser_info, AppraiserInfo
 
 # STI Migration
@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
   has_one :address
   accepts_nested_attributes_for :address
   after_create :create_address
-
 # END STI Migration
 
   # The following is used for cropping & storing the signature image
@@ -40,7 +39,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :photos, :allow_destroy => true
   accepts_nested_attributes_for :skills
-  accepts_nested_attributes_for :trade_references, :allow_destroy => true
+  # accepts_nested_attributes_for :trade_references, :allow_destroy => true
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -51,7 +50,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :skills_attributes,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :signature_json, :signature, :status, :trade_references_attributes, :agree_to_code_of_ethics, :avatar, :avatar_cache, :remove_avatar
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :appraiser_info, :access_token, :login, :signature_json, :signature, :status, :agree_to_code_of_ethics, :avatar, :avatar_cache, :remove_avatar
 
   # Used for appraiser signup
   attr_accessor :access_token, :agree_to_code_of_ethics
