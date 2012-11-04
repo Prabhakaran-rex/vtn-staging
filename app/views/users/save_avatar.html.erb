@@ -44,10 +44,10 @@ AvatarCropper = (function() {
   }
 
   AvatarCropper.prototype.update = function(coords) {
-    $('#user_crop_avatar_x').val(coords.x);
-    $('#user_crop_avatar_y').val(coords.y);
-    $('#user_crop_avatar_w').val(coords.w);
-    $('#user_crop_avatar_h').val(coords.h);
+    $('#<%= @user.class.to_s.downcase %>_crop_avatar_x').val(coords.x);
+    $('#<%= @user.class.to_s.downcase %>_crop_avatar_y').val(coords.y);
+    $('#<%= @user.class.to_s.downcase %>_crop_avatar_w').val(coords.w);
+    $('#<%= @user.class.to_s.downcase %>_crop_avatar_h').val(coords.h);
     return this.updatePreview(coords);
   };
 
