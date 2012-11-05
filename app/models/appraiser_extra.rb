@@ -4,4 +4,6 @@ class AppraiserExtra < ActiveRecord::Base
 
   attr_encrypted :bank_name_plain, :key => ENCRYPTION_KEY, :charset => :default, :attribute => 'bank_name'
   attr_encrypted :bank_routing_number_plain, :key => ENCRYPTION_KEY, :charset => :default, :attribute => 'bank_routing_number'
+
+  validates_presence_of :affiliated_with, :certifications, :description, :years_appraising, :uspap
 end
