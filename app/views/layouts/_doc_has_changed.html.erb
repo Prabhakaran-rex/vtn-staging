@@ -1,0 +1,24 @@
+<script type="text/javascript">
+$(document).ready(function() {  
+
+  var isEdit  = false;  
+
+  $('input').change(function() {  
+    isEdit = true;  
+  });  
+
+  $('select').change(function() {  
+    isEdit = true;  
+  }); 
+
+  function checkIsEdit() {  
+    if(isEdit)  
+      return "You have modified some content. Please save this form.";  
+  }  
+
+  window.onbeforeunload = checkIsEdit;  
+  $(document).submit(function(){
+    isEdit = false;
+  });
+});  
+</script>
