@@ -1,25 +1,25 @@
-<h4>Contact Information</h4>
+<%= render :partial => "welcome"%>
 <div class="sub_box">
   <%= render :partial => "appraiser_tabs" %>
-<!--   <div class="alert alert-info">
-    <i class="icon-warning-sign"></i>  <strong>NOTICE:</strong> The information entered here is private and will <strong>NOT</strong> be displayed to other users.
-  </div> -->
+<div class="alert alert-info">
+    <i class="icon-warning-sign"></i>  <strong>NOTICE:</strong> This information is part of your public profile
+  </div>
   <div class="row">
     <div class="span6">
       <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
       <%= render :partial => "validation_errors" %>
 
-      <%= f.input :email, :disabled => true
-      f.input :name %>
+      <%= f.input :name %>
+      <%= f.input :email, :disabled => true %>
 
       <%= f.simple_fields_for :address, @user.address do |a| %>
-        <%= a.input :address %>
+        <%= a.input :address, :required => @user.class.to_s == "Appraiser"  %>
         <%= a.input :address2, :label => "Addres 2" %>
-        <%= a.input :city %>
-        <%= a.input :state, :label => "State/Province" %>
-        <%= a.input :country, :priority => [ "United States" ] %>
-        <%= a.input :zip, :label => "Postal Code" %>
-        <%= a.input :phone1, :label => "Phone 1", :input_html => {:class => "phone-input"} %>
+        <%= a.input :city, :required => @user.class.to_s == "Appraiser" %>
+        <%= a.input :state, :label => "State/Province", :required => @user.class.to_s == "Appraiser" %>
+        <%= a.input :country, :priority => [ "United States" ], :required => @user.class.to_s == "Appraiser" %>
+        <%= a.input :zip, :label => "Postal Code", :required => @user.class.to_s == "Appraiser" %>
+        <%= a.input :phone1, :label => "Phone 1", :input_html => {:class => "phone-input"}, :required => @user.class.to_s == "Appraiser" %>
         <%= a.input :phone2, :label => "Phone 2", :input_html => {:class => "phone-input"} %>
         <%= a.input :phone3, :label => "Phone 3", :input_html => {:class => "phone-input"} %>
         <%= a.input :fax, :input_html => {:class => "phone-input"} %>
@@ -38,3 +38,4 @@
     <%= f.submit "Save and Continue", :class => "btn btn-success"%>
   </div>
 <% end%> 
+</div>

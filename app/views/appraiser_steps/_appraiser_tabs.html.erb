@@ -20,7 +20,10 @@
 <% if current_user.role == "appraiser" && current_user.status != EAUserStatusConfirmed %>
 	<% if !current_user.is_appraiser_application_complete %>
 		<div class="alert alert-error">
-		    <i class="icon-hand-right"></i> Please complete your application
+		   <p> <i class="icon-hand-right"></i> Welcome back! To complete your application to be a <b>ValueThisNow.com</b> appraiser:<br>
+			<b>Step 1</b>: Complete the four tabbed sections in "My Profile"<br>
+			<b>Step 2</b>: Submit your completed "My Profile" for review by our Administrator.
+</p>
 		</div>
 	<% elsif current_user.is_appraiser_application_complete && current_user.status != EAUserStatusReview%>
 		 <div class="alert alert-info">
