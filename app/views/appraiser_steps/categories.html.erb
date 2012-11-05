@@ -1,3 +1,9 @@
+<style type="text/css">
+.inactiveLink {
+   pointer-events: none;
+   cursor: default;
+}
+</style>
 <%= render :partial => "welcome"%>
 <div class="sub_box">
 	<%= render :partial => "appraiser_tabs" %>
@@ -29,6 +35,9 @@
             </tbody>
         </table>
     </div>
+    <div class="form-actions">
+<%= link_to "Save and Submit", submit_application_path, :class => "btn btn-success #{"inactiveLink disabled" unless current_user.is_appraiser_application_complete}", :id => "btnSubmitApplication" %>
+    </div>
 </div>
 
 <div class="modal hide fade" id="addAllSkillsModal">
@@ -55,8 +64,28 @@ function deleteCategory(caller, id ) {
                 data: { '_method': 'delete' },
                 success: function() {
                     $(caller).closest('tr').remove();
+                    getApplicationStatus();
                 }
             });
+}
+
+function getApplicationStatus() {
+    $.ajax({
+        url: "<%= url_for get_application_status_path(current_user) %>",
+        type: 'post',
+        success: function(data) {
+            if (data.status == false)
+                { $('#btnSubmitApplication').addClass("inactiveLink disabled");
+                  $('#applicationNotification').show();
+                  $('#applicationCompleted').hide();
+        }
+            else
+                { $('#btnSubmitApplication').removeClass("inactiveLink disabled");
+                  $('#applicationNotification').hide();
+                  $('#applicationCompleted').show();
+            }
+        }
+    });
 }
 
 $(function() {
@@ -93,6 +122,7 @@ $(function() {
             var subcategory = $('select[name=demo6__] option:selected').text();
             $('#skillTable > tbody:last').append('<tr><td>'+category +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+data.id+')">Remove</button>'
                 +'</td></tr>');
+            getApplicationStatus();
 
        } );
         }
@@ -110,6 +140,10 @@ $(function() {
             });
         });
         $('#addAllSkillsModal').modal('hide')
+    });
+
+    $('#btnSubmitApplication').click(function() {
+        getApplicationStatus();
     });
 });
 </script>

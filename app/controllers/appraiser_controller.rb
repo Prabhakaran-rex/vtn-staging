@@ -17,6 +17,14 @@ class AppraiserController < ApplicationController
     current_user.submit_application
     redirect_to appraiser_steps_path, :notice => "Your application was submitted succesfully"
   end
+
+  def get_application_status
+    u = User.find(params[:id])
+    isComplete = (u && u.role == "appraiser") ? u.is_appraiser_application_complete : false
+    respond_to do |format|
+      format.json { render json: {:appraiser_id => u.id, :status => isComplete} }
+    end
+  end
 end
 
 

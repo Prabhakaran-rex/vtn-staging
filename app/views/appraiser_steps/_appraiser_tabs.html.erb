@@ -18,18 +18,16 @@
 </ul>
 
 <% if current_user.role == "appraiser" && current_user.status != EAUserStatusConfirmed %>
-	<% if !current_user.is_appraiser_application_complete %>
-		<div class="alert alert-error">
+		<div class="alert alert-error" id="applicationNotification" <%= "style='display: none;'" if current_user.is_appraiser_application_complete  %> >
 		   <p> <i class="icon-hand-right"></i> Welcome back! To complete your application to be a <b>ValueThisNow.com</b> appraiser:<br>
 			<b>Step 1</b>: Complete the four tabbed sections in "My Profile"<br>
 			<b>Step 2</b>: Submit your completed "My Profile" for review by our Administrator.
 </p>
 		</div>
-	<% elsif current_user.is_appraiser_application_complete && current_user.status != EAUserStatusReview%>
-		 <div class="alert alert-info">
-		    <i class="icon-hand-right"></i> Your application is complete. Please click <%= link_to 'here', submit_application_path, :class => "btn" %> to submit it
+		 <div class="alert alert-info" id="applicationCompleted" <%= "style='display: none;'" unless current_user.is_appraiser_application_complete && current_user.status != EAUserStatusReview  %>>
+		    <i class="icon-hand-right"></i> Your application is complete. Please submit it by clicking on the "Save and Submit" button <%= @current_step == :categories ? "located at the bottom of this page" : "in the Categories tab" %>
 		</div>
-	<% elsif current_user.status == EAUserStatusReview%>
+	<% if current_user.status == EAUserStatusReview%>
 		<div class="alert alert-success">
 		    <i class="icon-hand-right"></i> Your application is under review. Our administrators will contact you soon.
 		</div>

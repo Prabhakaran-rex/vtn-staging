@@ -16,6 +16,7 @@ class AppraiserStepsController < ApplicationController
 					skip_step if !is_appraiser_confirmed
 				end
 		end
+		@current_step = step
 		render_wizard
 	end
 

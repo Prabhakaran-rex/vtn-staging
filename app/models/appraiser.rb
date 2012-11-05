@@ -34,11 +34,7 @@ class Appraiser < User
 
   def is_appraiser_application_complete
     begin
-      !self.name.empty? && !self.adress.address.empty? && !self.adress.city.empty? &&
-      !self.adress.state.empty? && !self.adress.country.empty? && !self.adress.zip.empty? &&
-      !self.adress.phone1.empty? && !self.appraiser_info.years_appraising.empty? && !self.appraiser_info.affiliated_with.empty? &&
-      !self.appraiser_info.certifications.empty? && !self.appraiser_info.description.empty? && !self.appraiser_info.uspap.empty? &&
-      self.skills.count > 0 && self.trade_references.count >= 3
+      !self.name.empty? && self.address.valid? && self.appraiser_extra.valid? && self.skills.count > 0 && self.trade_references.count >= 3
     rescue Exception => e
       return false
     end
