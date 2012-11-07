@@ -23,8 +23,9 @@
             = f.input :password, :input_html => {:class => "input-xxlarge"}, :required => true
             = f.input :password_confirmation, :input_html => {:class => "input-xxlarge"}, :required => true
             .terms
-                = raw "#{Cms::Page.find_by_full_path('/terms-and-conditions').content}"
-            = f.input :agree_to_tos, :as => :boolean, :label => "Agree to terms and conditions", :hint => false
+                = raw @role == "appraiser" ? "#{Cms::Page.find_by_full_path('/appraisal-provider-agreement').content}" : "#{Cms::Page.find_by_full_path('/terms-and-conditions').content}"
+            = f.input :agree_to_tos, :as => :boolean, :label => "Agree to terms of service", :hint => false if @role != "appraiser"
+            = f.input :agree_to_provider_agreement, :as => :boolean, :label => "Agree to Appraisal Provider Agreement", :hint => false if @role == "appraiser" 
             = f.input :agree_to_code_of_ethics, :as => :boolean, :label => "I comply with the  #{link_to 'Appraiser Code of Ethics', ethics_path}", :hint => false if @role == "appraiser"
         .form-actions
             = f.button :submit, "Sign up", :class => "btn btn-success"
