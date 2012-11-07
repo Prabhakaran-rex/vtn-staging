@@ -28,6 +28,8 @@ EAUserStatusConfirmed = 2
 EAUserStatusBlocked = 3
 EAUserStatusRejected = 4
 EAUserStatusReview = 5
+## UserStatus as hash
+EAUserStatusHash = Hash["1" => "Pending","2" => "Confirmed", "3" => "Blocked", "4" => "Rejected", "5" => "Under Review"]
 ## USPAP
 EAAppraiserUSPAPFamiliar = 1 # I am familiar with and write to the standards of USPAP
 EAAppraiserUSPAPSubjectExpert = 2 # I am a subject matter expert in my field

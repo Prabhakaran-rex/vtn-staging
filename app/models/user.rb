@@ -123,4 +123,8 @@ class User < ActiveRecord::Base
   def is_appraiser?
     self.class.to_s.eql?("Appraiser")
   end
+
+  def status_as_string
+    EAUserStatusHash[self.status.to_s]
+  end
 end

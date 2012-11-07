@@ -55,7 +55,7 @@ menu :if => proc{ can?(:manage, Appraiser) }
       row("Email") {appraiser.email}
       row("Created") {appraiser.created_at}
       row("Role") {appraiser.role}
-      row("Status") {appraiser.status}
+      row("Status") {appraiser.status_as_string}
     end
 
     # panel "Avatar" do
