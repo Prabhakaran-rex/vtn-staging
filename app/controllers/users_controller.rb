@@ -86,7 +86,7 @@ class UsersController < ApplicationController
       @user.crop_avatar_w = params[:user][:crop_avatar_w]
       @user.crop_avatar_h = params[:user][:crop_avatar_h]
       if @user.save
-        redirect_to root_path, :notice => "Avatar saved succesfully"
+        redirect_to appraiser_steps_path(:personal), :notice => "Avatar saved succesfully"
       else
         redirect_to new_avatar, :error => "Unable to save avatar. Please try again"
       end
@@ -118,7 +118,7 @@ class UsersController < ApplicationController
       @user.crop_w = params[:user][:crop_w]
       @user.crop_h = params[:user][:crop_h]
       if @user.save
-        redirect_to root_path, :notice => "Signature saved succesfully"
+        redirect_to appraiser_steps_path(:signature), :notice => "Signature saved succesfully"
       else
         redirect_to new_signature, :error => "Unable to save signature. Please try again"
       end
