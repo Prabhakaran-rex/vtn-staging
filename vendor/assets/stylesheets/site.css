@@ -5806,3 +5806,11 @@ border-radius:5px;
 .div-gravatar h5 {
   padding-left: 20px;
 }
+#welcomeDiv {
+  position: fixed;
+  width:280px;
+  top: 0px;
+  left: 50%;
+  z-index: 1050;
+  text-align: right;
+}

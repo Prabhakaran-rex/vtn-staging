@@ -18,6 +18,7 @@
 <%= analytics_init if Rails.env.production? %>
 </head>
 <body>
+<%= render :partial => "layouts/welcome" %>
 <!-- Navbar -->
 <%= render :partial => "layouts/navbar"%>
 <div class="container">
