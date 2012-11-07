@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_filter :authenticate_user!, :only => :fee_schedule
 
   # Home Page
   def index
