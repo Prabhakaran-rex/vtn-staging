@@ -9,8 +9,8 @@ ActiveAdmin::Dashboards.build do
   #
   section "Applications Pending Review", :priority => 9 do
     ul do
-      User.order("created_at ASC").where("status = ?",EAUserStatusReview).collect do |user|
-        li link_to(user.name, admin_user_path(user))
+      Appraiser.order("created_at ASC").where("status = ?",EAUserStatusReview).collect do |user|
+        li link_to(user.name, admin_appraiser_path(user))
       end     
     end    
   end
