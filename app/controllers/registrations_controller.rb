@@ -17,4 +17,14 @@ class RegistrationsController < Devise::RegistrationsController
       after_sign_in_path_for(resource)
     end
   end
+
+  # Monkeypatched so the Edit Login tab plays nice with the Wicked gem (for the Appraiser Steps)
+  def wizard_path(goto_step = nil, options = {})
+    options = { :controller => :appraiser_steps,
+                :action     => 'show',
+                :id         => goto_step || params[:id],
+                :only_path  => true
+               }.merge options
+    url_for(options)
+  end
 end
