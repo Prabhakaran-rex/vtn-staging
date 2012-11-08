@@ -5814,6 +5814,7 @@ border-radius:5px;
   left: 50%;
   z-index: 1050;
   text-align: right;
+}
 
 .innercontainer {
   position: absolute; top: 50%; height: 10em; margin-top: -5em;
