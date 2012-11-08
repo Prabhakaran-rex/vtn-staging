@@ -5806,6 +5806,7 @@ border-radius:5px;
 .div-gravatar h5 {
   padding-left: 20px;
 }
+
 #welcomeDiv {
   position: fixed;
   width:280px;
@@ -5813,4 +5814,11 @@ border-radius:5px;
   left: 50%;
   z-index: 1050;
   text-align: right;
+
+.innercontainer {
+  position: absolute; top: 50%; height: 10em; margin-top: -5em;
+}
+
+.innercontainer a img {
+  margin-left: 30px;
 }

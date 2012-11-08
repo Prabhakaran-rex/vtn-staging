@@ -1,0 +1,18 @@
+<% if @role == "consumer" %>
+<%= raw "#{Cms::Page.find_by_full_path('/how-it-works-consumers').content}" %>
+<% elsif @role == "appraiser" %>
+<%= raw "#{Cms::Page.find_by_full_path('/how-it-works-appraisers').content}" %>
+<% else %>
+<h4>How it works</h4>
+<div class="row-fluid">
+	<div class="span5">
+		<%= link_to 'For Consumers', how_path(:role => "consumer"), :class => "btn btn-primary" %>
+	</div>
+	<div class="span2">
+		&nbsp;
+	</div>
+	<div class="span5">
+		<%= link_to 'For Appraisers', how_path(:role => "appraiser"), :class => "btn btn-primary" %>
+	</div>
+</div>
+<% end %>
