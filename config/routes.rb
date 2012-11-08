@@ -90,6 +90,7 @@ PurexNew::Application.routes.draw do
   get '/home/static4' => 'home#static4'
   get '/home/static5' => 'home#static5'
   get '/home/static6' => 'home#static6'
+  get '/home/appraisal_provider_agreement' => 'home#appraisal_provider_agreement'
 
   get '/photos/create'
   post '/photos/create'

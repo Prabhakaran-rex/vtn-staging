@@ -9,7 +9,12 @@ class HomeController < ApplicationController
 
   # Terms and Conditions
   def terms
-    render cms_page: '/terms-and-conditions'
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "terms_of_service"
+      end
+    end
   end
 
   # What we value
@@ -39,7 +44,12 @@ class HomeController < ApplicationController
 
   # Appraiser code of Ethics
   def ethics
-    render cms_page: '/ethics'
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "code_of_ethics"
+      end
+    end
   end
 
   # Determining Value
@@ -107,6 +117,15 @@ class HomeController < ApplicationController
 
   def static6
     render cms_page: '/static6'
+  end
+
+  def appraisal_provider_agreement
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "appraisal_provider_agreement"
+      end
+    end
   end
   # End For Future Use
 end
