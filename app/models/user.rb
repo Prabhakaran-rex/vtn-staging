@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include ActiveRecord::CallbacksAwareSti
+  attr_accessible :type
+
   rolify
   has_many :appraisals
   has_many :appraisal_activities
@@ -126,5 +129,11 @@ class User < ActiveRecord::Base
 
   def status_as_string
     EAUserStatusHash[self.status.to_s]
+  end
+
+  private
+  def create_address
+    y = Address.new(); y.user_id = self.id;
+    y.save(:validate => false)
   end
 end

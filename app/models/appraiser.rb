@@ -64,4 +64,9 @@ class Appraiser < User
     message = Message.new(:name => self.name, :email => self.email )
     UserMailer.notify_admin_of_new_application(message).deliver
   end
+
+  def create_appraiser_extra
+    y = AppraiserExtra.new(); y.appraiser_id = self.id;
+    y.save(:validate => false)
+  end
 end
