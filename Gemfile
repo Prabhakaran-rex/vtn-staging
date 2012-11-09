@@ -88,7 +88,7 @@ gem "attr_encrypted", "~> 1.2.1"
 group :test, :development do
   gem 'rspec-rails'
   gem 'spork'
-  gem 'cucumber-rails'   #for human language testing
+  # gem 'cucumber-rails'   #for human language testing
   gem 'capybara'     #like selnium for integration testing
   gem 'launchy'      #allows tests to launch a browser
 end
