@@ -1,5 +1,5 @@
-
 <% userType = @resource.type.downcase %>
+<p>Welcome <%= @resource.name %>!</p>
 <%= raw "#{Cms::Page.find_by_full_path('/'+userType+'-welcome-email-before-confirmation-link').content}" %>
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
 <%= raw "#{Cms::Page.find_by_full_path('/'+userType+'-welcome-email-after-confirmation-link').content}" %>
