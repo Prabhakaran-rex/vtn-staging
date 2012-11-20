@@ -6,7 +6,11 @@ menu :if => proc{ can?(:manage, Appraiser) }
   end  
   action_item :only => :show do
     link_to('Reject', update_appraiser_status_path(:user => appraiser, :status => EAUserStatusRejected)) if appraiser.role == "appraiser" && appraiser.status == EAUserStatusReview
-  end  
+  end
+
+  action_item :only => :show do
+    link_to('Reapply', update_appraiser_status_path(:user => appraiser, :status => EAUserStatusPending)) if appraiser.role == "appraiser" && appraiser.status == EAUserStatusRejected
+  end
  
  
 	index do
@@ -14,6 +18,9 @@ menu :if => proc{ can?(:manage, Appraiser) }
 		column :email
 		column :name
 		column :role
+    column :status do |appraiser|
+      appraiser.status_as_string
+      end
 		column :current_sign_in_at
 		column :last_sign_in_at
 		column :sign_in_count
