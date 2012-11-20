@@ -12,7 +12,7 @@ class AppraisalsController < ApplicationController
     else
       @appraisals = []
       if params[:specialized]
-        @specializedAppraisals = Appraisal.select("appraisals.id").joins(:classifications => {:category => {:skills => :user}}).where('appraisals.status in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ]).pluck('appraisals.id').uniq
+        @specializedAppraisals = Appraisal.select("appraisals.id").joins(:classifications => {:category => {:skills => :appraiser}}).where('appraisals.status in (?) and categories.id in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ],current_user.skills.pluck(:category_id).uniq).pluck('appraisals.id').uniq
         @appraisals << Appraisal.where('status = ? and id in(?) ', EActivityValuePayed,@specializedAppraisals)
         @appraisals << Appraisal.where("assigned_to = ? and status = ? and id in(?)",current_user,EActivityValueClaimed,@specializedAppraisals)
         @appraisals << Appraisal.where("assigned_to = ? and status = ? and id in(?)",current_user,EActivityValueFinalized, @specializedAppraisals)
