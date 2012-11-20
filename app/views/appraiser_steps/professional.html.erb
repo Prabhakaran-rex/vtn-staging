@@ -14,7 +14,7 @@
 <% # TODO Check how this values will affect the complementary information PDF (Issue #125)
 %>
 	<%= a.input :uspap, 
-			:collection => [[EAAppraiserUSPAPFamiliar, "I am familiar with and write to the standards of USPAP"],[EAAppraiserUSPAPSubjectExpert, "I am a subject matter expert in my field"],[EAAppraiserUSPAPExperienced, "I have experience writing restricted use reports and summary reports"],[EAAppraiserUSPAPExtensive,"I am a subject matter expert with extensive market - related experience and knowledge in my areas of specialization"]], 
+			:collection => [[EAAppraiserUSPAPFamiliar, "I am a trained personal property appraiser who writes appraisal reports in conformance with USPAP"],[EAAppraiserUSPAPExperienced, "I am a personal property appraiser, but I have not yet been trained in USPAP"],[EAAppraiserUSPAPExtensive,"I am a subject matter expert with extensive market-related experience and knowledge in my area(s) of specialization"]], 
 			:label_method => :last, 
 			:value_method => :first,
 			:as => :radio_buttons, 
