@@ -9,7 +9,7 @@ class AppraiserStepsController < ApplicationController
 		case step
 			when :signature, :bank
 				skip_step if @user.role == "customer" || !is_appraiser_confirmed
-			when :professional, :categories, :trade
+			when :professional, :categories, :trade, :contracts
 				skip_step if @user.role == "customer"
 			when :preferences
 				unless @user.role == "customer"

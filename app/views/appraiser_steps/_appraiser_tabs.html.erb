@@ -19,8 +19,8 @@
 		<li <%= current_page?(wizard_path(:signature)) ? "class='active'" : "" %>><%= link_to "Signature", wizard_path(:signature)%></li>		
 		<li <%= current_page?(wizard_path(:bank)) ? "class='active'" : "" %>><%= link_to "Bank Account", wizard_path(:bank)%></li>
 	<% end %>
+		<li <%= current_page?(wizard_path(:contracts)) ? "class='active'" : "" %>><%= link_to "Contracts", wizard_path(:contracts)%></li>
 	<% end %>
-	<li <%= current_page?(wizard_path(:contracts)) ? "class='active'" : "" %>><%= link_to "Contracts", wizard_path(:contracts)%></li>
 	<% if current_user.status == EAUserStatusConfirmed || current_user.role == "customer" %>
 	<li <%= current_page?(wizard_path(:preferences)) ? "class='active'" : "" %>><%= link_to "Notifications", wizard_path(:preferences)%></li>
 	<li <%= current_page?(edit_user_registration_path) ? "class='active'" : "" %>><%= link_to "Change Login", edit_user_registration_path%></li>
