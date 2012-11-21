@@ -35,17 +35,17 @@
 						</tr>
 					<% end %>
 					<tr>
-						<td><%= "Category".upcase %><% unless @appraisal.status == EActivityValueFinalized %><%= link_to wizard_categories_path(@appraisal.id, :pay => false), :class => "btn btn-mini btn-success", :target => "_new" do %><i class="icon-plus icon-white"></i> Edit categories <% end %><% end %></td>
+						<td><%= "Category".upcase %><% unless @appraisal.status == EActivityValueFinalized %><%= link_to wizard_categories_path(@appraisal.id, :pay => false), :class => "btn btn-mini btn-success", :target => "_new" do %><i class="icon-plus icon-white"></i> Edit category <% end %><% end %></td>
 						<td><% @appraisal.classifications.order('classifications.category_id').each do |c| %>
 							<%= "#{Category.find(c.category_id).name}" %></br>
 						<% end %>
 						</td>
 					</tr>
 					<tr width="165px">
-						<td><%= "Description / Title".upcase %></td>
+						<td><%= "Item description".upcase %></td>
 						<td><%= @appraisal.name %></td>
 					</tr>
-					<% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling %>
+					
 						<tr>
 							<td><%= "Approx. Date of Manufacture".upcase %></td>
 							<td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
@@ -74,7 +74,7 @@
 							<td><%= "Item History".upcase %></td>
 							<td><%= @appraisal.appraisal_info.item_history %></td>
 						</tr>
-					<% end %>
+
 					<tr>
 						<td><%= "Additional Extraordinary Assumptions".upcase %></td>
 						<td><%= @appraisal.appraisal_info.additional_ea %></td>

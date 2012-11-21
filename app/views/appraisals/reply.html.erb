@@ -20,13 +20,6 @@
 		<div class="row">
 			<div class="span8">
 				<div class="form-inputs">
-					<% if @appraisal.selected_plan == EAAppraisalTypeShortRestricted  || @appraisal.selected_plan == EAAppraisalTypeShortForSelling%>
-						<%= f.input :name, :label => "Description / Title", :hint => "(Noun name, circa date, condition, country of origin, etc.)", :input_html => {:class => "input-xxlarge"} %>
-						<%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
-						<%= a.input :additional_ea, :label => "Additional Extraordinary Assumptions", :hint => "Note that the 'More' link below goes to supplementary  information in the appraisal body which already addresses the basic limiting condition (not personally inspected) and extraordinary assumptions (exists, as described by client). This space is for additional EA’s, e.g.: 'teapot assumed to be sterling silver and not silverplate'. If none, state  'none'.)", :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4}  %>
-						<%= a.input :appraiser_comments, :label => "Comments", :hint => "(History, uses, etc.)", :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4}  %>
-						<% end %>
-					<% else %>
 						<%= f.input :name, :label => "Description / Title", :hint => "", :input_html => {:class => "input-xxlarge"} %>
 						<%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
 						<%= a.input :year_of_manufacture, :label => "Approx. Date of Manufacture", :input_html => {:class => "input-xxlarge"} %>
@@ -40,7 +33,6 @@
 						<%= a.input :additional_ea, :label => "Additional Extraordinary Assumptions", :hint => "Note that the 'More' link below goes to supplementary  information in the appraisal body which already addresses the basic limiting condition (not personally inspected) and extraordinary assumptions (exists, as described by client). This space is for additional EA’s, e.g.: 'teapot assumed to be sterling silver and not silverplate'. If none, state  'none'.)", :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4}  %>
 						<%= a.input :appraiser_comments, :label => "Additional Comments including market data:", :hint => "(E.g., history of the item or its maker, how the item was used, historical significance, association with important personages, extraordinary assumptions being made by the appraisers, market data on which opinion of value was based (i.e., past comparable sales or current asking prices for similar items), how to best care for or preserve the item, relevant club to join or periodical to subscribe to if interested in learning more about the item, web sites of interest, etc.) ", :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4}  %>
 						<% end %>
-					<% end %>
 					<%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
 						
 						<%= a.input :replacement_cost_min, :label => "Replacement Value (comparable) Minimum", :input_html => {:class => "currency-input"} %>

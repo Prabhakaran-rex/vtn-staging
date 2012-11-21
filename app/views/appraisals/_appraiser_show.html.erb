@@ -43,7 +43,7 @@
 						<td><%= "Description / Title".upcase %></td>
 						<td><%= @appraisal.name %></td>
 					</tr>
-					<% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling %>
+
 						<tr>
 							<td><%= "Approx. Date of Manufacture".upcase %></td>
 							<td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
@@ -72,7 +72,6 @@
 							<td><%= "Item History".upcase %></td>
 							<td><%= @appraisal.appraisal_info.item_history %></td>
 						</tr>
-					<% end %>
 					<tr>
 						<td><%= "Additional Extraordinary Assumptions".upcase %></td>
 						<td><%= @appraisal.appraisal_info.additional_ea %></td>
