@@ -44,12 +44,15 @@ class UsersController < ApplicationController
   end
 
   def update_appraiser_status
+    statusHash = Hash["Reject" => EAUserStatusRejected, "Approve" => EAUserStatusConfirmed, "Reapply" => EAUserStatusPending]
     if current_user.role == "admin"
       u = User.find(params[:user])
-      u.status = params[:status]
-      u.save
-       message = Message.new(:name => u.name, :email => u.email)
-       UserMailer.notify_appraiser_of_application_result(u,message).deliver
+      status = statusHash[params[:status]]
+      u.status = status unless status.nil?
+      if u.save
+        message = Message.new(:name => u.name, :email => u.email)
+        UserMailer.notify_appraiser_of_application_result(u,message,params[:reason]).deliver unless u.status == EAUserStatusPending
+      end
     end
     redirect_to root_path
   end

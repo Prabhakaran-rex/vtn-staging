@@ -57,6 +57,10 @@ menu :if => proc{ can?(:manage, Appraiser) }
   end
 
   show :title => :name do
+    panel "Actions" do
+      render :partial => "admin/users/appraiser_actions", :locals => {:user => appraiser}
+    end
+
     attributes_table do
       row("Name") {appraiser.name}
       row("Email") {appraiser.email}

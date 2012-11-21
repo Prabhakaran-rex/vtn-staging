@@ -1,0 +1,30 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".my_btn").click(function() {
+		$("#txtStatus").val($(this).attr("value"));
+		$("#frmAppraiserActions").submit();
+	});
+});
+</script>
+
+<form id="frmAppraiserActions" action="<%= url_for update_appraiser_status_path %>">
+<input type="hidden" name="status" value="" id="txtStatus">
+<input type="hidden" name="user" value="<%= appraiser.id %>">
+<% if appraiser.status == EAUserStatusReview %>
+<p>If rejecting the appraiser, please select one or more of the following reasons:</p>
+<ul>
+	<li><input type="checkbox" name="reason[]" value="incomplete"> Your application was incomplete</li>
+	<li><input type="checkbox" name="reason[]" value="references"> We were unable to confirm your references</li>
+	<li><input type="checkbox" name="reason[]" value="experience"> You do not have sufficient years of market related experience</li>
+</ul>
+<% end %>
+<% if appraiser.role == "appraiser" && appraiser.status == EAUserStatusReview %>
+	<input type="button" value="Reject" id="btnReject" class="my_btn">
+<% end %>
+<% if appraiser.role == "appraiser" && appraiser.status == EAUserStatusReview %>
+	<input type="button" value="Approve" id="btnApprove" class="my_btn">
+<% end %>
+<% if appraiser.role == "appraiser" && appraiser.status == EAUserStatusRejected %>
+	<input type="button" value="Reapply" id="btnReapply" class="my_btn">
+<% end %>
+</form>
