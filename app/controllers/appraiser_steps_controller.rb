@@ -1,7 +1,7 @@
 # Handles the appraiser profile wizard
 class AppraiserStepsController < ApplicationController
 	include Wicked::Wizard
-	steps :personal, :professional, :trade,:categories, :signature,  :bank, :preferences
+	steps :personal, :professional, :trade,:categories, :signature,  :bank, :preferences, :contracts
 
 	def show
 		@user = current_user
