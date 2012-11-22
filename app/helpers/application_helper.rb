@@ -56,10 +56,10 @@ module ApplicationHelper
   def getStringForAppraisalType(nType)
     return "" if nType.nil?
 
-    hItems = {EAAppraisalTypeShortRestricted => "Social Light Restricted Use Appraisal",
-              EAAppraisalTypeLongRestricted  => "Social Full Restricted Use Appraisal",
-              EAAppraisalTypeShortForSelling => "Social Light Summary Appraisal",
-              EAAppraisalTypeLongForSelling => "Social Full Summary Appraisal"}
+    hItems = {EAAppraisalTypeShortRestricted => "Light Restricted Use Appraisal",
+              EAAppraisalTypeLongRestricted  => "Full Restricted Use Appraisal",
+              EAAppraisalTypeShortForSelling => "Light Summary Appraisal",
+              EAAppraisalTypeLongForSelling => "Full Summary Appraisal"}
 
     hItems[nType].empty? ? "" : hItems[nType]
   end
