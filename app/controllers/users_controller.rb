@@ -51,7 +51,7 @@ class UsersController < ApplicationController
       u.status = status unless status.nil?
       if u.save
         message = Message.new(:name => u.name, :email => u.email)
-        UserMailer.notify_appraiser_of_application_result(u,message,params[:reason]).deliver unless u.status == EAUserStatusPending
+        UserMailer.notify_appraiser_of_application_result(u,message,params[:reason], params[:comments]).deliver unless u.status == EAUserStatusPending
       end
     end
     redirect_to root_path

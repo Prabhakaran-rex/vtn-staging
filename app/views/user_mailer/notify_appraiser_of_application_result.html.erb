@@ -2,6 +2,7 @@ Dear <%= @message.name %>,
 
 <% body = @status == EAUserStatusConfirmed ? '/appraiser-approved' : '/appraiser-rejected'  
 content = Cms::Page.find_by_full_path(body).content
+content = content.gsub("[%additional_comments%]",@additional_comments) 
 
 if @status == EAUserStatusRejected
 	reasonsHash = Hash["incomplete" => "Your application was incomplete", "references" => "We were unable to confirm your references", "experience" => "You do not have sufficient years of market related experience"]

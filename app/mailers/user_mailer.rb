@@ -42,10 +42,11 @@ class UserMailer < ActionMailer::Base
           :subject => "[New Appraiser Application] #{message.name}")
   end
 
-  def notify_appraiser_of_application_result(appraiser,message, rejection_reasons = nil)
+  def notify_appraiser_of_application_result(appraiser,message, rejection_reasons = nil, additional_comments = nil)
     @message = message
     @status = appraiser.status
     @rejection_reasons = rejection_reasons
+    @additional_comments = additional_comments
     mail( #:to => "appraiser_support@colosses.com", 
           :to => appraiser.email,
           :subject => "[Your Value This Now Application] #{message.name}")

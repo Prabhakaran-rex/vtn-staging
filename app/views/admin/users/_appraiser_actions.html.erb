@@ -17,6 +17,8 @@ $(document).ready(function(){
 	<li><input type="checkbox" name="reason[]" value="references"> We were unable to confirm your references</li>
 	<li><input type="checkbox" name="reason[]" value="experience"> You do not have sufficient years of market related experience</li>
 </ul>
+<p><label for="comments">Additional Comments</label></p>
+<p><textarea rows="4" cols="50" name="comments" value=""></textarea></p>
 <% end %>
 <% if appraiser.role == "appraiser" && appraiser.status == EAUserStatusReview %>
 	<input type="button" value="Reject" id="btnReject" class="my_btn">
