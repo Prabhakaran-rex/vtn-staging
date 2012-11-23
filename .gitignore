@@ -17,3 +17,5 @@ routes.out
 /public/system/*
 /public/uploads/*
 log.out
+.vagrant
+Vagrantfile
