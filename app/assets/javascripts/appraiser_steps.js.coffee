@@ -21,3 +21,9 @@ jQuery ->
 		if $(".trade-references-inputs:visible").length < 3
 			alert "You must add at least 3 references"
 			event.preventDefault()
+
+	$("form[action*='/appraiser_steps/preferences']").submit (event) ->
+		if ($('#customer_notify_by_sms').is(':checked') or $('#customer_notify_by_email').is(':checked')) or ($('#appraiser_notify_by_sms').is(':checked') or $('#appraiser_notify_by_email').is(':checked'))
+			if not($('#accept_reimburse').is(':checked'))
+				alert('Please accept to not be reimbursed to continue')
+				event.preventDefault()
