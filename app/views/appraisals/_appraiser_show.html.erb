@@ -82,11 +82,11 @@
 					</tr>
 					<tr>
 						<td><%= "Replacement Value".upcase%></br><small>(Comparable)</small></td>
-						<td><%= "$ #{@appraisal.appraisal_info.replacement_cost_min} to $ #{@appraisal.appraisal_info.replacement_cost_max} " unless (@appraisal.appraisal_info.replacement_cost_min.blank? || @appraisal.appraisal_info.replacement_cost_max.blank?) %></td>
+						<td><%= print_replacement_cost(@appraisal) %></td>
 					</tr>
 					<tr>
 						<td><%= "Fair Market Value".upcase %></td>
-						<td><%= "$ #{@appraisal.appraisal_info.fair_market_value_min} to $ #{@appraisal.appraisal_info.fair_market_value_max} " unless (@appraisal.appraisal_info.fair_market_value_min.blank? || @appraisal.appraisal_info.fair_market_value_max.blank?)%></td>
+						<td><%= print_fair_market_value(@appraisal) %></td>
 					</tr>
 				</tbody>
 			</table>

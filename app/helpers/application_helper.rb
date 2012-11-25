@@ -108,4 +108,7 @@ module ApplicationHelper
     show_shared_url(appraisal)
   end
 
+  def print_as_currency(number)
+    number_to_currency(number, :locale => :us)
+  end
 end

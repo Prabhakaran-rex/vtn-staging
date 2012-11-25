@@ -134,7 +134,7 @@
 			<b>Replacement Value :</b></br><small>(Comparable)</small>
 		</div>
 		<div class="span9">
-			<%= "$ #{@appraisal.appraisal_info.replacement_cost_min} to $ #{@appraisal.appraisal_info.replacement_cost_max} " unless (@appraisal.appraisal_info.replacement_cost_min.blank? || @appraisal.appraisal_info.replacement_cost_max.blank?)%>
+			<%= print_replacement_cost(@appraisal) %>
 		</div>
 	</div>
 	<div class="row">
@@ -142,7 +142,7 @@
 			<b>Fair Market Value : </b>
 		</div>
 		<div class="span9">
-			<%= "$ #{@appraisal.appraisal_info.fair_market_value_min} to $ #{@appraisal.appraisal_info.fair_market_value_max} " unless (@appraisal.appraisal_info.fair_market_value_min.blank? || @appraisal.appraisal_info.fair_market_value_max.blank?)%>
+			<%= print_fair_market_value(@appraisal) %>
 		</div>
 	</div>
 	<% if @appraisal.photos.count != 0 %>

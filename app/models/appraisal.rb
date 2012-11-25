@@ -1,4 +1,6 @@
 class Appraisal < ActiveRecord::Base
+  before_save :sanitize_appraisal_info
+
   has_many :appraisal_activities
   has_many :photos, :dependent => :destroy
   has_many :tickets
@@ -18,4 +20,9 @@ class Appraisal < ActiveRecord::Base
   serialize :appraisal_info, AppraisalInfo
 
   attr_accessible :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type
+
+  private
+  def sanitize_appraisal_info
+    self.appraisal_info.sanitize
+  end
 end
