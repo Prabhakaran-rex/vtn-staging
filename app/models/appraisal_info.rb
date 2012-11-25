@@ -24,6 +24,6 @@ class AppraisalInfo
 	private
 	# Remove all currency symbols and commas from input
 	def sanitize_currency
-		%w[replacement_cost_min replacement_cost_max fair_market_value_min fair_market_value_max].each {|name| send("#{name}=", (send("#{name}").gsub(/,|\$/,"")))}
+		%w[replacement_cost_min replacement_cost_max fair_market_value_min fair_market_value_max].each {|name| send("#{name}=", (send("#{name}").gsub(/,|\$/,""))) unless (send("#{name}").nil?)}
 	end
 end
