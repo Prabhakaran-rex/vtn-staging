@@ -1,4 +1,10 @@
 <%= stylesheet_link_tag 'chosen.css' %>
+<style type="text/css">
+.inactiveLink {
+   pointer-events: none;
+   cursor: default;
+}
+</style>
 <div class="row">
 	<h4>Step 3 - Select Categories</h4>
 </div>
@@ -39,10 +45,14 @@
 				</tbody>
 			</table>
 		</div>
+		<% if @appraisal.status == EActivityValuePayed || !@appraisal.classifications.empty? %>
+		<div class="pull-right" id="applicationNotification"><b>Please enter in a category to proceed to the next step</b></div>
+		<% end %>
 		<div class="form-actions">
+
 			<% if @appraisal.status == EActivityValueCreated && !params[:pay] %>
 			<% @payment = Payment.new %>
-			<%= link_to 'Next step', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right" %>
+			<%= link_to 'Next step', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right #{"inactiveLink disabled " unless @appraisal.status == EActivityValuePayed || !@appraisal.classifications.empty?}", :id => "btn_next_step"%>
 			<% end %>
 		</div>
 	</div>
@@ -58,6 +68,8 @@
 			success: function() {
 				$(caller).closest('tr').remove();
 				$('#divCategoriesSelect').show();
+				$('#btn_next_step').addClass("inactiveLink disabled");
+				$('#applicationNotification').show();
 			}
 		});
 	}
@@ -70,6 +82,9 @@
 				$('#classificationTable > tbody:last').append('<tr><td>'+category +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+data.id+')">Remove</button>'
 					+'</td></tr>');
 				$('#divCategoriesSelect').hide();
+				 $('#btn_next_step').removeClass("inactiveLink disabled");
+                  $('#applicationNotification').hide();
+
 			} );
 		});
 	});
