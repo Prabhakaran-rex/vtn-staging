@@ -1,19 +1,19 @@
 development:
-    app_id: '202619959787004'
-    app_secret: '1226e13ee69153672b7030beba6d2e25'
+    app_id: '425544334168202'
+    app_secret: 'b466a4f70ed5102ffd737f1bc069bb8d'
 
 test:
-    app_id: '202619959787004'
-    app_secret: '1226e13ee69153672b7030beba6d2e25'
+    app_id: '425544334168202'
+    app_secret: 'b466a4f70ed5102ffd737f1bc069bb8d'
 
 cucumber:
-    app_id: '202619959787004'
-    app_secret: '1226e13ee69153672b7030beba6d2e25'
+    app_id: '425544334168202'
+    app_secret: 'b466a4f70ed5102ffd737f1bc069bb8d'
 
 production:
-    app_id: '205320576165334'
-    app_secret: '219d27cdcd3d6635e787db60bdeee1ef'
+    app_id: '446278322085973'
+    app_secret: 'bcba5da0c6c9848789b4d503be3f6704'
 
 staging:
-    app_id: '202619959787004'
-    app_secret: '1226e13ee69153672b7030beba6d2e25'
+    app_id: '425544334168202'
+    app_secret: 'b466a4f70ed5102ffd737f1bc069bb8d'

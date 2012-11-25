@@ -73,14 +73,14 @@ class User < ActiveRecord::Base
       if user = users.find_by_email(data['email'])
         user
       else
-        user = User.new(:email => data["email"],
+        user = Customer.new(:email => data["email"],
+                        :username => data["username"],
                         :password => Devise.friendly_token[0, 20]
         )
-        user.role = "user"
+        user.skip_confirmation!
+        user.role = "customer"
       end
     end
-  puts "DATA:::::::"
-  p data
     user.facebook_id = data['id'] unless user.facebook_id
     user.name = data['name']
     user.facebook_token = token
