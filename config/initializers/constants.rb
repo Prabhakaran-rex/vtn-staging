@@ -40,3 +40,4 @@ EAAppraisalTypeShortRestricted = 1
 EAAppraisalTypeLongRestricted = 2
 EAAppraisalTypeShortForSelling = 3
 EAAppraisalTypeLongForSelling = 4
+APPRAISAL_PLANS = [EAAppraisalTypeShortRestricted, EAAppraisalTypeLongRestricted, EAAppraisalTypeShortForSelling, EAAppraisalTypeLongForSelling]

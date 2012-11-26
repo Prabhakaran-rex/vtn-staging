@@ -1,0 +1,21 @@
+<% APPRAISAL_PLANS.each_with_index do |plan,index| %>
+<h2><%= getStringForAppraisalType(index+1) %></h2>
+<table>
+	<thead>
+		<tr>
+			<th>Time Range (Hours)</th>
+			<th>Appraiser Makes</th>
+			<th>Company Makes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% Compensation.find_all_by_appraisal_plan(plan).each do |compensation| %>
+		<tr>
+			<td><%= "#{compensation.min_range} to #{compensation.max_range}" %></td>
+			<td><%= "#{print_as_currency(compensation.amount)}" %></td>
+			<td><%= "#{print_as_currency(PAYMENT_PLAN[plan-1]-compensation.amount)}" %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<% end %>

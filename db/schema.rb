@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121125231716) do
+ActiveRecord::Schema.define(:version => 20121126000604) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -265,6 +265,15 @@ ActiveRecord::Schema.define(:version => 20121125231716) do
 
   add_index "cms_snippets", ["site_id", "identifier"], :name => "index_cms_snippets_on_site_id_and_identifier", :unique => true
   add_index "cms_snippets", ["site_id", "position"], :name => "index_cms_snippets_on_site_id_and_position"
+
+  create_table "compensations", :force => true do |t|
+    t.float    "amount"
+    t.integer  "appraisal_plan"
+    t.integer  "min_range"
+    t.integer  "max_range"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "customer_extras", :force => true do |t|
     t.string   "placeholder"
