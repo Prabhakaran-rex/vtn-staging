@@ -85,6 +85,9 @@ gem 'sendgrid_toolkit', '>= 1.1.1'
 # gem "attr_encrypted", :git => 'git://github.com/yellow-lab/attr_encrypted_1_9_3_charset_fix.git'
 gem "attr_encrypted", "~> 1.2.1"
 
+# For activerecord versioning
+gem "paper_trail", "~> 2.6.4"
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'spork'
