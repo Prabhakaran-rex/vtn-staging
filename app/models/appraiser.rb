@@ -2,6 +2,8 @@ class Appraiser < User
 
   alias_attribute :user_id, :id
 
+  has_many :payouts
+
   has_one :appraiser_extra
   alias_attribute :appraiser_info, :appraiser_extra
   accepts_nested_attributes_for :appraiser_extra

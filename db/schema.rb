@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121104014531) do
+ActiveRecord::Schema.define(:version => 20121126011426) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -266,6 +266,15 @@ ActiveRecord::Schema.define(:version => 20121104014531) do
   add_index "cms_snippets", ["site_id", "identifier"], :name => "index_cms_snippets_on_site_id_and_identifier", :unique => true
   add_index "cms_snippets", ["site_id", "position"], :name => "index_cms_snippets_on_site_id_and_position"
 
+  create_table "compensations", :force => true do |t|
+    t.float    "amount"
+    t.integer  "appraisal_plan"
+    t.integer  "min_range"
+    t.integer  "max_range"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "customer_extras", :force => true do |t|
     t.string   "placeholder"
     t.integer  "customer_id"
@@ -305,6 +314,18 @@ ActiveRecord::Schema.define(:version => 20121104014531) do
 
   add_index "payments", ["appraisal_id"], :name => "index_payments_on_appraisal_id"
   add_index "payments", ["user_id"], :name => "index_payments_on_user_id"
+
+  create_table "payouts", :force => true do |t|
+    t.integer  "appraisal_id",                :null => false
+    t.integer  "appraiser_id",                :null => false
+    t.float    "amount",                      :null => false
+    t.integer  "status",       :default => 0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "payouts", ["appraisal_id"], :name => "index_payouts_on_appraisal_id"
+  add_index "payouts", ["appraiser_id"], :name => "index_payouts_on_appraiser_id"
 
   create_table "photos", :force => true do |t|
     t.integer  "appraisal_id"
@@ -446,5 +467,17 @@ ActiveRecord::Schema.define(:version => 20121104014531) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",      :null => false
+    t.integer  "item_id",        :null => false
+    t.string   "event",          :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+    t.text     "object_changes"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end
