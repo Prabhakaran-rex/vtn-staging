@@ -64,6 +64,15 @@ module ApplicationHelper
     hItems[nType].empty? ? "" : hItems[nType]
   end
 
+  def getStringForPayoutStatus(status)
+    return "" if status.nil?
+
+    hItems = {EAPayoutPending => "Pending",
+              EAPayoutCompleted => "Completed"}
+
+    hItems[status].empty? ? "" : hItems[status]
+  end
+
   def getStringForExpectedUse(nType)
     aTypes = ["Summary","Restricted"]
 

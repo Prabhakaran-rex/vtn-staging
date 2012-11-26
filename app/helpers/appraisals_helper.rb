@@ -11,6 +11,18 @@ module AppraisalsHelper
 			"#{print_as_currency(appraisal.appraisal_info.fair_market_value_min)} to #{print_as_currency(appraisal.appraisal_info.fair_market_value_max)}"
 		end
 	end
+
+	def print_amount_paid(appraisal)
+		if appraisal.status == EActivityValueFinalized && !appraisal.payout.nil?
+			"#{print_as_currency(appraisal.payout.amount)}"
+		end
+	end
+
+	def print_payout_status(appraisal)
+		if appraisal.status == EActivityValueFinalized && !appraisal.payout.nil?
+			"#{getStringForPayoutStatus(appraisal.payout.status)}"
+		end
+	end
 end
 
 

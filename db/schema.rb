@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121126000604) do
+ActiveRecord::Schema.define(:version => 20121126011426) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -314,6 +314,18 @@ ActiveRecord::Schema.define(:version => 20121126000604) do
 
   add_index "payments", ["appraisal_id"], :name => "index_payments_on_appraisal_id"
   add_index "payments", ["user_id"], :name => "index_payments_on_user_id"
+
+  create_table "payouts", :force => true do |t|
+    t.integer  "appraisal_id",                :null => false
+    t.integer  "appraiser_id",                :null => false
+    t.float    "amount",                      :null => false
+    t.integer  "status",       :default => 0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "payouts", ["appraisal_id"], :name => "index_payouts_on_appraisal_id"
+  add_index "payouts", ["appraiser_id"], :name => "index_payouts_on_appraiser_id"
 
   create_table "photos", :force => true do |t|
     t.integer  "appraisal_id"

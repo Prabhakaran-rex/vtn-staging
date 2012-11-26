@@ -1,5 +1,5 @@
 <% APPRAISAL_PLANS.each_with_index do |plan,index| %>
-<h2><%= getStringForAppraisalType(index+1) %></h2>
+<h2><%= "#{getStringForAppraisalType(index+1)} (#{index+1})" %></h2>
 <table>
 	<thead>
 		<tr>

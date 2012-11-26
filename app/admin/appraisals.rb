@@ -26,6 +26,7 @@ ActiveAdmin.register Appraisal do
     attributes_table do
       row("Name") {appraisal.name}
       row("Status") {|t| "#{getStringForActivityValue(t.status)}"}
+      row("Selected Plan") {|t| "#{getStringForAppraisalType(t.selected_plan)}"}
       row("View in Frontend") {|t| link_to "Click here", appraisal_path(t)}
     end
 
