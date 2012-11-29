@@ -2,6 +2,11 @@
 :javascript
     $(document).ready(function() {
         $('#new_user').submit(function() {
+            if(  $('#user_password').val() != $("#user_password_confirmation").val()){
+               alert("Password does not match confirmation");
+               return false;
+             }
+
             if ($('input:checkbox', this).length == $('input:checked', this).length ) {
                 console.log ("Everything is fine");
             } else {

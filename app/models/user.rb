@@ -17,7 +17,14 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :address
   after_create :create_address
   attr_accessible :address_attributes
-# END STI Migration
+  validates_inclusion_of :type, :in => ["Appraiser", "Customer"]
+  validates_presence_of   :email
+  validates_uniqueness_of :email, :allow_blank => true
+  # validates_format_of     :email, :with  => email_regexp, :allow_blank => true, :if => :email_changed?
+
+  validates_presence_of     :password
+#   validates_length_of       :password, :within => password_length, :allow_blank => true
+# # END STI Migration
 
   mount_uploader :avatar, AvatarUploader
   attr_accessor :crop_avatar_x, :crop_avatar_y, :crop_avatar_w, :crop_avatar_h
@@ -29,7 +36,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable, :authentication_keys => [:login]
+  :recoverable, :rememberable, :trackable, :omniauthable, :confirmable, :authentication_keys => [:login]
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me,
@@ -129,6 +136,11 @@ class User < ActiveRecord::Base
 
   def status_as_string
     EAUserStatusHash[self.status.to_s]
+  end
+
+  protected
+  def password_required?
+    !persisted? || !password.nil? || !password_confirmation.nil?
   end
 
   private
