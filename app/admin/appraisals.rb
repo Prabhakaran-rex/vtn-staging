@@ -20,7 +20,7 @@ ActiveAdmin.register Appraisal do
 	filter :owned_by
 	filter :assigned_to
 	filter :created_at
-	filter :status
+	filter :status, :as => :select, :collection => APPRAISAL_STATUS.sort_by{|key, value| value}.map {|k,v| [v,k]}
 
   show :title => :name do
     attributes_table do

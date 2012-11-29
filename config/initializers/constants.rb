@@ -18,6 +18,19 @@ EActivityValueClaimed   =  9
 EActivityValueFinalized = 10
 EActivityValueWithdrawn = 11
 EActivityValuePayed   = 12
+APPRAISAL_STATUS = {EActivityValueCreated   => "Incomplete",
+	              EActivityValueEdited    => "Edited",
+	              EActivityValueResponded => "Responded",
+	              EActivityValueCommented => "Commented",
+	              EActivityValueAnnotated => "Annotated",
+	              EActivityValueClosed    => "Closed",
+	              EActivityValueDeleted   => "Deleted",
+	              EActivityValueAppealed  => "Appealed",
+	              EActivityValueViewed    => "Viewed",
+	              EActivityValueClaimed   => "Processing",
+	              EActivityValueFinalized => "Complete",
+	              EActivityValueWithdrawn => "Withdrawn",
+	              EActivityValuePayed     => "Unclaimed"}
 ## AppraisalDataType
 EAppraisalDataTypeString    = 0
 EAppraisalDataTypeLocation  = 1
