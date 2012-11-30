@@ -41,7 +41,8 @@ class Appraisal < ActiveRecord::Base
 
   # TODO See how this works if an appraiser claims an item and then returns it to the pool without finishing the appraisal
   def get_date_for_status_change(from_status, to_status)
-    (self.versions.select {|x| YAML.load(x.object_changes)["status"] == [from_status, to_status] }).last.created_at
+    selected_version = self.versions.select {|x| YAML.load(x.object_changes)["status"] == [from_status, to_status] }
+    !selected_version.empty? ? selected_version.last.created_at : 0
   end
 
   def paid_amount

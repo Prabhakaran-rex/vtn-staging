@@ -57,3 +57,5 @@ APPRAISAL_PLANS = [EAAppraisalTypeShortRestricted, EAAppraisalTypeLongRestricted
 ## Payouts
 EAPayoutPending = 0
 EAPayoutCompleted = 1
+PAYOUT_STATUS = {EAPayoutPending => "Pending",
+	              EAPayoutCompleted => "Completed"}

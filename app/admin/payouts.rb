@@ -11,6 +11,9 @@ ActiveAdmin.register Payout do
 		column "Appraiser", :appraiser_id do |payout|
 			"#{Appraiser.find(payout.appraiser_id).username}"
 		end
+		column "Completed On" do |payout|
+			"#{display_time(payout.appraisal.completion_time("s"))}" if payout.appraisal.completion_time > 0
+		end
 		column "Amount Paid" do |payout|
 			print_as_currency(payout.amount)
 		end
@@ -19,6 +22,13 @@ ActiveAdmin.register Payout do
 		end
 		default_actions
 	end
+
+	filter :created_at
+	filter :updated_at
+	filter :appraisal_id
+	filter :appraiser_id
+	filter :amount
+	filter :status, :as => :select, :collection => PAYOUT_STATUS.sort_by{|key, value| value}.map {|k,v| [v,k]}
 
 	show do
 		attributes_table do

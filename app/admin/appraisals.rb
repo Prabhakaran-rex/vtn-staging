@@ -12,6 +12,9 @@ ActiveAdmin.register Appraisal do
 		column :assigned_on do |t|
 			"#{Time.at(t.assigned_on)}" unless t.assigned_on.nil?
 		end
+		column "Completed On" do |t|
+			"#{display_time(t.completion_time("s"))}" if t.completion_time > 0
+		end
 		default_actions
 	end
 
