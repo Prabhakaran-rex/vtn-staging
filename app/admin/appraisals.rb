@@ -9,7 +9,7 @@ ActiveAdmin.register Appraisal do
 		column :updated_at
 		column :owned_by, :sortable => "owned_bies_appraisals.name"
 		column :assigned_to, :sortable => "users.name"
-		column :assigned_on do |t|
+		column :assigned_on, :sortable => :assigned_on do |t|
 			"#{Time.at(t.assigned_on)}" unless t.assigned_on.nil?
 		end
 		column "Completed On" do |t|
