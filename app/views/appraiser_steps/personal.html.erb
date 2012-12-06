@@ -12,10 +12,15 @@
 
       <%= f.input :name %>
       <%= f.input :email, :disabled => true %>
+      <% if @user.class.to_s == "Appraiser" %>
+        <%= f.simple_fields_for :appraiser_extra, @user.appraiser_extra do |e| %>
+          <%= e.input :website, :label => "Preferred Web Address" %>
+        <% end %>
+      <% end %>
 
       <%= f.simple_fields_for :address, @user.address do |a| %>
         <%= a.input :address, :required => @user.class.to_s == "Appraiser"  %>
-        <%= a.input :address2, :label => "Addres 2" %>
+        <%= a.input :address2, :label => "Address 2" %>
         <%= a.input :city, :required => @user.class.to_s == "Appraiser" %>
         <%= a.input :state, :label => "State/Province", :required => @user.class.to_s == "Appraiser" %>
         <%= a.input :country, :priority => [ "United States" ], :required => @user.class.to_s == "Appraiser" %>
