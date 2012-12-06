@@ -26,7 +26,7 @@
 					<%= a.input :materials, :label => "Materials", :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4} %>
 					<%= a.input :country_of_origin, :label => "Country of Origin", :as => :country %>
 
-					<%= a.input :damage, :label => "Condition", :as => :text,:hint => "(List any damages, old repairs, soiling, staining, or other defects.)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
+					<%= a.input :damage, :label => "Condition", :as => :text,:hint => "(List any damages, old repairs, soiling, staining or other defects.<br>If the item is mechanical or electrical, is it in good working condition?) ", :input_html => {:class => "input-xxlarge", :rows => 4} %>
 				<% end %>
 		</div>
 	</div>
@@ -37,7 +37,7 @@
 		<div>
 			<h4>Selected Plan</h4>
 			<%= f.input :selected_plan, 
-			:collection => [[EAAppraisalTypeShortRestricted, "<b>Light Restricted Use Appraisal</b> ($17.00)<br/><ul><li>For your personal use only!</li><li>Provides streamlined feedback and valuation</li><li>(Max 48 hour turnaround time)</li></ul>"],[EAAppraisalTypeLongRestricted, "<b>Full Restricted Use Appraisal</b> ($27.00)<br/><ul><li>For your personal use only!</li><li>Provides comprehensive feedback and valuation</li><li>(Max 48 hour turnaround time)</li></ul>"],[EAAppraisalTypeShortForSelling, "<b>Light Summary Appraisal</b> ($19.00)<br/><ul><li>For use by you as well as by others</li><li>Provides streamlined feedback and valuation for reports being used by others</li><li>(Max 48 hour turnaround time)</li></ul>"],[EAAppraisalTypeLongForSelling, "<b>Full Summary Appraisal</b> ($29.00)<br/><ul><li>For use by you as well as by others</li><li>Provides comprehensive feedback and valuation for reports being used by others</li><li>(Max 48 hour turnaround time)</li></ul>"]], 
+			:collection => [[EAAppraisalTypeShortRestricted, "<b>Light Restricted Use Appraisal</b> ($17.00)<br/><ul><li>For your personal use only!</li><li>Provides streamlined feedback and valuation</li><li>Max 48 hour turnaround time</li></ul>"],[EAAppraisalTypeLongRestricted, "<b>Full Restricted Use Appraisal</b> ($27.00)<br/><ul><li>For your personal use only!</li><li>Provides comprehensive feedback and valuation</li><li>Max 48 hour turnaround time</li></ul>"],[EAAppraisalTypeShortForSelling, "<b>Light Summary Appraisal</b> ($19.00)<br/><ul><li>For use by you as well as by others</li><li>Provides streamlined feedback and valuation for reports being used by others</li><li>Max 48 hour turnaround time</li></ul>"],[EAAppraisalTypeLongForSelling, "<b>Full Summary Appraisal</b> ($29.00)<br/><ul><li>For use by you as well as by others</li><li>Provides comprehensive feedback and valuation for reports being used by others</li><li>Max 48 hour turnaround time</li></ul>"]], 
 			:label_method => lambda {|a| raw a[1]}, 
 			:value_method => :first,
 			:as => :radio_buttons, 
@@ -61,9 +61,9 @@
 	<div>
 		<div class="form-actions">
 			<% if params[:action]  != "edit" %>
-			<%= f.button :submit, :label => "Next step", :class => "btn btn-success pull-right" %>
+			<%= f.button :submit, "Next step", :class => "btn btn-success pull-right" %>
 			<% else %>
-			<%= f.button :submit, :label => "Edit appraisal", :class => "btn btn-success" %>
+			<%= f.button :submit, "Edit appraisal", :class => "btn btn-success" %>
 			<% end %>
 		</div>
 	</div>
