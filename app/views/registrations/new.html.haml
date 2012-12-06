@@ -15,7 +15,12 @@
             }
         });
     });
-%h4= "Sign up"
+-if @role == "customer"
+    %h4= "Please register in order to submit appraisal requests."
+    %h5
+        (Want to apply to be an appraiser? Go #{link_to 'here', new_appraiser_registration_path(:role => "appraiser")})
+-else
+    %h4= "Apply to be an Appraiser"
 .sub_box
     = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => "form-horizontal"}) do |f|
         .form-inputs
@@ -33,7 +38,7 @@
             = f.input :agree_to_provider_agreement, :as => :boolean, :label => "Agree to Appraisal Provider Agreement</br>#{link_to 'Print', appraisal_provider_agreeement_path(:format => :pdf),:target => "_blank"}", :hint => false if @role == "appraiser"
             = f.input :agree_to_code_of_ethics, :as => :boolean, :label => "I comply with the  #{link_to 'Appraiser Code of Ethics', ethics_path},</br>#{link_to 'Print', ethics_path(:format => :pdf),:target => "_blank"}", :hint => false if @role == "appraiser"
         .form-actions
-            = f.button :submit, "Sign up", :class => "btn btn-success"
+            - btnLabel = @role == "appraiser" ? "Apply" : "Sign up"
+            = f.button :submit, btnLabel, :class => "btn btn-success"
     = render :partial => "devise/shared/links"
-
 
