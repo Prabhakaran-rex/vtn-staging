@@ -1,23 +1,16 @@
 ActiveAdmin.register Appraiser do
-menu :if => proc{ can?(:manage, Appraiser) }     
+  menu :if => proc{ can?(:manage, Appraiser) } 
+  
+  actions :all, :except => [:new]    
 
   action_item :only => :show do
-    link_to('Approve', update_appraiser_status_path(:user => appraiser, :status => EAUserStatusConfirmed)) if appraiser.role == "appraiser" && appraiser.status == EAUserStatusReview
-  end  
-  action_item :only => :show do
-    link_to('Reject', update_appraiser_status_path(:user => appraiser, :status => EAUserStatusRejected)) if appraiser.role == "appraiser" && appraiser.status == EAUserStatusReview
+    link_to('Reapply', update_appraiser_status_path(:user => appraiser, :status => EAUserStatusPending)) if appraiser.type == "Appraiser" && appraiser.status == EAUserStatusRejected
   end
-
-  action_item :only => :show do
-    link_to('Reapply', update_appraiser_status_path(:user => appraiser, :status => EAUserStatusPending)) if appraiser.role == "appraiser" && appraiser.status == EAUserStatusRejected
-  end
- 
  
 	index do
 		column :id
 		column :email
 		column :name
-		column :role
     column :status do |appraiser|
       appraiser.status_as_string
       end
@@ -29,13 +22,11 @@ menu :if => proc{ can?(:manage, Appraiser) }
 
   filter :id
   filter :name
-  filter :role, :as => :select, :collection => User.roles
 
 	form do |f|
     f.inputs "Admin Details" do
       f.input :name
       f.input :email
-      f.input :role, :as => :select, :collection => User.roles
     end
     f.buttons
   end
@@ -65,7 +56,6 @@ menu :if => proc{ can?(:manage, Appraiser) }
       row("Name") {appraiser.name}
       row("Email") {appraiser.email}
       row("Created") {appraiser.created_at}
-      row("Role") {appraiser.role}
       row("Status") {appraiser.status_as_string}
     end
 

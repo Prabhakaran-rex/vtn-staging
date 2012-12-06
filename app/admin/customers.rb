@@ -1,11 +1,11 @@
 ActiveAdmin.register Customer do
-menu :if => proc{ can?(:manage, Customer) }     
+  menu :if => proc{ can?(:manage, Customer) }    
+  actions :all, :except => [:new] 
  
 	index do
 		column :id
 		column :email
 		column :name
-		column :role
 		column :current_sign_in_at
 		column :last_sign_in_at
 		column :sign_in_count
@@ -14,13 +14,11 @@ menu :if => proc{ can?(:manage, Customer) }
 
   filter :id
   filter :name
-  filter :role, :as => :select, :collection => User.roles
 
 	form do |f|
     f.inputs "Admin Details" do
       f.input :name
       f.input :email
-      f.input :role, :as => :select, :collection => User.roles
     end
     f.buttons
   end
@@ -46,13 +44,8 @@ menu :if => proc{ can?(:manage, Customer) }
       row("Name") {customer.name}
       row("Email") {customer.email}
       row("Created") {customer.created_at}
-      row("Role") {customer.role}
       row("Status") {customer.status}
     end
-
-    # panel "Avatar" do
-    #   render "appraiser_avatar", :locals => {:user => user}
-    # end
 
     panel "Additional Information" do
       render :partial=> "admin/users/appraiser_info", :locals => {:extra_info => customer.customer_extra}
