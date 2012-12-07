@@ -51,7 +51,7 @@ stLight.subscribe("click",myCallbackFunction); //register the callback function 
         <td><%= appraisal.status == EActivityValueFinalized ? print_fair_market_value(appraisal) : "-" %></td>
         <td><%= appraisal.status == EActivityValueFinalized ? print_replacement_cost(appraisal) : "-" %></td>
         <td><%= getStringForAppraisalType(appraisal.selected_plan) %></td>
-        <td><%= link_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-success btn-mini") if appraisal.status == EActivityValueCreated %>
+        <td><%= button_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-success btn-mini") if appraisal.status == EActivityValueCreated %>
           <%= link_to('Edit', edit_appraisal_path(appraisal), :class => "btn btn-success btn-mini", :style => "margin:2px;") if appraisal.status == EActivityValueCreated || appraisal.status == EActivityValuePayed %>
           <%= link_to appraisal_path(appraisal, :format => :pdf), :class => "btn btn-success btn-mini" do %>Download PDF<% end if appraisal.status == EActivityValueFinalized%></td>
         <td><% if appraisal.status == EActivityValueCreated %>

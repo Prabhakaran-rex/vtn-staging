@@ -29,7 +29,7 @@
       </div>
       <div class="btn-group pull-right">
         <% if current_user %>
-        <%= link_to("Signout", destroy_user_session_path, :method => :delete, :class => "btn btn-success") %>
+        <%= button_to("Signout", destroy_user_session_path, :method => :delete, :class => "btn btn-success") %>
         <% else %>
         <%= link_to "Log In", new_user_session_url, :class => "btn btn-success" %>
         <%= link_to "Register", new_user_registration_path, :class => "btn btn-success" %>

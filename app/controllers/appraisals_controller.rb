@@ -148,7 +148,7 @@ class AppraisalsController < ApplicationController
     @appraisal.destroy
 
     respond_to do |format|
-      format.html { redirect_to(@appraisal, :notice => 'Appraisal was deleted successfully.') }
+      format.html { redirect_to(root_path, :notice => 'Appraisal was deleted successfully.') }
       format.xml  { head :ok }
     end
   end
