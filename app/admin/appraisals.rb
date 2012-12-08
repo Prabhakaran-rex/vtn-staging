@@ -7,9 +7,9 @@ ActiveAdmin.register Appraisal do
 		end
 		column :created_at
 		column :updated_at
-		column :owned_by
-		column :assigned_to
-		column :assigned_on do |t|
+		column :owned_by, :sortable => "owned_bies_appraisals.name"
+		column :assigned_to, :sortable => "users.name"
+		column :assigned_on, :sortable => :assigned_on do |t|
 			"#{Time.at(t.assigned_on)}" unless t.assigned_on.nil?
 		end
 		column "Completed On" do |t|
@@ -36,5 +36,11 @@ ActiveAdmin.register Appraisal do
     panel "Additional Information" do
       render "appraisal_info", :locals => {:appraiser_info => appraisal.appraisal_info}
     end
+  end
+
+  controller do
+  	def scoped_collection
+  		Appraisal.includes(:assigned_to, :owned_by)
+  	end
   end
 end

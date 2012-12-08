@@ -28,7 +28,7 @@ production:
 
 staging:
     provider: 'lighthouse'
-    subdomain: 'valuethisnow'
-    account: 'valuethisnow'
-    token: '0dd9c4b6a4353a47950febfb3ba74cb48a9b29e0'
-    project_id: '101093'
+    subdomain: 'hpandaco'
+    account: 'hpandaco'
+    token: '76dc05e9685090e52364e4a621013cec86ca3f00'
+    project_id: '100163'
