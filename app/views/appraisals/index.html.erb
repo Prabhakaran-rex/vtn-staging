@@ -21,7 +21,7 @@
       <tbody>
         <% @appraisals.each do |appraisal| %>
           <tr>
-            <td><%= link_to image_tag(appraisal.photos.first.asset.url(:thumb), :class => "tagThumb"), appraisal.photos.first.asset.url(:original), :title => h(appraisal.name) unless appraisal.photos.count == 0 %></td>
+            <td><%= link_to image_tag(appraisal.photos.first.asset.url(:thumb), :class => "tagThumb"), appraisal, :title => h(appraisal.name) unless appraisal.photos.count == 0 %></td>
             <td><%= link_to(h(appraisal.name) + " ##{appraisal.id}", appraisal) %></td>
             <td><%= distance_of_time_in_words(Time.now,appraisal.updated_at) + " ago" %></td>
             <td><%= getStringForActivityValue(appraisal.status) %></td>
