@@ -20,13 +20,13 @@ $(document).ready(function(){
 <p><label for="comments">Additional Comments</label></p>
 <p><textarea rows="4" cols="50" name="comments" value=""></textarea></p>
 <% end %>
-<% if appraiser.role == "appraiser" && appraiser.status == EAUserStatusReview %>
+<% if appraiser.is_appraiser? && appraiser.status == EAUserStatusReview %>
 	<input type="button" value="Reject" id="btnReject" class="my_btn">
 <% end %>
-<% if appraiser.role == "appraiser" && appraiser.status == EAUserStatusReview %>
+<% if appraiser.is_appraiser? && appraiser.status == EAUserStatusReview %>
 	<input type="button" value="Approve" id="btnApprove" class="my_btn">
 <% end %>
-<% if appraiser.role == "appraiser" && appraiser.status == EAUserStatusRejected %>
+<% if appraiser.is_appraiser? && appraiser.status == EAUserStatusRejected %>
 	<input type="button" value="Reapply" id="btnReapply" class="my_btn">
 <% end %>
 </form>

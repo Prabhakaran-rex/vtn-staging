@@ -5,9 +5,9 @@ class AppraisalsController < ApplicationController
   # GET /appraisals
   # GET /appraisals.xml
   def index
-    @user = User.find_by_id(current_user)
+    @user = current_user
   
-    if @user.role.eql?("user")
+    if @user.is_customer?
       redirect_to users_url
     else
       @appraisals = []
@@ -214,6 +214,6 @@ class AppraisalsController < ApplicationController
   end
 
   def is_appraiser_confirmed
-    redirect_to :appraiser_steps if current_user.role == 'appraiser' && current_user.status != EAUserStatusConfirmed
+    redirect_to :appraiser_steps if current_user.is_appraiser? && current_user.status != EAUserStatusConfirmed
   end    
 end

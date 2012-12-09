@@ -8,11 +8,11 @@ class AppraiserStepsController < ApplicationController
 		@trade_reference = TradeReference.new
 		case step
 			when :signature, :bank
-				skip_step if @user.role == "customer" || !is_appraiser_confirmed
+				skip_step if @user.is_customer? || !is_appraiser_confirmed
 			when :professional, :categories, :trade, :contracts
-				skip_step if @user.role == "customer"
+				skip_step if @user.is_customer?
 			when :preferences
-				unless @user.role == "customer"
+				unless @user.is_customer?
 					skip_step if !is_appraiser_confirmed
 				end
 		end
@@ -22,12 +22,12 @@ class AppraiserStepsController < ApplicationController
 
 	def update
 		@user = current_user
-		@user.attributes = params[:user]
+		@user.attributes = params[:appraiser] || params[:customer]
 		render_wizard @user
 	end
 
 	protected
 	def is_appraiser_confirmed
-		current_user.role == 'appraiser' && current_user.status == EAUserStatusConfirmed
+		current_user.is_appraiser? && current_user.status == EAUserStatusConfirmed
 	end 
 end

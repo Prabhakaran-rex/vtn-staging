@@ -8,10 +8,10 @@
               <li style="font-size:13px;"><a href="#">|</a></li>
             <% if current_user %>
               <li style="font-size:13px;"><%= link_to appraiser_steps_path do %><%= image_tag current_user.avatar_url(:small), :size => '20x20', :class=>'gravatar-tiny' %> My Account <% end %></li>
-              <% if current_user.role.eql?("appraiser") && current_user.status.eql?(EAUserStatusConfirmed) %>
+              <% if current_user.is_appraiser? && current_user.is_confirmed? %>
                 <li style="font-size:13px;"><a href="#">|</a></li>
                 <li style="font-size:13px;"><%= link_to("My Appraisals", appraisals_path) %></li>
-              <% elsif current_user.role.eql?("user") %>
+              <% elsif current_user.is_customer? %>
                 <li style="font-size:13px;"><a href="#">|</a></li>
                 <li style="font-size:13px;"><%= link_to("My Appraisals", users_path) %></li>
               <% end %>
@@ -32,7 +32,7 @@
         <%= button_to("Signout", destroy_user_session_path, :method => :delete, :class => "btn btn-success") %>
         <% else %>
         <%= link_to "Log In", new_user_session_url, :class => "btn btn-success" %>
-        <%= link_to "Register", new_user_registration_path, :class => "btn btn-success" %>
+        <%= link_to "Register", new_customer_registration_path, :class => "btn btn-success" %>
         <% end %>
       </div>
     </div>

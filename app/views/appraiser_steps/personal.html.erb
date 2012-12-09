@@ -2,9 +2,11 @@
 <%= render :partial => "welcome"%>
 <div class="sub_box">
   <%= render :partial => "appraiser_tabs" %>
+<% if current_user.is_appraiser? %>
 <div class="alert alert-info">
     <i class="icon-warning-sign"></i>  <strong>NOTICE:</strong> This information is primarily for the private use of ValueThisNow.com and will not be made public. Only the appraiser’s name, image and website will be made public.
-  </div>
+</div>
+<% end %>
   <div class="row">
     <div class="span6">
       <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
@@ -12,20 +14,15 @@
 
       <%= f.input :name %>
       <%= f.input :email, :disabled => true %>
-      <% if @user.class.to_s == "Appraiser" %>
-        <%= f.simple_fields_for :appraiser_extra, @user.appraiser_extra do |e| %>
-          <%= e.input :website, :label => "Preferred Web Address" %>
-        <% end %>
-      <% end %>
-
+      <%= f.input :website, :label => "Preferred Web Address" %>
       <%= f.simple_fields_for :address, @user.address do |a| %>
-        <%= a.input :address, :required => @user.class.to_s == "Appraiser"  %>
+        <%= a.input :address, :required => @user.is_appraiser?  %>
         <%= a.input :address2, :label => "Address 2" %>
-        <%= a.input :city, :required => @user.class.to_s == "Appraiser" %>
-        <%= a.input :state, :label => "State/Province", :required => @user.class.to_s == "Appraiser" %>
-        <%= a.input :country, :priority => [ "United States" ], :required => @user.class.to_s == "Appraiser" %>
-        <%= a.input :zip, :label => "Postal Code", :required => @user.class.to_s == "Appraiser" %>
-        <%= a.input :phone1, :label => "Phone 1", :input_html => {:class => "phone-input"}, :required => @user.class.to_s == "Appraiser" %>
+        <%= a.input :city, :required => @user.is_appraiser? %>
+        <%= a.input :state, :label => "State/Province", :required => @user.is_appraiser? %>
+        <%= a.input :country, :priority => [ "United States" ], :required => @user.is_appraiser? %>
+        <%= a.input :zip, :label => "Postal Code", :required => @user.is_appraiser? %>
+        <%= a.input :phone1, :label => "Phone 1", :input_html => {:class => "phone-input"}, :required => @user.is_appraiser? %>
         <%= a.input :phone2, :label => "Phone 2", :input_html => {:class => "phone-input"} %>
         <%= a.input :phone3, :label => "Phone 3", :input_html => {:class => "phone-input"} %>
         <%= a.input :fax, :input_html => {:class => "phone-input"} %>
@@ -36,7 +33,7 @@
       <h5>
       <%= link_to new_avatar_path, :class => "btn btn-success btn-mini" do %><i class="icon-camera icon-white"></i> Change your Image<% end %>
       </h5>
-     <%= " * To complete your application you must upload your image" if @user.class.to_s == "Appraiser" %>
+     <%= " * To complete your application you must upload your image" if @user.is_appraiser? %>
   </div>
   <div class="span3">      
   </div>

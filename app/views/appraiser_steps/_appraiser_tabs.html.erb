@@ -11,33 +11,33 @@
 	<li <%= current_page?(wizard_path(:personal)) ? "class='active'" : "" %>>
 		<%= link_to "Contact", wizard_path(:personal)%>
 	</li>
-	<% unless current_user.role == "customer" %>
+	<% unless current_user.is_customer? %>
 	<li <%= current_page?(wizard_path(:professional)) ? "class='active'" : "" %>><%= link_to "Professional", wizard_path(:professional)%></li>
 	<li <%= current_page?(wizard_path(:trade)) ? "class='active'" : "" %>><%= link_to "References", wizard_path(:trade)%></li>		
 	<li <%= current_page?(wizard_path(:categories)) ? "class='active'" : "" %>><%= link_to "Categories", wizard_path(:categories)%></li>
-	<% unless current_user.status != EAUserStatusConfirmed %>
+	<% unless !current_user.is_confirmed? %>
 		<li <%= current_page?(wizard_path(:signature)) ? "class='active'" : "" %>><%= link_to "Signature", wizard_path(:signature)%></li>		
 		<li <%= current_page?(wizard_path(:bank)) ? "class='active'" : "" %>><%= link_to "Bank Account", wizard_path(:bank)%></li>
 	<% end %>
 		<li <%= current_page?(wizard_path(:contracts)) ? "class='active'" : "" %>><%= link_to "Contracts", wizard_path(:contracts)%></li>
 	<% end %>
-	<% if current_user.status == EAUserStatusConfirmed || current_user.role == "customer" %>
+	<% if current_user.is_confirmed? || current_user.is_customer? %>
 	<li <%= current_page?(wizard_path(:preferences)) ? "class='active'" : "" %>><%= link_to "Notifications", wizard_path(:preferences)%></li>
-	<li <%= current_page?(edit_user_registration_path) ? "class='active'" : "" %>><%= link_to "Change Login", edit_user_registration_path%></li>
 	<% end %>
+	<li <%= current_page?(edit_user_registration_path) ? "class='active'" : "" %>><%= link_to "Change Login", edit_user_registration_path%></li>
 </ul>
 
-<% if current_user.role == "appraiser" && current_user.status != EAUserStatusConfirmed %>
+<% if current_user.is_appraiser? && !current_user.is_confirmed? %>
 		<div class="alert alert-error" id="applicationNotification" <%= "style='display: none;'" if current_user.is_appraiser_application_complete  %> >
 		   <p> <i class="icon-hand-right"></i> Welcome back. Please complete the first four tabs of this My Account page.<br>
 			<b>Step 1</b>: Complete the four tabbed sections in "My Account"<br>
 			<b>Step 2</b>: Submit your completed "My Account" for review by our Administrator.
 </p>
 		</div>
-		 <div class="alert alert-info" id="applicationCompleted" <%= "style='display: none;'" unless current_user.is_appraiser_application_complete && current_user.status != EAUserStatusReview  %>>
+		 <div class="alert alert-info" id="applicationCompleted" <%= "style='display: none;'" unless current_user.is_appraiser_application_complete && !current_user.is_under_review?  %>>
 		    <i class="icon-hand-right"></i> Your application is complete. Please submit it by clicking on the "Save and Submit" button <%= @current_step == :categories ? "located at the bottom of this page" : "in the Categories tab" %>
 		</div>
-	<% if current_user.status == EAUserStatusReview%>
+	<% if current_user.is_under_review?%>
 		<div class="alert alert-success">
 		    <i class="icon-hand-right"></i> Your application is under review. Our administrators will contact you soon.
 		</div>

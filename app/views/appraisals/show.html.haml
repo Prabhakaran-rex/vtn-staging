@@ -30,7 +30,7 @@
 = stylesheet_link_tag "jquery-ui.custom"
 
 .form
-  - if current_user.role.eql?("appraiser")
+  - if current_user.is_appraiser?
     = render :partial => "appraiser_show"
   - else
     = render :partial => "user_show"

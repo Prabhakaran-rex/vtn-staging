@@ -1,44 +1,28 @@
-- @role ||= params[:user][:role] || "customer"
-:javascript
-    $(document).ready(function() {
-        $('#new_user').submit(function() {
-            if(  $('#user_password').val() != $("#user_password_confirmation").val()){
-               alert("Password does not match confirmation");
-               return false;
-             }
-
-            if ($('input:checkbox', this).length == $('input:checked', this).length ) {
-                console.log ("Everything is fine");
-            } else {
-                alert('Please tick all checkboxes to continue');
-                return false;
-            }
-        });
-    });
--if @role == "customer"
+- user_type = resource.type.downcase
+-if user_type == "customer"
     %h4= "Please register in order to submit appraisal requests."
     %h5
-        (Want to apply to be an appraiser? Go #{link_to 'here', new_appraiser_registration_path(:role => "appraiser")})
+        (Want to apply to be an appraiser? Go #{link_to 'here', new_appraiser_registration_path})
 -else
     %h4= "Apply to be an Appraiser"
 .sub_box
     = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => "form-horizontal"}) do |f|
         .form-inputs
             %p= devise_error_messages!
-            = f.hidden_field :role, {:value => @role}
-            = f.hidden_field :type, {:value => @role.capitalize}
             = f.input :name, :input_html => {:class => "input-xxlarge"}, :required => true
             = f.input :username, :input_html => {:class => "input-xxlarge"}, :required => true
             = f.input :email, :input_html => {:class => "input-xxlarge"}, :required => true
             = f.input :password, :input_html => {:class => "input-xxlarge"}, :required => true
             = f.input :password_confirmation, :input_html => {:class => "input-xxlarge"}, :required => true
             .terms
-                = raw @role == "appraiser" ? "#{Cms::Page.find_by_full_path('/appraisal-provider-agreement').content}" : "#{Cms::Page.find_by_full_path('/terms-and-conditions').content}"
-            = f.input :agree_to_tos, :as => :boolean, :label => "Agree to terms of service</br>#{link_to 'Print', terms_path(:format => :pdf),:target => "_blank"}", :hint => false if @role != "appraiser"
-            = f.input :agree_to_provider_agreement, :as => :boolean, :label => "Agree to Appraisal Provider Agreement</br>#{link_to 'Print', appraisal_provider_agreeement_path(:format => :pdf),:target => "_blank"}", :hint => false if @role == "appraiser"
-            = f.input :agree_to_code_of_ethics, :as => :boolean, :label => "I comply with the  #{link_to 'Appraiser Code of Ethics', ethics_path},</br>#{link_to 'Print', ethics_path(:format => :pdf),:target => "_blank"}", :hint => false if @role == "appraiser"
+                = raw user_type == "appraiser" ? "#{Cms::Page.find_by_full_path('/appraisal-provider-agreement').content}" : "#{Cms::Page.find_by_full_path('/terms-and-conditions').content}"
+            - if user_type == "customer"
+                = f.input :agree_to_tos, :as => :boolean, :label => "Agree to terms of service</br>#{link_to 'Print', terms_path(:format => :pdf),:target => "_blank"}", :hint => false
+            - else
+                = f.input :agree_to_provider_agreement, :as => :boolean, :label => "Agree to Appraisal Provider Agreement</br>#{link_to 'Print', appraisal_provider_agreeement_path(:format => :pdf),:target => "_blank"}", :hint => false
+                = f.input :agree_to_code_of_ethics, :as => :boolean, :label => "I comply with the  #{link_to 'Appraiser Code of Ethics', ethics_path},</br>#{link_to 'Print', ethics_path(:format => :pdf),:target => "_blank"}", :hint => false
         .form-actions
-            - btnLabel = @role == "appraiser" ? "Apply" : "Sign up"
+            - btnLabel = user_type == "appraiser" ? "Apply" : "Sign up"
             = f.button :submit, btnLabel, :class => "btn btn-success"
     = render :partial => "devise/shared/links"
 

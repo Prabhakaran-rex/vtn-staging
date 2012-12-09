@@ -14,7 +14,7 @@
 
 				<script>
 				$(document).ready(function(){
-					var curUser = '<%= "#{User.find(current_user).name} (#{User.find(current_user).role})" %>';
+					var curUser = '<%= "#{User.find(current_user).name} (#{User.find(current_user).type})" %>';
 
 					$("#img").tag({showTag: 'always', showLabels: false, defaultTags: <%=  raw @photo.tags.to_json 
 						%>
@@ -81,7 +81,7 @@
 			<tr id="tag-<%= t.id %>">
 				<td><%= t.label %></td>
 				<td><%= t.created_at %></td>
-				<td><%= "#{User.find(t.user_id).name} (#{User.find(t.user_id).role})" %></td>
+				<td><%= "#{User.find(t.user_id).name} (#{User.find(t.user_id).type})" %></td>
 			</tr>			
 			<% end%>
 		</tbody>

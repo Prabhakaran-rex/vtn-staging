@@ -4,7 +4,7 @@ ActiveAdmin.register Appraiser do
   actions :all, :except => [:new]    
 
   action_item :only => :show do
-    link_to('Reapply', update_appraiser_status_path(:user => appraiser, :status => EAUserStatusPending)) if appraiser.type == "Appraiser" && appraiser.status == EAUserStatusRejected
+    link_to('Reapply', update_appraiser_status_path(:user => appraiser, :status => EAUserStatusPending)) if appraiser.is_appraiser? && appraiser.status == EAUserStatusRejected
   end
  
 	index do

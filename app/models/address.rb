@@ -6,6 +6,6 @@ class Address < ActiveRecord::Base
 
   private
   def address_optional
-  	self.user.class.to_s.eql?("Customer")
+  	self.user.is_customer?
   end
 end

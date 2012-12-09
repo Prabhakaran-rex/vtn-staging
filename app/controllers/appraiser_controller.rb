@@ -7,7 +7,7 @@ class AppraiserController < ApplicationController
   end
 
   def check_appraiser
-    @user = current_user if current_user && current_user.role == "appraiser"
+    @user = current_user if current_user && current_user.is_appraiser?
     if @user.nil?
       redirect_to root_path
     end
@@ -20,7 +20,7 @@ class AppraiserController < ApplicationController
 
   def get_application_status
     u = User.find(params[:id])
-    isComplete = (u && u.role == "appraiser") ? u.is_appraiser_application_complete : false
+    isComplete = (u && u.is_appraiser?) ? u.is_appraiser_application_complete : false
     respond_to do |format|
       format.json { render json: {:appraiser_id => u.id, :status => isComplete} }
     end

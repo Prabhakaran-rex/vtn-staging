@@ -15,5 +15,5 @@ production:
     app_secret: 'bcba5da0c6c9848789b4d503be3f6704'
 
 staging:
-    app_id: '425544334168202'
-    app_secret: 'b466a4f70ed5102ffd737f1bc069bb8d'
+    app_id: '497050763668069'
+    app_secret: '226e568e8e143e968c0639269f2e100a'

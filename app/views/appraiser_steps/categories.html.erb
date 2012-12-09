@@ -36,7 +36,7 @@
         </table>
     </div>
     <div class="form-actions">
-<% btnText = "Save and " << (current_user.status == EAUserStatusConfirmed ? "Continue" : "Submit")  %>
+<% btnText = "Save and " << (current_user.is_confirmed? ? "Continue" : "Submit")  %>
 <%= link_to btnText, submit_application_path, :class => "btn btn-success #{"inactiveLink disabled" unless current_user.is_appraiser_application_complete}", :id => "btnSubmitApplication" %>
     </div>
 </div>

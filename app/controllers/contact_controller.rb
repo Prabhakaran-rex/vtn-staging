@@ -3,17 +3,16 @@ require 'complaints'
 class ContactController < ApplicationController
 	def new
 		@message = Message.new
-		@role = current_user.role if current_user
+		@role = current_user.type.downcase if current_user
 	end
 
 	def create
 		@message = Message.new(params[:message])
 
 		if @message.valid?
-			role = current_user.role if current_user
-			if role == "appraiser"
+			if current_user.is_appraiser?
 				mailer_method = "appraiser_support"
-			elsif role == "customer"
+			elsif current_user.is_customer?
 				mailer_method = "user_support"
 			else
 				mailer_method = "contact_us"

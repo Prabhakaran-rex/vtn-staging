@@ -126,7 +126,6 @@ ActiveRecord::Schema.define(:version => 20121206213136) do
     t.integer  "appraiser_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.string   "website"
   end
 
   add_index "appraiser_extras", ["appraiser_id"], :name => "index_appraiser_extras_on_appraiser_id"
@@ -455,6 +454,7 @@ ActiveRecord::Schema.define(:version => 20121206213136) do
     t.datetime "confirmation_sent_at"
     t.string   "avatar"
     t.string   "type"
+    t.string   "website"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

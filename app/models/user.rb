@@ -18,13 +18,7 @@ class User < ActiveRecord::Base
   after_create :create_address
   attr_accessible :address_attributes
   validates_inclusion_of :type, :in => ["Appraiser", "Customer"]
-  validates_presence_of   :email
-  validates_uniqueness_of :email, :allow_blank => true
-  # validates_format_of     :email, :with  => email_regexp, :allow_blank => true, :if => :email_changed?
-
-  validates_presence_of     :password
-#   validates_length_of       :password, :within => password_length, :allow_blank => true
-# # END STI Migration
+# END STI Migration
 
   mount_uploader :avatar, AvatarUploader
   attr_accessor :crop_avatar_x, :crop_avatar_y, :crop_avatar_w, :crop_avatar_h
@@ -36,12 +30,12 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :omniauthable, :confirmable, :authentication_keys => [:login]
+  :recoverable, :rememberable, :trackable, :validatable, :confirmable, :authentication_keys => [:login]
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :access_token, :login, :status, :avatar, :avatar_cache, :remove_avatar, :agree_to_provider_agreement, :agree_to_code_of_ethics
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :access_token, :login, :status, :avatar, :avatar_cache, :remove_avatar, :website
 
   attr_accessible :agree_to_provider_agreement, :agree_to_code_of_ethics
   validates :agree_to_provider_agreement, :agree_to_code_of_ethics, :acceptance => true, :on => :create, :if => :is_appraiser?
@@ -126,21 +120,28 @@ class User < ActiveRecord::Base
     self.status == EAUserStatusConfirmed
   end
 
+  def is_confirmed?
+    self.confirmed
+  end
+
+  def is_under_review?
+    self.status == EAUserStatusReview
+  end
+
+  def is_appraiser?
+    self.type.eql?("Appraiser")
+  end
+
+  def is_customer?
+    self.type.eql?("Customer")
+  end
+
   def crop_avatar
     avatar.recreate_versions! if crop_avatar_x.present?
   end
 
-  def is_appraiser?
-    self.class.to_s.eql?("Appraiser")
-  end
-
   def status_as_string
     EAUserStatusHash[self.status.to_s]
-  end
-
-  protected
-  def password_required?
-    !persisted? || !password.nil? || !password_confirmation.nil?
   end
 
   private
