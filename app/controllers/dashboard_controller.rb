@@ -27,4 +27,15 @@ class DashboardController < ApplicationController
 			end
 		end
 	end
+
+	def payouts
+		@payouts = Payout.joins(:appraisal).where("appraisals.assigned_to = ?",current_user)
+
+		case params[:status]
+		when 'pending'
+			@payouts = @payouts.where("payouts.status = ?", EAPayoutPending)
+		when 'completed'
+			@payouts = @payouts.where("payouts.status = ?", EAPayoutCompleted)
+		end
+	end
 end

@@ -1,5 +1,6 @@
 PurexNew::Application.routes.draw do
 
+  get "dashboard/payouts(/:status)" => "dashboard#payouts", :as => :dashboard_payouts
   get "dashboard(/:detail)" => 'dashboard#index', :as => :dashboard_detail
 
   match "tags/create" => "tags#create", :as => :annotate

@@ -1,2 +1,6 @@
 <%= render :partial => "appraiser_dashboard_navtabs" %>
+<ul class="nav nav-pills">
+  <li class="<%= @specializedAppraisals.nil? ? "" : "active" %> pull-right" ><%= link_to dashboard_detail_path(:detail => @detail, :specialized => true) do %>View only items I specialize in<% end %></li>
+  <li class="<%= @specializedAppraisals.nil? ? "active" : "" %> pull-right"><%= link_to dashboard_detail_path(:detail => @detail) do %>View all items<% end %></li>
+</ul>
 <%= render :partial => "/appraisals/appraisal_table", :locals => {:appraisals => @appraisals}%> 
