@@ -1,5 +1,7 @@
 PurexNew::Application.routes.draw do
 
+  get "dashboard(/:detail)" => 'dashboard#index', :as => :dashboard_detail
+
   match "tags/create" => "tags#create", :as => :annotate
   match "tags/destroy" => "tags#destroy", :as => :destroy_tag
 

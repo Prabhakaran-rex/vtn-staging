@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     if (current_user.role == "admin")
       admin_dashboard_path
     elsif(current_user.is_appraiser?)
-      appraisals_path
+      dashboard_detail_path
     else
       users_path
     end

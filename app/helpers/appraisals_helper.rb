@@ -23,6 +23,10 @@ module AppraisalsHelper
 			"#{getStringForPayoutStatus(appraisal.payout.status)}"
 		end
 	end
+
+	def get_linked_thumbnail(appraisal)
+		link_to image_tag(appraisal.photos.first.asset.url(:thumb), :class => "tagThumb"), appraisal, :title => h(appraisal.name) unless appraisal.photos.count == 0
+	end
 end
 
 

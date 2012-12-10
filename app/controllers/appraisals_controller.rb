@@ -5,32 +5,10 @@ class AppraisalsController < ApplicationController
   # GET /appraisals
   # GET /appraisals.xml
   def index
-    @user = current_user
-  
-    if @user.is_customer?
-      redirect_to users_url
-    else
-      @appraisals = []
-      if params[:specialized]
-        @specializedAppraisals = Appraisal.select("appraisals.id").joins(:classifications => {:category => {:skills => :appraiser}}).where('appraisals.status in (?) and categories.id in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ],current_user.skills.pluck(:category_id).uniq).pluck('appraisals.id').uniq
-        @appraisals << Appraisal.where('status = ? and id in(?) ', EActivityValuePayed,@specializedAppraisals)
-        @appraisals << Appraisal.where("assigned_to = ? and status = ? and id in(?)",current_user,EActivityValueClaimed,@specializedAppraisals)
-        @appraisals << Appraisal.where("assigned_to = ? and status = ? and id in(?)",current_user,EActivityValueFinalized, @specializedAppraisals)
-      else
-        # TODO Check if performance can be improved
-        # Order appraisals by specific status
-        @specializedAppraisals = nil
-        @appraisals << Appraisal.where('status = ?', EActivityValuePayed)
-        @appraisals << Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueClaimed)
-        @appraisals << Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueFinalized)
-      end
-      @appraisals = @appraisals.flatten
-      # @appraisals = Appraisal.where(:status => EActivityValuePayed) unless @appraisals.count > 0
-
-      respond_to do |format|
-        format.html # index.html.haml
-        format.xml  { render :xml => @appraisals }
-      end
+    @appraisals = Appraisal.all
+    respond_to do |format|
+      format.html # index.html.haml
+      format.xml  { render :xml => @appraisals }
     end
   end
 

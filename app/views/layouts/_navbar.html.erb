@@ -10,7 +10,7 @@
               <li style="font-size:13px;"><%= link_to appraiser_steps_path do %><%= image_tag current_user.avatar_url(:small), :size => '20x20', :class=>'gravatar-tiny' %> My Account <% end %></li>
               <% if current_user.is_appraiser? && current_user.is_confirmed? %>
                 <li style="font-size:13px;"><a href="#">|</a></li>
-                <li style="font-size:13px;"><%= link_to("My Appraisals", appraisals_path) %></li>
+                <li style="font-size:13px;"><%= link_to("My Dashboard", dashboard_detail_path) %></li>
               <% elsif current_user.is_customer? %>
                 <li style="font-size:13px;"><a href="#">|</a></li>
                 <li style="font-size:13px;"><%= link_to("My Appraisals", users_path) %></li>

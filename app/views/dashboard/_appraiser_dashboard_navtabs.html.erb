@@ -1,0 +1,10 @@
+<div class="row">
+	<ul class="nav nav-pills pull-right">
+		<li><%= link_to 'Processing Appraisals', dashboard_detail_path(:detail => 'processing') %></li>
+		<li><%= link_to 'Unclaimed Appraisals', dashboard_detail_path(:detail => 'unclaimed') %></li>
+		<li><%= link_to 'Completed Appraisals', dashboard_detail_path(:detail => 'completed') %></li>
+		<li><%= link_to 'Transactions This Month', root_path %></li>
+		<li><%= link_to 'Payment History', root_path %></li>
+		<li><%= link_to 'My Account', appraiser_steps_path %></li>
+	</ul>
+</div>
