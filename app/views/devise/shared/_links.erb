@@ -4,7 +4,10 @@
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign up", new_registration_path(resource_name), :class => "shared_link" %>
+  <%= link_to "Sign up", new_registration_path(:customer), :class => "shared_link" %>
+  <a href="#">|</a>
+
+  <%= link_to "Become an Appraiser", new_registration_path(:appraiser), :class => "shared_link" %>
   <a href="#">|</a>
 <% end -%>
 
