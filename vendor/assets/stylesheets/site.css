@@ -5824,3 +5824,18 @@ border-radius:5px;
 .innercontainer a img {
   margin-left: 30px;
 }
+
+.loginBox {
+  background-color:#fff;
+  margin-top: 9px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  -moz-box-shadow: 2px 2px 1px #ccc;
+  -webkit-box-shadow: 2px 2px 1px #ccc;
+  box-shadow: 2px 2px 1px #ccc;
+  visibility: inherit;
+  border: thin outset #ccc;
+  padding: 10px;
+  height: 300px;
+}
