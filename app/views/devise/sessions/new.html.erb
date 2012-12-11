@@ -1,6 +1,22 @@
+<style type="text/css">
+.loginBox {
+	background-color:#fff;
+	margin-top: 9px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 2px 2px 1px #ccc;
+	-webkit-box-shadow: 2px 2px 1px #ccc;
+	box-shadow: 2px 2px 1px #ccc;
+	visibility: inherit;
+	border: thin outset #ccc;
+	padding: 10px;
+	height: 300px;
+}
+</style>
 <h4>Sign In</h4>
-<div class="row sub_box">
-	<div class="span6">
+<div class="row">
+	<div class="span5 loginBox">
 	<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'form-horizontal' }) do |f| %>
     <div class="form-inputs">
 	    <%= f.input :login, :required => true, :autofocus => true, :label => "Username" %>
@@ -14,8 +30,11 @@
 
 	<%= render "devise/shared/links" %>
 	</div>
-	<div class="span6 outercontainer">
-		<div class="innercontainer">
+	<div class="span1" style="text-align: center; line-height:350px;">
+		<b>or<b>
+	</div>
+	<div class="span5 loginBox">
+		<div>	
 			<%= link_to omniauth_authorize_path(:customer, :facebook) do %><%= image_tag "facebook_sign_in.png" %><% end %>
 		</div>
 	</div>
