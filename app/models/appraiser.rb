@@ -63,8 +63,10 @@ class Appraiser < User
   end
 
   def notify_admin_of_new_application
-    message = Message.new(:name => self.name, :email => self.email )
-    UserMailer.notify_admin_of_new_application(message).deliver
+    unless Rails.env.eql?("development") || Rails.env.eql?("test")
+      message = Message.new(:name => self.name, :email => self.email )
+      UserMailer.notify_admin_of_new_application(message).deliver
+    end
   end
 
   def create_appraiser_extra
