@@ -3,6 +3,8 @@ class DashboardController < ApplicationController
 		@user = current_user
 		if @user.is_customer?
 			redirect_to users_url
+		elsif @user.is_appraiser? and !@user.is_confirmed?
+			redirect_to appraiser_steps_path
 		else
 			@specializedAppraisals = nil
 			
