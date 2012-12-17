@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   load_and_authorize_resource
-  
+  before_filter :authenticate_user!
   before_filter :load_appraisal
   # GET /photos
   # GET /photos.json

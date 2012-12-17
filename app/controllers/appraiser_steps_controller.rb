@@ -1,5 +1,7 @@
 # Handles the appraiser profile wizard
 class AppraiserStepsController < ApplicationController
+	before_filter :authenticate_user!
+	
 	include Wicked::Wizard
 	steps :personal, :professional, :trade,:categories, :signature,  :bank, :contracts, :preferences
 
