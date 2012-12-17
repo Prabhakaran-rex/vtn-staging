@@ -21,7 +21,7 @@
 				<%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
 					<%= a.input :item_history, :label => "Item history", :as => :text, :hint => "(Where did you get it? Purchase at auction, flea market? Family Heirloom? How long have you owned it?)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
 					<%= a.input :makers_marks, :label => "Signatures, maker's marks, dates", :as => :text, :hint => "(List any signatures, maker's marks or dates. If none, enter 'none'.)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
-					<%= a.input :inscriptions, :label => "Inscriptions,etc", :as => :text, :hint => "(List any inscriptions, monograms, dedications or other such markings. If none, enter 'none'.)," , :input_html => {:class => "input-xxlarge", :rows => 4}%>
+					<%= a.input :inscriptions, :label => "Inscriptions,etc", :as => :text, :hint => "(List any inscriptions, monograms, dedications or other such markings. If none, enter 'none'.)" , :input_html => {:class => "input-xxlarge", :rows => 4}%>
 					<%= a.input :dimensions, :label => "Dimensions", :as => :text, :hint => "(Enter the height, width, depth, diameter as appropriate.)" , :input_html => {:class => "input-xxlarge", :rows => 4}%>
 					<%= a.input :materials, :label => "Materials", :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4} %>
 					<%= a.input :country_of_origin, :label => "Country of Origin", :as => :country, :priority => [ "Unknown" ] %>
