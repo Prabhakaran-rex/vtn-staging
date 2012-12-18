@@ -18,7 +18,7 @@ ActiveAdmin::Dashboards.build do
   section "Recent Appraisals" do
     ul do
       Appraisal.order("created_at DESC").limit(5).collect do |appraisal|
-        li link_to(appraisal.name, admin_appraisal_path(appraisal))
+        li link_to(appraisal.title, admin_appraisal_path(appraisal))
       end
     end
   end

@@ -47,9 +47,18 @@
 			<span class="pull-right"><b>Effective Date of Report :</b> <%= @appraisal.updated_at.strftime("%d %b. %Y") %></span>
 		</div>
 	</div>
+		<div class="row">
+		<div class="span3">
+			<b>Title :</b>
+		</div>
+		<div class="span9">
+			<%= @appraisal.title %>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="span3">
-			<b>Description/Title :</b>
+			<b>Description :</b>
 		</div>
 		<div class="span9">
 			<%= @appraisal.name %>

@@ -1,6 +1,6 @@
 %html
   %body
     %h1 Hi #{@appraisal.owned_by.name}, the Appraisal for your item has been updated!
-    %h2= @appraisal.name
+    %h2= @appraisal.title
     %p Please take a moment to view the updated appraisal at the following link
     %p= link_to("View Appraisal", appraisal_url(@appraisal)) + " | " + link_to("Create New Appraisal", new_appraisal_url)

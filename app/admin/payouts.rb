@@ -6,7 +6,7 @@ ActiveAdmin.register Payout do
 		column :updated_at
 		column :id
 		column "Appraisal", :appraisal_id do |payout|
-			"#{Appraisal.find(payout.appraisal_id).name}"
+			"#{Appraisal.find(payout.appraisal_id).title}"
 		end
 		column "Appraiser", :appraiser_id do |payout|
 			"#{Appraiser.find(payout.appraiser_id).username}"

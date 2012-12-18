@@ -12,7 +12,7 @@ $('#<%= "myModal-#{appraisal.id}" %>').on('shown', function () {
     <h3 id="myModalLabel">Push to social</h3>
   </div>
   <div class="modal-body">
-    <h4><%= appraisal.name %></h4>
+    <h4><%= appraisal.title %></h4>
     <span class='st_facebook' displayText='Facebook' st_url="<%= get_url_for_shared_appraisal(appraisal) %>" st_title="Value This Now"></span>
     <span class='st_twitter' displayText='Tweet' st_url="<%= get_url_for_shared_appraisal(appraisal) %>" st_title="Value This Now"></span>
     <span class='st_linkedin' displayText='LinkedIn' st_url="<%= get_url_for_shared_appraisal(appraisal) %>" st_title="Value This Now"></span>

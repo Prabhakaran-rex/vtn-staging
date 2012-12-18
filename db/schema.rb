@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121206213136) do
+ActiveRecord::Schema.define(:version => 20121218165719) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20121206213136) do
     t.text     "appraisal_info"
     t.integer  "appraisal_type"
     t.boolean  "shared",                    :default => false
+    t.string   "title"
   end
 
   add_index "appraisals", ["assigned_to"], :name => "index_appraisals_on_assigned_to"

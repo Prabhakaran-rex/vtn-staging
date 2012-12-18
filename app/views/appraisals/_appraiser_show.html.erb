@@ -1,7 +1,7 @@
 <div class="page-header">
 	<h5>Status : <%= getStringForActivityValue(@appraisal.status) %></h5>
 	<h5>Type : <%= getStringForAppraisalType(@appraisal.selected_plan) %></h5>
-	<h1><%= @appraisal.name %>
+	<h1><%= @appraisal.title %>
         <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValuePayed %>
         <%= link_to 'Appraise', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValueClaimed %>
         <% if false # @appraisal.status == EActivityValueClaimed 
@@ -40,7 +40,11 @@
 						</td>
 					</tr>
 					<tr width="165px">
-						<td><%= "Description / Title".upcase %></td>
+						<td><%= "Title".upcase %></td>
+						<td><%= @appraisal.title %></td>
+					</tr>
+					<tr>
+						<td><%= "Description".upcase %></td>
 						<td><%= @appraisal.name %></td>
 					</tr>
 

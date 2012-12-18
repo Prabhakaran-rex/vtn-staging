@@ -19,10 +19,11 @@ class Appraisal < ActiveRecord::Base
   accepts_nested_attributes_for :appraisal_datums, :allow_destroy => true
 
   validates_presence_of :created_by
+  validates_presence_of :title
 
   serialize :appraisal_info, AppraisalInfo
 
-  attr_accessible :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type
+  attr_accessible :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type, :title
 
   # Returns how much time it took the appraiser to complete the appraisal (can return in seconds (s), minutes(m), hours(h), or days(d))
   def completion_time(format = "s")

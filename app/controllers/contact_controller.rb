@@ -47,7 +47,7 @@ class ContactController < ApplicationController
 		@user = current_user
 		@ticketConnector = Complaints::Lighthouse.new()
 		a = Appraisal.find(params[:ticket][:appraisal_id])
-		body = "Appraisal: #{a.id}-#{a.name}\n"
+		body = "Appraisal: #{a.id}-#{a.title}\n"
 		body += "User : #{current_user.id} #{current_user.name} #{current_user.email}\n"
 		body += "Comments : #{params[:ticket]['description']}"
 		@ticketConnector.addTicket(params[:ticket]['title'], body, params[:ticket]['appraisal_id'], current_user.id)

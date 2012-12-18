@@ -17,7 +17,7 @@
         <% payouts.each do |payout| %>
           <tr>
             <td><%= payout.created_at.to_i %></td>
-            <td><%= link_to(h(payout.appraisal.name) + " ##{payout.appraisal.id}", payout.appraisal)%></td>
+            <td><%= link_to(h(payout.appraisal.title) + " ##{payout.appraisal.id}", payout.appraisal)%></td>
             <td><%= payout.created_at %></td>
             <td><%= getStringForAppraisalType(payout.appraisal.selected_plan) %></td>
             <td><%= "#{print_amount_paid(payout.appraisal)}"%></td>

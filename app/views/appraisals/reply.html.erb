@@ -20,7 +20,8 @@
 		<div class="row">
 			<div class="span8">
 				<div class="form-inputs">
-						<%= f.input :name, :label => "Description / Title", :hint => "", :input_html => {:class => "input-xxlarge"} %>
+						<%= f.input :title, :label => "Title", :hint => "(Enter a very brief noun name of the item.)", :input_html => {:class => "input-xxlarge"} %>
+						<%= f.input :name, :label => "Description", :hint => "(Describe the item as typically done in the trade.)", :input_html => {:class => "input-xxlarge"} %>
 						<%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
 						<%= a.input :year_of_manufacture, :label => "Approx. Date of Manufacture", :input_html => {:class => "input-xxlarge"} %>
 						<%= a.input :country_of_origin, :label => "Country of Origin", :as => :country, :hint => "(If determinable, else 'unknown')", :input_html => {:class => "input-xxlarge"}, :priority => [ "Unknown" ] %>

@@ -1,7 +1,7 @@
 <% # TODO This can be refactored with _user_show.html.erb
 %>
 <div class="page-header">
-	<h1><%= @appraisal.name %></h1>
+	<h1><%= @appraisal.title %></h1>
 </div>
 <div class="container">
 	<div class="row">
@@ -17,7 +17,11 @@
 						<td><%= @appraisal.updated_at.strftime("%d %b. %Y") %></td>
 					</tr>
 					<tr>
-						<td><%= "Description / Title".upcase %></td>
+						<td><%= "Title".upcase %></td>
+						<td><%= @appraisal.title %></td>
+					</tr>
+					<tr>
+						<td><%= "Description".upcase %></td>
 						<td><%= @appraisal.name %></td>
 					</tr>
 					<% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling %>

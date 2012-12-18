@@ -18,14 +18,14 @@
 	</thead>
 	<tbody>
 		<% @tickets.each do |t| %>
-		<% a = Appraisal.find(t.appraisal_id) 
+		<% appraisal = Appraisal.find(t.appraisal_id) 
 		remoteTicket = @ticketConnector.getTicket(t.id)
 		unless remoteTicket.nil? %>
 		<tr>
 			<td><span class="label label-success"><%= raw remoteTicket.closed ? "<i class='icon-folder-close icon-white'></i>" : "<i class='icon-folder-open icon-white'></i>"%></span></td>
 			<td><%= remoteTicket.number %></td>
 			<td><%= remoteTicket.created_at %></td>
-			<td><%= link_to "# #{a.id} - #{a.name}", appraisal_path(a)  %></td>
+			<td><%= link_to "# #{appraisal.id} - #{appraisal.title}", appraisal_path(appraisal)  %></td>
 			<td><%= remoteTicket.state.upcase %></td>
 			<td><%= link_to show_ticket_path(t) do %>View <% end %></td>
 		</tr>			

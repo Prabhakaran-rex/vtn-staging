@@ -1,7 +1,7 @@
 <h4>New Ticket</h4>
 <div class="sub_box">
 	<%= simple_form_for(@ticket, :url => ticket_create_path, :method => :post, :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
-	<%= f.input :appraisal_id, :collection => @appraisals, :label => "Please select an appraisal", :label_method => lambda { |appraisal| "##{appraisal.id} - #{appraisal.name} (#{getStringForActivityValue(appraisal.status)})" }, :input_html => {:class => "input-xxlarge"} %>
+	<%= f.input :appraisal_id, :collection => @appraisals, :label => "Please select an appraisal", :label_method => lambda { |appraisal| "##{appraisal.id} - #{appraisal.title} (#{getStringForActivityValue(appraisal.status)})" }, :input_html => {:class => "input-xxlarge"} %>
 	<%= f.input :title do |l| %>
 		<%= text_field_tag "ticket[title]", nil, :class => "input-xxlarge" %>
 	<% end %>
