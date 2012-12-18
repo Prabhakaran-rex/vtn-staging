@@ -27,7 +27,7 @@ class AppraisalsController < ApplicationController
     respond_to do |format|
       format.html #{ render :layout => 'shareable' }# show.html.erb
       format.xml  { render :xml => @appraisal }
-      format.pdf { render :pdf => 'file_name.pdf', :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb", :footer => {:font_size => 8, :left => "Security Code: #{Digest::SHA1.hexdigest(@appraisal.to_json)}",  :right => '[page] of [topage]' } }
+      format.pdf { render :pdf => 'file_name.pdf', :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb", :margin => {:top => 15}, :footer => {:font_size => 8, :left => "Security Code: #{Digest::SHA1.hexdigest(@appraisal.to_json)}",  :right => '[page] of [topage]' } }
     end
   end
 

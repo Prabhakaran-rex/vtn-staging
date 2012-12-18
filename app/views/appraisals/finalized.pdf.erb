@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>ValueThisNow.com | Certified Appraisal</title>
+	<title>ValueThisNow.com | Professional Appraisal</title>
 	<%= wicked_pdf_stylesheet_link_tag    "application" %>
 	<%= wicked_pdf_javascript_include_tag "application" %>
 	<% # The following files need to be called from an external server because wicked_pdf has some problems loading them with the wicked_pdf_javascript_include_tag
@@ -37,7 +37,7 @@
 <body>
 <div class="container">
 	<div class="page-header">
-		<h1>ValueThisNow.com<small class="pull-right">Certified Appraisal</small></h1>
+		<h1>Here is your ValueThisNow.com Appraisal</h1>
 	</div>
 	<div class="row">
 		<div class="span6">
@@ -191,15 +191,17 @@
 		end
 	 %>
 	<%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
-
 	<div class="row">
-		<div class="pull-right" id="appraiser-info">
+		&nbsp;
+	</div>
+	<div class="row">
+		<div id="appraiser-info">
 			<% if !(@appraiser.signature_file_name.nil?) %> 
                 <%= wicked_pdf_image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
             <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
             	<canvas id="appraiser-signature" height="100" width="250"></canvas>
             <% end %>
-			<h4>Appraised by <%= @appraiser.name.nil? || @appraiser.name.empty? ? "#{@appraiser.name}" : "#{@appraiser.name}" %></h4>
+			<h4><%= @appraiser.name %></h4>
 		</div>
 	</div>
 

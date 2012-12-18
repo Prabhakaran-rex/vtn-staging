@@ -108,6 +108,7 @@
 			<%= render :partial => "photo_carousel" %>
 		</div>
 	</div>
+	<hr>
 	<div class="row">
 			<%= render :partial => "multiple_photo_upload" unless @appraisal.status == EActivityValueFinalized%>
 			<div class="span11">
@@ -116,19 +117,11 @@
 			<% end %>
 			</div>
 	</div>
-	<% if @appraisal.status == EActivityValueFinalized %>
 	<div class="row">
-		<div class="span11">
-			<div class="pull-right" id="appraiser-info">
-			<% if !(@appraiser.signature_file_name.nil?) %> 
-                <%= image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
-            <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
-            	<canvas id="appraiser-signature" height="100" width="250"></canvas>
-            <% end %>
-			<h4>Appraised by <%= @appraiser.name.nil? || @appraiser.name.empty? ? "#{@appraiser.name}" : "#{@appraiser.name}" %></h4>
-		</div>
-		</div>
+		&nbsp;
 	</div>
+	<% if @appraisal.status == EActivityValueFinalized %>
+	
 	<div class="row">
 		<div class="span11">
 			<% if @appraisal.status == EActivityValueFinalized %>
@@ -157,6 +150,18 @@
 			%>
 			<div id="supplemental_information" class="collapse">
 				<%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
+				<% if @appraisal.status == EActivityValueFinalized %>
+			<div>
+			<div id="appraiser-info">
+			<% if !(@appraiser.signature_file_name.nil?) %> 
+                <%= image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
+            <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
+            	<canvas id="appraiser-signature" height="100" width="250"></canvas>
+            <% end %>
+			<h4><%= @appraiser.name %></h4>
+		</div>
+	</div>
+	<% end %>
 			</div>
 			<% end %>
 		</div>
