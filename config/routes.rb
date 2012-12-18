@@ -94,6 +94,7 @@ PurexNew::Application.routes.draw do
   get '/home/appraisal_body_restricteduse_USPAP_compliant_yes' => 'home#appraisal_body_restricteduse_USPAP_compliant_yes'
   get '/home/appraisal_body_summary_forselling_USPAP_compliant_no' => 'home#appraisal_body_summary_forselling_USPAP_compliant_no'
   get '/home/appraisal_body_summary_forselling_USPAP_compliant_yes' => 'home#appraisal_body_summary_forselling_USPAP_compliant_yes'
+  get '/home/cost' => 'home#cost'
   get '/home/static1' => 'home#static1'
   get '/home/static2' => 'home#static2'
   get '/home/static3' => 'home#static3'

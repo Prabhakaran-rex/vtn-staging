@@ -94,6 +94,10 @@ class HomeController < ApplicationController
     render cms_page: '/appraisal-body-summary-forselling-uspap-compliant-yes'
   end
 
+  def cost
+    render cms_page: '/cost-of-appraisals'
+  end
+
   # Begin For future use
   def static1
     render cms_page: '/static1'
