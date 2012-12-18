@@ -26,17 +26,25 @@ class Appraisal < ActiveRecord::Base
 
   # Returns how much time it took the appraiser to complete the appraisal (can return in seconds (s), minutes(m), hours(h), or days(d))
   def completion_time(format = "s")
-    duration = get_date_for_status_change(EActivityValueClaimed, EActivityValueFinalized) - get_date_for_status_change(EActivityValuePayed, EActivityValueClaimed)
-    case format
-      when 'm'
-        duration/60
-      when 'h'
-        duration/3600
-      when 'd'
-        duration/86400
-      else
-        duration
+    begin
+      claimed_on = (get_date_for_status_change(EActivityValuePayed, EActivityValueClaimed)).to_i
+      completed_on = (get_date_for_status_change(EActivityValueClaimed, EActivityValueFinalized)).to_i
+      unless claimed_on == 0 || completed_on == 0
+        duration = completed_on - claimed_on
+        case format
+          when 'm'
+            (duration/60).to_i
+          when 'h'
+            (duration/3600).to_i
+          when 'd'
+            (duration/86400).to_i
+          else
+            duration
+        end
       end
+    rescue
+      return 0
+    end
   end
 
   # TODO See how this works if an appraiser claims an item and then returns it to the pool without finishing the appraisal
