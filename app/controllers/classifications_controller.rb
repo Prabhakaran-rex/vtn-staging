@@ -22,4 +22,18 @@ class ClassificationsController < ApplicationController
 			format.json { head :no_content }
 		end
 	end
+
+	def update
+		@classification = Classification.find_or_create_by_appraisal_id(params[:classification][:appraisal_id])
+
+		respond_to do |format|
+			if @classification.update_attributes(params[:classification])
+				format.html { redirect_to @classification, notice: 'classification was successfully updated.' }
+				format.json { head :no_content }
+			else
+				format.html { render action: "edit" }
+				format.json { render json: @classification.errors, status: :unprocessable_entity }
+			end
+		end
+	end
 end

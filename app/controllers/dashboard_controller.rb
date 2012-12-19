@@ -20,7 +20,7 @@ class DashboardController < ApplicationController
 					@appraisals = Appraisal.where("assigned_to = ? or status = ?", current_user, EActivityValuePayed)
 				end
 			if params[:specialized]
-				@specializedAppraisals = Appraisal.select("appraisals.id").joins(:classifications => {:category => {:skills => :appraiser}}).where('appraisals.status in (?) and categories.id in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ],current_user.skills.pluck(:category_id).uniq).pluck('appraisals.id').uniq
+				@specializedAppraisals = Appraisal.select("appraisals.id").joins(:classification => {:category => {:skills => :appraiser}}).where('appraisals.status in (?) and categories.id in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ],current_user.skills.pluck(:category_id).uniq).pluck('appraisals.id').uniq
 				@appraisals = @appraisals.where("id in (?)",@specializedAppraisals)
 			end				
 

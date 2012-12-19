@@ -41,11 +41,13 @@
 						</tr>
 					<% end %>
 					<tr>
-						<td><%= "Category".upcase %><% unless @appraisal.status == EActivityValueFinalized %><%= link_to wizard_categories_path(@appraisal.id, :pay => false), :class => "btn btn-mini btn-success", :style => "margin-left: 10px;", :target => "_new" do %><i class="icon-plus icon-white"></i> Edit category <% end %><% end %></td>
-						<td><% @appraisal.classifications.order('classifications.category_id').each do |c| %>
-							<%= "#{Category.find(c.category_id).name}" %></br>
-						<% end %>
-						</td>
+						<td width="165px">CATEGORY</td>
+						<td><% if @appraisal.status == EActivityValueFinalized %>
+							<%= @appraisal.classification.nil? ? "" : @appraisal.classification.category.name %>
+							<% else %>
+								<%= render :partial => "appraisals/edit_classification", :locals => {:appraisal => @appraisal} %>
+							<% end %>
+							</td>
 					</tr>
 					<tr width="165px">
 						<td><%= "Title".upcase %></td>

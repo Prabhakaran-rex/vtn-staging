@@ -9,7 +9,7 @@ class Appraisal < ActiveRecord::Base
   has_many :tickets
 
   has_many :appraisal_datums , :dependent => :destroy  , :class_name => "AppraisalDatum"
-  has_many :classifications
+  has_one :classification
   has_one :payment
 
   belongs_to :assigned_to, :class_name => 'User' , :foreign_key => "assigned_to"

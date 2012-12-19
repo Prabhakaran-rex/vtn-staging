@@ -1,0 +1,65 @@
+<%= stylesheet_link_tag 'chosen.css' %>
+<%= javascript_include_tag "chosen.jquery.min.js" %>
+<div id="divCategorySelect" <%= "style='display:none;'" if !@appraisal.classification.nil? %>>
+		<select data-placeholder="Choose a category..." style="width:350px;" class="chzn-select" id="demo6">
+			<option></option>
+			<% Category.all.each do |c| %>
+			<option value="<%= c.id %>"><%= c.name %></option>	
+			<% end %>
+		</select>
+		<div id="divCategoriesSelect">
+			<button class="btn btn-success btn-mini pull-right" id='addClassificationBtn'>Save</button>
+			<button class="btn btn-danger btn-mini pull-right" id='cancelClassificationBtn'>Cancel</button>
+			<input type="hidden" name="demo6" />
+		</div>
+</div>
+
+<div id="divCategoryName" <%= "style='display:none;'" if @appraisal.classification.nil? %>>
+
+	<span id="divCategoryNameField"><%= @appraisal.classification.category.name unless @appraisal.classification.nil? %></span>
+	<a href="#" id="btnEditCategory" class="btn btn-success btn-mini pull-right">Edit</a>
+</div>
+<script type="text/javascript">
+/* Delete Task */
+function deleteCategory(caller, id ) {
+	$.ajax({
+		url: "<%= url_for classifications_path %>/" + id+'.json',
+		type: 'post',
+		dataType: 'script',
+		data: { '_method': 'delete' },
+		success: function() {
+			$(caller).closest('tr').remove();
+		}
+	});
+}
+
+$(function() {
+	$("#btnEditCategory").click(function() {
+		$("#divCategorySelect").show();
+		$("#divCategoryName").hide();
+	});
+
+	$("#cancelClassificationBtn").click(function() {
+		$("#divCategorySelect").hide();
+		$("#divCategoryName").show();
+	});
+
+	$("#addClassificationBtn").click(function() {
+		id = $('#demo6').val();
+		$.ajax({
+		url: "<%= url_for classifications_path %>/" + id+'.json',
+		type: 'put',
+		dataType: 'script',
+		data: { 'classification[appraisal_id]': '<%= @appraisal.id %>', 'classification[category_id]': $('#demo6').val() },
+		success: function(data) {
+			$("#divCategorySelect").hide();
+			$("#divCategoryName").show();
+			$("#divCategoryNameField").html($('#demo6 option:selected').text());
+		}
+	});
+	});
+
+	$(".chzn-select").chosen();
+	$(".chzn-select-deselect").chosen({allow_single_deselect:true});
+});
+</script>

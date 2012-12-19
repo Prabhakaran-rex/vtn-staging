@@ -19,7 +19,7 @@
 			<% end %>
 		</select>
 
-		<div id="divCategoriesSelect" <%= "style='display:none;'" if @appraisal.classifications.count != 0%>>
+		<div id="divCategoriesSelect" <%= "style='display:none;'" if !@appraisal.classification.nil? %>>
 			<input type="hidden" name="demo6" />
 			<button class="btn btn-success btn-mini" id='addClassificationBtn'>Add</button>
 		</div>
@@ -33,26 +33,23 @@
 					</tr>
 				</thead>
 				<tbody>
-					<% @appraisal.classifications.order(:category_id).each do |s|
-						unless s.category.nil? %>
-						<tr>
-							<td><%= s.category.is_root? ? s.category.name : s.category.parent.name %></td>
-							<td><button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'<%= "#{s.id}" %>')">Remove</button>
-							</td>
-						</tr>
-						<% end %>                
-						<% end %>
+					<% unless @appraisal.classification.nil? %>
+					<tr>
+						<td><%= @appraisal.classification.category.name  %></td>
+						<td><button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'<%= "#{@appraisal.classification.category.id}" %>')">Remove</button></td>
+					</tr>
+					<% end %>
 				</tbody>
 			</table>
 		</div>
-		<% if @appraisal.status == EActivityValuePayed || !@appraisal.classifications.empty? %>
+		<% if @appraisal.status == EActivityValuePayed || !@appraisal.classification.nil? %>
 		<div class="pull-right" id="applicationNotification"><b>Please enter in a category to proceed to the next step</b></div>
 		<% end %>
 		<div class="form-actions">
 
 			<% if @appraisal.status == EActivityValueCreated && !params[:pay] %>
 			<% @payment = Payment.new %>
-			<%= link_to 'Next step', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right #{"inactiveLink disabled " unless @appraisal.status == EActivityValuePayed || !@appraisal.classifications.empty?}", :id => "btn_next_step"%>
+			<%= link_to 'Next step', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right #{"inactiveLink disabled " unless @appraisal.status == EActivityValuePayed || !@appraisal.classification.nil?}", :id => "btn_next_step"%>
 			<% end %>
 		</div>
 	</div>

@@ -34,10 +34,7 @@
 					</tr>
 					<tr>
 						<td><%= "Category".upcase %></td>
-						<td><% @appraisal.classifications.order('classifications.category_id').each do |c| %>
-							<%= "#{Category.find(c.category_id).name}" %></br>
-						<% end %>
-						</td>
+						<td><%= "#{@appraisal.classification.category.name}" unless @appraisal.classification.nil? %></br></td>
 					</tr>
 					<tr width="165px">
 						<td><%= "Title".upcase %></td>
