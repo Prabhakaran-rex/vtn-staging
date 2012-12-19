@@ -31,8 +31,7 @@ class Appraisal < ActiveRecord::Base
     begin
       claimed_on = (get_date_for_status_change(EActivityValuePayed, EActivityValueClaimed)).to_i
       completed_on = (get_date_for_status_change(EActivityValueClaimed, EActivityValueFinalized)).to_i
-      unless claimed_on == 0 || completed_on == 0
-        duration = completed_on - claimed_on
+      duration = (claimed_on == 0 || completed_on == 0) ? 0 : (completed_on - claimed_on)
         case format
           when 'm'
             (duration/60).to_i
@@ -43,7 +42,6 @@ class Appraisal < ActiveRecord::Base
           else
             duration
         end
-      end
     rescue
       return 0
     end
