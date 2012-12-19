@@ -20,6 +20,7 @@ class Appraisal < ActiveRecord::Base
 
   validates_presence_of :created_by
   validates_presence_of :title
+  validates :selected_plan, :presence => { :message => "Please select a plan to continue" }
 
   serialize :appraisal_info, AppraisalInfo
 
