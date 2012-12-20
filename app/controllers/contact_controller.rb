@@ -18,7 +18,7 @@ class ContactController < ApplicationController
 				mailer_method = "contact_us"
 			end
 			eval "UserMailer.#{mailer_method}(@message).deliver"
-			redirect_to(root_path, flash[:notice] => "Message was successfully sent.")
+			redirect_to(root_path, :notice => "Message was successfully sent.")
 		else
 			flash[:alert] = "Please fill all fields."
 			render :new
@@ -51,8 +51,7 @@ class ContactController < ApplicationController
 		body += "User : #{current_user.id} #{current_user.name} #{current_user.email}\n"
 		body += "Comments : #{params[:ticket]['description']}"
 		@ticketConnector.addTicket(params[:ticket]['title'], body, params[:ticket]['appraisal_id'], current_user.id)
-		flash[:notice] = "Ticket created successfully"
-		redirect_to tickets_path
+		redirect_to(tickets_path, :notice => "Ticket created successfully")
 	end
 
 	def show
