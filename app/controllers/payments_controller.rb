@@ -46,8 +46,6 @@ class PaymentsController < ApplicationController
           
           # Notification Hook - Send Appraiser email/sms
           User.notify_appraisers_of_new_appraisal( @appraisal )
-          flash[:notice] = "Congratulations your item has been submitted for valuation!"
-          flash[:title]  = "Thank You!"
           
           respond_to do |format|
             format.html { redirect_to appraisal_path(@appraisal) }
