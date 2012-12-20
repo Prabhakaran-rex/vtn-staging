@@ -2883,7 +2883,7 @@ table .span24 {
 .collapse {
   position: relative;
   height: 0;
-  overflow: hidden;
+  overflow: hidden !important;
   overflow: visible \9;
   -webkit-transition: height 0.35s ease;
      -moz-transition: height 0.35s ease;
