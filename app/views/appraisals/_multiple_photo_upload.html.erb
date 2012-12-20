@@ -4,9 +4,11 @@
 <!-- Multiple image uploads -->
 <form id="fileupload" action="<%= appraisal_photos_path(@appraisal) %>" method="POST" enctype="multipart/form-data">
   <div class="container">
+    <% unless current_user.is_appraiser? %>
     <div class="row">
       <h4 style="text-align: center;">Upload Images Of The Item Being Appraised</h4>
     </div>
+    <% end %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
     <div class="row fileupload-buttonbar">
       <div class="span7">
