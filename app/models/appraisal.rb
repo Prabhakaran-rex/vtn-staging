@@ -59,6 +59,10 @@ class Appraisal < ActiveRecord::Base
     end
   end
 
+  def default_photo
+    self.photos.find_by_default(true) || self.photos.first
+  end
+
   private
   def sanitize_appraisal_info
     self.appraisal_info.sanitize

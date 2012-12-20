@@ -44,7 +44,7 @@ stLight.subscribe("click",myCallbackFunction); //register the callback function 
     <tbody>
       <% @appraisals.each do |appraisal| %>
       <tr>
-        <td><%= link_to image_tag(appraisal.photos.first.asset.url(:thumb), :class => "tagThumb"), appraisal, :title => h(appraisal.title) unless appraisal.photos.count == 0 %></td>
+        <td><%= get_linked_thumbnail(appraisal) %></td>
         <td><%= link_to(h(appraisal.title) + " ##{appraisal.id}", appraisal) %></td>
         <td><%= getStringForActivityValue(appraisal.status) %></td>
         <td><%= appraisal.status == EActivityValueFinalized ? distance_of_time_in_words(Time.now,appraisal.updated_at) + " ago" : "-" %></td>

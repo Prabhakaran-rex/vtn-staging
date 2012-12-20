@@ -15,3 +15,22 @@ jQuery ->
 		if $('.template-download').length is 0
 			alert "Please upload at least one image to continue"
 			false
+
+	# An appraisal can have one default image
+	set_as_default_image = (btn) ->
+		$('.btn_make_image_primary').removeClass('btn-success')
+		$('.btn_make_image_primary').html('<i class="icon-picture"></i> Mark as Primary')
+		$(btn).addClass("btn-success")
+		$(btn).addClass("btn-success").html('<i class="icon-picture icon-white"></i> Primary')
+
+	$('#appraisal_images_table').on('click','.btn_make_image_primary', ( (event)->
+		$.ajax $(this).attr("href"),
+			type: 'POST'
+			dataType: 'json'
+			success: (data) ->
+				set_as_default_image(event.target)
+			error: (data) ->
+				alert "Unable to set image as primary"
+		false
+	));
+

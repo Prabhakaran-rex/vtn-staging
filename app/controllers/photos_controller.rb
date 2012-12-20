@@ -84,6 +84,24 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:photo_id])
   end
 
+  def set_as_default
+    begin
+      appraisal = Appraisal.find(params[:appraisal_id])
+      @photo = appraisal.photos.find(params[:photo_id])
+      @photo.set_as_default!(appraisal.photos)
+    rescue
+      @photo = nil
+    ensure
+      respond_to do |format|
+        if @photo
+          format.json { head :no_content}
+        else
+          format.json { render json: {:error => "error"}, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
+
   private 
   def load_appraisal
     @appraisal = Appraisal.find(params[:appraisal_id])

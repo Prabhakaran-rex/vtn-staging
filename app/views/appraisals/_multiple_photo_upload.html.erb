@@ -1,6 +1,7 @@
 <% can_tag ||= can_tag.nil?
    can_delete ||= can_delete.nil?
-   can_upload ||= can_upload.nil? %>
+   can_upload ||= can_upload.nil?
+   can_mark_as_primary ||= can_mark_as_primary.nil? %>
 <!-- Multiple image uploads -->
 <form id="fileupload" action="<%= appraisal_photos_path(@appraisal) %>" method="POST" enctype="multipart/form-data">
   <div class="container">
@@ -46,7 +47,7 @@
     <div class="fileupload-loading"></div>
     <br>
     <!-- The table listing the files available for upload/download -->
-    <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+    <table id="appraisal_images_table" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
   </div>
 </form>
 
@@ -99,9 +100,20 @@
           <a href="{%=file.url%}" title="{%=file.file_file_name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
         </td>
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
-        <td colspan="2">
+        <td>
         <% if can_tag %>
-        <a href="{%=file.tag_url%}" class="btn btn-success" target="_blank"><i class="icon-tag icon-white"></i> Tag</a><% end %> </td>
+          <a href="{%=file.tag_url%}" class="btn btn-success" target="_blank"><i class="icon-tag icon-white"></i> Tag</a>
+        <% end %>
+        </td>
+        <td>
+        <% if can_mark_as_primary %>
+        {% if (file.is_default) { %}
+          <a href="{%=file.set_as_default_url %}" class="btn btn-success btn-disabled btn_make_image_primary"><i class="icon-picture icon-white"></i> Primary</a>
+          {% } else { %}
+          <a href="{%=file.set_as_default_url %}" class="btn btn_make_image_primary"><i class="icon-picture"></i> Mark as Primary</a>
+          {% }  %}
+        <% end %>
+        </td>
         {% } %}
       <td class="delete">
         <% if can_delete %>
@@ -110,7 +122,6 @@
           <span>{%=locale.fileupload.destroy%}</span>
         </button>
         <% end %>
-        
       </td>
     </tr>
     {% } %}

@@ -7,7 +7,7 @@ class Photo < ActiveRecord::Base
 
   has_many :tags
 
-  attr_accessible :asset
+  attr_accessible :asset, :default
 
   has_attached_file :asset, 
   					:styles => {
@@ -24,4 +24,10 @@ class Photo < ActiveRecord::Base
                     :url => FILE_STORAGE[Rails.env]['url'],
                     :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
                     :default_url => '/images/interface/missing.png'
+
+  def set_as_default!(siblings)
+    siblings.update_all(:default => false)
+    self.default = true
+    self.save
+  end
 end

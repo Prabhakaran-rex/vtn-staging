@@ -36,6 +36,7 @@ PurexNew::Application.routes.draw do
   resources :appraiser_steps
   resources :photos
   get '/photos/tag/:appraisal_id/:photo_id' => 'photos#tag', :as => :photo_tag
+  post '/photos/set_as_default/:appraisal_id/:photo_id' => "photos#set_as_default"
 
   match '/appraisals/wizard_photo_upload/:appraisal_id' => 'appraisals#wizard_photo_upload', :as => :wizard_photo_upload
   match '/appraisals/wizard_categories/:appraisal_id' => 'appraisals#wizard_categories', :as => :wizard_categories
