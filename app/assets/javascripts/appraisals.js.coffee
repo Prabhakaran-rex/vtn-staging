@@ -9,3 +9,9 @@ jQuery ->
 	$("#supplemental_information").collapse({toggle:false})
 	$('#foo').carouFredSel({height: 380, prev : {button : "#foo_prev",key : "left"},next : {button : "#foo_next",key : "right"}});
 	$("#foo a").fancybox({ autoDimensions: false, autoScale: false, width:'95%', height:'95%', cyclic: true; onStart: `function() {$("#foo").trigger("pause");}`, onClosed: `function() {$("#foo").trigger("play");}`})
+	
+	# Make sure that at least one image has been uploaded before continuing
+	$('#btn_step_2_wizard_image_upload').click ->
+		if $('.template-download').length is 0
+			alert "Please upload at least one image to continue"
+			false

@@ -9,7 +9,7 @@
 		<div class="form-actions">
 			<% if @appraisal.status == EActivityValueCreated %>
 			<% @payment = Payment.new %>
-			<%= link_to 'Save & Continue', wizard_categories_path(:appraisal_id => @appraisal), :class => "btn btn-success pull-right" %>
+			<%= link_to 'Save & Continue', wizard_categories_path(:appraisal_id => @appraisal), :class => "btn btn-success pull-right", :id => "btn_step_2_wizard_image_upload" %>
 			<% end %>
 		</div>
 	</div>
