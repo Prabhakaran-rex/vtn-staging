@@ -3,11 +3,7 @@
 	<h5>Type : <%= getStringForAppraisalType(@appraisal.selected_plan) %></h5>
 	<h1><%= @appraisal.title %>
         <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValuePayed %>
-        <%= link_to 'Appraise', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValueClaimed %>
-        <% if false # @appraisal.status == EActivityValueClaimed 
-        	%>
-            <%= link_to 'Appraise', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
-		<% end %>
+        <%= link_to 'Edit', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValueClaimed %>
 		<% if @appraisal.status == EActivityValueFinalized %>
 		<%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
 		<% end %>
@@ -99,7 +95,7 @@
 	<div class="row">
 			<%= render :partial => "multiple_photo_upload", :locals => {:can_upload => false, :can_delete => false} if @appraisal.status == EActivityValueClaimed %>
 			<%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValuePayed %>
-			<%= link_to 'Reply', reply_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValueClaimed %>
+			<%= link_to 'Edit', reply_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValueClaimed %>
 			<div class="span11" style="margin-bottom:10px;">
 				<% if @appraisal.status == EActivityValueFinalized %>
 				<%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
