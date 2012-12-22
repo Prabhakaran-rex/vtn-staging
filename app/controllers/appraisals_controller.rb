@@ -1,6 +1,6 @@
 class AppraisalsController < ApplicationController
   load_and_authorize_resource
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:show_shared]
   before_filter :is_appraiser_confirmed, :except => [:wizard_photo_upload, :wizard_categories, :show_shared]
 
   # GET /appraisals
