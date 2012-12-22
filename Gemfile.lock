@@ -197,7 +197,7 @@ GEM
     multipart-post (1.1.5)
     net-ssh (2.6.1)
     netrc (0.7.7)
-    newrelic_rpm (3.4.2)
+    newrelic_rpm (3.5.4.33)
     nokogiri (1.4.7)
     oauth2 (0.8.0)
       faraday (~> 0.8)
@@ -355,7 +355,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   meta_search (>= 1.1.0.pre)
-  newrelic_rpm
+  newrelic_rpm (~> 3.5.4.33)
   omniauth
   omniauth-facebook
   paper_trail (~> 2.6.4)

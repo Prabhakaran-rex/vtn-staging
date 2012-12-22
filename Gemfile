@@ -67,7 +67,7 @@ gem 'activeadmin'
 gem 'meta_search',    '>= 1.1.0.pre'
 
 gem 'comfortable_mexican_sofa'
-gem 'newrelic_rpm'
+gem "newrelic_rpm", "~> 3.5.4.33"
 
 # Complaint system linked to Lighthouse
 gem "taskmapper", "~> 0.8.0"
