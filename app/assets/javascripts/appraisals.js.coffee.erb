@@ -34,3 +34,4 @@ jQuery ->
 		false
 	));
 
+	$('#fileupload').fileupload({formData: {iframe_redirect_to: '<%= "#{ENV['BASE_URI']}" %>/result.html?%s', authenticity_token: $('meta[name="csrf-token"]').attr('content') }});

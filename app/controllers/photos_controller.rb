@@ -42,8 +42,13 @@ class PhotosController < ApplicationController
 
     if @photo.save
       respond_to do |format|
-        format.html {redirect_to appraisal_photos_path(@appraisal), notice: 'Photo was successfully created.'}
         @photos = [@photo]
+        if !params[:iframe_redirect_to].nil?
+            json_string = render_to_string(template: 'photos/index.json.jbuilder', locals: { photos: @photos})
+            redirect_url = params[:iframe_redirect_to].gsub("%s",URI::escape(json_string))
+        end
+        redirect_url ||= appraisal_photos_path(@appraisal)
+        format.html {redirect_to redirect_url, notice: 'Photo was successfully created.'}
         format.json {render 'index'}
       end
     else

@@ -55,4 +55,6 @@ ActionMailer::Base.delivery_method = :smtp
 
   SendgridToolkit.api_user = "app4334028@heroku.com"
   SendgridToolkit.api_key = "uu1nfkq3"
+
+  ENV['BASE_URI'] = "http://localhost:3000"
 end
