@@ -88,6 +88,7 @@ PurexNew::Application.routes.draw do
   get '/home/determining' => 'home#determining', :as => 'determining'
   get '/home/limiting' => 'home#limiting', :as => 'limiting'
   get '/home/what_makes' => 'home#what_makes', :as => 'what_makes'
+  get '/home/cost' => 'home#cost', :as => 'cost'
   get '/home/appraiser_invite' => 'home#appraiser_invite'
   get '/home/fee_schedule' => 'home#fee_schedule'
   get '/home/uspap_compliance' => 'home#uspap_compliance'
