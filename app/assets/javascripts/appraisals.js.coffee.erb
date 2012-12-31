@@ -23,6 +23,9 @@ jQuery ->
 		$(btn).addClass("btn-success")
 		$(btn).addClass("btn-success").html('<i class="icon-picture icon-white"></i> Primary')
 
+	if ($('#fileupload').length != 0)
+		$('#fileupload').fileupload({formData: {iframe_redirect_to: '<%= "#{ENV['BASE_URI']}" %>/result.html?%s', authenticity_token: $('meta[name="csrf-token"]').attr('content') }})
+
 	$('#appraisal_images_table').on('click','.btn_make_image_primary', ( (event)->
 		$.ajax $(this).attr("href"),
 			type: 'POST'
@@ -33,5 +36,3 @@ jQuery ->
 				alert "Unable to set image as primary"
 		false
 	));
-
-	$('#fileupload').fileupload({formData: {iframe_redirect_to: '<%= "#{ENV['BASE_URI']}" %>/result.html?%s', authenticity_token: $('meta[name="csrf-token"]').attr('content') }});
