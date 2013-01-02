@@ -14,8 +14,11 @@ class AppraiserController < ApplicationController
   end
 
   def submit_application
-    current_user.submit_application
-    redirect_to appraiser_steps_path, :notice => "Your application was submitted succesfully"
+    unless current_user.is_confirmed?
+      current_user.submit_application
+      flash[:notice] =  "Your application was submitted succesfully"
+    end
+    redirect_to appraiser_steps_path
   end
 
   def get_application_status
