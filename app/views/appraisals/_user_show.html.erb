@@ -57,7 +57,7 @@
 						<td><%= "Description".upcase %></td>
 						<td><%= @appraisal.name %></td>
 					</tr>
-					
+					<% if @appraisal.is_long? %>
 						<tr>
 							<td><%= "Approx. Date of Manufacture".upcase %></td>
 							<td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
@@ -86,6 +86,7 @@
 							<td><%= "Item History".upcase %></td>
 							<td><%= @appraisal.appraisal_info.item_history %></td>
 						</tr>
+						<% end %>
 
 					<tr>
 						<td><%= "Additional Extraordinary Assumptions".upcase %></td>

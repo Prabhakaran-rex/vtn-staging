@@ -63,6 +63,14 @@ class Appraisal < ActiveRecord::Base
     self.photos.find_by_default(true) || self.photos.first
   end
 
+  def is_short?
+    [EAAppraisalTypeShortRestricted, EAAppraisalTypeShortForSelling].include?(self.selected_plan)
+  end
+
+  def is_long?
+    [EAAppraisalTypeLongRestricted, EAAppraisalTypeLongForSelling].include?(self.selected_plan)
+  end
+
   private
   def sanitize_appraisal_info
     self.appraisal_info.sanitize
