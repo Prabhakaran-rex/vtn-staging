@@ -119,6 +119,11 @@
 				<%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
 			<% end %>
 			</div>
+			<% if @appraisal.status == EActivityValueCreated %>
+			<%= link_to 'Save and Make Payment', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right" %>
+			<% else %>
+				<%= link_to 'Save and Continue', @appraisal, :class => "btn btn-success pull-right" %>
+			<% end %>
 	</div>
 	<div class="row">
 		&nbsp;
