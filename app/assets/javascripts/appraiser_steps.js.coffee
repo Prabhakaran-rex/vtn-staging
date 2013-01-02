@@ -27,3 +27,10 @@ jQuery ->
 			if not($('#accept_reimburse').is(':checked'))
 				alert('Please accept to not be reimbursed to continue')
 				event.preventDefault()
+
+	$('#btn_save_bank_step').click (event) ->
+		if !($("#appraiser_paypal_email").val())
+			alert("Please enter an email address associated with your Paypal account to continue")
+			false
+
+	

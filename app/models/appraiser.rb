@@ -36,7 +36,7 @@ class Appraiser < User
 
   def is_appraiser_application_complete
     begin
-      !self.name.empty? && self.address.valid? && self.appraiser_extra.valid? && self.skills.count > 0 && self.trade_references.count >= 3 && self.avatar?
+      !self.name.empty? && self.address.valid? && self.appraiser_extra.valid? && self.skills.count > 0 && self.trade_references.count >= 3 && self.avatar? && !self.paypal_email.blank?
     rescue Exception => e
       return false
     end

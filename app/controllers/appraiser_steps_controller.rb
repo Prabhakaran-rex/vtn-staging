@@ -3,15 +3,15 @@ class AppraiserStepsController < ApplicationController
 	before_filter :authenticate_user!
 	
 	include Wicked::Wizard
-	steps :personal, :professional, :trade,:categories, :signature,  :bank, :contracts, :preferences
+	steps :personal, :professional, :trade,:categories, :bank, :signature, :contracts, :preferences
 
 	def show
 		@user = current_user
 		@trade_reference = TradeReference.new
 		case step
-			when :signature, :bank
+			when :signature
 				skip_step if @user.is_customer? || !is_appraiser_confirmed
-			when :professional, :categories, :trade, :contracts
+			when :professional, :categories, :trade, :contracts, :bank
 				skip_step if @user.is_customer?
 			when :preferences
 				unless @user.is_customer?
