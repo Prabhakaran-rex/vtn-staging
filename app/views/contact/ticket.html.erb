@@ -9,6 +9,7 @@
 		<%= text_area_tag "ticket[description]", nil, :rows => 4, :class => "input-xxlarge" %>
 	<% end %>
   <div class="form-actions">
+  	<%= link_to 'Cancel', tickets_path, :class => "btn" %>
     <%= f.submit "Create ticket", :class => "btn btn-success"%>
   </div>
 <% end %>
