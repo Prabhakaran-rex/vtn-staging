@@ -121,7 +121,7 @@
 			</div>
 			<% if @appraisal.status == EActivityValueCreated %>
 			<%= link_to 'Save and Make Payment', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right" %>
-			<% else %>
+			<% elsif @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValuePayed %>
 				<%= link_to 'Save and Continue', @appraisal, :class => "btn btn-success pull-right" %>
 			<% end %>
 	</div>
