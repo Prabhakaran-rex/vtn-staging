@@ -14,12 +14,10 @@
 	<% unless current_user.is_customer? %>
 	<li <%= current_page?(wizard_path(:professional)) ? "class='active'" : "" %>><%= link_to "Professional", wizard_path(:professional)%></li>
 	<li <%= current_page?(wizard_path(:trade)) ? "class='active'" : "" %>><%= link_to "References", wizard_path(:trade)%></li>		
-	<li <%= current_page?(wizard_path(:categories)) ? "class='active'" : "" %>><%= link_to "Categories", wizard_path(:categories)%></li>
 	<li <%= current_page?(wizard_path(:bank)) ? "class='active'" : "" %>><%= link_to "Bank Account", wizard_path(:bank)%></li>
-	<% unless !current_user.is_confirmed? %>
-		<li <%= current_page?(wizard_path(:signature)) ? "class='active'" : "" %>><%= link_to "Signature", wizard_path(:signature)%></li>		
-	<% end %>
-		<li <%= current_page?(wizard_path(:contracts)) ? "class='active'" : "" %>><%= link_to "Contracts", wizard_path(:contracts)%></li>
+	<li <%= current_page?(wizard_path(:signature)) ? "class='active'" : "" %>><%= link_to "Signature", wizard_path(:signature)%></li>
+	<li <%= current_page?(wizard_path(:categories)) ? "class='active'" : "" %>><%= link_to "Categories", wizard_path(:categories)%></li>		
+	<li <%= current_page?(wizard_path(:contracts)) ? "class='active'" : "" %>><%= link_to "Contracts", wizard_path(:contracts)%></li>
 	<% end %>
 	<% if current_user.is_confirmed? || current_user.is_customer? %>
 	<li <%= current_page?(wizard_path(:preferences)) ? "class='active'" : "" %>><%= link_to "Notifications", wizard_path(:preferences)%></li>
@@ -29,8 +27,8 @@
 
 <% if current_user.is_appraiser? && !current_user.is_confirmed? %>
 		<div class="alert alert-error" id="applicationNotification" <%= "style='display: none;'" if current_user.is_appraiser_application_complete  %> >
-		   <p> <i class="icon-hand-right"></i> Welcome back. Please complete the first four tabs of this My Account page.<br>
-			<b>Step 1</b>: Complete the four tabbed sections in "My Account"<br>
+		   <p> <i class="icon-hand-right"></i> Welcome back. Please complete the first six tabs of this My Account page.<br>
+			<b>Step 1</b>: Complete the six tabbed sections in "My Account"<br>
 			<b>Step 2</b>: Submit your completed "My Account" for review by our Administrator.
 </p>
 		</div>
