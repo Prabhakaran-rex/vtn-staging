@@ -10,12 +10,6 @@
 	
 	<h3>Paypal Account</h3>
 	<%= f.input :paypal_email, :label => "Email associated with your Paypal Account", :required => true %>
-
-	<h3>Bank Account for Payouts</h3>
-	<%= f.simple_fields_for :appraiser_extra, @user.appraiser_extra do |a| %>
-	<%= a.input :bank_name_plain, :label => "Bank name" %>
-	<%= a.input :bank_routing_number_plain, :label => "Routing Number" %>
-	<% end %>
 	<div class="form-actions">
 		<%= f.submit "Save and Continue", :class => "btn btn-success", :id => "btn_save_bank_step"%>
 	</div>
