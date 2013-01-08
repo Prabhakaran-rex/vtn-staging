@@ -4,10 +4,11 @@ Dear <%= @message.name %>,
 content = Cms::Page.find_by_full_path(body).content
 content = content.gsub("[%additional_comments%]",@additional_comments) 
 
+reasons = []
 if @status == EAUserStatusRejected and !@rejection_reasons.nil?
 	reasonsHash = Hash["incomplete" => "Your application was incomplete", "references" => "We were unable to confirm your references", "experience" => "You do not have sufficient years of market related experience"]
 	reasons = @rejection_reasons.map {|x| "<li>#{reasonsHash[x]}</li>"}
-	content = content.gsub("[%rejection_reasons%]","<ul>#{reasons.join(' ')}</ul>")
 end
+content = content.gsub("[%rejection_reasons%]","<ul>#{reasons.join(' ')}</ul>")
 %>
 <%= raw "#{content}" %>
