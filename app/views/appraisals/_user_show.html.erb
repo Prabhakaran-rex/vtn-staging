@@ -57,7 +57,6 @@
 						<td><%= "Description".upcase %></td>
 						<td><%= @appraisal.name %></td>
 					</tr>
-					<% if @appraisal.is_long? %>
 						<tr>
 							<td><%= "Approx. Date of Manufacture".upcase %></td>
 							<td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
@@ -86,8 +85,7 @@
 							<td><%= "Item History".upcase %></td>
 							<td><%= @appraisal.appraisal_info.item_history %></td>
 						</tr>
-						<% end %>
-
+						<% if @appraisal.status == EActivityValueFinalized %>
 					<tr>
 						<td><%= "Additional Extraordinary Assumptions".upcase %></td>
 						<td><%= @appraisal.appraisal_info.additional_ea %></td>
@@ -104,6 +102,7 @@
 						<td><%= "Fair Market Value".upcase %></td>
 						<td><%= print_fair_market_value(@appraisal) %></td>
 					</tr>
+					<% end %>
 				</tbody>
 			</table>
 		</div>
