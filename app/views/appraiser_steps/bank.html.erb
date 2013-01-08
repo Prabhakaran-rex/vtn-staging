@@ -5,6 +5,8 @@
 
 	<%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
 	<%= render :partial => "validation_errors" %>
+
+	<%= raw "#{Cms::Page.find_by_full_path('/payout-notes').content}" %>
 	
 	<h3>Paypal Account</h3>
 	<%= f.input :paypal_email, :label => "Email associated with your Paypal Account", :required => true %>
