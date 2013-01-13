@@ -8,21 +8,21 @@
     url_for(options)
   end %>
 <ul class="nav nav-tabs">
-	<li <%= current_page?(wizard_path(:personal)) ? "class='active'" : "" %>>
+	<li <%= current_page?(wizard_path(:personal)) ? raw("class='active'") : "" %>>
 		<%= link_to "Contact", wizard_path(:personal)%>
 	</li>
 	<% unless current_user.is_customer? %>
-	<li <%= current_page?(wizard_path(:professional)) ? "class='active'" : "" %>><%= link_to "Professional", wizard_path(:professional)%></li>
-	<li <%= current_page?(wizard_path(:trade)) ? "class='active'" : "" %>><%= link_to "References", wizard_path(:trade)%></li>		
-	<li <%= current_page?(wizard_path(:bank)) ? "class='active'" : "" %>><%= link_to "Bank Account", wizard_path(:bank)%></li>
-	<li <%= current_page?(wizard_path(:signature)) ? "class='active'" : "" %>><%= link_to "Signature", wizard_path(:signature)%></li>
-	<li <%= current_page?(wizard_path(:categories)) ? "class='active'" : "" %>><%= link_to "Categories", wizard_path(:categories)%></li>		
-	<li <%= current_page?(wizard_path(:contracts)) ? "class='active'" : "" %>><%= link_to "Contracts", wizard_path(:contracts)%></li>
+	<li <%= current_page?(wizard_path(:professional)) ? raw("class='active'") : "" %>><%= link_to "Professional", wizard_path(:professional)%></li>
+	<li <%= current_page?(wizard_path(:trade)) ? raw("class='active'") : "" %>><%= link_to "References", wizard_path(:trade)%></li>		
+	<li <%= current_page?(wizard_path(:bank)) ? raw("class='active'") : "" %>><%= link_to "Bank Account", wizard_path(:bank)%></li>
+	<li <%= current_page?(wizard_path(:signature)) ? raw("class='active'") : "" %>><%= link_to "Signature", wizard_path(:signature)%></li>
+	<li <%= current_page?(wizard_path(:categories)) ? raw("class='active'") : "" %>><%= link_to "Categories", wizard_path(:categories)%></li>		
+	<li <%= current_page?(wizard_path(:contracts)) ? raw("class='active'") : "" %>><%= link_to "Contracts", wizard_path(:contracts)%></li>
 	<% end %>
 	<% if current_user.is_confirmed? || current_user.is_customer? %>
-	<li <%= current_page?(wizard_path(:preferences)) ? "class='active'" : "" %>><%= link_to "Notifications", wizard_path(:preferences)%></li>
+	<li <%= current_page?(wizard_path(:preferences)) ? raw("class='active'") : "" %>><%= link_to "Notifications", wizard_path(:preferences)%></li>
 	<% end %>
-	<li <%= current_page?(edit_user_registration_path) ? "class='active'" : "" %>><%= link_to "Change Login", edit_user_registration_path%></li>
+	<li <%= current_page?(edit_user_registration_path) ? raw("class='active'") : "" %>><%= link_to "Change Login", edit_user_registration_path%></li>
 </ul>
 
 <% if current_user.is_appraiser? && !current_user.is_confirmed? %>
