@@ -121,7 +121,8 @@ class UsersController < ApplicationController
       @user.crop_w = params[:user][:crop_w]
       @user.crop_h = params[:user][:crop_h]
       if @user.save
-        redirect_to appraiser_steps_path(:signature), :notice => "Signature saved succesfully"
+        flash[:notice] = "Signature saved succesfully"
+        redirect_to :controller => "appraiser_steps", :action => :show, :id => "signature"
       else
         redirect_to new_signature, :error => "Unable to save signature. Please try again"
       end
