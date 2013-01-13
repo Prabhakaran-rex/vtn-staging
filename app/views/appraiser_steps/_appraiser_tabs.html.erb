@@ -27,9 +27,7 @@
 
 <% if current_user.is_appraiser? && !current_user.is_confirmed? %>
 		<div class="alert alert-error" id="applicationNotification" <%= "style='display: none;'" if current_user.is_appraiser_application_complete  %> >
-		   <p> <i class="icon-hand-right"></i> Welcome back. Please complete the first six tabs of this My Account page.<br>
-			<b>Step 1</b>: Complete the six tabbed sections in "My Account"<br>
-			<b>Step 2</b>: Submit your completed "My Account" for review by our Administrator.
+		   <%= raw "#{Cms::Page.find_by_full_path('/appraiser-application-welcome-message').content}" %>
 </p>
 		</div>
 		 <div class="alert alert-info" id="applicationCompleted" <%= "style='display: none;'" unless current_user.is_appraiser_application_complete && !current_user.is_under_review?  %>>
