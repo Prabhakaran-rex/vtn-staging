@@ -89,7 +89,8 @@ class UsersController < ApplicationController
       @user.crop_avatar_w = params[:user][:crop_avatar_w]
       @user.crop_avatar_h = params[:user][:crop_avatar_h]
       if @user.save
-        redirect_to appraiser_steps_path(:personal), :notice => "Avatar saved succesfully"
+        flash[:notice] = "Avatar saved succesfully"
+        redirect_to :controller => "appraiser_steps", :action => :show, :id => "avatar"
       else
         redirect_to new_avatar, :error => "Unable to save avatar. Please try again"
       end

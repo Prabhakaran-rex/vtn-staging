@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130102185029) do
+ActiveRecord::Schema.define(:version => 20130113164954) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -458,6 +458,7 @@ ActiveRecord::Schema.define(:version => 20130102185029) do
     t.string   "type"
     t.string   "website"
     t.string   "paypal_email"
+    t.string   "last_step"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

@@ -144,6 +144,10 @@ class User < ActiveRecord::Base
     EAUserStatusHash[self.status.to_s]
   end
 
+  def get_last_step
+    self.last_step.nil? ? :personal : self.last_step
+  end
+
   private
   def create_address
     y = Address.new(); y.user_id = self.id;

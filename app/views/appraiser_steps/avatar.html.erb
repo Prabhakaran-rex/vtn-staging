@@ -1,0 +1,29 @@
+<%= render :partial => "layouts/doc_has_changed" %>
+<div class="sub_box">
+  <%= render :partial => "appraiser_tabs" %>
+<% if current_user.is_appraiser? %>
+<div class="alert alert-info">
+    <i class="icon-warning-sign"></i>  <strong>NOTICE:</strong> This information is primarily for the private use of ValueThisNow.com and will not be made public. Only the appraiser’s name, image and website will be made public.
+</div>
+<% end %>
+  <div class="row">
+     <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %> 
+  <div class="span1">
+    &nbsp;
+</div>
+  <div class="span10 div-gravatar">
+      <%= image_tag @user.avatar_url(:small), :size => "180x180", :class => "img-gravatar"%></br>
+      <h5>
+      <%= link_to new_avatar_path, :class => "btn btn-success btn-mini" do %><i class="icon-camera icon-white"></i> Change your Image<% end %>
+      </h5>
+  </div>
+  <div class="span3">      
+  </div>
+</div>
+<div class="form-actions">
+  <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>   
+    <%= f.submit "Save and Continue", :class => "btn btn-success"%>
+  </div>
+<% end%> 
+<input type="hidden" name="has_avatar" id="has_avatar" value=<%= current_user.avatar? %>>
+</div>

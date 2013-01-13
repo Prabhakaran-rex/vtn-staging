@@ -1,0 +1,19 @@
+<% # TODO Find a better place to store this monkeypatch
+  def wizard_path(goto_step = nil, options = {})
+    options = { :controller => :appraiser_steps,
+                :action     => 'show',
+                :id         => goto_step || params[:id],
+                :only_path  => true
+               }.merge options
+    url_for(options)
+  end %>
+<ul class="nav nav-tabs">
+	<li <%= current_page?(wizard_path(:personal)) ? raw("class='active'") : "" %>>
+		<%= link_to "Contact", wizard_path(:personal)%>
+	</li>
+    <li <%= current_page?(wizard_path(:avatar)) ? raw("class='active'") : "" %>>
+    <%= link_to "Image", wizard_path(:avatar)%>
+  </li>
+	<li <%= current_page?(wizard_path(:preferences)) ? raw("class='active'") : "" %>><%= link_to "Notifications", wizard_path(:preferences)%></li>
+	<li <%= current_page?(edit_user_registration_path) ? raw("class='active'") : "" %>><%= link_to "Change Login", edit_user_registration_path%></li>
+</ul>

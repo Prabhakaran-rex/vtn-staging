@@ -7,36 +7,10 @@
                }.merge options
     url_for(options)
   end %>
-<ul class="nav nav-tabs">
-	<li <%= current_page?(wizard_path(:personal)) ? raw("class='active'") : "" %>>
-		<%= link_to "Contact", wizard_path(:personal)%>
-	</li>
-	<% unless current_user.is_customer? %>
-	<li <%= current_page?(wizard_path(:professional)) ? raw("class='active'") : "" %>><%= link_to "Professional", wizard_path(:professional)%></li>
-	<li <%= current_page?(wizard_path(:trade)) ? raw("class='active'") : "" %>><%= link_to "References", wizard_path(:trade)%></li>		
-	<li <%= current_page?(wizard_path(:bank)) ? raw("class='active'") : "" %>><%= link_to "Bank Account", wizard_path(:bank)%></li>
-	<li <%= current_page?(wizard_path(:signature)) ? raw("class='active'") : "" %>><%= link_to "Signature", wizard_path(:signature)%></li>
-	<li <%= current_page?(wizard_path(:categories)) ? raw("class='active'") : "" %>><%= link_to "Categories", wizard_path(:categories)%></li>		
-	<li <%= current_page?(wizard_path(:contracts)) ? raw("class='active'") : "" %>><%= link_to "Contracts", wizard_path(:contracts)%></li>
-	<% end %>
-	<% if current_user.is_confirmed? || current_user.is_customer? %>
-	<li <%= current_page?(wizard_path(:preferences)) ? raw("class='active'") : "" %>><%= link_to "Notifications", wizard_path(:preferences)%></li>
-	<% end %>
-	<li <%= current_page?(edit_user_registration_path) ? raw("class='active'") : "" %>><%= link_to "Change Login", edit_user_registration_path%></li>
-</ul>
-
-<% if current_user.is_appraiser? && !current_user.is_confirmed? %>
-		<div class="alert alert-error" id="applicationNotification" <%= raw ("style='display: none;'") if current_user.is_appraiser_application_complete  %> >
-			<p>
-		   <%= raw "#{Cms::Page.find_by_full_path('/appraiser-application-welcome-message').content}" %>
-</p>
-		</div>
-		 <div class="alert alert-info" id="applicationCompleted" <%= raw ("style='display: none;'") unless current_user.is_appraiser_application_complete && !current_user.is_under_review?  %>>
-		    <i class="icon-hand-right"></i> Your application is complete. Please submit it by clicking on the "Save and Submit" button <%= @current_step == :categories ? "located at the bottom of this page" : "in the Categories tab" %>
-		</div>
-	<% if current_user.is_under_review?%>
-		<div class="alert alert-success">
-		    <i class="icon-hand-right"></i> Your application is under review. Our administrators will contact you soon.
-		</div>
-	<% end %>
+  <% if current_user.is_customer? %>
+  	<%= render :partial => "appraiser_steps/user_tabs" %>
+  <% elsif current_user.is_appraiser? && current_user.is_confirmed? %>
+	<%= render :partial => "appraiser_steps/confirmed_appraiser_tabs" %>
+  <% else %>
+	<%= render :partial => "appraiser_steps/pending_appraiser_tabs" %>
 <% end %>

@@ -3,10 +3,12 @@ class AppraiserStepsController < ApplicationController
 	before_filter :authenticate_user!
 	
 	include Wicked::Wizard
-	steps :personal, :professional, :trade, :bank, :signature, :categories, :contracts, :preferences
+	steps :personal, :avatar, :professional, :trade, :bank, :signature, :categories, :contracts, :preferences
 
 	def show
 		@user = current_user
+		@user[:last_step] = params[:id]
+		@user.save
 		@trade_reference = TradeReference.new
 		case step
 			when :professional, :signature, :categories, :trade, :contracts, :bank
@@ -23,6 +25,7 @@ class AppraiserStepsController < ApplicationController
 	def update
 		@user = current_user
 		@user.attributes = params[:appraiser] || params[:customer]
+		@user[:last_step] = params[:id]
 		render_wizard @user
 	end
 
