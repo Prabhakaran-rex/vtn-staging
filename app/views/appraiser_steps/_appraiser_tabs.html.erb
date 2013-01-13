@@ -26,12 +26,12 @@
 </ul>
 
 <% if current_user.is_appraiser? && !current_user.is_confirmed? %>
-		<div class="alert alert-error" id="applicationNotification" <%= "style='display: none;'" if current_user.is_appraiser_application_complete  %> >
+		<div class="alert alert-error" id="applicationNotification" <%= raw ("style='display: none;'") if current_user.is_appraiser_application_complete  %> >
 			<p>
 		   <%= raw "#{Cms::Page.find_by_full_path('/appraiser-application-welcome-message').content}" %>
 </p>
 		</div>
-		 <div class="alert alert-info" id="applicationCompleted" <%= "style='display: none;'" unless current_user.is_appraiser_application_complete && !current_user.is_under_review?  %>>
+		 <div class="alert alert-info" id="applicationCompleted" <%= raw ("style='display: none;'") unless current_user.is_appraiser_application_complete && !current_user.is_under_review?  %>>
 		    <i class="icon-hand-right"></i> Your application is complete. Please submit it by clicking on the "Save and Submit" button <%= @current_step == :categories ? "located at the bottom of this page" : "in the Categories tab" %>
 		</div>
 	<% if current_user.is_under_review?%>
