@@ -10,6 +10,7 @@
 	<hr>
 	<%= link_to_add_fields "Add Reference", f, :trade_references %>
 	<div class="form-actions">
+		<%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
 		<%= f.submit "Save and continue", :class => "btn btn-success", :id => "btn-appraiser_steps-add_references"%>
 	</div>
 	<% end%> 

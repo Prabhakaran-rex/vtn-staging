@@ -35,7 +35,8 @@
             </tbody>
         </table>
     </div>
-    <div class="form-actions">        
+    <div class="form-actions">
+    <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>    
 <% btnText = "Save and " << (current_user.is_confirmed? ? "Continue" : "Submit")  %>
 <%= link_to btnText, submit_application_path, :class => "btn btn-success #{"inactiveLink disabled" unless current_user.is_appraiser_application_complete}", :id => "btnSubmitApplication" %></br>
 <small>You do not need to press the "Save and Continue Button" to add new categories</small>

@@ -11,6 +11,7 @@
 	<h3>Paypal Account</h3>
 	<%= f.input :paypal_email, :label => "Email associated with your Paypal Account", :required => true %>
 	<div class="form-actions">
+		<%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
 		<%= f.submit "Save and Continue", :class => "btn btn-success", :id => "btn_save_bank_step"%>
 	</div>
 		<% end%> 

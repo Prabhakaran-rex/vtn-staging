@@ -69,6 +69,7 @@
     </div>
     <h5>You can also upload an image file by clicking <%= link_to new_signature_path, :class => "btn btn-mini btn-success" do %><i class="icon-upload icon-white"></i> here <% end %></h5>
 <div class="form-actions">
+    <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
 <%= link_to "Save and Continue", next_wizard_path, :class => "btn btn-success"%>
     </div>
 </div>
