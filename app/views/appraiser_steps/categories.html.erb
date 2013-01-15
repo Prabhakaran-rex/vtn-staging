@@ -24,7 +24,7 @@
             <tbody>
             <% current_user.skills.order(:category_id).each do |s|
                 unless s.category.nil? %>
-                <tr>
+                <tr class="skill_tr">
                     <td><%= s.category.is_root? ? s.category.name : s.category.parent.name %></td>
                     <td><button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'<%= "#{s.id}" %>')">Remove</button>
                     </td>
@@ -59,7 +59,13 @@
 <script type="text/javascript">
 /* Delete Task */
 function deleteCategory(caller, id ) {
-    $.ajax({
+    if ($('.skill_tr').size() == 1)
+    {
+        alert("You should have at least one category selected");
+    }
+    else
+    {
+        $.ajax({
                 url: "<%= url_for skills_path %>/" + id+'.json',
                 type: 'post',
                 dataType: 'script',
@@ -69,6 +75,7 @@ function deleteCategory(caller, id ) {
                     getApplicationStatus();
                 }
             });
+    }
 }
 
 function getApplicationStatus() {
@@ -122,7 +129,7 @@ $(function() {
     	$.post('<%= url_for skills_path %>.json',{ 'skill[user_id]': '<%= current_user.id %>', 'skill[category_id]': $('input[name=demo6]').val() },function(data) {
             var category = $('select[name=demo6_] option:selected').text();
             var subcategory = $('select[name=demo6__] option:selected').text();
-            $('#skillTable > tbody:last').append('<tr><td>'+category +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+data.id+')">Remove</button>'
+            $('#skillTable > tbody:last').append('<tr class="skill_tr"><td>'+category +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+data.id+')">Remove</button>'
                 +'</td></tr>');
             getApplicationStatus();
 
@@ -138,7 +145,7 @@ $(function() {
     $('#addAllSkillsBtn').click(function(){
         $.post('<%= url_for skills_path %>.json',{'skill[all]' : 'true', 'skill[user_id]': '<%= current_user.id %>', 'skill[category_id]': $('input[name=demo6]').val() },function(data) {
             $.each(data, function(index, value) { 
-              $('#skillTable > tbody:last').append('<tr><td>'+value.name +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+value.id+')">Remove</button>');
+              $('#skillTable > tbody:last').append('<tr class="skill_tr"><td>'+value.name +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+value.id+')">Remove</button>');
             });
         });
         $('#addAllSkillsModal').modal('hide')
