@@ -11,6 +11,10 @@
   	<%= render :partial => "appraiser_steps/user_tabs" %>
   <% elsif current_user.is_appraiser? && current_user.is_confirmed? %>
 	<%= render :partial => "appraiser_steps/confirmed_appraiser_tabs" %>
+  <% elsif current_user.is_appraiser? && current_user.is_rejected? %>
+  <div class="alert alert-notice">
+    <i class="icon-warning-sign"></i>  <strong>NOTICE:</strong> Your application to become an appraiser was rejected. Please contact our administrator for further information.
+</div>
   <% else %>
 	<%= render :partial => "appraiser_steps/pending_appraiser_tabs" %>
 <% end %>

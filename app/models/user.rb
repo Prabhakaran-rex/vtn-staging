@@ -128,6 +128,10 @@ class User < ActiveRecord::Base
     self.status == EAUserStatusReview
   end
 
+  def is_rejected?
+    self.status == EAUserStatusRejected
+  end
+
   def is_appraiser?
     self.type.eql?("Appraiser")
   end
