@@ -33,4 +33,8 @@ jQuery ->
 			alert("Please enter an email address associated with your Paypal account to continue")
 			false
 
+	$('#btn_submit_avatar').click (event) ->
+		if ($("#has_avatar").val() == "false")
+			alert("Please upload an image to continue")
+			false
 	

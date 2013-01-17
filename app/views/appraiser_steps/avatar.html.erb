@@ -22,7 +22,7 @@
 </div>
 <div class="form-actions">
   <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>   
-    <%= f.submit "Save and Continue", :class => "btn btn-success"%>
+    <%= f.submit "Save and Continue", :class => "btn btn-success", :id => "btn_submit_avatar"%>
   </div>
 <% end%> 
 <input type="hidden" name="has_avatar" id="has_avatar" value=<%= current_user.avatar? %>>
