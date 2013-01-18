@@ -152,7 +152,13 @@ $(function() {
     });
 
     $('#btnSubmitApplication').click(function() {
-        getApplicationStatus();
+        if ($('.skill_tr').size() == 0) {
+            alert("Please select at least one category to continue");
+            return false;
+         }
+        else {
+            getApplicationStatus();
+        }
     });
 });
 </script>
