@@ -435,6 +435,7 @@
                 data = template.data('data');
             if (data && data.submit && !data.jqXHR && data.submit()) {
                 button.prop('disabled', true);
+                button.html('<span>Uploading...</span>');
             }
         },
 
