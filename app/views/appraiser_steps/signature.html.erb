@@ -21,6 +21,7 @@
                 dataType:"text",
                 success: function(data, textStatus, jqXHR){
                     alert("Signature saved succesfully");
+                    $("#has_signature").val("true");
                     $("#latest-signature").attr("src", data);
                     $("#current-signature").empty();
                     $("#latest-signature").show();
@@ -68,7 +69,8 @@
     </div>
     <h5>You can also upload an image file by clicking <%= link_to new_signature_path, :class => "btn btn-mini btn-success" do %><i class="icon-upload icon-white"></i> here <% end %></h5>
 <div class="form-actions">
+    <input type="hidden" id="has_signature" name="has_signature" value="<%= current_user.signature? || !current_user.appraiser_extra.signature_json.nil? %>">
     <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
-<%= link_to "Save and Continue", next_wizard_path, :class => "btn btn-success"%>
+<%= link_to "Save and Continue", next_wizard_path, :class => "btn btn-success", :id => "btn_submit_signature"%>
     </div>
 </div>

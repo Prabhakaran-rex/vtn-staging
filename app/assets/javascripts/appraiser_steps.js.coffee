@@ -37,4 +37,10 @@ jQuery ->
 		if ($("#has_avatar").val() == "false")
 			alert("Please upload an image to continue")
 			false
+
+	$('#btn_submit_signature').click (event) ->
+		if ($("#has_signature").val() == "false")
+			alert("Please upload a signature to continue")
+			false
+			
 	
