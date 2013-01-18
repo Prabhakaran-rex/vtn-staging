@@ -52,6 +52,16 @@ class UserMailer < ActionMailer::Base
           :subject => "[Your Value This Now Application] #{message.name}")
   end
 
+  def notify_of_new_comment(comment)
+    comment = Comment.find(comment)
+    @body = comment.body
+    @appraisal = Appraisal.find(comment.commentable_id)
+    @send_to = comment.user_id == @appraisal.created_by ? @appraisal.assigned_to.email : User.find(@appraisal.created_by).email
+    mail(:to => @send_to,
+      :subject => "[Value This Now] New comment added"
+      )
+  end
+
   private
 
   def add_attachment(attachment_name)

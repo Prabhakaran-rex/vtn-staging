@@ -103,6 +103,11 @@
 			<% end %>
 			</div>
 	</div>
+	<% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized %>
+	<div class="row">
+		<%= render :partial => "appraisals/comments", :locals => {:appraisal => @appraisal, :comments => @appraisal_comments}%>
+	</div>
+	<% end %>
 	<div class="row">
 		<div class="span11">
 			<% if @appraisal.status == EActivityValueFinalized %>

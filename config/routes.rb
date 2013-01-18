@@ -108,6 +108,8 @@ PurexNew::Application.routes.draw do
   get '/photos/create'
   post '/photos/create'
 
+  post '/appraisals/comment' => "appraisals#comment", :as => :comments
+
   ActiveAdmin.routes(self)
   # Begin ComfortableMexicanSofa
   namespace :cms_admin, :path => ComfortableMexicanSofa.config.admin_route_prefix, :except => :show do

@@ -124,6 +124,11 @@
 				<%= link_to 'Save and Continue', @appraisal, :class => "btn btn-success pull-right" %>
 			<% end %>
 	</div>
+	<% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized %>
+	<div class="row">
+		<%= render :partial => "appraisals/comments", :locals => {:appraisal => @appraisal, :comments => @appraisal_comments}%>
+	</div>
+	<% end %>
 	<div class="row">
 		&nbsp;
 	</div>

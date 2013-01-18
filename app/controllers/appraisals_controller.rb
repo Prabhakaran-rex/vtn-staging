@@ -19,6 +19,7 @@ class AppraisalsController < ApplicationController
     @appraisal = Appraisal.find(params[:id])
     @long ||= params[:pdf_long]
     @user = User.find_by_id(current_user)
+    @appraisal_comments = @appraisal.root_comments.order('created_at ASC')
     if (!@appraisal.assigned_to.nil?)
       @appraiser = User.find_by_id(@appraisal.assigned_to)
     end
@@ -177,6 +178,18 @@ class AppraisalsController < ApplicationController
     end
     respond_to do |format|
       format.json  { render :json =>  @appraisal }
+    end
+  end
+
+  def comment
+    @appraisal = Appraisal.find(params[:comment_appraisal_id])
+    @comment = Comment.build_from(@appraisal, current_user.id, params[:comment][:body])
+    if @comment.save
+      flash[:notice] = 'Comment added successfully'
+      redirect_to @appraisal
+    else
+      flash[:error] = 'Comment could not be created'
+      redirect_to @appraisal
     end
   end
 
