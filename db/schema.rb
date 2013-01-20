@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118012614) do
+ActiveRecord::Schema.define(:version => 20130120024621) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -116,10 +116,10 @@ ActiveRecord::Schema.define(:version => 20130118012614) do
   add_index "appraiser_access_tokens", ["user_id"], :name => "index_appraiser_access_tokens_on_user_id"
 
   create_table "appraiser_extras", :force => true do |t|
-    t.string   "years_appraising"
-    t.string   "affiliated_with"
-    t.string   "certifications"
-    t.string   "description"
+    t.text     "years_appraising"
+    t.text     "affiliated_with"
+    t.text     "certifications"
+    t.text     "description"
     t.string   "bank_name"
     t.string   "bank_routing_number"
     t.integer  "uspap"
