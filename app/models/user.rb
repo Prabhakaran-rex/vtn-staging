@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   end
 
   def self.notify_appraisers_of_new_appraisal( appraisal )
-    appraisers = User.where(:role => "appraiser")
+    appraisers = User.where(:type => "Appraiser", :status => EAUserStatusConfirmed)
     appraisers.each do |appraiser|
       UserMailer.notify_appraiser_of_new_appraisal( appraiser ,
         appraisal ).deliver

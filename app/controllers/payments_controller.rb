@@ -1,4 +1,4 @@
-require 'paypal'
+require 'paypal_module'
 
 class PaymentsController < ApplicationController
   # before_filter :is_login?
@@ -35,9 +35,9 @@ class PaymentsController < ApplicationController
       
       if not Payment.is_payment_exists?(@appraisal.id)
         credit_card = Payment::CreditCard.new(ccnumber, cvv, expmon, expyear, name, amount)
-        #status, msg = Paypal::PayGateway.new.charge(credit_card, request.remote_ip)
-        status, msg = Paypal::PayGateway.new.authorize(credit_card, request.remote_ip)      
-        #status, msg = Paypal::PayGateway.new.refund(amount, auth_code)
+        #status, msg = PaypalModule::PayGateway.new.charge(credit_card, request.remote_ip)
+        status, msg = PaypalModule::PayGateway.new.authorize(credit_card, request.remote_ip)      
+        #status, msg = PaypalModule::PayGateway.new.refund(amount, auth_code)
          
         if status || ccnumber == "4551411111111111"
           Payment.add_payment(msg, ccnumber, amount, @user.id, @appraisal.id)

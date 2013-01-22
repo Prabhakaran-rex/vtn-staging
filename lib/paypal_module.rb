@@ -1,4 +1,4 @@
-module Paypal
+module PaypalModule
     class PayGateway
       def initialize
         @logger = Rails.logger
