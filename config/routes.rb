@@ -1,5 +1,7 @@
 PurexNew::Application.routes.draw do
 
+  get "payouts/create"
+
   get "dashboard/payouts(/:status)" => "dashboard#payouts", :as => :dashboard_payouts
   get "dashboard(/:detail)" => 'dashboard#index', :as => :dashboard_detail
 
@@ -12,15 +14,15 @@ PurexNew::Application.routes.draw do
   match '/users/update_appraiser_status' => "users#update_appraiser_status", :as => :update_appraiser_status
 
   devise_for :users, :controllers => { :registrations => "registrations"}  do
-    get '/admin/dashboard' => 'users/admin/dashboard#show'
+    # get '/admin/dashboard' => 'users/admin/dashboard#show'
   end
 
   devise_for :appraisers, :controllers => { :registrations => "registrations"}  do
-    get '/admin/dashboard' => 'users/admin/dashboard#show'
+    # get '/admin/dashboard' => 'users/admin/dashboard#show'
   end
 
   devise_for :customers, :controllers => {:omniauth_callbacks => "omniauth_callbacks",  :registrations => "registrations"}  do
-    get '/admin/dashboard' => 'users/admin/dashboard#show'
+    # get '/admin/dashboard' => 'users/admin/dashboard#show'
   end
 
     get '/users/save_json_signature' => 'users#save_json_signature', :as => :save_json_signature

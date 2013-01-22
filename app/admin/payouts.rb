@@ -2,6 +2,7 @@ ActiveAdmin.register Payout do
 	menu :label => "Appraiser Payouts", :parent => "Compensations"  
 
 	index do
+		selectable_column
 		column :created_at
 		column :updated_at
 		column :id
@@ -19,6 +20,9 @@ ActiveAdmin.register Payout do
 		end
 		column :status do |payout|
 			"#{getStringForPayoutStatus(payout.status)}"
+		end
+		column "Pay" do |payout|
+			link_to "Pay", root_path
 		end
 		default_actions
 	end
@@ -41,4 +45,12 @@ ActiveAdmin.register Payout do
 			row("Status") {|t| "#{getStringForPayoutStatus(t.status)}" }
 		end
 	end
+
+    batch_action :pay_with_paypal, :confirm => "Are you sure you want to send this payouts?" do |selection|
+      redirect_to payouts_create_path(:payouts => Payout.find(selection))
+    end
 end
+
+
+
+

@@ -1,0 +1,38 @@
+<h1>Payouts Result</h1>
+<div><%= link_to "Return to admin panel", admin_payouts_path, :class => "btn btn-success" %></div>
+<div>
+<% if @result %>
+	<table class="table table-bordered">
+		<tr>
+			<th>ID</th>
+			<th>Appraiser Email</th>
+			<th>Amount Paid</th>
+		</tr>
+		<% total = 0
+		@paypal_payments.each do |payout| 
+			total += payout.amount.to_i%>
+		<tr>
+			<td><%= payout.unique_id %></td>
+			<td><%= payout.email %></td>
+			<td><%= payout.amount %></td>
+		</tr>
+		<% end %>
+		<tr>
+			<td></td>
+			<td><b>Total Paid : </b></td>
+			<td><b><%= number_to_currency(total) %></b></td>
+		</tr>
+	</table>
+<% else %>
+There was an error processing the payouts. Please see the debug log for further information.
+<% end %>
+</div>
+<div>
+<h2>Debug Information</h2>
+@paypal - <pre><%= @paypal.to_json %></pre>
+@params - <pre><%= params.to_json %></pre>
+@payouts - <pre><%= @payouts.to_json %></pre>
+@paypal_payments - <pre><%= @paypal_payments.to_json %></pre>
+@result_hash - <pre><%= @result_hash%></pre>
+@result <pre><%= @result %></pre>
+</div>

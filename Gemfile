@@ -63,7 +63,7 @@ gem 'simple_form'
 gem 'country_select'
 gem 'wicked' # For wizard-type appraiser registration
 gem 'wicked_pdf' # for PDF generation
-gem 'activeadmin'
+gem "activeadmin", "~> 0.5.1"
 gem 'meta_search',    '>= 1.1.0.pre'
 
 gem 'comfortable_mexican_sofa'
@@ -81,6 +81,9 @@ gem 'google-analytics-rails'
 
 # To track Sendgrid bounces in Admin panel
 gem 'sendgrid_toolkit', '>= 1.1.1'
+
+# For Paypal payouts
+gem "ruby-paypal", :git => "git://github.com/Reprazent/ruby-paypal.git"
 
 # Sensitive data encryption
 # gem "attr_encrypted", :git => 'git://github.com/yellow-lab/attr_encrypted_1_9_3_charset_fix.git'
