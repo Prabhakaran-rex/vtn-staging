@@ -49,7 +49,7 @@ ActiveAdmin.register Appraiser do
 
   show :title => :name do
     panel "Actions" do
-      render :partial => "admin/users/appraiser_actions", :locals => {:user => appraiser}
+      render :partial => "admin/users/appraiser_actions", :locals => {:appraiser => appraiser}
     end
 
     attributes_table do
