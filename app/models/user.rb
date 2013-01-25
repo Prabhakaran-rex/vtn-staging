@@ -56,7 +56,8 @@ class User < ActiveRecord::Base
   end
 
   def self.notify_appraisers_of_new_appraisal( appraisal )
-    appraisers = User.where(:type => "Appraiser", :status => EAUserStatusConfirmed)
+    appraiser_ids = Skill.select("appraiser_id").where("category_id = ?", appraisal.classification.category_id).pluck(:appraiser_id)
+    appraisers = Appraiser.where("id in (?) and status = ? ",appraiser_ids, EAUserStatusConfirmed)
     appraisers.each do |appraiser|
       UserMailer.notify_appraiser_of_new_appraisal( appraiser ,
         appraisal ).deliver
