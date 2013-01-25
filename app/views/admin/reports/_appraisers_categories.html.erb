@@ -7,7 +7,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% Appraiser.all.each do |appraiser| %>
+		<% Appraiser.order(:name).each do |appraiser| %>
 		<tr class="<%= cycle("odd", "even") %>">
 			<td><%= link_to appraiser.name, admin_appraiser_path(appraiser) %></td>
 			<td>

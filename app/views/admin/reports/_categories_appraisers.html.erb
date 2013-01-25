@@ -7,7 +7,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% Category.all.each do |category| %>
+		<% Category.order(:name).each do |category| %>
 		<tr class="<%= cycle("odd", "even") %>">
 			<td><%= category.name %></td>
 			<td>
