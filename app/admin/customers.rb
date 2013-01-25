@@ -51,6 +51,10 @@ ActiveAdmin.register Customer do
       row("Status") {customer.status}
     end
 
+    panel "Address" do
+      render :partial=> "admin/users/appraiser_info", :locals => {:extra_info => customer.address}
+    end
+
     panel "Additional Information" do
       render :partial=> "admin/users/appraiser_info", :locals => {:extra_info => customer.customer_extra}
     end

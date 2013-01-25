@@ -61,11 +61,12 @@ ActiveAdmin.register Appraiser do
       row("Email") {appraiser.email}
       row("Created") {appraiser.created_at}
       row("Status") {appraiser.status_as_string}
+      row("Paypal Email") {appraiser.paypal_email}
     end
 
-    # panel "Avatar" do
-    #   render "appraiser_avatar", :locals => {:user => user}
-    # end
+    panel "Address" do
+      render :partial=> "admin/users/appraiser_info", :locals => {:extra_info => appraiser.address}
+    end
 
     panel "Additional Information" do
        render :partial=> "admin/users/appraiser_info", :locals => {:extra_info => appraiser.appraiser_extra}
@@ -73,6 +74,13 @@ ActiveAdmin.register Appraiser do
 
     panel "Trade References" do
       render :partial => "admin/users/trade_references", :locals => {:user => appraiser}      
+    end
+
+    panel "Categories" do
+      appraiser.skills.each do |skill|
+        li skill.category.name  
+      end
+      
     end
   end
 end
