@@ -1,6 +1,6 @@
 ActiveAdmin.register Customer do
   menu :if => proc{ can?(:manage, Customer) }    
-  actions :all, :except => [:new] 
+  actions :all, :except => [:new, :destroy] 
  
 	index do
 		column :id

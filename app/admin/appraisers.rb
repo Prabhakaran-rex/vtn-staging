@@ -1,7 +1,7 @@
 ActiveAdmin.register Appraiser do
   menu :if => proc{ can?(:manage, Appraiser) } 
   
-  actions :all, :except => [:new]    
+  actions :all, :except => [:new, :destroy]    
 
   action_item :only => :show do
     link_to('Reapply', update_appraiser_status_path(:user => appraiser, :status => EAUserStatusPending)) if appraiser.is_appraiser? && appraiser.status == EAUserStatusRejected

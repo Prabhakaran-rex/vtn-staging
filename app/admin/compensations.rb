@@ -1,4 +1,5 @@
 ActiveAdmin.register Compensation do
+	actions :all, :except => [:destroy]
 	hItems = {"Light Restricted Use Appraisal" => EAAppraisalTypeShortRestricted,
 				"Full Restricted Use Appraisal" => EAAppraisalTypeLongRestricted,
 				"Light Summary Appraisal" => EAAppraisalTypeShortForSelling,

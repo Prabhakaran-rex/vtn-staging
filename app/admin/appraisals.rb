@@ -1,4 +1,6 @@
 ActiveAdmin.register Appraisal do
+	actions :all, :except => [:destroy]
+	
 	index do
 		column :id
 		column :title

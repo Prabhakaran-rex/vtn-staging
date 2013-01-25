@@ -1,4 +1,5 @@
 ActiveAdmin.register Payout do
+	actions :all, :except => [:destroy]
 	menu :label => "Appraiser Payouts", :parent => "Compensations"  
 
 	index do
