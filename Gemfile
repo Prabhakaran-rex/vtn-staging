@@ -44,6 +44,7 @@ gem "omniauth"
 # gem "oa-oauth", :require => "omniauth/oauth"  #this allows us to use things like facebook sign in
 gem 'omniauth-facebook'
 gem "cancan" #this form the basis of user permissions
+gem "switch_user", "~> 0.9.1"
 
 gem 'heroku'
 # gem "heroku_backup_task"   #takes care of backing up the database via a cron job

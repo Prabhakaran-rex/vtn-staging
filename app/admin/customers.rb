@@ -51,4 +51,8 @@ ActiveAdmin.register Customer do
       render :partial=> "admin/users/appraiser_info", :locals => {:extra_info => customer.customer_extra}
     end
   end
+
+  sidebar :change_user do
+    raw "#{switch_user_select}"
+  end
 end

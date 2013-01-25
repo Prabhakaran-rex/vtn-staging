@@ -71,4 +71,8 @@ ActiveAdmin.register Appraiser do
       render :partial => "admin/users/trade_references", :locals => {:user => appraiser}      
     end
   end
+
+  sidebar :change_user do
+    raw "#{switch_user_select}"
+  end
 end
