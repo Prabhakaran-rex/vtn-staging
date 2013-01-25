@@ -1,6 +1,10 @@
 ActiveAdmin.register Customer do
   menu :if => proc{ can?(:manage, Customer) }    
   actions :all, :except => [:new, :destroy] 
+
+  action_item :only => :show do
+    link_to "Become", "/switch_user?scope_identifier=user_#{appraiser.id}"
+  end
  
 	index do
 		column :id
@@ -50,9 +54,5 @@ ActiveAdmin.register Customer do
     panel "Additional Information" do
       render :partial=> "admin/users/appraiser_info", :locals => {:extra_info => customer.customer_extra}
     end
-  end
-
-  sidebar :change_user do
-    raw "#{switch_user_select}"
   end
 end

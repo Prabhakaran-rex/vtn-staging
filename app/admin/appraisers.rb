@@ -6,6 +6,10 @@ ActiveAdmin.register Appraiser do
   action_item :only => :show do
     link_to('Reapply', update_appraiser_status_path(:user => appraiser, :status => EAUserStatusPending)) if appraiser.is_appraiser? && appraiser.status == EAUserStatusRejected
   end
+
+  action_item :only => :show do
+    link_to "Become", "/switch_user?scope_identifier=user_#{appraiser.id}"
+  end
  
 	index do
 		column :id
@@ -70,9 +74,5 @@ ActiveAdmin.register Appraiser do
     panel "Trade References" do
       render :partial => "admin/users/trade_references", :locals => {:user => appraiser}      
     end
-  end
-
-  sidebar :change_user do
-    raw "#{switch_user_select}"
   end
 end
