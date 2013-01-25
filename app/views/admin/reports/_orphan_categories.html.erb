@@ -1,0 +1,16 @@
+<h2>Orphan Categories</h2>
+<table class="index_table">
+	<thead>
+		<tr>
+			<th width="60%">Category</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% skills = Skill.pluck(:category_id).uniq
+		Category.where('id not in (?)',skills).each do |category| %>
+		<tr class="<%= cycle("odd", "even") %>">
+			<td><%= category.name %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

@@ -1,0 +1,26 @@
+<h2>Appraisers vs Categories</h2>
+<table class="index_table">
+	<thead>
+		<tr>
+			<th width="60%">Appraiser</th>
+			<th>Categories</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% Appraiser.all.each do |appraiser| %>
+		<tr class="<%= cycle("odd", "even") %>">
+			<td><%= link_to appraiser.name, admin_appraiser_path(appraiser) %></td>
+			<td>
+				<ul>
+				<% appraiser.skills.each do |skill|
+					category = Category.find_by_id(skill.category_id) 
+					unless category.nil? %>
+					<li><%= "#{category.name}" %></li>
+					<% end %>
+				<% end %>
+				</ul>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
