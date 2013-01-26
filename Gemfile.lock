@@ -116,7 +116,10 @@ GEM
       active_link_to (~> 1.0.0)
       paperclip (>= 2.3.0)
       rails (>= 3.0.0)
+    countries (0.8.4)
+      currencies (>= 0.4.0)
     country_select (1.0.1)
+    currencies (0.4.0)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -213,6 +216,7 @@ GEM
     net-ssh (2.6.1)
     netrc (0.7.7)
     newrelic_rpm (3.5.4.33)
+    nexmo (1.0.0)
     nokogiri (1.4.7)
     oauth2 (0.8.0)
       faraday (~> 0.8)
@@ -239,6 +243,11 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     pg (0.14.0)
+    phony (1.8.5)
+    phony_rails (0.1.12)
+      activerecord (>= 3.0)
+      countries (>= 0.8.2)
+      phony (>= 1.7.7)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
@@ -374,11 +383,13 @@ DEPENDENCIES
   launchy
   meta_search (>= 1.1.0.pre)
   newrelic_rpm (~> 3.5.4.33)
+  nexmo (~> 1.0.0)
   omniauth
   omniauth-facebook
   paper_trail (~> 2.6.4)
   paperclip
   pg
+  phony_rails (~> 0.1.12)
   rails (= 3.2.11)
   rmagick
   rolify

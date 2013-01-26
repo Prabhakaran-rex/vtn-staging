@@ -60,7 +60,10 @@ class User < ActiveRecord::Base
     appraisers = Appraiser.where("id in (?) and status = ? ",appraiser_ids, EAUserStatusConfirmed)
     appraisers.each do |appraiser|
       UserMailer.notify_appraiser_of_new_appraisal( appraiser ,
-        appraisal ).deliver
+        appraisal ).deliver if appraiser.notify_by_email
+      unless (phone = PhonyRails.normalize_number(appraiser.address.phone1, :country_code => 'US')).nil?
+        self.send_sms({:number => phone, :body => "A New Appraisal is Available in one of your selected categories!"}) if if appraiser.notify_by_sms
+      end
     end
   end
   
@@ -153,9 +156,15 @@ class User < ActiveRecord::Base
     self.last_step.nil? ? :personal : self.last_step
   end
 
+  # TODO This should be moved out of the User model
+  def self.send_sms(params)
+    nexmo = Nexmo::Client.new(SMS_API_KEY, SMS_SECRET_KEY)
+    nexmo.send_message({:to => params[:number], :from => SMS_NUMBER, :text => params[:body]})
+  end
+
   private
   def create_address
     y = Address.new(); y.user_id = self.id;
     y.save(:validate => false)
-  end
+  end  
 end

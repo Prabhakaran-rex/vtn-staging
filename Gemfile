@@ -86,6 +86,10 @@ gem 'sendgrid_toolkit', '>= 1.1.1'
 # For Paypal payouts
 gem "ruby-paypal", :git => "git://github.com/Reprazent/ruby-paypal.git"
 
+# For SMS Notifications
+gem "nexmo", "~> 1.0.0"
+gem "phony_rails", "~> 0.1.12"
+
 # Sensitive data encryption
 # gem "attr_encrypted", :git => 'git://github.com/yellow-lab/attr_encrypted_1_9_3_charset_fix.git'
 gem "attr_encrypted", "~> 1.2.1"
