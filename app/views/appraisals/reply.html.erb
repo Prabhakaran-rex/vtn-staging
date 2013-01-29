@@ -1,5 +1,8 @@
 <div class="row">
 	<h4>Edit</h1>
+		<h5>Status : <%= getStringForActivityValue(@appraisal.status) %></h5>
+	<h5>Type : <%= getStringForAppraisalType(@appraisal.selected_plan) %></h5>
+	<h5>File Number: <%= @appraisal.id %></h5>
 </div>
 	<%= simple_form_for(@appraisal, :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
 	<div class="sub_box">
