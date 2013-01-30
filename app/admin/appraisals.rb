@@ -2,6 +2,7 @@ ActiveAdmin.register Appraisal do
 	actions :all, :except => [:destroy]
 	
 	index do
+		selectable_column
 		column :id
 		column :title
 		column "Status", :sortable => :status do |t|
@@ -40,6 +41,11 @@ ActiveAdmin.register Appraisal do
       render "appraisal_info", :locals => {:appraiser_info => appraisal.appraisal_info}
     end
   end
+
+   batch_action :hide, :confirm => "Are you sure you want to hide this appraisals?" do |selection|
+      Appraisal.where("id in (?)",selection).update_all(:status => EActivityValueHidden)
+      redirect_to admin_appraisals_path
+    end
 
   controller do
   	def scoped_collection

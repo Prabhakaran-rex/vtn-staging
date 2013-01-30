@@ -6,7 +6,7 @@ class AppraisalsController < ApplicationController
   # GET /appraisals
   # GET /appraisals.xml
   def index
-    @appraisals = Appraisal.all
+    @appraisals = Appraisal.visible
     respond_to do |format|
       format.html # index.html.haml
       format.xml  { render :xml => @appraisals }
