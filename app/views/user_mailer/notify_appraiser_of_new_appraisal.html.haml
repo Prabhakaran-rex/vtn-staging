@@ -1,6 +1,6 @@
 %html
   %body
-    %h1 A New Appraisal is Available!
-    %h2= @appraisal.title
+    %p A New Appraisal is Available!
+    %p= @appraisal.title
     %p If you would like to take a look at the following appraisal, please click the following link
     %p= link_to("View Appraisal", appraisal_url(@appraisal)) + " | " + link_to("View All Available Appraisals", appraisals_url)
