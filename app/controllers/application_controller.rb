@@ -11,13 +11,15 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    render :file => "#{Rails.root}/public/404.html", :status => 404 if isProd
-    render :file => "#{Rails.root}/public/401.html", :status => 401 unless isProd
+    redirect_to admin_dashboard_path, :alert => exception.message
   end
 
+  def current_ability
+    @current_ability ||= Ability.new(current_admin_user)
+  end
 
   def after_sign_in_path_for(resource_or_scope)
-    if (current_user.role == "admin")
+    if (current_user.admin?)
       admin_dashboard_path
     elsif(current_user.is_appraiser?)
       dashboard_detail_path
@@ -43,7 +45,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def check_admin
-    if current_user.nil? || current_user.role != "admin"
+    if current_user.nil? || !current_user.admin?
       redirect_to root_path
     end
   end

@@ -24,6 +24,15 @@ class Ability
     #   can :update, Article, :published => true
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
-    can :manage, :all
+    user ||= User.new # guest user (not logged in)
+    if user.admin? && !user.superadmin?
+        can :manage, :all
+        cannot :manage, Payout 
+    elsif user.superadmin?
+        can :manage, :all
+    else
+        can :manage, :all
+
+    end
   end
 end

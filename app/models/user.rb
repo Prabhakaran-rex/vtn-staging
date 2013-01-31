@@ -117,7 +117,11 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    self.role == "admin"
+    self.role == "admin" || self.role == "superadmin"
+  end
+
+  def superadmin?
+    self.role == "superadmin"
   end
 
   def confirmed

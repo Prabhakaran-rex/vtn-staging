@@ -1,4 +1,6 @@
 ActiveAdmin.register Payout do
+	menu :if => proc{ can?(:manage, Payout) }     
+	controller.authorize_resource 
 	actions :all, :except => [:destroy]
 	menu :label => "Appraiser Payouts", :parent => "Compensations"  
 

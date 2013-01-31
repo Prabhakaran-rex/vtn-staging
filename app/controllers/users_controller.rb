@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
   def update_appraiser_status
     statusHash = Hash["Reject" => EAUserStatusRejected, "Approve" => EAUserStatusConfirmed, "Reapply" => EAUserStatusPending]
-    if current_user.role == "admin"
+    if current_user.admin?
       u = User.find(params[:user])
       status = statusHash[params[:status]]
       u.status = status unless status.nil?
