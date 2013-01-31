@@ -1,15 +1,20 @@
 <% unless comments.empty? %>
-<h4>Comments</h4>
+<h4>Ask a Question</h4>
 <% end %>
+<div id="comment_list">
 <% comments.each do |comment| %>
 	<%= render :partial => "appraisals/comment_block", :locals => {:comment => comment} %>
 <% end %>
+</div>
 <% if @appraisal.status == EActivityValueClaimed %>
 <div id="div_comment">
-	<%= simple_form_for Comment.new do |f| %>
-	<%= f.input :body, :label => "Please enter your comment in the text field below", :input_html => {:rows => 3, :class => "input-xxlarge"}  %>
-	<input type="hidden" name="comment_appraisal_id" value="<%= @appraisal.id %>">
-	<%= f.submit "Save Comment", :class => "btn btn-success" %>
+	<%= simple_form_for Comment.new, :action => "comment", :controller => "appraisals" do |f| %>
+	<%= f.input :body, :label => "Please enter your comment in the text field below", :input_html => {:rows => 3}  %>
+	<input type="hidden" name="comment_appraisal_id" id="comment_appraisal_id" value="<%= @appraisal.id %>">
+	<button id="btnSaveComment" class="btn btn-success">Reply</button>
 	<% end %>
+</div>
+<div id="div_saving_comment" style="display:none;">
+	We are saving your comment. Please wait...
 </div>
 <% end %>

@@ -64,6 +64,7 @@ class AppraisalsController < ApplicationController
 
   def reply
     @appraisal = Appraisal.find(params[:id])
+    @appraisal_comments = @appraisal.root_comments.order('created_at ASC')
     1.times { @appraisal.appraisal_datums.build }
   end
 
@@ -184,12 +185,14 @@ class AppraisalsController < ApplicationController
   def comment
     @appraisal = Appraisal.find(params[:comment_appraisal_id])
     @comment = Comment.build_from(@appraisal, current_user.id, params[:comment][:body])
-    if @comment.save
-      flash[:notice] = 'Comment added successfully'
-      redirect_to @appraisal
-    else
-      flash[:error] = 'Comment could not be created'
-      redirect_to @appraisal
+    respond_to do |format|
+      if @comment.save
+        format.html {flash[:notice] = 'Comment added successfully'; redirect_to @appraisal}
+        format.json {render :json => @comment}
+      else
+        format.html {flash[:error] = 'Comment could not be created'; redirect_to @appraisal}
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
     end
   end
 

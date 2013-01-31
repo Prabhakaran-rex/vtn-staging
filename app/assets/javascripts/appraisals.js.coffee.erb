@@ -36,3 +36,24 @@ jQuery ->
 				alert "Unable to set image as primary"
 		false
 	));
+
+	$('#btnSaveComment').click ->
+		$('#div_comment').hide()
+		$('#div_saving_comment').show()
+		$.ajax ('/appraisals/comment'),
+			type: 'POST'
+			dataType: 'json'
+			data: {comment_appraisal_id: $('#comment_appraisal_id').val(), comment: {body: $('#comment_body').val()}}
+			success: (data) ->
+				$('#comment_list').append('<div class="well"><h5>I wrote on ' + data.created_at +  ' :  </h5>' + data.body + '</div>')
+				$('#div_comment').show()
+				$('#div_saving_comment').hide()
+				$('#comment_body').val("")
+			error: (data) ->
+				alert "Unable to save comment"
+				$('#div_comment').show()
+				$('#div_saving_comment').hide()
+		false
+
+	$('#btnSubmitAppraisalReply').click ->
+		$('#appraisal_status').val("<%= EActivityValueFinalized %>")

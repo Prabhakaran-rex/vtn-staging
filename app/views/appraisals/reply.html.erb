@@ -41,28 +41,22 @@
 						<%= a.input :fair_market_value_min, :label => "Fair Market Value Minimum", :input_html => {:class => "currency-input"}  %>
 						<%= a.input :fair_market_value_max, :label => "Fair Market Value Maximum", :input_html => {:class => "currency-input"}  %>
 					<% end %>
+					<%= f.input :status, :as => :hidden, :value => @appraisal.status %>
 				</div>
 			</div>
 			<div class="span5 pull-right">
-				<%= render :partial => "photo_carousel" %>
-			</div>
-		</div>
-		<div>
-			<!-- <h3>Please add notes for this appraisal</h3>
-			<div>
-				<% # TODO This is not working %>
-				<% f.simple_fields_for :appraisal_datums do |data| %>
-				<%= data.input :value, :label => "Create a Note" %>
-				<% end %>
-			</div> -->
-			<h3>Select Status:</h3>
-			<div>
-				<%= f.select :status , { "Save but do not send to Client" => @appraisal.status, "Send appraisal to Client"=> EActivityValueFinalized }  , :selected => @appraisal.status %>
+				<div class="row">
+					<%= render :partial => "photo_carousel" %>
+				</div>
+				<div class="row">
+					<%= render :partial => "appraisals/comments", :locals => {:appraisal => @appraisal, :comments => @appraisal_comments}%>
+				</div>
 			</div>
 		</div>
 		<div>
 			<div class="form-actions">
-				<%= f.button :submit, :label => "Submit", :class => "btn btn-success" %>
+				<button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
+				<button class="btn btn-success" id="btnSubmitAppraisalReply">Submit to Client</button>
 			</div>
 		</div>
 	</div>
