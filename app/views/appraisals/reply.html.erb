@@ -43,6 +43,10 @@
 					<% end %>
 					<%= f.input :status, :as => :hidden, :value => @appraisal.status %>
 				</div>
+				<div id="extra">
+					<button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
+					<button class="btn btn-success" id="btnSubmitAppraisalReply">Save and submit appraisal to Client</button>
+		</div> <!-- extra -->
 			</div>
 			<div class="span5 pull-right">
 				<div class="row">
@@ -52,13 +56,7 @@
 					<%= render :partial => "appraisals/comments", :locals => {:appraisal => @appraisal, :comments => @appraisal_comments}%>
 				</div>
 			</div>
-		</div>
-		<div>
-			<div class="form-actions">
-				<button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
-				<button class="btn btn-success" id="btnSubmitAppraisalReply">Save and submit appraisal to Client</button>
-			</div>
-		</div>
+		</div> <!-- row -->
 	<% end %>
-	</div>
+	</div> <!-- sub_box -->
 	
