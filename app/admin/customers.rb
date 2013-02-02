@@ -3,7 +3,7 @@ ActiveAdmin.register Customer do
   actions :all, :except => [:new, :destroy] 
 
   action_item :only => :show do
-    link_to "Become", "/switch_user?scope_identifier=user_#{appraiser.id}"
+    link_to "Become", "/switch_user?scope_identifier=user_#{customer.id}"
   end
  
 	index do
