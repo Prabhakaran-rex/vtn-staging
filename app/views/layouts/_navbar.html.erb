@@ -27,12 +27,13 @@
           </ul>
         </span>
       </div>
-      <div class="btn-group pull-right">
+      <div class="btn-group pull-right" style="padding-top: 20px; padding-right: 180px; padding-bottom: 5px;">
         <% if current_user %>
         <%= button_to("Signout", destroy_user_session_path, :method => :delete, :class => "btn btn-success") %>
         <% else %>
         <%= link_to "Log In", new_user_session_url, :class => "btn btn-success" %>
-        <%= link_to "Register", new_customer_registration_path, :class => "btn btn-success" %>
+        <%= link_to "Register as Customer", new_customer_registration_path, :class => "btn btn-success" %>
+        <%= link_to "Register as Appraiser", new_appraiser_registration_path, :class => "btn btn-success" %>
         <% end %>
       </div>
     </div>
