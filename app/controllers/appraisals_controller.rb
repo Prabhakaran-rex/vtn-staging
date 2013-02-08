@@ -135,15 +135,19 @@ class AppraisalsController < ApplicationController
   end
   
   def claim
-    @appraisal = Appraisal.find(params[:id])
-    if @appraisal.status == EActivityValuePayed
-      @appraisal.assigned_to = current_user
-      @appraisal.assigned_on = Time.now
-      @appraisal.status = EActivityValueClaimed
-      log_activity(@appraisal) unless !@appraisal.save
-      redirect_to reply_appraisal_path(@appraisal)
+    if !Appraisal.processing.where(assigned_to: current_user).empty?
+      redirect_to(@appraisal, :alert => "You can only have one processing appraisal at a time.")
     else
-      redirect_to(@appraisal, :alert => "Please try claiming this item again in a few minutes.")
+      @appraisal = Appraisal.find(params[:id])
+      if @appraisal.status == EActivityValuePayed
+        @appraisal.assigned_to = current_user
+        @appraisal.assigned_on = Time.now
+        @appraisal.status = EActivityValueClaimed
+        log_activity(@appraisal) unless !@appraisal.save
+        redirect_to reply_appraisal_path(@appraisal)
+      else
+        redirect_to(@appraisal, :alert => "Please try claiming this item again in a few minutes.")
+      end
     end
   end
 

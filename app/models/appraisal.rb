@@ -28,6 +28,7 @@ class Appraisal < ActiveRecord::Base
   acts_as_commentable
 
   scope :visible, where("status != ?", EActivityValueHidden)
+  scope :processing, where("status = ?", EActivityValueClaimed)
   
   # Returns how much time it took the appraiser to complete the appraisal (can return in seconds (s), minutes(m), hours(h), or days(d))
   def completion_time(format = "s")
