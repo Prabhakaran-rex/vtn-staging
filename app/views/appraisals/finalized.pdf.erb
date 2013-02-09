@@ -1,12 +1,14 @@
 <html>
 <head>
 	<title>ValueThisNow.com | Professional Appraisal</title>
-	<%= wicked_pdf_stylesheet_link_tag    "application" %>
 	<%= wicked_pdf_javascript_include_tag "application" %>
-	<% # The following files need to be called from an external server because wicked_pdf has some problems loading them with the wicked_pdf_javascript_include_tag
+	<% # The following files need to be called from an external server because wicked_pdf has some problems loading them with the javascript_include_tag
 	%>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 	<script src="http://screencasts.valuemytreasure.com.s3.amazonaws.com/js/jquery.signature-panel.js"></script>
+	<script type="text/javascript" src="http://assets.valuethisnow.com.s3.amazonaws.com/js/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="http://assets.valuethisnow.com.s3.amazonaws.com/js/jquery.prettyLoader.js"></script>
+	<script type="text/javascript" src="http://assets.valuethisnow.com.s3.amazonaws.com/js/min.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://screencasts.valuemytreasure.com.s3.amazonaws.com/js/jquery.signature-panel.css" />
 
 	<style type="text/css">
@@ -18,193 +20,254 @@
 		border: none;
 	}
 	.pdf-image {
-	-webkit-box-shadow:rgba(0, 0, 0, 0.40625) 1px 1px 2px 2px;
-	-moz-box-shadow:rgba(0, 0, 0, 0.40625) 1px 1px 2px 2px;
-	box-shadow:rgba(0, 0, 0, 0.40625) 1px 1px 2px 2px;
-	-webkit-border-radius:15px;
-	-moz-border-radius:15px;
-	border-radius:15px;
+		-webkit-box-shadow:rgba(0, 0, 0, 0.40625) 1px 1px 2px 2px;
+		-moz-box-shadow:rgba(0, 0, 0, 0.40625) 1px 1px 2px 2px;
+		box-shadow:rgba(0, 0, 0, 0.40625) 1px 1px 2px 2px;
+		-webkit-border-radius:15px;
+		-moz-border-radius:15px;
+		border-radius:15px;
 	}
 	</style>
 	<script type="text/javascript">
 
 	$(document).ready(function() {
-            var signatureData = JSON.parse('<%= raw @appraiser.appraiser_extra.signature_json %>');
-            $('#appraiser-signature').signaturePanel("drawClickstreamToCanvas",signatureData);
-        });
+		var signatureData = JSON.parse('<%= raw @appraiser.appraiser_extra.signature_json %>');
+		$('#appraiser-signature').signaturePanel("drawClickstreamToCanvas",signatureData);
+		$.zoomer();$("a[rel^='prettyPhoto']").prettyPhoto({theme: 'pp_default', overlay_gallery: true,autoplay_slideshow: false,slideshow: 5000,});
+	});
 	</script>
+	<link rel="stylesheet" type="text/css" href="http://assets.valuethisnow.com.s3.amazonaws.com/finalized_appraisal.css">
+
 </head>
 <body>
-<div class="container">
-	<div class="page-header">
-		<h1>Here is your ValueThisNow.com Appraisal</h1>
-	</div>
-	<div class="row">
-		<div class="span6">
-			<b>File #:</b> <%= @appraisal.id %>
+  
+	<section class="container">
+		<div class="top_certificate">
 		</div>
-		<div class="span6">
-			<span class="pull-right"><b>Effective Date of Report :</b> <%= @appraisal.updated_at.strftime("%d %b. %Y") %></span>
-		</div>
-	</div>
-		<div class="row">
-		<div class="span3">
-			<b>Title :</b>
-		</div>
-		<div class="span9">
-			<%= @appraisal.title %>
-		</div>
-	</div>
 
-	<div class="row">
-		<div class="span3">
-			<b>Description :</b>
-		</div>
-		<div class="span9">
-			<%= @appraisal.name %>
-		</div>
-	</div>
-	<% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling %>
-	<div class="row">
-		<div class="span3">
-			<b>Approx. Date of Manufacture :</b>
-		</div>
-		<div class="span9">
-			<%= @appraisal.appraisal_info.year_of_manufacture %>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span3">
-			<b>Country of Origin :</b>
-		</div>
-		<div class="span9">
-			<%= @appraisal.appraisal_info.country_of_origin %>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span3">
-			<b>Signatures, Maker/Maker's, Dates, etc. :</b>
-		</div>
-		<div class="span9">
-			<%= @appraisal.appraisal_info.makers_marks %>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span3">
-			<b>Inscriptions :</b>
-		</div>
-		<div class="span9">
-			<%= @appraisal.appraisal_info.inscriptions %>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span3">
-			<b>Dimensions :</b>
-		</div>
-		<div class="span9">
-			<%= @appraisal.appraisal_info.dimensions %>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span3">
-			<b>Condition :</b>
-		</div>
-		<div class="span9">
-			<%= @appraisal.appraisal_info.damage %>
-	</div>
-	</div>
-	<div class="row">
-		<div class="span3">
-			<b>Item History :</b>
-		</div>
-		<div class="span9">
-			<%= @appraisal.appraisal_info.item_history %>
-		</div>
-	</div>
-	<% end %>
-	<div class="row">
-		<div class="span3">
-			<b>Additional Extraordinary Assumptions :</b>
-		</div>
-		<div class="span9">
-			<%= @appraisal.appraisal_info.additional_ea %>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span3">
-			<b>Comments :</b>
-		</div>
-		<div class="span9">
-			<%= @appraisal.appraisal_info.appraiser_comments %>
-		</div>
-	</div>	
-	<div class="row">
-		<div class="span3">
-			<b>Replacement Value :</b></br><small>(Comparable)</small>
-		</div>
-		<div class="span9">
-			<%= print_replacement_cost(@appraisal) %>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span3">
-			<b>Fair Market Value : </b>
-		</div>
-		<div class="span9">
-			<%= print_fair_market_value(@appraisal) %>
-		</div>
-	</div>
-	<% if @appraisal.photos.count != 0 %>
-<!-- 	<div class="page-break"></div> -->
-	<div class="page-header">
-	<h2>Item Pictures</h2>
-	</div>
-	<ul class="thumbnails">
-		<% @appraisal.photos.each_with_index do |image,i| %>
-		<li class="span3">
-			<a href="#" class="thumbnail">
-				<%= wicked_pdf_image_tag image.asset.url(:carrousel), :size => "460x460", :class => "pdf-image" %>
-			</a>
-		</li>
-		<% end%>
-	</ul>
-	<% end %>
+		<div class="content-certificate">
+			<h1><%= @appraisal.title %></h1>
 
-	<div class="page-break"></div>
-		<% selected_plan = @appraisal.selected_plan
-		appraiser_type = @appraiser.appraiser_info.uspap.to_i
+			<div class="slider">
+			<% if @appraisal.photos.count != 0 %>
+				<div class=zoomer>
+					<div class=holder>
+						<div class=image>
+							<%= wicked_pdf_image_tag @appraisal.default_photo.asset.url(:carrousel), :size => "421x421"%>
+						</div>
+					</div>
+					<% @appraisal.photos.each_with_index do |image,i| %>
+					<div class=thumbs>
+						<%= wicked_pdf_image_tag image.asset.url(:carrousel), :size => "93x96" %>
+					</div>		
+					<% end %>
+					<% @appraisal.photos.each_with_index do |image,i| %>
+					<div class="hidden lightbox">
+						<%= link_to '', image.asset.url(:carrousel), :size => "421x421" %>
+					</div>
+					<% end %>
+				</div>            	
+			<% end %>
+			</div>
 
-		if (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type == EAAppraiserUSPAPFamiliar
-			format = "appraisal_body_restricteduse_USPAP_compliant_yes"
-			option = 1
-		elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type == EAAppraiserUSPAPFamiliar
-			format = "appraisal_body_summary_forselling_USPAP_compliant_yes"
-			option =2
-		elsif (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type != EAAppraiserUSPAPFamiliar
-			format = "appraisal_body_restricteduse_USPAP_compliant_no"
-			option =3
-		elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type != EAAppraiserUSPAPFamiliar
-			format = "appraisal_body_summary_forselling_USPAP_compliant_no"
-			option =4
-		else
-			raise "Invalid selected_plan and appraiser_type combination"
-		end
-	 %>
-	<%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
-	<div class="row">
-		&nbsp;
-	</div>
-	<div class="row">
-		<div id="appraiser-info">
-			<% if !(@appraiser.signature_file_name.nil?) %> 
-                <%= wicked_pdf_image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
-            <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
-            	<canvas id="appraiser-signature" height="100" width="250"></canvas>
-            <% end %>
-			<h4><%= @appraiser.name %></h4>
-		</div>
-	</div>
+			<div class="autt">
+				<img src="http://assets.valuethisnow.com.s3.amazonaws.com/finalized_images/medal.png" alt="" title=""  />
+				<p>
+					Appraisal Reports Comply with USPAP—the Generally Accepted Standards for Appraisers
+				</p>
+				<a href="http://en.wikipedia.org/wiki/Uniform_Standards_of_Professional_Appraisal_Practice" target="_blank">
+					What is <span>USPAP?</span>
+				</a>
+			</div>
 
-</div>
-</body>
-</html>
+			<div class="description">
+
+			</div>
+
+			<div class="description">
+				<div class="left_description">
+					<h2>File #:</h2>
+				</div>
+				<div class="right_description">
+					<p>
+						<%= @appraisal.id %>
+					</p>
+				</div>
+			</div>
+
+			<div class="description diff">
+				<div class="left_description">
+					<h2>Effective Date of Report:</h2>
+				</div>
+				<div class="right_description">
+					<p>
+						<%= @appraisal.updated_at.strftime("%d %b. %Y") %>
+					</p>
+				</div>
+			</div>
+			<% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling %>
+			<div class="description diff">
+				<div class="left_description">
+					<h2>Approx. Date of Manufacture :</h2>
+				</div>
+				<div class="right_description">
+					<p>
+						<%= @appraisal.appraisal_info.year_of_manufacture %>
+					</p>
+				</div>
+			</div>
+			<div class="description">
+				<div class="left_description">
+					<h2>Country of Origin :</h2>
+				</div>
+				<div class="right_description">
+					<p>
+						<%= @appraisal.appraisal_info.country_of_origin %>
+					</p>
+				</div>
+			</div>
+			<div class="description">
+				<div class="left_description">
+					<h2>Signatures, Maker/Maker's, Dates, etc. :</h2>
+				</div>
+				<div class="right_description">
+					<p>
+						<%= @appraisal.appraisal_info.makers_marks %>
+					</p>
+				</div>
+			</div>
+			<div class="description">
+				<div class="left_description">
+					<h2>Inscriptions :</h2>
+				</div>
+				<div class="right_description">
+					<p>
+						<%= @appraisal.appraisal_info.inscriptions %>
+					</p>
+				</div>
+			</div>
+			<div class="description">
+				<div class="left_description">
+					<h2>Dimensions :</h2>
+				</div>
+				<div class="right_description">
+					<p>
+						<%= @appraisal.appraisal_info.dimensions %>
+					</p>
+				</div>
+			</div>
+			<div class="description">
+				<div class="left_description">
+					<h2>Condition :</h2>
+				</div>
+				<div class="right_description">
+					<p>
+						<%= @appraisal.appraisal_info.damage %>
+					</div>
+				</div>
+				<div class="description">
+					<div class="left_description">
+						<h2>Item History :</h2>
+					</div>
+					<div class="right_description">
+						<p>
+							<%= @appraisal.appraisal_info.item_history %>
+						</p>
+					</div>
+				</div>
+
+				<% end %>
+
+
+				<div class="description">
+					<div class="left_description">
+						<h2>Additional Extraordinary Assumptions :</h2>
+					</div>
+					<div class="right_description">
+						<p>
+							<%= @appraisal.appraisal_info.additional_ea %>
+						</p>
+					</div>
+				</div>
+				<div class="description">
+					<div class="left_description">
+						<h2>Comments :</h2>
+					</div>
+					<div class="right_description">
+						<p>
+							<%= @appraisal.appraisal_info.appraiser_comments %>
+						</p>
+					</div>
+				</div>	
+				<div class="description">
+					<div class="left_description">
+						<h2>Replacement Value :</h2>
+						<h6>(Comparable)</h6>
+					</div>
+					<div class="right_description">
+						<p>
+							<%= print_replacement_cost(@appraisal) %>
+						</p>
+					</div>
+				</div>
+				<div class="description">
+					<div class="left_description">
+						<h2>Fair Market Value: </h2>
+						<h6></h6>
+					</div>
+					<div class="right_description">
+						<p>
+							<%= print_fair_market_value(@appraisal) %>
+						</p>
+					</div>
+				</div>
+
+				<div class="description diff">
+					<div class="left_description">
+						<h2>Description:</h2>
+					</div>
+					<div class="right_description">
+						<p class="spec">
+							<%= @appraisal.name %>
+						</p>
+					</div>
+				</div>
+				<div class="description">
+
+					<h1><% if !(@appraiser.signature_file_name.nil?) %>
+						<%= wicked_pdf_image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
+						<% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
+						<canvas id="appraiser-signature" height="100" width="250"></canvas>
+						<% end %><br>
+						Prepaired by <%= @appraiser.name %></h1>
+					</div>        
+				</div>
+				<div class="fotter_certificate">
+					<h1>ValueThisNow.com</h1>
+				</div>
+			</section>
+			<div class="container">
+				<div class="page-break"></div>
+				<% selected_plan = @appraisal.selected_plan
+				appraiser_type = @appraiser.appraiser_info.uspap.to_i
+
+				if (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type == EAAppraiserUSPAPFamiliar
+					format = "appraisal_body_restricteduse_USPAP_compliant_yes"
+					option = 1
+				elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type == EAAppraiserUSPAPFamiliar
+					format = "appraisal_body_summary_forselling_USPAP_compliant_yes"
+					option =2
+				elsif (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type != EAAppraiserUSPAPFamiliar
+					format = "appraisal_body_restricteduse_USPAP_compliant_no"
+					option =3
+				elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type != EAAppraiserUSPAPFamiliar
+					format = "appraisal_body_summary_forselling_USPAP_compliant_no"
+					option =4
+				else
+					raise "Invalid selected_plan and appraiser_type combination"
+				end
+				%>
+				<%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
+			</div>
+		</body>
+		</html>
