@@ -24,7 +24,7 @@ class Appraisal < ActiveRecord::Base
 
   serialize :appraisal_info, AppraisalInfo
 
-  attr_accessible :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type, :title
+  attr_accessible :allow_share, :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type, :title
   acts_as_commentable
 
   scope :visible, where("status != ?", EActivityValueHidden)

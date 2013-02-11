@@ -59,6 +59,14 @@
 		<p>Appraisals are opinions based on documented market data. ValueThisNow.com does not (indeed, no appraiser can) guarantee that an item will be sold for the appraised amount (items may sell for more or less), nor that a comparable property can be purchased for the appraised amount (a buyer might have to pay more or less).</p></small>
 	</div>
 </div>
+
+<div>
+	<%= f.input :allow_share,
+	:collection => [[true, "Please help us to keep our marketing costs down by allowing us to share your appraisal through social media"] ,[false, "I don't want anyone else to share this appraisal report through social media except me"]], :value_method => :first, :label_method => :last, :as => :radio_buttons, 
+			:item_wrapper_class => 'radio',
+			:required => true,
+			:label => ""%>
+</div>
 	<div>
 		<div class="form-actions">
 			<% if params[:action]  != "edit" %>

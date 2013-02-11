@@ -8,6 +8,9 @@ ActiveAdmin.register Appraisal do
 		column "Status", :sortable => :status do |t|
 			"#{getStringForActivityValue(t.status)}"
 		end
+		column "Shareable" do |t|
+			"#{t.allow_share}"
+		end
 		column :created_at
 		column :updated_at
 		column :owned_by, :sortable => "owned_bies_appraisals.name"
@@ -23,6 +26,7 @@ ActiveAdmin.register Appraisal do
 
 	filter :id
 	filter :title
+	filter :allow_share
 	filter :owned_by
 	filter :assigned_to
 	filter :created_at
@@ -34,6 +38,7 @@ ActiveAdmin.register Appraisal do
       row("Description") {appraisal.name}
       row("Status") {|t| "#{getStringForActivityValue(t.status)}"}
       row("Selected Plan") {|t| "#{getStringForAppraisalType(t.selected_plan)}"}
+      row("Shareable") {|t| "#{t.allow_share}"}
       row("View in Frontend") {|t| link_to "Click here", appraisal_path(t)}
     end
 
