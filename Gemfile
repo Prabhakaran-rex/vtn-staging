@@ -39,6 +39,8 @@ gem "fog"
 
 # authentication
 gem 'devise' #this is our usermanagement system
+gem "devise_security_extension", "~> 0.7.2"
+gem "rails_email_validator", "~> 0.1.4"
 gem "rolify"
 gem "omniauth"
 # gem "oa-oauth", :require => "omniauth/oauth"  #this allows us to use things like facebook sign in
