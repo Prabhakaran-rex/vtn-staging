@@ -15,7 +15,7 @@ ActiveAdmin.register Appraiser do
 		column :id
 		column :email
 		column :name
-    column :status do |appraiser|
+    column :status, :sortable => "users.status" do |appraiser|
       appraiser.status_as_string
       end
 		column :current_sign_in_at
@@ -26,6 +26,7 @@ ActiveAdmin.register Appraiser do
 
   filter :id
   filter :name
+  filter :status, :as => :select, :collection => EAUserStatusHash.map {|k,v| [v,k]}
 
 	form do |f|
     f.inputs "Admin Details" do
