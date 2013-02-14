@@ -241,7 +241,7 @@
 						<% end %><br>
 						Prepared by <%= @appraiser.name %></h1>
                 <img src="http://assets.valuethisnow.com.s3.amazonaws.com/finalized_images/adobe.png" alt="" title=""  />
-                <%= link_to 'View Complete Report', appraisal_path(@appraisal, :format => :pdf, :supplemental => true, :target => "_blank") %>
+                <%= link_to 'View Complete Report', appraisal_url(@appraisal, :format => :pdf, :supplemental => true), :target => "_blank" %>
 					</div>
 				</div>
 				<div class="fotter_certificate">
