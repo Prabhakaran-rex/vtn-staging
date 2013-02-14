@@ -191,7 +191,7 @@
 				</div>
 				<div class="description">
 					<div class="left_description">
-						<h2>Comments :</h2>
+						<h2>Appraiser's Comments :</h2>
 					</div>
 					<div class="right_description">
 						<p>
@@ -241,7 +241,7 @@
 						<% end %><br>
 						Prepared by <%= @appraiser.name %></h1>
                 <img src="http://assets.valuethisnow.com.s3.amazonaws.com/finalized_images/adobe.png" alt="" title=""  />
-                <%= link_to 'View Complete Report', appraisal_path(@appraisal, :format => :pdf, :supplemental => true) %>
+                <%= link_to 'View Complete Report', appraisal_path(@appraisal, :format => :pdf, :supplemental => true, :target => "_blank") %>
 					</div>
 				</div>
 				<div class="fotter_certificate">
