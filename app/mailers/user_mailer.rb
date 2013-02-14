@@ -17,28 +17,28 @@ class UserMailer < ActionMailer::Base
 
   def contact_us(message)
     @message = message
-    mail( :to => ["dave@maloney.com","dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
+    mail( :to => ["adminjr@valuethisnow.com","dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
           :subject => "[Contact Us] #{message.subject}")
   end
 
   def appraiser_support(message)
     @message = message
     mail( #:to => "appraiser_support@colosses.com", 
-          :to => ["dave@maloney.com","dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
+          :to => ["adminjr@valuethisnow.com","dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
           :subject => "[Appraiser Support] #{message.subject}")
   end
 
   def user_support(message)
     @message = message
     mail( #:to => "appraiser_support@colosses.com", 
-          :to => ["dave@maloney.com","dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
+          :to => ["adminjr@valuethisnow.com","dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
           :subject => "[User Support] #{message.subject}")
   end
 
   def notify_admin_of_new_application(message)
     @message = message
     mail( #:to => "appraiser_support@colosses.com", 
-          :to => ["dave@maloney.com","dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
+          :to => ["dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
           :subject => "[New Appraiser Application] #{message.name}")
   end
 
