@@ -1,0 +1,37 @@
+<% if current_user.superadmin? %>
+<% 
+    @appraisals = Appraisal.find(:all, :order => "created_at, id")
+@appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year}
+%>
+
+<% @appraisals_years.sort.each do |year, appraisals| %>
+  <h1><%= "#{year.strftime('%Y')} (#{appraisals.count})" %></h1>
+<table>
+  <thead>
+    <tr>
+      <th>Month</th>
+      <% APPRAISAL_PLANS.sort.each do |plan_id| %>
+        <th><%= getStringForAppraisalType plan_id %></th>
+    <% end %>
+    </tr>
+  </thead>
+  <tbody>
+  <% appraisals.group_by{|t| t.created_at.beginning_of_month}.sort.each do |month,appraisals|
+    result = Hash.new(0)
+    appraisals.each {|x| result[x.selected_plan] += 1 }
+  %>
+  <tr>
+      <td><%= "#{month.strftime('%B')} (#{appraisals.count})"  %></td>
+
+      <% APPRAISAL_PLANS.sort.each do |plan_id| %>
+        <td><%= result[plan_id] %></td>
+    <% end %>
+    <% end %>
+    </tr>
+    </tbody>
+  </table>
+<% end %>
+
+<% else %>
+<b>You are not authorized</b>
+<% end %>

@@ -9,7 +9,7 @@ ActiveAdmin.register_page "Dashboard" do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-  content :tile=> "The Title" do
+  content :title=> "Value This Now" do
     columns do
       column do
         panel "Applications Pending Review" do
@@ -75,3 +75,9 @@ ActiveAdmin.register_page "Email Reports" do
   end  
 end
 
+ActiveAdmin.register_page "Orders" do
+  menu :label => "Monthly Report", :parent => "Reports"
+  content do
+      render :partial => "admin/reports/orders", :locals => {} 
+  end
+end
