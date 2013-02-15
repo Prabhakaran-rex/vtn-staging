@@ -40,7 +40,7 @@
 
 </head>
 <body>
-  
+<% unless @supplemental %>  
 	<section class="container">
 		<div class="top_certificate">
 		</div>
@@ -73,7 +73,7 @@
 			<div class="autt">
 				<img src="http://assets.valuethisnow.com.s3.amazonaws.com/finalized_images/medal.png" alt="" title=""  />
 				<p>
-					Appraisal Reports Comply with USPAP—the Generally Accepted Standards for Appraisers
+					Appraisal Reports Comply with USPAP or have been prepared by a subject matter expert in this field of expertise
 				</p>
 				<a href="http://en.wikipedia.org/wiki/Uniform_Standards_of_Professional_Appraisal_Practice" target="_blank">
 					What is <span>USPAP?</span>
@@ -191,7 +191,7 @@
 				</div>
 				<div class="description">
 					<div class="left_description">
-						<h2>Comments :</h2>
+						<h2>Appraiser&#039;s Comments :</h2>
 					</div>
 					<div class="right_description">
 						<p>
@@ -239,15 +239,17 @@
 						<% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
 						<canvas id="appraiser-signature" height="100" width="250"></canvas>
 						<% end %><br>
-						Prepaired by <%= @appraiser.name %></h1>
-					</div>        
+						Prepared by <%= @appraiser.name %></h1>
+                <img src="http://assets.valuethisnow.com.s3.amazonaws.com/finalized_images/adobe.png" alt="" title=""  />
+                <%= link_to 'View Complete Report', appraisal_url(@appraisal, :format => :pdf, :supplemental => true), :target => "_blank" %>
+					</div>
 				</div>
 				<div class="fotter_certificate">
 					<h1>ValueThisNow.com</h1>
 				</div>
 			</section>
+    <% else %>
 			<div class="container">
-				<div class="page-break"></div>
 				<% selected_plan = @appraisal.selected_plan
 				appraiser_type = @appraiser.appraiser_info.uspap.to_i
 
@@ -267,7 +269,8 @@
 					raise "Invalid selected_plan and appraiser_type combination"
 				end
 				%>
-				<%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
+      <%=  render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
 			</div>
+    <% end %>
 		</body>
 		</html>

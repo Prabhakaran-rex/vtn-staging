@@ -14,7 +14,8 @@ class Photo < ActiveRecord::Base
               :large => "500x500>",
   						:medium => "250x250>",
   						:thumb => "50x50#",
-              :carrousel => "460x460#"
+              :carrousel => "460x460#",
+              :huge => "2048"
   					},
                     :convert_options => {
                     	:all => '-auto-orient'

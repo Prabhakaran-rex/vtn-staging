@@ -20,6 +20,7 @@ class AppraisalsController < ApplicationController
     @long ||= params[:pdf_long]
     @user = User.find_by_id(current_user)
     @appraisal_comments = @appraisal.root_comments.order('created_at ASC')
+    @supplemental ||= params[:supplemental]
     if (!@appraisal.assigned_to.nil?)
       @appraiser = User.find_by_id(@appraisal.assigned_to)
     end
@@ -28,7 +29,7 @@ class AppraisalsController < ApplicationController
     respond_to do |format|
       format.html #{ render :layout => 'shareable' }# show.html.erb
       format.xml  { render :xml => @appraisal }
-      format.pdf { render :pdf => 'file_name.pdf', :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb", :margin => {:top => 15}, :footer => {:font_size => 8, :left => "Security Code: #{Digest::SHA1.hexdigest(@appraisal.to_json)}",  :right => '[page] of [topage]' } }
+      format.pdf { render :pdf => 'file_name.pdf', :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb", :margin => {:top => 15}, :footer => {:font_size => 8, :right => '[page] of [topage]' } }
     end
   end
 
