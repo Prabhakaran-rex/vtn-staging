@@ -1,6 +1,6 @@
 <div class="row">
-  <ul class="nav nav-pills pull-right">
-    <li class="dropdown">
+  <ul class="nav nav-tabs"> 
+    <li class="dropdown <%= !@appraisals.nil? ? "active" : "" %>">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle">Appraisals<b class="caret"></b></a>
     <ul class="dropdown-menu">
       <li><%= link_to 'Unclaimed Appraisals', dashboard_detail_path(:detail => 'unclaimed') %></li>
@@ -10,7 +10,7 @@
       <li><%= link_to 'View All Items', dashboard_detail_path(:detail => 'unclaimed') %></li>
     </ul>
     </li>
-    <li class="dropdown">
+    <li class="dropdown <%= !@payouts.nil? ? "active" : "" %>"">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle">Transactions<b class="caret"></b></a>
     <ul class="dropdown-menu">
       <li><%= link_to 'Transactions This Month', dashboard_payouts_path(:status => 'pending') %></li>
