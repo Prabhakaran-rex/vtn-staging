@@ -3,7 +3,7 @@
 <div id="divCategorySelect" <%= "style='display:none;'" if !@appraisal.classification.nil? %>>
 		<select data-placeholder="Choose a category..." style="width:350px;" class="chzn-select" id="demo6">
 			<option></option>
-			<% Category.all.each do |c| %>
+			<% Category.order(:name).each do |c| %>
 			<option value="<%= c.id %>"><%= c.name %></option>	
 			<% end %>
 		</select>
