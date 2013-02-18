@@ -97,7 +97,7 @@ class SkillsController < ApplicationController
     if params[:id]
       @categories = Category.find(params[:id]).children
     else
-      @categories = Category.roots
+      @categories = Category.roots.order(:name)
     end
     h = Hash.new
     @categories.each do |c|
