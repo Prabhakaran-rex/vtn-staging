@@ -1,9 +1,15 @@
 <div class="row">
-	<ul class="nav nav-pills pull-right">
-		<li <%= current_page?(dashboard_detail_path(:detail => 'unclaimed')) ? "class='active'" : "" %>><%= link_to 'Unclaimed Appraisals', dashboard_detail_path(:detail => 'unclaimed') %></li>
-		<li <%= current_page?(dashboard_detail_path(:detail => 'processing')) ? "class='active'" : "" %>><%= link_to 'Processing Appraisals', dashboard_detail_path(:detail => 'processing') %></li>
-		<li <%= current_page?(dashboard_detail_path(:detail => 'completed')) ? "class='active'" : "" %>><%= link_to 'Completed Appraisals', dashboard_detail_path(:detail => 'completed') %></li>
-		<li <%= current_page?(dashboard_payouts_path(:status => 'pending')) ? "class='active'" : "" %>><%= link_to 'Transactions This Month', dashboard_payouts_path(:status => 'pending') %></li>
-		<li <%= current_page?(dashboard_payouts_path(:status => 'unclaimed')) ? "class='active'" : "" %>><%= link_to 'Payment History', dashboard_payouts_path(:status => 'unclaimed') %></li>
-	</ul>
+  <ul class="nav nav-pills pull-right">
+    <li <%= current_page?(dashboard_detail_path(:detail => 'unclaimed')) ? "class='active'" : "" %>><%= link_to 'Unclaimed Appraisals', dashboard_detail_path(:detail => 'unclaimed') %></li>
+    <li <%= current_page?(dashboard_detail_path(:detail => 'processing')) ? "class='active'" : "" %>><%= link_to 'Processing Appraisals', dashboard_detail_path(:detail => 'processing') %></li>
+    <li <%= current_page?(dashboard_detail_path(:detail => 'completed')) ? "class='active'" : "" %>><%= link_to 'Completed Appraisals', dashboard_detail_path(:detail => 'completed') %></li>
+    <li class="dropdown">
+    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Transactions<b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <li <%= current_page?(dashboard_payouts_path(:status => 'pending')) ? "class='active'" : "" %>><%= link_to 'Transactions This Month', dashboard_payouts_path(:status => 'pending') %></li>
+      <li <%= current_page?(dashboard_payouts_path(:status => 'previous')) ? "class='active'" : "" %>><%= link_to 'Transactions Previous Month', dashboard_payouts_path(:status => 'previous') %></li>
+      <li <%= current_page?(dashboard_payouts_path(:status => 'history')) ? "class='active'" : "" %>><%= link_to 'Payment History', dashboard_payouts_path(:status => 'history') %></li>
+    </ul>
+    </li>
+  </ul>
 </div>

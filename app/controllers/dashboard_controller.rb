@@ -34,13 +34,15 @@ class DashboardController < ApplicationController
 	end
 
 	def payouts
-		@payouts = Payout.joins(:appraisal).where("appraisals.assigned_to = ?",current_user)
+		@payouts = Payout.joins(:appraisal).where("appraisals.assigned_to = ?",current_user).order(:created_at)
 
 		case params[:status]
 		when 'pending'
-			@payouts = @payouts.where("payouts.status = ?", EAPayoutPending)
-		when 'completed'
-			@payouts = @payouts.where("payouts.status = ?", EAPayoutCompleted)
+			@payouts = @payouts.where("payouts.created_at > ?", Time.now.beginning_of_month)
+    when 'previous'
+      @payouts = @payouts.where("payouts.created_at > ? and payouts.created_at <= ?", Time.now.beginning_of_month - 1.month, Time.now.beginning_of_month)
+		when 'history'
+			@payouts
 		end
 	end
 end
