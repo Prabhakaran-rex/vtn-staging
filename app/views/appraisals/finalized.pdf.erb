@@ -73,8 +73,8 @@
 			<div class="autt">
 				<img src="http://assets.valuethisnow.com.s3.amazonaws.com/finalized_images/medal.png" alt="" title=""  />
 				<p>
-					Appraisal Reports Comply with USPAP or have been prepared by a subject matter expert in this field of expertise
-				</p>
+        Valuethisnow.com supports USPAP<br>The only generally accepted standard for appraisers in the USA
+        </p>
 				<a href="http://en.wikipedia.org/wiki/Uniform_Standards_of_Professional_Appraisal_Practice" target="_blank">
 					What is <span>USPAP?</span>
 				</a>
@@ -100,9 +100,7 @@
 					<h2>Effective Date of Report:</h2>
 				</div>
 				<div class="right_description">
-					<p>
 						<%= @appraisal.updated_at.strftime("%d %b. %Y") %>
-					</p>
 				</div>
 			</div>
 			<% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling %>
@@ -111,9 +109,7 @@
 					<h2>Approx. Date of Manufacture :</h2>
 				</div>
 				<div class="right_description">
-					<p>
 						<%= @appraisal.appraisal_info.year_of_manufacture %>
-					</p>
 				</div>
 			</div>
 			<div class="description">
@@ -121,9 +117,7 @@
 					<h2>Country of Origin :</h2>
 				</div>
 				<div class="right_description">
-					<p>
 						<%= @appraisal.appraisal_info.country_of_origin %>
-					</p>
 				</div>
 			</div>
 			<div class="description">
@@ -131,9 +125,7 @@
 					<h2>Signatures, Maker/Maker's, Dates, etc. :</h2>
 				</div>
 				<div class="right_description">
-					<p>
 						<%= @appraisal.appraisal_info.makers_marks %>
-					</p>
 				</div>
 			</div>
 			<div class="description">
@@ -141,9 +133,7 @@
 					<h2>Inscriptions :</h2>
 				</div>
 				<div class="right_description">
-					<p>
 						<%= @appraisal.appraisal_info.inscriptions %>
-					</p>
 				</div>
 			</div>
 			<div class="description">
@@ -151,9 +141,7 @@
 					<h2>Dimensions :</h2>
 				</div>
 				<div class="right_description">
-					<p>
 						<%= @appraisal.appraisal_info.dimensions %>
-					</p>
 				</div>
 			</div>
 			<div class="description">
@@ -161,7 +149,6 @@
 					<h2>Condition :</h2>
 				</div>
 				<div class="right_description">
-					<p>
 						<%= @appraisal.appraisal_info.damage %>
 					</div>
 				</div>
@@ -170,9 +157,7 @@
 						<h2>Item History :</h2>
 					</div>
 					<div class="right_description">
-						<p>
 							<%= @appraisal.appraisal_info.item_history %>
-						</p>
 					</div>
 				</div>
 
@@ -181,22 +166,20 @@
 
 				<div class="description">
 					<div class="left_description">
-						<h2>Additional Extraordinary Assumptions :</h2>
+						<h2>Description:</h2>
 					</div>
-					<div class="right_description">
-						<p>
-							<%= @appraisal.appraisal_info.additional_ea %>
-						</p>
+					<div class="right_description" style="border: 1px dashed; clear: both; width: 100%">
+          <%= @appraisal.name.truncate(300)%>
+          <p style="text-align: right;"><small><%= link_to 'See more', @appraisal %></small></p>
 					</div>
 				</div>
 				<div class="description">
 					<div class="left_description">
 						<h2>Appraiser&#039;s Comments :</h2>
 					</div>
-					<div class="right_description">
-						<p>
-							<%= @appraisal.appraisal_info.appraiser_comments %>
-						</p>
+					<div class="right_description" style="border: 1px dashed; clear: both; width: 100%;">
+							<%= @appraisal.appraisal_info.appraiser_comments.truncate(300) %>
+          <p style="text-align: right;"><small><%= link_to 'See more', @appraisal %></small></p>
 					</div>
 				</div>	
 				<div class="description">
@@ -205,9 +188,7 @@
 						<h6>(Comparable)</h6>
 					</div>
 					<div class="right_description">
-						<p>
 							<%= print_replacement_cost(@appraisal) %>
-						</p>
 					</div>
 				</div>
 				<div class="description">
@@ -216,22 +197,10 @@
 						<h6></h6>
 					</div>
 					<div class="right_description">
-						<p>
 							<%= print_fair_market_value(@appraisal) %>
-						</p>
 					</div>
 				</div>
 
-				<div class="description diff">
-					<div class="left_description">
-						<h2>Description:</h2>
-					</div>
-					<div class="right_description">
-						<p class="spec">
-							<%= @appraisal.name %>
-						</p>
-					</div>
-				</div>
 				<div class="description">
 
 					<h1><% if !(@appraiser.signature_file_name.nil?) %>
@@ -245,7 +214,7 @@
 					</div>
 				</div>
 				<div class="fotter_certificate">
-					<h1>ValueThisNow.com</h1>
+        <h1><a href="http://beta.valuethisnow.com">www.ValueThisNow.com</a></h1>
 				</div>
 			</section>
     <% else %>

@@ -30,7 +30,7 @@ class PaymentsController < ApplicationController
       cvv = ccparam[:cvv]
       expmon = ccparam[:expmon]
       expyear = ccparam[:expyear]
-      amount  = PAYMENT_PLAN[ @appraisal.selected_plan-1 ]
+      amount  = PAYMENT_PLAN[ @appraisal.selected_plan-1 ]*100
       name = @user.name
       
       if not Payment.is_payment_exists?(@appraisal.id)

@@ -39,7 +39,7 @@ class ContactController < ApplicationController
 
 	def ticket
 		@user = current_user
-		@ticket = Ticket.new(:user_id => current_user)
+		@ticket = Ticket.new(:user_id => current_user.id)
 		@appraisals = Appraisal.where("created_by =? or assigned_to = ? ",current_user, current_user).order("id ASC")
 	end
 
