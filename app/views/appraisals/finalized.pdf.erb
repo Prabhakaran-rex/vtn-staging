@@ -109,7 +109,8 @@
 					</div>
 					<div class="right_description" style="border: 1px solid; clear: both; width: 100%">
           <%= @appraisal.name.truncate(300)%>
-          <div style="float:right;"><p style="text-align: right;"><small><%= link_to 'See more', @appraisal %></small></p></div>
+          <div style="float:right;"><p style="text-align: right;"><small> <%= link_to 'See more', appraisal_url(@appraisal, :target => "_blank") %>
+</small></p></div>
 					</div>
 				</div>
 				<div class="description">
@@ -118,7 +119,8 @@
 					</div>
 					<div class="right_description" style="border: 1px solid; clear: both; width: 100%;">
 							<%= @appraisal.appraisal_info.appraiser_comments.truncate(300) %>
-              <div style="float:right;"><p style="text-align: right;"><small><%= link_to 'See more', @appraisal %></small></p></div>
+              <div style="float:right;"><p style="text-align: right;"><small> <%= link_to 'See more', appraisal_url(@appraisal, :target => "_blank") %>
+</small></p></div>
 					</div>
 				</div>	
 				<div class="description">
