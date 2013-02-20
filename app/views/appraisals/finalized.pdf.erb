@@ -103,83 +103,22 @@
 						<%= @appraisal.updated_at.strftime("%d %b. %Y") %>
 				</div>
 			</div>
-			<% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling %>
-			<div class="description diff">
-				<div class="left_description">
-					<h2>Approx. Date of Manufacture :</h2>
-				</div>
-				<div class="right_description">
-						<%= @appraisal.appraisal_info.year_of_manufacture %>
-				</div>
-			</div>
-			<div class="description">
-				<div class="left_description">
-					<h2>Country of Origin :</h2>
-				</div>
-				<div class="right_description">
-						<%= @appraisal.appraisal_info.country_of_origin %>
-				</div>
-			</div>
-			<div class="description">
-				<div class="left_description">
-					<h2>Signatures, Maker/Maker's, Dates, etc. :</h2>
-				</div>
-				<div class="right_description">
-						<%= @appraisal.appraisal_info.makers_marks %>
-				</div>
-			</div>
-			<div class="description">
-				<div class="left_description">
-					<h2>Inscriptions :</h2>
-				</div>
-				<div class="right_description">
-						<%= @appraisal.appraisal_info.inscriptions %>
-				</div>
-			</div>
-			<div class="description">
-				<div class="left_description">
-					<h2>Dimensions :</h2>
-				</div>
-				<div class="right_description">
-						<%= @appraisal.appraisal_info.dimensions %>
-				</div>
-			</div>
-			<div class="description">
-				<div class="left_description">
-					<h2>Condition :</h2>
-				</div>
-				<div class="right_description">
-						<%= @appraisal.appraisal_info.damage %>
-					</div>
-				</div>
-				<div class="description">
-					<div class="left_description">
-						<h2>Item History :</h2>
-					</div>
-					<div class="right_description">
-							<%= @appraisal.appraisal_info.item_history %>
-					</div>
-				</div>
-
-				<% end %>
-
-
 				<div class="description">
 					<div class="left_description">
 						<h2>Description:</h2>
 					</div>
-					<div class="right_description" style="border: 1px dashed; clear: both; width: 100%">
+					<div class="right_description" style="border: 1px solid; clear: both; width: 100%">
           <%= @appraisal.name.truncate(300)%>
-          <p style="text-align: right;"><small><%= link_to 'See more', @appraisal %></small></p>
+          <div style="float:right;"><p style="text-align: right;"><small><%= link_to 'See more', @appraisal %></small></p></div>
 					</div>
 				</div>
 				<div class="description">
 					<div class="left_description">
 						<h2>Appraiser&#039;s Comments :</h2>
 					</div>
-					<div class="right_description" style="border: 1px dashed; clear: both; width: 100%;">
+					<div class="right_description" style="border: 1px solid; clear: both; width: 100%;">
 							<%= @appraisal.appraisal_info.appraiser_comments.truncate(300) %>
-          <p style="text-align: right;"><small><%= link_to 'See more', @appraisal %></small></p>
+              <div style="float:right;"><p style="text-align: right;"><small><%= link_to 'See more', @appraisal %></small></p></div>
 					</div>
 				</div>	
 				<div class="description">
