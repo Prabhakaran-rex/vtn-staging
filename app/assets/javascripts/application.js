@@ -16,3 +16,4 @@
 // Loads all Bootstrap javascripts
 //= require bootstrap
 //= require jquery.maskedinput-1.3.min
+//= require excanvas.compiled
