@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211001418) do
+ActiveRecord::Schema.define(:version => 20130212165035) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(:version => 20130211001418) do
   add_index "appraisal_data", ["appraisal_id"], :name => "index_appraisal_data_on_appraisal_id"
 
   create_table "appraisals", :force => true do |t|
-    t.string   "name"
+    t.text     "name"
     t.string   "dimensions"
     t.string   "materials"
     t.string   "country_of_origin"
