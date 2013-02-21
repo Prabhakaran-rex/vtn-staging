@@ -72,7 +72,7 @@ AvatarCropper = (function() {
 
   <div class="row">
     <div class="span6" id="signature-original-div">
-      <%= image_tag @user.signature(:standard), id: "cropbox" %>
+      <%= image_tag @user.signature.url(:standard), id: "cropbox" %>
     </div>
     <div class="span6 pull-right">
 

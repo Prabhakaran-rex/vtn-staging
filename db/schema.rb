@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212165035) do
+ActiveRecord::Schema.define(:version => 20130221175522) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -464,10 +464,6 @@ ActiveRecord::Schema.define(:version => 20130212165035) do
     t.text     "appraiser_info"
     t.string   "username"
     t.text     "signature_json"
-    t.string   "signature_file_name"
-    t.string   "signature_content_type"
-    t.integer  "signature_file_size"
-    t.datetime "signature_updated_at"
     t.integer  "status"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
@@ -477,6 +473,7 @@ ActiveRecord::Schema.define(:version => 20130212165035) do
     t.string   "website"
     t.string   "paypal_email"
     t.string   "last_step"
+    t.string   "signature"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

@@ -80,7 +80,7 @@
 	<div class="row">
 		<div class="span11">
 			<div class="pull-right" id="appraiser-info">
-			<% if !(@appraiser.signature_file_name.nil?) %> 
+			<% if (@appraiser.signature?) %> 
                 <%= image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
             <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
             	<canvas id="appraiser-signature" height="100" width="250"></canvas>

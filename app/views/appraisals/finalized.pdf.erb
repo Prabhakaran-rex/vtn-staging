@@ -144,12 +144,12 @@
 
 				<div class="description">
 
-					<h1><% if !(@appraiser.signature_file_name.nil?) %>
-						<%= wicked_pdf_image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
+					<h1><% if (@appraiser.signature?) %>
+						<%= wicked_pdf_image_tag @appraiser.signature.standard.url, :height => "100", :width => "250"%>
 						<% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
 						<canvas id="appraiser-signature" height="100" width="250"></canvas>
-						<% end %><br>
-						Prepared by <%= @appraiser.name %></h1>
+          <% end %></h1>
+          <h1 style="text-align: left;">Prepared by <%= @appraiser.name %></h1>
                 <img src="http://assets.valuethisnow.com.s3.amazonaws.com/finalized_images/adobe.png" alt="" title=""  />
                 <%= link_to 'View Complete Report', appraisal_url(@appraisal, :format => :pdf, :supplemental => true), :target => "_blank" %>
 					</div>
