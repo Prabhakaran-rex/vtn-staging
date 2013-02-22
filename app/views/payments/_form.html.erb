@@ -20,12 +20,25 @@
   
   <div class="form-inputs">
   <div class="alert alert-info">Your credit card will be charged <%= number_to_currency(PAYMENT_PLAN[ @appraisal.selected_plan-1]) %> USD</div>
+  <div class="row">
+  <div class="span5">
   <%= f.input :number, :label => "Credit Card Number", :input_html => {:maxlength => 16} %>
   <%= f.input :cvv, :label => "CVV", :input_html => {:maxlength => 4} %>
   <%= f.input :expmon, :label => "Expiration Month", :as => :select, :collection => 1..12 %>
   <% date = Time.now %>
   <%= f.input :expyear, :label => "Expiration Year", :as => :select, :collection => date.year..date.year+10 %>
   <%= f.input :appraisal_id, :as => :hidden,  :input_html => {:value => @appraisal.id} %>
+  </div>
+  <div class="span5">
+    <%= f.input :address %>
+    <%= f.input :company %>
+    <%= f.input :phone %>
+    <%= f.input :zip %>
+    <%= f.input :city %>
+    <%= f.input :country %>
+    <%= f.input :state %>
+  </div>
+  </div>
   </div>
   <div class="form-actions">
            <a href="#" class="btn btn-success" onclick="document.forms['new_payment'].submit();">Appraise Now</a></div>

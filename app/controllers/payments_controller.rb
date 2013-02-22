@@ -1,4 +1,5 @@
 require 'paypal_module'
+require 'authorizenet_module'
 
 class PaymentsController < ApplicationController
   # before_filter :is_login?
@@ -24,7 +25,7 @@ class PaymentsController < ApplicationController
     @appraisal = Appraisal.find(params[:payment][:appraisal_id])
     @user = current_user
     ccparam = params[:payment]
-    
+
     if ccparam
       ccnumber = ccparam[:number]
       cvv = ccparam[:cvv]
@@ -32,10 +33,19 @@ class PaymentsController < ApplicationController
       expyear = ccparam[:expyear]
       amount  = PAYMENT_PLAN[ @appraisal.selected_plan-1 ]*100
       name = @user.name
+      address = ccparam[:address]
+      company = ccparam[:company]
+      phone = ccparam[:phone]
+      zip = ccparam[:zip]
+      city = ccparam[:city]
+      country = ccparam[:country]
+      state = ccparam[:state]
       
       if not Payment.is_payment_exists?(@appraisal.id)
         credit_card = Payment::CreditCard.new(ccnumber, cvv, expmon, expyear, name, amount)
-        status, msg = PaypalModule::PayGateway.new.charge(credit_card, request.remote_ip)
+        billing_address = Payment::BillingAddress.new(address, company, phone, zip, city, country, state)
+        #status, msg = PaypalModule::PayGateway.new.charge(credit_card, request.remote_ip)
+        status, msg = AuthorizenetModule::PayGateway.new.charge(credit_card, billing_address.as_json.symbolize_keys)
         #status, msg = PaypalModule::PayGateway.new.authorize(credit_card, request.remote_ip)      
         #status, msg = PaypalModule::PayGateway.new.refund(amount, auth_code)
          

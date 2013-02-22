@@ -3,6 +3,8 @@ class Payment < ActiveRecord::Base
   belongs_to :appraisal
   
   attr_accessor :number, :cvv, :expmon, :expyear
+  attr_accessor :address, :company, :phone, :zip, :city, :country, :state
+
   
       @paypal_test = { :login => "khw212_1338861554_biz_api1.gmail.com",
                        :password => "1338861588",
@@ -12,6 +14,9 @@ class Payment < ActiveRecord::Base
                        :password => "BAT9ZE4X6EAXU46Q",
                        :signature => "ABwmBAIEJPBtRUnk9k-iMfCgx5nrAMrnY9L1hhyI4NzMx5OtLtkrsOmr"                 
                       }  
+      
+      @authorizenet_test = { :login => "4A4b8SXUt6M", :password => "4wugYeKPq29365bk"}
+      @authorizenet_live = { :login => "4A4b8SXUt6M", :password => "4wugYeKPq29365bk"}
       #paypal test
       #Visa       4730349762398535
       #Exp Date:  6/2017       
@@ -23,6 +28,14 @@ class Payment < ActiveRecord::Base
        else
           return @paypal_live
        end
+    end
+
+    def get_authorizenet_credential
+      if ActiveMerchant::Billing::Base.mode == :test
+        return @authorizenet_test
+      else
+        return @authorizenet_live
+      end
     end
     
     def add_payment(auth_code, ccnum, amount, user_id, appraisal_id)
@@ -69,6 +82,20 @@ class Payment < ActiveRecord::Base
       end
     end    
     
+  end
+
+  class BillingAddress
+    attr_accessor :address, :company, :phone, :zip, :city, :country, :state
+
+    def initialize(address, company, phone, zip, city, country, state)
+      @address = address
+      @company = company
+      @phone = phone
+      @zip = zip
+      @city = city
+      @country = country
+      @state = state
+    end
   end
   
 end
