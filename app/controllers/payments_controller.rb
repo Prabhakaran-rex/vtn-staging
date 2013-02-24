@@ -36,7 +36,7 @@ class PaymentsController < ApplicationController
       if not Payment.is_payment_exists?(@appraisal.id)
         credit_card = Payment::CreditCard.new(ccnumber, cvv, expmon, expyear, name, amount)
         status, msg = PaypalModule::PayGateway.new.charge(credit_card, request.remote_ip)
-        #status, msg = PaypalModule::PayGateway.new.authorize(credit_card, request.remote_ip)      
+        #status, msg = PaypalModule::PayGateway.new.authorize(credit_card, request.remote_ip)
         #status, msg = PaypalModule::PayGateway.new.refund(amount, auth_code)
          
         if status || ccnumber == "4551411111111111"
