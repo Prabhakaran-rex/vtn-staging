@@ -10,6 +10,9 @@ class SignatureUploader < CarrierWave::Uploader::Base
   # Choose what kind of storage to use for this uploader:
   storage FILE_STORAGE[Rails.env]['storage'] == 'filesystem' ? :file : :fog
 
+  def store_dir
+    "system/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
 
   def default_url
     # For Rails 3.1+ asset pipeline compatibility:
