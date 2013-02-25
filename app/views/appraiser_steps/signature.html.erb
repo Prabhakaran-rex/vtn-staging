@@ -60,7 +60,7 @@
         <div class="span3">
             <div id="current-signature">
                 <% if @user.signature? %> 
-                <%= image_tag @user.signature.standard.url, :style=>"border: 1px solid gray;", :height => "100", :width => "250"%>
+                  <%= image_tag "#{@user.signature.standard.url}?id=#{rand(1000)}", :style=>"border: 1px solid gray;", :height => "100", :width => "250"%>
                 <% end %>
             </div>
             <canvas id="latest-signature" height="100" width="250" style="border: 1px solid gray;" ></canvas></br>
