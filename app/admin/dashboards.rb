@@ -41,10 +41,19 @@ ActiveAdmin.register_page "Dashboard" do
     end
     columns do
       column do
-        panel "Recent Users" do
+        panel "Recent Customers" do
           ul do
-            User.order("created_at DESC").limit(5).collect do |user|
+            Customer.order("created_at DESC").limit(5).collect do |user|
               li link_to(user.name, admin_customer_path(user))
+            end
+          end
+        end
+      end
+      column do
+        panel "Recent Appraisers" do
+          ul do
+            Appraiser.order("created_at DESC").limit(5).collect do |user|
+              li link_to(user.name, admin_appraiser_path(user))
             end
           end
         end
