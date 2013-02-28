@@ -13,17 +13,11 @@ PurexNew::Application.routes.draw do
   match '/facebook/' => "users#facebook_login"
   match '/users/update_appraiser_status' => "users#update_appraiser_status", :as => :update_appraiser_status
 
-  devise_for :users, :controllers => { :registrations => "registrations"}  do
-    # get '/admin/dashboard' => 'users/admin/dashboard#show'
-  end
+  devise_for :users, :controllers => { :registrations => "registrations"}
 
-  devise_for :appraisers, :controllers => { :registrations => "registrations"}  do
-    # get '/admin/dashboard' => 'users/admin/dashboard#show'
-  end
+  devise_for :appraisers, :controllers => { :registrations => "registrations"}
 
-  devise_for :customers, :controllers => {:omniauth_callbacks => "omniauth_callbacks",  :registrations => "registrations"}  do
-    # get '/admin/dashboard' => 'users/admin/dashboard#show'
-  end
+  devise_for :customers, :controllers => {:omniauth_callbacks => "omniauth_callbacks",  :registrations => "registrations"}
 
     get '/users/save_json_signature' => 'users#save_json_signature', :as => :save_json_signature
     get '/users/new_signature' => 'users#new_signature', :as => :new_signature

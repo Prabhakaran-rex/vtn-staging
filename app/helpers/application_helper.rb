@@ -127,4 +127,9 @@ module ApplicationHelper
     display = display + display_concat + "#{seconds}s"
     display
   end
+
+  def get_cms_content(path)
+    page = Cms::Page.find_by_full_path(path)
+    return page.nil? ? "Add content to #{path}" : page.content
+  end
 end

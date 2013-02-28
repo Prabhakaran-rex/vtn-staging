@@ -15,7 +15,7 @@
             = f.input :password, :input_html => {:class => "input-xxlarge"}, :required => true, :hint => "Should be at least 8 characters long with a combination of letters, numbers and special characters with 1 capital letter required"
             = f.input :password_confirmation, :input_html => {:class => "input-xxlarge"}, :required => true
             .terms
-                = raw user_type == "appraiser" ? "#{Cms::Page.find_by_full_path('/appraisal-provider-agreement').content}" : "#{Cms::Page.find_by_full_path('/terms-and-conditions').content}"
+                = raw user_type == "appraiser" ? get_cms_content('/appraisal-provider-agreement') : get_cms_content('/terms-and-conditions')
             - if user_type == "customer"
                 = f.input :agree_to_tos, :as => :boolean, :label => "Agree to terms of service</br>#{link_to 'Print', terms_path(:format => :pdf),:target => "_blank"}", :hint => false
             - else
