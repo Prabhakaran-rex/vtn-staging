@@ -36,7 +36,7 @@
 <div>
 	<div>
 		<div>
-			<h4>Selected Plan <small><a href="http://beta.valuethisnow.com/vmt/using-online-appraisals" class="btn btn-mini btn-success" target="_blank">?</a></small></h4>
+			<h4>Selected Plan <small><a href="https://www.valuethisnow.com/vmt/using-online-appraisals" class="btn btn-mini btn-success" target="_blank">?</a></small></h4>
 			<%= f.input :selected_plan, 
 			:collection => [[EAAppraisalTypeShortRestricted, "<b>Light Restricted Use Appraisal</b> ($27.00)<br/><ul><li>For your personal use only!</li><li>Provides streamlined feedback and valuation</li></ul>"],[EAAppraisalTypeLongRestricted, "<b>Full Restricted Use Appraisal</b> ($37.00)<br/><ul><li>For your personal use only!</li><li>Provides comprehensive feedback and valuation</li></ul>"],[EAAppraisalTypeShortForSelling, "<b>Light Summary Appraisal</b> ($29.00)<br/><ul><li>For use by you as well as by others</li><li>Provides streamlined feedback and valuation for reports being used by others</li></ul>"],[EAAppraisalTypeLongForSelling, "<b>Full Summary Appraisal</b> ($39.00)<br/><ul><li>For use by you as well as by others</li><li>Provides comprehensive feedback and valuation for reports being used by others</li></ul>"]], 
 			:label_method => lambda {|a| raw a[1]}, 

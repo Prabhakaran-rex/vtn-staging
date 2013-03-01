@@ -1,14 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :check_uri # keep first
   before_filter :rename_params
-  
-  def check_uri
-    if /^www/.match(request.host) && (Rails.env == 'staging' || Rails.env == 'production')
-      redirect_to request.protocol + request.host_with_port[4..-1] + request.request_uri
-    end
-  end
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to admin_dashboard_path, :alert => exception.message
