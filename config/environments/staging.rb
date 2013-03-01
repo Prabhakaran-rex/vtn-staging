@@ -78,7 +78,7 @@ PurexNew::Application.configure do
 }
 ActionMailer::Base.delivery_method = :smtp
 
-  ActiveMerchant::Billing::Base.mode = :live
+  ActiveMerchant::Billing::Base.mode = :production
 
   # Google Analytics tracking
   SendgridToolkit.api_user = ENV['SENDGRID_USERNAME']

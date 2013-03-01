@@ -69,5 +69,8 @@ module PurexNew
     end
 
     config.railties_order = [ :all, ComfortableMexicanSofa::Engine ]
+    config.to_prepare do
+      ActionMailer::Base.helper "application"
+    end
   end
 end

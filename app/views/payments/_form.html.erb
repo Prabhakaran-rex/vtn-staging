@@ -20,7 +20,7 @@
 
 <div class="form-inputs">
   <div class="alert alert-info">Your credit card will be charged <%= number_to_currency(PAYMENT_PLAN[ @appraisal.selected_plan-1]) %> USD</div>
-  <div class="row-fluid">
+  <div class="row">
     <div class="span5">
       <%= f.input :number, :label => "Credit Card Number", :input_html => {:maxlength => 16} %>
       <%= f.input :cvv, :label => "CVV", :input_html => {:maxlength => 4} %>
@@ -30,7 +30,13 @@
       <%= f.input :appraisal_id, :as => :hidden,  :input_html => {:value => @appraisal.id} %>
     </div>
     <div class="span5">
-    <%= image_tag "paypal4.png" %><%= image_tag "comodo.png" %>
+      <%= f.input :address %>
+      <%= f.input :company %>
+      <%= f.input :phone %>
+      <%= f.input :zip %>
+      <%= f.input :city %>
+      <%= f.input :country %>
+      <%= f.input :state %>
     </div>
   </div>
 </div>

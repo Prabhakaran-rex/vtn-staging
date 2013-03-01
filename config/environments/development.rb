@@ -37,21 +37,23 @@ PurexNew::Application.configure do
 
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-    ActionMailer::Base.smtp_settings = {
-  :address        => 'smtp.sendgrid.net',
-  :port           => '587',
-  :authentication => :plain,
-  :user_name      => 'app4334028@heroku.com',
-  :password       => 'uu1nfkq3',
-  :domain         => 'heroku.com'
-}
-ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => 'app4334028@heroku.com',
+    :password       => 'uu1nfkq3',
+    :domain         => 'heroku.com'
+  }
+  ActionMailer::Base.delivery_method = :smtp
 
   if RUBY_PLATFORM.downcase.include?("darwin")
     Paperclip.options[:command_path] = "/usr/local/bin"
   end
-  
+
   ActiveMerchant::Billing::Base.mode = :test
+  #ActiveMerchant::Billing::AuthorizeNetGateway.wiredump_device = File.open(File.join(Rails.root, "log", "payments.txt"), "a+")
+  #ActiveMerchant::Billing::AuthorizeNetGateway.wiredump_device.sync = true
 
   SendgridToolkit.api_user = "app4334028@heroku.com"
   SendgridToolkit.api_key = "uu1nfkq3"
