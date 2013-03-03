@@ -21,7 +21,7 @@ class PaymentsController < ApplicationController
     payment_response  = AuthorizenetModule::PayGateway.new.charge(credit_card, create_billing_address(params[:payment]))
 
     # TODO Remove fake credit card before launch
-    if payment_response.success? || params[:payment][:ccparam] == "4551411111111111"
+    if payment_response.success?
       Payment.add_payment(payment_response.authorization, credit_card.number[-4,4], credit_card.amount/100, current_user.id, @appraisal.id)
       @appraisal.pay_and_notify!
 
