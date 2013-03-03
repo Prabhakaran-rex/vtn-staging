@@ -136,6 +136,16 @@
 			%>
 			<div id="supplemental_information" class="collapse">
 				<%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
+				<% if @appraisal.status == EActivityValueFinalized %>
+				<div id="appraiser-info">
+					<% if (@appraiser.signature?) %> 
+                  <%= image_tag "#{@appraiser.signature.standard.url}?id=#{rand(1000)}", :height => "100", :width => "250"%>
+		            <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
+		            	<canvas id="appraiser-signature" height="100" width="250"></canvas>
+		            <% end %>
+					<h4><%= @appraiser.name %></h4>
+				</div>
+				<% end %>
 			</div>
 			<% end %>
 		</div>
