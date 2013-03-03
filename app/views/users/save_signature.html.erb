@@ -72,12 +72,12 @@ AvatarCropper = (function() {
 
   <div class="row">
     <div class="span6" id="signature-original-div">
-      <%= image_tag @user.signature(:standard), id: "cropbox" %>
+      <%= image_tag "#{@user.signature.standard.url}?id=#{rand(1000)}", id: "cropbox" %>
     </div>
     <div class="span6 pull-right">
 
       <div id="signature-preview-div">
-        <%= image_tag @user.signature.url(:standard), :id => "signature-preview"%>
+        <%= image_tag "#{@user.signature.standard.url}?id=#{rand(1000)}", :id => "signature-preview"%>
       </div>
       <h4 style="margin-left: 95px;">Preview</h4>
       <%= simple_form_for @user, :url => crop_signature_path  do |f| %>

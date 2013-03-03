@@ -29,23 +29,23 @@ class Appraisal < ActiveRecord::Base
 
   scope :visible, where("status != ?", EActivityValueHidden)
   scope :processing, where("status = ?", EActivityValueClaimed)
-  
+
   # Returns how much time it took the appraiser to complete the appraisal (can return in seconds (s), minutes(m), hours(h), or days(d))
   def completion_time(format = "s")
     begin
       claimed_on = (get_date_for_status_change(EActivityValuePayed, EActivityValueClaimed)).to_i
       completed_on = (get_date_for_status_change(EActivityValueClaimed, EActivityValueFinalized)).to_i
       duration = (claimed_on == 0 || completed_on == 0) ? 0 : (completed_on - claimed_on)
-        case format
-          when 'm'
-            (duration/60).to_i
-          when 'h'
-            (duration/3600).to_i
-          when 'd'
-            (duration/86400).to_i
-          else
-            duration
-        end
+      case format
+      when 'm'
+        (duration/60).to_i
+      when 'h'
+        (duration/3600).to_i
+      when 'd'
+        (duration/86400).to_i
+      else
+        duration
+      end
     rescue
       return 0
     end
@@ -61,6 +61,20 @@ class Appraisal < ActiveRecord::Base
     if self.status == EActivityValueFinalized
       Compensation.get_paid_amount(self.selected_plan,completion_time("h"))
     end
+  end
+
+  def payed?
+    !self.payment.nil?
+  end
+
+  def pay!
+    self.status = EActivityValuePayed
+    self.save
+  end
+
+  def pay_and_notify!
+    self.pay!
+    User.notify_appraisers_of_new_appraisal(self)
   end
 
   def default_photo

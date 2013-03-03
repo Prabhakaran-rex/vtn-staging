@@ -1,7 +1,8 @@
 # Handles the appraiser profile wizard
 class AppraiserStepsController < ApplicationController
 	before_filter :authenticate_user!
-	
+	before_filter :set_cache_buster
+
 	include Wicked::Wizard
 	steps :personal, :avatar, :professional, :trade, :bank, :signature, :categories, :contracts, :preferences
 
@@ -28,6 +29,12 @@ class AppraiserStepsController < ApplicationController
 		@user[:last_step] = params[:id]
 		render_wizard @user
 	end
+
+  def set_cache_buster
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
 
 	protected
 	def is_appraiser_confirmed

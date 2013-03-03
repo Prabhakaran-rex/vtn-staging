@@ -101,15 +101,16 @@ gem "paper_trail", "~> 2.6.4"
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'spork'
-  # gem 'cucumber-rails'   #for human language testing
-  gem 'capybara'     #like selnium for integration testing
-  gem 'launchy'      #allows tests to launch a browser
+  gem 'growl', "~> 1.0.3"
 end
 
 group :test do
-  gem 'rspec'
-  gem 'email_spec' #mock framework for emails
-  gem 'factory_girl'     #factory helper for testing
-  gem 'factory_girl_rails' #factory helper for testing
+  gem "factory_girl_rails", "~> 4.1.0"
+	gem "capybara", "~> 2.0.1"
+	gem "guard-rspec", "~> 2.3.3"
+	gem "guard-cucumber", "~> 1.2.2"
+	gem 'rb-fsevent', '~> 0.9.1'
+	gem "cucumber-rails", "~> 1.3.0", :require => false
+	gem "database_cleaner", "~> 0.9.1"
+	gem "email_spec", "~> 1.4.0"
 end
