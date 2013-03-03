@@ -12,7 +12,7 @@
             = f.input :name, :input_html => {:class => "input-xxlarge"}, :required => true
             = f.input :username, :input_html => {:class => "input-xxlarge"}, :required => true
             = f.input :email, :input_html => {:class => "input-xxlarge"}, :required => true
-            = f.input :password, :input_html => {:class => "input-xxlarge"}, :required => true, :hint => "Should be at least 8 characters long with a combination of letters, numbers and special characters with 1 capital letter required"
+            = f.input :password, :input_html => {:class => "input-xxlarge"}, :required => true, :hint => "Must have at least 8 characters: at least 1 digit, at least 1 lower case letter, at least 1 upper case letter, at least 1 non-alphanumeric character."
             = f.input :password_confirmation, :input_html => {:class => "input-xxlarge"}, :required => true
             .terms
                 = raw user_type == "appraiser" ? "#{Cms::Page.find_by_full_path('/appraisal-provider-agreement').content}" : "#{Cms::Page.find_by_full_path('/terms-and-conditions').content}"

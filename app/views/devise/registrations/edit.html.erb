@@ -10,7 +10,7 @@
         <%= f.input :username %>
 		<%= f.input :email, :disabled => true %>
 		<%= f.input :password, :hint => "Leave blank if you don't want to change it" %>
-		<%= f.input :password_confirmation %>
+		<%= f.input :password_confirmation, :hint => "Must have at least 8 characters: at least 1 digit, at least 1 lower case letter, at least 1 upper case letter, at least 1 non-alphanumeric character."%>
 		<%= f.input :current_password, :hint => "We need your current password to confirm your changes"%>
 	</div>
 	<div class="form-actions">
