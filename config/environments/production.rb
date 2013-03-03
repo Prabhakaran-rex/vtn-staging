@@ -68,6 +68,8 @@ PurexNew::Application.configure do
   config.action_mailer.default_url_options = { :host => 'www.valuethisnow.com' }
   config.action_mailer.raise_delivery_errors = true
 
+  config.force_ssl = false
+
   ActionMailer::Base.smtp_settings = {
   :address        => 'smtp.sendgrid.net',
   :port           => '587',

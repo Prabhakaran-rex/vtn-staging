@@ -68,6 +68,8 @@ module PurexNew
       g.scaffold_controller "scaffold_controller"
     end
 
+    config.force_ssl = false
+
     config.railties_order = [ :all, ComfortableMexicanSofa::Engine ]
     config.to_prepare do
       ActionMailer::Base.helper "application"
