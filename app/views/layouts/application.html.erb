@@ -21,6 +21,13 @@
 <!--[if IE]><script src="http://screencasts.valuemytreasure.com.s3.amazonaws.com/js/excanvas.compiled.js"></script><![endif]-->
 <!-- Le fav and touch icons -->
 <%= analytics_init if Rails.env.production? %>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+var cvc_loc0=(window.location.protocol == "https:")? "https://secure.comodo.net/trustlogo/javascript/trustlogo.js" :
+"http://www.trustlogo.com/trustlogo/javascript/trustlogo.js";
+document.writeln('<scr' + 'ipt language="JavaScript" src="'+cvc_loc0+'" type="text\/javascript">' + '<\/scr' + 'ipt>');
+//]]>
+</script>
 </head>
 <body>
 <%= render :partial => "layouts/welcome" %>
