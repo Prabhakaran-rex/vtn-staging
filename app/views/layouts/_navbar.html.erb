@@ -3,7 +3,7 @@
     <div class="container">
       <div class="logo"><%= link_to image_tag("logo.png"), root_path %>
         <span class="nav_menu">
-          <ul class="nav">
+          <ul class="nav" style="z-index:1000;">
               <li style="font-size:13px;"><%= link_to("Home", root_path) %></li>
               <li style="font-size:13px;"><a href="#">|</a></li>
             <% if current_user %>
@@ -27,9 +27,9 @@
           </ul>
         </span>
       </div>
-      <div class="btn-group pull-right" style="padding-top: 25px; padding-right: 180px; padding-bottom: 5px;">
+      <div class="btn-group pull-right" style="padding-top: 25px; padding-right: 180px; padding-bottom: 5px; z-index: 100;">
         <% if current_user %>
-        <%= button_to("Signout", destroy_user_session_path, :method => :delete, :class => "btn btn-success") %>
+        <%= button_to("Signout", destroy_user_session_path, :method => :delete, :class => "btn btn-success btn-mini") %>
         <% else %>
         <%= link_to "Log In", new_user_session_url, :class => "btn btn-success btn-mini" %>
         <%= link_to "Register as Customer", new_customer_registration_path, :class => "btn btn-success btn-mini" %>
