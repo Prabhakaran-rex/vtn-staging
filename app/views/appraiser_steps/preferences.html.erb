@@ -15,7 +15,7 @@
 		<%= f.collection_radio_buttons :next_notification_interval_in_minutes, [['0', 'As they arrive'] ,['1', 'Once an hour'],['4','Every 6 hours'],['24','Once per day']], :first, :last, item_wrapper_class: 'checkbox inline' %>
 	<% end %>
 	<p><label for="reimburse">NOTE: Value This Now does not reimburse for email or cellular data charges (if any) associated with notifications you elect to receive. Please click to accept.</label>
-		<input type="checkbox" name="reimburse" id="accept_reimburse" value="yes"> Accept</p>
+		<input type="checkbox" name="reimburse" id="accept_reimburse" value="yes" <%= @user.notify_by_email || @user.notify_by_sms ? "checked" : "" %>> Accept</p>
 	<div class="form-actions">
 		<%= f.submit "Save and Continue", :class => "btn btn-success"%>
 	</div>
