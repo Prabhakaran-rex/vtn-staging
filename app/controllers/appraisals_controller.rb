@@ -17,6 +17,7 @@ class AppraisalsController < ApplicationController
   # GET /appraisals/1.xml
   def show
     @appraisal = Appraisal.find(params[:id])
+    @payment_completed = flash[:payment_completed] == @appraisal.id
     @long ||= params[:pdf_long]
     @user = User.find_by_id(current_user)
     @appraisal_comments = @appraisal.root_comments.order('created_at ASC')
