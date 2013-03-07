@@ -21,7 +21,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
     # For Rails 3.1+ asset pipeline compatibility:
     # asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
   
-    "http://media.valuethisnow.com.s3.amazonaws.com/images/missingAvatar.png"
+    "https://s3.amazonaws.com/media.valuethisnow.com/images/missingAvatar.png"
   end
 
   # Create different versions of your uploaded files:

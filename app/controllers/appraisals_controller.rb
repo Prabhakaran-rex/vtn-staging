@@ -17,6 +17,7 @@ class AppraisalsController < ApplicationController
   # GET /appraisals/1.xml
   def show
     @appraisal = Appraisal.find(params[:id])
+    # TODO Guarantee that only appraisals from production environment are sent to the affiliate program
     @payment_completed = flash[:payment_completed] == @appraisal.id
     @long ||= params[:pdf_long]
     @user = User.find_by_id(current_user)

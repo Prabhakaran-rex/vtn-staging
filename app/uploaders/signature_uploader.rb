@@ -17,7 +17,7 @@ class SignatureUploader < CarrierWave::Uploader::Base
   def default_url
     # For Rails 3.1+ asset pipeline compatibility:
     # asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-    "http://media.valuethisnow.com.s3.amazonaws.com/images/missingSignature.png"
+    "https://s3.amazonaws.com/media.valuethisnow.com/images/missingSignature.png"
   end
 
   def extension_white_list
