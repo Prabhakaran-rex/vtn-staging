@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130307235539) do
+ActiveRecord::Schema.define(:version => 20130308022816) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -361,6 +361,73 @@ ActiveRecord::Schema.define(:version => 20130307235539) do
   add_index "photos", ["appraisal_id"], :name => "index_photos_on_appraisal_id"
   add_index "photos", ["user_id"], :name => "index_photos_on_user_id"
 
+  create_table "phototags", :force => true do |t|
+    t.integer  "photo_id"
+    t.string   "label"
+    t.integer  "width"
+    t.integer  "height"
+    t.integer  "top"
+    t.integer  "left"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+  end
+
+  add_index "phototags", ["photo_id"], :name => "index_tags_on_photo_id"
+  add_index "phototags", ["user_id"], :name => "index_tags_on_user_id"
+
+  create_table "refinery_blog_categories", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "cached_slug"
+    t.string   "slug"
+  end
+
+  add_index "refinery_blog_categories", ["id"], :name => "index_refinery_blog_categories_on_id"
+  add_index "refinery_blog_categories", ["slug"], :name => "index_refinery_blog_categories_on_slug"
+
+  create_table "refinery_blog_categories_blog_posts", :force => true do |t|
+    t.integer "blog_category_id"
+    t.integer "blog_post_id"
+  end
+
+  add_index "refinery_blog_categories_blog_posts", ["blog_category_id", "blog_post_id"], :name => "index_blog_categories_blog_posts_on_bc_and_bp"
+
+  create_table "refinery_blog_comments", :force => true do |t|
+    t.integer  "blog_post_id"
+    t.boolean  "spam"
+    t.string   "name"
+    t.string   "email"
+    t.text     "body"
+    t.string   "state"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "refinery_blog_comments", ["id"], :name => "index_refinery_blog_comments_on_id"
+
+  create_table "refinery_blog_posts", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.boolean  "draft"
+    t.datetime "published_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "user_id"
+    t.string   "cached_slug"
+    t.string   "custom_url"
+    t.text     "custom_teaser"
+    t.string   "source_url"
+    t.string   "source_url_title"
+    t.integer  "access_count",     :default => 0
+    t.string   "slug"
+  end
+
+  add_index "refinery_blog_posts", ["access_count"], :name => "index_refinery_blog_posts_on_access_count"
+  add_index "refinery_blog_posts", ["id"], :name => "index_refinery_blog_posts_on_id"
+  add_index "refinery_blog_posts", ["slug"], :name => "index_refinery_blog_posts_on_slug"
+
   create_table "refinery_images", :force => true do |t|
     t.string   "image_mime_type"
     t.string   "image_name"
@@ -445,6 +512,19 @@ ActiveRecord::Schema.define(:version => 20130307235539) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "refinery_settings", :force => true do |t|
+    t.string   "name"
+    t.text     "value"
+    t.boolean  "destroyable",     :default => true
+    t.string   "scoping"
+    t.boolean  "restricted",      :default => false
+    t.string   "form_value_type"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "refinery_settings", ["name"], :name => "index_refinery_settings_on_name"
+
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -492,20 +572,22 @@ ActiveRecord::Schema.define(:version => 20130307235539) do
   add_index "skills", ["appraiser_id"], :name => "index_skills_on_appraiser_id"
   add_index "skills", ["category_id"], :name => "index_skills_on_category_id"
 
-  create_table "tags", :force => true do |t|
-    t.integer  "photo_id"
-    t.string   "label"
-    t.integer  "width"
-    t.integer  "height"
-    t.integer  "top"
-    t.integer  "left"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "user_id"
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context"
+    t.datetime "created_at"
   end
 
-  add_index "tags", ["photo_id"], :name => "index_tags_on_photo_id"
-  add_index "tags", ["user_id"], :name => "index_tags_on_user_id"
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
+  end
 
   create_table "tickets", :force => true do |t|
     t.integer  "user_id"

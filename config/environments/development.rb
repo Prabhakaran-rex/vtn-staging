@@ -59,4 +59,6 @@ PurexNew::Application.configure do
   SendgridToolkit.api_key = "uu1nfkq3"
 
   ENV['BASE_URI'] = "http://localhost:3000"
+
+  Refinery::Core.config.s3_backend = false
 end

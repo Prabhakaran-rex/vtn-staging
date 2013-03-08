@@ -217,3 +217,6 @@ class User < Refinery::Core::BaseModel
     y.save(:validate => false)
   end  
 end
+
+# Guarantee that the User class is loaded before overloading Refinery's user class
+class Refinery::User < User; end
