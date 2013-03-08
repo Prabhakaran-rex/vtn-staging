@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def refinery_user_required?
+    false
+  end
+
   def authenticate_admin_user!
     authenticate_user! 
     unless current_user.admin?

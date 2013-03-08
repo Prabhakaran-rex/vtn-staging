@@ -106,6 +106,7 @@ PurexNew::Application.routes.draw do
 
   post '/appraisals/comment' => "appraisals#comment", :as => :comments
   match 'switch_user' => 'switch_user#set_current_user'
+  mount Refinery::Core::Engine, :at => '/blog'
   ActiveAdmin.routes(self)
   # Begin ComfortableMexicanSofa
   namespace :cms_admin, :path => ComfortableMexicanSofa.config.admin_route_prefix, :except => :show do

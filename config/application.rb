@@ -74,5 +74,20 @@ module PurexNew
     config.to_prepare do
       ActionMailer::Base.helper "application"
     end
+
+    config.before_initialize do
+      require 'refinery/refinery_patch'
+      require 'refinery/restrict_refinery_to_refinery_users'
+    end
+
+    include Refinery::Engine
+    after_inclusion do
+      [::ApplicationController, ::ApplicationHelper, ::Refinery::AdminController].each do |c|
+        c.send :include, ::RefineryPatch
+      end
+
+      ::Refinery::AdminController.send :include, ::RestrictRefineryToRefineryUsers
+      ::Refinery::AdminController.send :before_filter, :restrict_refinery_to_refinery_users
+    end
   end
 end

@@ -21,7 +21,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 2.0.0'
 
 # For Twitter bootstrap
 gem 'sass-rails',   '~> 3.2.3'
@@ -99,6 +99,12 @@ gem "acts_as_commentable_with_threading", "~> 1.1.2"
 # For activerecord versioning
 gem "paper_trail", "~> 2.6.4"
 
+# For blogging
+gem 'refinerycms-dashboard', '~> 2.0.9'
+gem 'refinerycms-images', '~> 2.0.9'
+gem 'refinerycms-pages', '~> 2.0.9'
+gem 'refinerycms-resources', '~> 2.0.9'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'growl', "~> 1.0.3"
@@ -106,11 +112,11 @@ end
 
 group :test do
   gem "factory_girl_rails", "~> 4.1.0"
-	gem "capybara", "~> 2.0.1"
-	gem "guard-rspec", "~> 2.3.3"
-	gem "guard-cucumber", "~> 1.2.2"
-	gem 'rb-fsevent', '~> 0.9.1'
-	gem "cucumber-rails", "~> 1.3.0", :require => false
-	gem "database_cleaner", "~> 0.9.1"
-	gem "email_spec", "~> 1.4.0"
+  gem "capybara", "~> 2.0.1"
+  gem "guard-rspec", "~> 2.3.3"
+  gem "guard-cucumber", "~> 1.2.2"
+  gem 'rb-fsevent', '~> 0.9.1'
+  gem "cucumber-rails", "~> 1.3.0", :require => false
+  gem "database_cleaner", "~> 0.9.1"
+  gem "email_spec", "~> 1.4.0"
 end
