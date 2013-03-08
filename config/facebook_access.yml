@@ -17,3 +17,7 @@ production:
 staging:
     app_id: '497050763668069'
     app_secret: '226e568e8e143e968c0639269f2e100a'
+
+sandbox:
+    app_id: '497050763668069'
+    app_secret: '226e568e8e143e968c0639269f2e100a'

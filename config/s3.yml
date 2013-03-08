@@ -2,7 +2,7 @@ development:
   bucket: purex_live
   access_key_id: AKIAINCGR2Z7K3VYJO4A
   secret_access_key: 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
-  
+
 production:
   bucket: purex_live
   access_key_id: AKIAINCGR2Z7K3VYJO4A
@@ -17,4 +17,10 @@ test:
   bucket: purex-test
   access_key_id: AKIAINCGR2Z7K3VYJO4A
   secret_access_key: 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
+
+sandbox:
+  bucket: purex-sandbox
+  access_key_id: AKIAINCGR2Z7K3VYJO4A
+  secret_access_key: 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
+
 

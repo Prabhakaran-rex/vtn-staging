@@ -32,3 +32,10 @@ staging:
     account: 'hpandaco'
     token: '76dc05e9685090e52364e4a621013cec86ca3f00'
     project_id: '100163'
+
+sandbox:
+    provider: 'lighthouse'
+    subdomain: 'hpandaco'
+    account: 'hpandaco'
+    token: '76dc05e9685090e52364e4a621013cec86ca3f00'
+    project_id: '100163'

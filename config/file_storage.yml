@@ -22,3 +22,8 @@ staging:
     storage: 's3' #:s3
     path: ":attachment/:id/:style/:filename"
     url: ":s3_domain_url/:attachment/:id/:style/:filename"
+
+sandbox:
+    storage: 's3' #:s3
+    path: ":attachment/:id/:style/:filename"
+    url: ":s3_domain_url/:attachment/:id/:style/:filename"
