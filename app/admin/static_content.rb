@@ -6,3 +6,11 @@
      end
    end
  end
+
+ ActiveAdmin.register_page "Blog" do
+   controller do
+     define_method(:index) do
+       redirect_to '/cms/refinery'
+     end
+   end
+ end
