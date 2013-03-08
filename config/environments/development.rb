@@ -61,4 +61,5 @@ PurexNew::Application.configure do
   ENV['BASE_URI'] = "http://localhost:3000"
 
   Refinery::Core.config.s3_backend = false
+  config.middleware.use Rails::Rack::LogTailer
 end
