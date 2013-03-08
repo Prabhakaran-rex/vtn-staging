@@ -105,6 +105,7 @@ gem 'refinerycms-images', '~> 2.0.9'
 gem 'refinerycms-pages', '~> 2.0.9'
 gem 'refinerycms-resources', '~> 2.0.9'
 gem "refinerycms-blog", "~> 2.0.4"
+gem "tilt", "1.3.4"
 
 group :test, :development do
   gem 'rspec-rails'
