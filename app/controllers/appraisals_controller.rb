@@ -31,7 +31,7 @@ class AppraisalsController < ApplicationController
     respond_to do |format|
       format.html #{ render :layout => 'shareable' }# show.html.erb
       format.xml  { render :xml => @appraisal }
-      format.pdf { render :pdf => 'file_name.pdf', :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb" }
+      format.pdf { render :pdf => 'file_name.pdf', :page_size => "Legal", :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb" }
     end
   end
 
