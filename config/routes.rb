@@ -106,7 +106,6 @@ PurexNew::Application.routes.draw do
 
   post '/appraisals/comment' => "appraisals#comment", :as => :comments
   match 'switch_user' => 'switch_user#set_current_user'
-  mount Refinery::Core::Engine, :at => '/cms'
   ActiveAdmin.routes(self)
   # Begin ComfortableMexicanSofa
   namespace :cms_admin, :path => ComfortableMexicanSofa.config.admin_route_prefix, :except => :show do
@@ -140,6 +139,7 @@ PurexNew::Application.routes.draw do
       end
     end unless ComfortableMexicanSofa.config.admin_route_prefix.blank?
     
+  mount Refinery::Core::Engine, :at => '/cms'
     scope :controller => :cms_content do
       get 'cms-css/:site_id/:identifier' => :render_css,  :as => 'cms_css'
       get 'cms-js/:site_id/:identifier'  => :render_js,   :as => 'cms_js'
