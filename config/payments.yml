@@ -24,8 +24,8 @@ staging:
     password: 1338861588
     signature: A6aKY1rdzYKveggqS0dCSlcOacTKABO0H79hKoBZiQlZDjaOoXvAOJFX
   authorizenet:
-    login: 4A4b8SXUt6M
-    password: 4wugYeKPq29365bk
+    login: 29U2GgeyC7
+    password: 4A62xU5m63mQ7vTH
 
 test:
   paypal:
