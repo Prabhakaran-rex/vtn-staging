@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler'
 
-if ENV['DISABLE_FORWARD_PROXY'] || Rails.env == 'development'
+if ENV['DISABLE_FORWARD_PROXY'] # || Rails.env == 'development'
 
   eval File.read(::File.expand_path('../vtn.ru',  __FILE__))
 
