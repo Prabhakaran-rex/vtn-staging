@@ -1,3 +1,6 @@
+<% if Rails.env == 'sandbox' %>
+<div class="alert alert-error" style="z-index: 10000; position: fixed;"><strong>Test site!</strong></div>
+<% end %>
 <% if current_user %>
 <div id="welcomeDiv">
 <h6>Welcome, <%= current_user.name %>!</h6>
