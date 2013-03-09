@@ -255,4 +255,7 @@ staging:
   app_name: <%= ENV["NEW_RELIC_APP_NAME"] %> (Staging)
 
 sandbox:
+  <<: *default_settings
   monitor_mode: false
+  app_name: <%= ENV["NEW_RELIC_APP_NAME"] %> (Sandbox)
+
