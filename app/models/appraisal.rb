@@ -74,7 +74,7 @@ class Appraisal < ActiveRecord::Base
 
   def pay_and_notify!
     self.pay!
-    User.notify_appraisers_of_new_appraisal(self)
+    User.notify_appraisers_of_new_appraisal(self) if (Rails.env == 'development' || Rails.env == 'production')
   end
 
   def default_photo
