@@ -18,6 +18,8 @@
                 <li style="font-size:13px;"><a href="#">|</a></li>
                 <li style="font-size:13px;"><%= link_to("Support", main_app.tickets_path) %></li>
             <% else %>
+              <li style="font-size:13px;"><%= link_to "Blog", refinery.blog_root_path %></li>
+              <li style="font-size:13px;"><a href="#">|</a></li>
               <li style="font-size:13px;"><%= link_to "How it works", main_app.how_path %></li>
               <li style="font-size:13px;"><a href="#">|</a></li>
               <li style="font-size:13px;"><%= link_to 'What makes us different?', main_app.what_makes_path %></li>
