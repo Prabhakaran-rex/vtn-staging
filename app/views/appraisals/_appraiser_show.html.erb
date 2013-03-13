@@ -3,7 +3,7 @@
 	<h5>Type : <%= getStringForAppraisalType(@appraisal.selected_plan) %></h5>
 	<h3><%= @appraisal.title %>
         <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValuePayed %>
-        <%= link_to 'Edit', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValueClaimed %>
+        <%= link_to 'Edit', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized %>
 		<% if @appraisal.status == EActivityValueFinalized %>
 		<%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
 		<% end %>

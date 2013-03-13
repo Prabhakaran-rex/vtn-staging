@@ -63,10 +63,18 @@ class AppraisalsController < ApplicationController
   # GET /appraisals/1/edit
   def edit
     @appraisal = Appraisal.find(params[:id])
+    if @appraisal.created_by != current_user.id
+      flash[:error]  = "You are not authorized to edit this appraisal"
+      redirect_to root_path
+    end
   end
 
   def reply
     @appraisal = Appraisal.find(params[:id])
+    if @appraisal.assigned_to != current_user
+      flash[:error]  = "You are not authorized to edit this appraisal"
+      redirect_to root_path
+    end
     @appraisal_comments = @appraisal.root_comments.order('created_at ASC')
     1.times { @appraisal.appraisal_datums.build }
   end
@@ -78,43 +86,45 @@ class AppraisalsController < ApplicationController
     @appraisal = Appraisal.new(params[:appraisal])
     @appraisal.created_by = current_user.id
     @appraisal.status = EActivityValueCreated
-    
-      if @appraisal.save
-        session[:new_appraisal] = @appraisal.id
-        log_activity(@appraisal)
-        # redirect_to payments_path(:appraisal_id => @appraisal.id) 
-        redirect_to wizard_photo_upload_path(:appraisal_id => @appraisal.id)     
-      else
-        respond_to do |format|
-          flash[:error] = 'Appraisal cannot be created!'
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @appraisal.errors, :status => :unprocessable_entity }
-        end
+
+    if @appraisal.save
+      session[:new_appraisal] = @appraisal.id
+      log_activity(@appraisal)
+      # redirect_to payments_path(:appraisal_id => @appraisal.id) 
+      redirect_to wizard_photo_upload_path(:appraisal_id => @appraisal.id)     
+    else
+      respond_to do |format|
+        flash[:error] = 'Appraisal cannot be created!'
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @appraisal.errors, :status => :unprocessable_entity }
       end
-    
+    end
+
   end
 
   # PUT /appraisals/1
   # PUT /appraisals/1.xml
   def update
     @appraisal = Appraisal.find(params[:id])
+    previous_status = @appraisal.status
     params[:appraisal][:appraisal_info] = Hash.new if params[:appraisal][:appraisal_info].nil?
     current_appraisal_info = @appraisal.appraisal_info.instance_values
     current_appraisal_info.merge!(AppraisalInfo.new(params[:appraisal][:appraisal_info]).instance_values)
     params[:appraisal][:appraisal_info] = AppraisalInfo.new(current_appraisal_info)
-    
 
     respond_to do |format|
       if @appraisal.update_attributes(params[:appraisal])
-        if @appraisal.status == EActivityValueFinalized
+        if @appraisal.status == EActivityValueFinalized && previous_status != EActivityValueFinalized
           # Send Notification via Email to Creator about Finalized Appraisal
           payout = Payout.find_or_create_by_appraisal_id_and_appraiser_id(:appraisal_id => @appraisal.id, :appraiser_id => @appraisal.assigned_to.id)
           payout.amount = @appraisal.paid_amount
           payout.status = EAPayoutPending 
           payout.save
           @appraisal.owned_by.notify_creator_of_appraisal_update( @appraisal )
+        elsif params[:notify_user]
+          @appraisal.owned_by.notify_creator_of_appraisal_update( @appraisal )
         end
-      log_activity(@appraisal)
+        log_activity(@appraisal)
         format.html { redirect_to(@appraisal, :notice => 'Appraisal was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -136,7 +146,7 @@ class AppraisalsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
   def claim
     if !Appraisal.processing.where(assigned_to: current_user).empty?
       redirect_to(@appraisal, :alert => "You can only have one processing appraisal at a time.")
@@ -211,7 +221,7 @@ class AppraisalsController < ApplicationController
                                       :user_id      => current_user.id,
                                       :activity_type  => User.roles.index(current_user.role),
                                       :activity_value => appraisal.status
-                                     })
+    })
     activity.save
   end
 
