@@ -50,7 +50,10 @@
         </label>
         <button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
       <% else %>
-          <button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
+          <label class="checkbox">
+          <input type="checkbox" name="suggest_rejection" value="false">Suggest to admin that this assignment be rejected and the customer so notified
+        </label>
+        <button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
         <button class="btn btn-success" id="btnSubmitAppraisalReply">Save and submit appraisal to Client</button>
       <% end %>
       </div> <!-- extra -->

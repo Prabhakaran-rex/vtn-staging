@@ -89,6 +89,19 @@ class Appraisal < ActiveRecord::Base
     [EAAppraisalTypeLongRestricted, EAAppraisalTypeLongForSelling].include?(self.selected_plan)
   end
 
+  def suggest_for_rejection
+    self.status = EActivityValueReviewRejection
+    self.save
+    UserMailer.notify_admin_of_suggested_rejection(self).deliver if (Rails.env == 'development' || Rails.env == 'production')
+  end
+
+  def reject(comments)
+    comments ||= "No reason for rejection was given"
+    self.status = EActivityValueRejected
+    self.save
+    UserMailer.notify_user_of_rejection(self,comments).deliver if (Rails.env == 'development' || Rails.env == 'production')
+  end
+
   private
   def sanitize_appraisal_info
     self.appraisal_info.sanitize

@@ -45,6 +45,10 @@ ActiveAdmin.register Appraisal do
     panel "Additional Information" do
       render "appraisal_info", :locals => {:appraiser_info => appraisal.appraisal_info}
     end
+
+    panel "Actions" do
+      render :partial => "admin/appraisals/appraisal_actions", :locals => {:appraisal => appraisal}
+    end
   end
 
    batch_action :hide, :confirm => "Are you sure you want to hide this appraisals?" do |selection|

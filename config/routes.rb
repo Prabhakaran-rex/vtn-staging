@@ -105,6 +105,7 @@ PurexNew::Application.routes.draw do
   post '/photos/create'
 
   post '/appraisals/comment' => "appraisals#comment", :as => :comments
+  match '/appraisals/reject/:id' => "appraisals#reject", :as => :appraisal_reject
   match 'switch_user' => 'switch_user#set_current_user'
   ActiveAdmin.routes(self)
   # Begin ComfortableMexicanSofa

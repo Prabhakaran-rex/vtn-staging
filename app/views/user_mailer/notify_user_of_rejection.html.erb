@@ -1,0 +1,8 @@
+Dear <%= @customer.name %>,
+
+<%
+content = get_cms_content('/appraisal-rejected')
+content = content.gsub("[%additional_comments%]",@additional_comments)
+%>
+<%= raw "#{content}" %>
+

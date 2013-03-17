@@ -106,6 +106,9 @@ class AppraisalsController < ApplicationController
   # PUT /appraisals/1.xml
   def update
     @appraisal = Appraisal.find(params[:id])
+    if params[:suggest_rejection]
+      pending_rejection = @appraisal.suggest_for_rejection
+    end
     previous_status = @appraisal.status
     params[:appraisal][:appraisal_info] = Hash.new if params[:appraisal][:appraisal_info].nil?
     current_appraisal_info = @appraisal.appraisal_info.instance_values
@@ -113,7 +116,9 @@ class AppraisalsController < ApplicationController
     params[:appraisal][:appraisal_info] = AppraisalInfo.new(current_appraisal_info)
 
     respond_to do |format|
-      if @appraisal.update_attributes(params[:appraisal])
+      if pending_rejection
+        format.html { redirect_to(@appraisal, :notice => 'Appraisal was sent to administrator for review.') }
+      elsif @appraisal.update_attributes(params[:appraisal])
         if @appraisal.status == EActivityValueFinalized && previous_status != EActivityValueFinalized
           # Send Notification via Email to Creator about Finalized Appraisal
           payout = Payout.find_or_create_by_appraisal_id_and_appraiser_id(:appraisal_id => @appraisal.id, :appraiser_id => @appraisal.assigned_to.id)
@@ -211,6 +216,15 @@ class AppraisalsController < ApplicationController
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def reject
+    if current_user.admin?
+      @appraisal = Appraisal.find(params[:id])
+      @appraisal.reject(params[:comments])
+      flash[:error]  = "The appraisal was rejected"
+    end
+    redirect_to admin_root_path
   end
 
 

@@ -59,6 +59,17 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
     end
+    columns do
+      column do
+        panel "Review for Rejection" do
+          ul do
+            Appraisal.where(:status => EActivityValueReviewRejection).collect do |appraisal|
+              li link_to(appraisal.title, admin_appraisal_path(appraisal))
+            end
+          end
+        end
+      end
+    end
   end
 end
 

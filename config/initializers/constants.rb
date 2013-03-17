@@ -19,6 +19,9 @@ EActivityValueFinalized = 10
 EActivityValueWithdrawn = 11
 EActivityValuePayed   = 12
 EActivityValueHidden = 13
+EActivityValueReviewRejection = 14
+EActivityValueRejected =15
+EActivityValueRefunded = 16
 APPRAISAL_STATUS = {EActivityValueCreated   => "Incomplete",
 	              EActivityValueEdited    => "Edited",
 	              EActivityValueResponded => "Responded",
@@ -32,7 +35,10 @@ APPRAISAL_STATUS = {EActivityValueCreated   => "Incomplete",
 	              EActivityValueFinalized => "Complete",
 	              EActivityValueWithdrawn => "Withdrawn",
 	              EActivityValuePayed     => "Unclaimed",
-		          EActivityValueHidden    => "Hidden"}
+		          EActivityValueHidden    => "Hidden",
+              EActivityValueReviewRejection => "Under Review",
+              EActivityValueRejected => "Rejected",
+              EActivityValueRefunded => "Refunded"}
 ## AppraisalDataType
 EAppraisalDataTypeString    = 0
 EAppraisalDataTypeLocation  = 1

@@ -1,0 +1,12 @@
+Dear Value This Now Administrator,
+
+<%= @appraisal.name %> has been suggested for rejection. Please access the Administration interface to review it.
+<ul>
+  <li><b>Assignment Number</b> <%= @appraisal.id %></li>
+  <li><b>Assignment Title</b><%= @appraisal.title %></li>
+  <li><b>Assignment Created on</b> <%= @appraisal.created_at %></li>
+  <li><b>Submitted by:</b><%= "#{@appraiser.name} (#{@appraiser.email}) #{@appraiser.address.phone1}" %></li>
+  <li><b>Customer:</b><%= "#{@customer.name} (#{@customer.email})" %></li>
+</ul>
+
+Thank you
