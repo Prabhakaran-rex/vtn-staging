@@ -9,6 +9,7 @@
 
 <div class="page-header">
 	<h5>Status : <%= getStringForActivityValue(@appraisal.status) %></h5>
+	<h5>Type : <%= getStringForAppraisalType(@appraisal.selected_plan) %></h5>
 	<h3><%= @appraisal.title %>
 		<% if @appraisal.status == EActivityValueCreated %>
 		<% @payment = Payment.new %>
