@@ -5,5 +5,5 @@ CarrierWave.configure do |config|
     :aws_access_key_id      => S3_VARS[Rails.env]['access_key_id'],
     :aws_secret_access_key  => S3_VARS[Rails.env]['secret_access_key']
   }
-  config.fog_directory  = Rails.env == "staging" || Rails.env == "sandbox" ? S3_VARS[Rails.env]['bucket'] : 'valuethisnow-live'
+  config.fog_directory  = S3_VARS[Rails.env]['bucket']
 end
