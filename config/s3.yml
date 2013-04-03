@@ -1,12 +1,12 @@
 development:
-  bucket: purex_live
-  access_key_id: AKIAISN5QHJWVJB3AM6Q
-  secret_access_key: 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
+  bucket: vtn-live
+  access_key_id: AKIAJ7A4YCVXYPBBBT7Q
+  secret_access_key: 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
 
 production:
-  bucket: purex_live
-  access_key_id: AKIAISN5QHJWVJB3AM6Q
-  secret_access_key: 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
+  bucket: vtn-live
+  access_key_id: AKIAJ7A4YCVXYPBBBT7Q
+  secret_access_key: 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
 
 staging:
   bucket: vtn-staging
