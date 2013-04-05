@@ -85,5 +85,5 @@ ActionMailer::Base.delivery_method = :smtp
   SendgridToolkit.api_key = ENV['SENDGRID_PASSWORD']
 
   Refinery::Core.config.s3_backend = true
-  Refinery::Core.config.s3_bucket_name= 'vtn-blog-staging'
+  Refinery::Core.config.s3_bucket_name= 'vtn.vtn-blog-staging'
 end
