@@ -1,0 +1,22 @@
+<div class="tabb">
+  <div id="scroller-header" class="heading" >
+    <a href="#panel-1" rel="panel" class="selected">Popular</a>
+    <a href="#panel-2" class="panel-2" rel="panel">Latest</a>
+  </div>
+  <div id="scroller-body">
+    <div id="mask">
+      <div id="panel" class="tabbing-content">
+        <div id="panel-1">
+          <% @posts.order('published_at DESC').limit(5).each do |post| %>
+            <ul><li><%= post.title %></li></ul>
+          <% end %>
+        </div>
+        <div id="panel-2">
+          <% @posts.order('published_at DESC').limit(5).each do |post| %>
+            <ul><li><%= post.title %></li></ul>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

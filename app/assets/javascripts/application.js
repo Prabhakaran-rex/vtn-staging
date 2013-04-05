@@ -17,3 +17,5 @@
 //= require bootstrap
 //= require jquery.maskedinput-1.3.min
 //= require excanvas.compiled
+//= require jquery.scrollTo
+//= require refinery_blog

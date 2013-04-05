@@ -1,0 +1,8 @@
+<div class="left_side">
+  <% if post.author.present?  %>
+    <a href="#"><img src="images/blog-pro.jpg" alt="" title="<%= "#{post.author.username}" %>" /></a>
+  <% end %>
+  <h2><%= "#{post.published_at.to_date.strftime("%B").upcase[0..2]}" %></h2>
+  <h3><%= "#{post.published_at.to_date.strftime("%d")}" %><br/><span><%= "#{post.published_at.to_date.strftime("%Y")}" %></span></h3>
+  <div class="comment"><a href="#"><%= "#{post.comments.approved.count}" %></a></div>
+</div>

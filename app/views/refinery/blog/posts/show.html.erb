@@ -1,11 +1,15 @@
+<%= stylesheet_link_tag 'stylesheets/refinery'%>
 <% content_for :body_content_left do %>
-  <div id="show_blog_post">
-    <%= render 'post' %>
-  </div>
-
+  <div class="left_blog">
+  <section id="blog_posts">
+    <div id="show_blog_post">
+      <%= render 'post' %>
+    </div>
+  </section>
   <% if Refinery::Blog::Post.comments_allowed? %>
     <%= render 'comments'%>
-  <% end %>
+<% end %>
+</div>
 <% end %>
 
 <%= render :partial => '/refinery/blog/shared/body_content_right' %>
@@ -15,7 +19,7 @@
 <% content_for :stylesheets, stylesheet_link_tag('refinery/blog/frontend') %>
 <% content_for :javascripts do %>
   <%# enable AJAX'd post nav at your own risk until html5 history API implemented. %>
-  <%#= javascript_include_tag('refinery/blog/frontend') %>
-  <script src="http://w.sharethis.com/button/buttons.js"></script>
-  <script>stLight.options({publisher:'<%= Blog::Post::ShareThis.key %>'});</script>
+<%#= javascript_include_tag('refinery/blog/frontend') %>
+<script src="http://w.sharethis.com/button/buttons.js"></script>
+<script>stLight.options({publisher:'<%= Blog::Post::ShareThis.key %>'});</script>
 <% end if Refinery::Blog::Post::ShareThis.enabled? %>
