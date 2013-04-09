@@ -5,4 +5,4 @@ require File.expand_path('../application', __FILE__)
 PurexNew::Application.initialize!
 
 # TODO Move this to a separate config file
-PAYMENT_PLAN = Array.[](27.00, 37.00, 29.00, 39.00) #define in appraisals.selected_plan
+PAYMENT_PLAN = Array.[](19.95, 36.95, 29.00, 44.95) #define in appraisals.selected_plan
