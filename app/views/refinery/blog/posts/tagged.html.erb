@@ -1,8 +1,10 @@
+<%= stylesheet_link_tag 'stylesheets/refinery'%>
 <% content_for :title, "#{t('.posts_tagged')} '#{@tag_name.titleize}'"  %>
 
 <% content_for :body_content_title, "#{t('.posts_tagged')} &#8220;#{@tag_name.titleize}&#8221;".html_safe -%>
 
 <% content_for :body_content_left do %>
+<div class="left_blog"> <!-- begin left_blog -->
   <% if @posts.any? %>
     <section id="blog_posts">
       <%= render :partial => "/refinery/blog/shared/post", :collection => @posts %>
@@ -11,6 +13,7 @@
   <% else %>
     <p><%= t('.no_blog_articles_yet') %></p>
   <% end %>
+</div>
 <% end %>
 
 <%= render :partial => '/refinery/blog/shared/body_content_right' %>
