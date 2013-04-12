@@ -7,7 +7,7 @@ class Payment < ActiveRecord::Base
 
   class << self
     def get_paypal_credential
-      return {:login => PAYMENT_VARS[Rails.env]['paypal']['login'], :password => PAYMENT_VARS[Rails.env]['paypal']['password'], :signature => PAYMENT_VARS[Rails.env]['signature']}
+      return {:login => PAYMENT_VARS[Rails.env]['paypal']['login'], :password => PAYMENT_VARS[Rails.env]['paypal']['password'], :signature => PAYMENT_VARS[Rails.env]['paypal']['signature']}
     end
 
     def get_authorizenet_credential

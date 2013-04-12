@@ -16,11 +16,11 @@ class PayoutsController < ApplicationController
 	  			p.email = payout.appraiser.paypal_email
 	  			p.unique_id = "#{payout.appraisal_id}-#{payout.appraiser_id}-#{Time.now.to_i}"
 	  			p.amount = "#{view_context.number_with_precision(payout.amount, :precision => 2)}"
-	  			p.note = "[Value This Now] sent a payment for #{payout.appraisal.name}"
+	  			p.note = "[Value This Now] sent a payment"
 	  			@paypal_payments << p
 	  		end
   		end
-  		@result_hash = @paypal.do_mass_payment(@paypal_payments, "[Value This Now] Sent you a payment")
+  		@result_hash = @paypal.do_mass_payment(@paypal_payments, "Payment from Value This Now")
   		@result = @result_hash["ACK"] == "Success"
   		if @result
   			@payouts.each {|p| p.status = EAPayoutCompleted; p.save}
