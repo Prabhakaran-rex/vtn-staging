@@ -35,7 +35,21 @@ class PaymentsController < ApplicationController
     end
   end
 
+  def validate_coupon
+    respond_to do |format|
+      if is_coupon_valid?(params[:coupon_code])
+        format.json {render json: {discount: '15', type: "percentage"}}
+      else
+        format.json { render json: false, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
+  def is_coupon_valid?(coupon_code)
+    coupon_code[0] == "1"
+  end
+
   def create_credit_card(ccparam)
     credit_card = Hash.new
     credit_card[:number] = ccparam[:number]

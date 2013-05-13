@@ -9,6 +9,7 @@ PurexNew::Application.routes.draw do
   match "tags/destroy" => "tags#destroy", :as => :destroy_tag
 
   resources :payments
+  match "/validate_coupon" => "payments#validate_coupon", :as => :validate_coupon
   get "appraisal_data/create"
   match '/facebook/' => "users#facebook_login"
   match '/users/update_appraiser_status' => "users#update_appraiser_status", :as => :update_appraiser_status

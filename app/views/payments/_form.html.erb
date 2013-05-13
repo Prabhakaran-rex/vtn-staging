@@ -17,9 +17,8 @@
 </div>  
   <% end %>
 <% flash.clear %>
-
+<input type="hidden" name="appraisal_price" id="appraisal_price" value="<%= PAYMENT_PLAN[ @appraisal.selected_plan-1] %>" />
 <div class="form-inputs">
-  <div class="alert alert-info">Your credit card will be charged <%= number_to_currency(PAYMENT_PLAN[ @appraisal.selected_plan-1]) %> USD</div>
   <div class="row">
     <div class="span5">
       <%= f.input :number, :label => "Credit Card Number", :input_html => {:maxlength => 16} %>
@@ -39,8 +38,40 @@
       <%= f.input :state %>
     </div>
   </div>
-</div>
-<div class="form-actions">
-  <a href="#" class="btn btn-success" onclick="document.forms['new_payment'].submit();">Appraise Now</a></div>
+  <div class="row">
+    <div class="span5"></div>
+    <div class="span6">
+      <%= f.input :coupon, label: "If you have a coupon please enter the 16 character code", input_html: {maxlength: 16} %>
+      <div id="processing_coupon">
+        <span class="badge badge-info"><i class="icon-time icon-white"></i></span>
+      </div>
+      <div id="valid_coupon">
+        <span class="badge badge-success"><i class="icon-ok icon-white"></i></span>
+      </div>
+      <div id="invalid_coupon">
+        <span class="badge badge-important"><i class="icon-remove icon-white"></i></span>
+      </div>
+    </div>
   </div>
+  <div class="row">
+    <div class="span10 pull-right">
+      <table class="table">
+        <tr>
+          <td class="pull-right">Appraisal Cost</td>
+          <td id="td_appraisal_cost"><%= number_to_currency(PAYMENT_PLAN[ @appraisal.selected_plan-1]) %></td>
+        </tr>
+        <tr id="div_discount_amount">
+          <td class="pull-right">Discount</td>
+          <td id="td_appraisal_discount"><%= number_to_currency(0) %></td>
+        </tr>
+        <tr>
+          <td class="pull-right"><b>Total</b></td>
+          <td id="td_appraisal_total"><b><%= number_to_currency(PAYMENT_PLAN[ @appraisal.selected_plan-1]) %></b></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="form-actions">
+    <a href="#" class="btn btn-success pull-right" onclick="document.forms['new_payment'].submit();">Appraise Now</a></div>
+</div>
 <% end %>

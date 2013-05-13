@@ -5,6 +5,11 @@ class Payment < ActiveRecord::Base
   attr_accessor :number, :cvv, :expmon, :expyear
   attr_accessor :address, :company, :phone, :zip, :city, :country, :state
 
+  has_one :coupon
+  accepts_nested_attributes_for :coupon
+  attr_accessor :coupon_attributes
+
+
   class << self
     def get_paypal_credential
       return {:login => PAYMENT_VARS[Rails.env]['paypal']['login'], :password => PAYMENT_VARS[Rails.env]['paypal']['password'], :signature => PAYMENT_VARS[Rails.env]['paypal']['signature']}
