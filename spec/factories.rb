@@ -14,11 +14,17 @@ FactoryGirl.define do
     type 'Customer'
   end
 
+  factory :promotion do
+    name "The Promotion"
+    description "A promotion"
+  end
+
   factory :coupon do
     code "abcd1234abcd1234"
     discount "10"
     discount_type "fixed"
     expiration_date Time.now+10.days
+    promotion
   end
 
   factory :fixed_coupon, class: Coupon do
@@ -26,6 +32,7 @@ FactoryGirl.define do
     discount "10"
     discount_type "fixed"
     expiration_date Time.now+10.days
+    promotion
   end
 
   factory :percentage_coupon, class: Coupon do
@@ -33,6 +40,7 @@ FactoryGirl.define do
     discount "10"
     discount_type "percentage"
     expiration_date Time.now+10.days
+    promotion
   end
 
   factory :unused_coupon, class: Coupon do
@@ -41,6 +49,7 @@ FactoryGirl.define do
     discount_type "percentage"
     expiration_date Time.now+10.days
     used_on nil
+    promotion
   end
 
   factory :used_coupon, class: Coupon do
@@ -49,5 +58,6 @@ FactoryGirl.define do
     discount_type "percentage"
     expiration_date Time.now+10.days
     used_on Time.now+2.day
+    promotion
   end
 end

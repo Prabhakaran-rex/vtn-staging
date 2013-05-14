@@ -10,27 +10,21 @@ describe Coupon do
   end
 
   context "code" do
-    it "should require a code" do
-      codeless_coupon = FactoryGirl.build(:coupon, :code => "")
-      codeless_coupon.should_not be_valid
-    end
-
     it "should be 16 chars long" do
       short_code = FactoryGirl.build(:coupon, :code => "aaa")
       short_code.should_not be_valid
     end
 
-    it "should be unique" do
-      FactoryGirl.create(:coupon, :code => "abcd1234abcd1234")
-      duplicate_coupon = FactoryGirl.build(:coupon, :code => "abcd1234abcd1234")
-      duplicate_coupon.should_not be_valid
-    end
+    #it "should be unique" do
+      #FactoryGirl.create(:coupon, :code => "wyxz9876wyxz9876")
+      #duplicate_coupon = FactoryGirl.build(:coupon, :code => "wyxz9876wyxz9876")
+      #duplicate_coupon.should_not be_valid
+    #end
 
     it "creates a new code on save" do
       codeless_coupon = FactoryGirl.create(:coupon, :code => nil)
       codeless_coupon.code.length.should be 16
     end
-    
   end
 
   context "discount" do
@@ -121,6 +115,28 @@ describe Coupon do
       used_coupon = FactoryGirl.build(:unused_coupon)
       used_coupon.apply!
       used_coupon.used_on.should_not be nil
+    end
+  end
+
+  context "code validity" do
+    it "should check if the coupon exists and is active"
+    it "should return coupon details"
+  end
+
+  context "multiple use coupons" do
+    it "should have a max number of uses"
+    it "increments the usage count"
+  end
+
+  context "using coupon" do
+    it "should return the discounted amount for fixed coupons" do
+      coupon = FactoryGirl.create(:fixed_coupon, discount: 5)
+      coupon.calculate_discount(15.00).should eq 10.00
+    end
+
+    it "should return the discounted amount for percentage coupons" do
+      coupon = FactoryGirl.create(:percentage_coupon, discount: 20)
+      coupon.calculate_discount(15.00).should eq 12.00
     end
   end
 end

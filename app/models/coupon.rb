@@ -1,7 +1,8 @@
 class Coupon < ActiveRecord::Base
-  attr_accessible :code, :discount, :discount_type, :expiration_date, :used_on
-  validates_presence_of :code, :discount, :expiration_date
-  validates :discount, :numericality => { :greater_than => 0 }
+  belongs_to :promotion
+  attr_accessible :code, :discount, :discount_type, :expiration_date, :used_on, :promotion_id, :active
+  validates_presence_of :code, :discount, :expiration_date, :promotion_id
+  validates :discount, :numericality => { :greater_than_or_equal_to => 0.1 }
   validates :code, :length => { :is => 16 }
   validates :discount_type, :inclusion => { :in => %w(fixed percentage)}
   validate :expiration_date_cannot_be_in_the_past, :percentage_coupon_should_not_be_bigger_than_100, :fixed_coupon_should_not_be_too_large
@@ -10,8 +11,21 @@ class Coupon < ActiveRecord::Base
 
   before_validation :generate_unique_code
 
+  def self.is_coupon_valid?(coupon_code)
+    coupon = Coupon.find_by_code(coupon_code)
+    coupon.nil? ? false : coupon.is_active? && !coupon.is_expired?
+  end
+
+  def self.details_for(coupon_code)
+    Coupon.find_by_code(coupon_code)
+  end
+
   def is_active?
     self.active
+  end
+
+  def is_used?
+    !self.used_on.nil?
   end
 
   def deactivate!
@@ -23,7 +37,7 @@ class Coupon < ActiveRecord::Base
   end
 
   def apply!
-    if is_active? && !is_expired?
+    if is_active? && !is_expired? && !is_used?
       update_attributes(used_on: Time.now)
     end
   end
@@ -32,6 +46,14 @@ class Coupon < ActiveRecord::Base
     expiration_date < Date.today
   end
 
+  def calculate_discount(amount)
+    if discount_type == "fixed"
+      return amount - discount
+    elsif discount_type == "percentage"
+      return amount * (1- discount/100)
+    end
+    amount
+  end
 
   private
   def change_active_status(status)
@@ -65,7 +87,11 @@ class Coupon < ActiveRecord::Base
 
   def generate_unique_code
     if code.blank? or code.nil?
-      code = SecureRandom.hex(16)
+      self.code = code_generator
     end
+  end
+
+  def code_generator
+    return SecureRandom.hex(10)[0...16].upcase
   end
 end

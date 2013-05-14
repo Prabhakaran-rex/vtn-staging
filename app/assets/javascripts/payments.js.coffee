@@ -33,7 +33,8 @@ jQuery ->
       data: { coupon_code : $("#payment_coupon").val() }
       success: (data) ->
         toggle_coupon_divs("#valid_coupon")
-        update_totals(calculate_discount($("#appraisal_price").val(),10,"fixed"))
+        console.log data
+        update_totals(calculate_discount($("#appraisal_price").val(),data.discount,data.discount_type))
       error: (data) ->
         toggle_coupon_divs("#invalid_coupon")
         update_totals(calculate_discount($("#appraisal_price").val(),0,"fixed"))

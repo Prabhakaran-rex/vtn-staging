@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130510032009) do
+ActiveRecord::Schema.define(:version => 20130513181033) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -303,6 +303,7 @@ ActiveRecord::Schema.define(:version => 20130510032009) do
     t.datetime "used_on"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
+    t.integer  "promotion_id"
   end
 
   create_table "customer_extras", :force => true do |t|
@@ -386,6 +387,14 @@ ActiveRecord::Schema.define(:version => 20130510032009) do
 
   add_index "phototags", ["photo_id"], :name => "index_tags_on_photo_id"
   add_index "phototags", ["user_id"], :name => "index_tags_on_user_id"
+
+  create_table "promotions", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "active",      :default => true
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "refinery_blog_categories", :force => true do |t|
     t.string   "title"
@@ -648,7 +657,7 @@ ActiveRecord::Schema.define(:version => 20130510032009) do
     t.boolean  "notify_by_sms",                         :default => false
     t.boolean  "notify_by_email",                       :default => true
     t.integer  "next_notification_interval_in_minutes", :default => 60
-    t.datetime "next_notification_due_at",              :default => '2012-08-20 00:17:41'
+    t.datetime "next_notification_due_at",              :default => '2012-09-11 23:57:57'
     t.string   "payment_method",                        :default => "cheque"
     t.boolean  "uspap",                                 :default => false
     t.string   "name"
