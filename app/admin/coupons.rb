@@ -8,6 +8,7 @@ ActiveAdmin.register Coupon do
       f.input :discount, hint: "For percentage discounts (20%) enter '20'; for fixed discounts enter the amount in dollars"
       f.input :discount_type, :as => :select, :collection => ["fixed", "percentage"]
       f.input :expiration_date
+      f.buttons
     end
   end
 end
