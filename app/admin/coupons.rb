@@ -4,6 +4,7 @@ ActiveAdmin.register Coupon do
   form do |f|
     f.inputs "Coupon Details" do
       f.input :promotion
+      f.input :featured
       f.input :code, hint: "Leave blank if you want the system to generate the code automatically"
       f.input :discount, hint: "For percentage discounts (20%) enter '20'; for fixed discounts enter the amount in dollars"
       f.input :discount_type, :as => :select, :collection => ["fixed", "percentage"]

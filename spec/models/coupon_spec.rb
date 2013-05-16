@@ -139,5 +139,13 @@ describe Coupon do
       coupon.calculate_discount(15.00).should eq 12.00
     end
   end
+
+  context "featured coupon" do
+    it "can only have one featured coupon" do
+      featured_coupon = FactoryGirl.create(:coupon, featured: true)
+      duplicate_featured_coupon = FactoryGirl.build(:coupon, featured: true, code: "88765qwer765qwer")
+      duplicate_featured_coupon.should_not be_valid
+    end
+  end
 end
 

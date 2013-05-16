@@ -1,10 +1,11 @@
 <div class="row">
-	<div class="span12">
-		<h1>Online Appraisal In 3 Easy Steps</h1>
-		<p>&#8220;We bring value to the things in your life&#8221;</p>
-	</div>
+  <div class="span12">
+    <h1>Online Appraisal In 3 Easy Steps</h1>
+    <p>&#8220;We bring value to the things in your life&#8221;</p>
+  </div>
   <div class="span12"><%= image_tag("bg_mid.png", :alt => "Professional Personal Property Network") %></div>
-	<div class="span_btn">
-		<%= link_to new_user_session_url, :class => "btn btn-primary"  do %><span class="icon-button"></span> Get Appraisal Now<% end %>
-	</div>
+  <div class="span_btn">
+    <%= link_to new_user_session_url, :class => "btn btn-primary"  do %><span class="icon-button"></span> Get Appraisal Now<% end %>
+  </div>
 </div>
+<%= render partial: 'layouts/featured_coupon'  %>

@@ -1,12 +1,13 @@
 class Coupon < ActiveRecord::Base
   belongs_to :promotion
-  attr_accessible :code, :discount, :discount_type, :expiration_date, :used_on, :promotion_id, :active
+  attr_accessible :code, :discount, :discount_type, :expiration_date, :featured, :used_on, :promotion_id, :active
   validates_presence_of :code, :discount, :expiration_date, :promotion_id
   validates :discount, :numericality => { :greater_than_or_equal_to => 0.1 }
   validates :code, :length => { :is => 16 }
   validates :discount_type, :inclusion => { :in => %w(fixed percentage)}
   validate :expiration_date_cannot_be_in_the_past, :percentage_coupon_should_not_be_bigger_than_100, :fixed_coupon_should_not_be_too_large
   validate :used_on_should_be_greater_than_expiration_date
+  validate :can_only_have_one_featured_coupon
   validates_uniqueness_of :code
 
   before_validation :generate_unique_code
@@ -82,6 +83,12 @@ class Coupon < ActiveRecord::Base
   def used_on_should_be_greater_than_expiration_date
     if !used_on.nil? and used_on > expiration_date
       errors.add(:used_on, "coupon has expired")
+    end
+  end
+
+  def can_only_have_one_featured_coupon
+    if self.featured && !Coupon.find_by_featured(true).nil?
+      errors.add(:featured, "there is already another featured coupon")
     end
   end
 
