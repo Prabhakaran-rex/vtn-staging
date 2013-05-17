@@ -136,11 +136,18 @@ describe Coupon do
   end
 
   context "code validity" do
-    it "should check if the coupon exists and is active"
+    it "should check if the coupon exists" do
+      Coupon.is_coupon_valid?("anonexistingcoup").should be false
+    end
 
     it "should return coupon details" do
       coupon = FactoryGirl.create(:coupon, code: "1234code1234code")
       Coupon.details_for("1234code1234code").should be_a_kind_of(Coupon)
+    end
+
+    it "should check if the coupon is active" do
+      coupon = FactoryGirl.create(:coupon, active: false )
+      Coupon.is_coupon_valid?(coupon.code).should be false
     end
   end
 
@@ -161,9 +168,7 @@ describe Coupon do
       multiple_use_coupon.apply!.should be false
     end
 
-    it "can be marked as public (can be used by many users)"
     it "can have a list of allowed products"
-    it "can have a maximum discount amount"
   end
 
   context "using coupon" do
@@ -175,6 +180,11 @@ describe Coupon do
     it "should return the discounted amount for percentage coupons" do
       coupon = FactoryGirl.create(:percentage_coupon, discount: 20)
       coupon.calculate_discount(15.00).should eq 12.00
+    end
+
+    it "can have a maximum discount amount" do
+      maximum_discount_coupon = FactoryGirl.create(:percentage_coupon, max_discount: 5, discount: 20)
+      maximum_discount_coupon.calculate_discount(15.00).should eq 5.00
     end
   end
 

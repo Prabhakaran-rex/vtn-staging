@@ -60,11 +60,14 @@ class Coupon < ActiveRecord::Base
 
   def calculate_discount(amount)
     if discount_type == "fixed"
-      return amount - discount
+      amount = amount - discount
     elsif discount_type == "percentage"
-      return amount * (1- discount/100)
+      amount = amount * (1- discount/100)
     end
-    amount
+    if max_discount
+      amount = max_discount if amount > max_discount
+    end
+    return amount
   end
 
   private

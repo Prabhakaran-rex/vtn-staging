@@ -25,6 +25,7 @@ FactoryGirl.define do
     discount_type "fixed"
     start_date Time.now-1.day
     expiration_date Time.now+10.days
+    description "A coupon"
     promotion {Promotion.first || FactoryGirl.create(:promotion)}
   end
 
