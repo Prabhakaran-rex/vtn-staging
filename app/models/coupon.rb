@@ -15,11 +15,19 @@ class Coupon < ActiveRecord::Base
 
   def self.is_coupon_valid?(coupon_code)
     coupon = Coupon.find_by_code(coupon_code)
-    coupon.nil? ? false : coupon.is_active? && !coupon.is_expired? && coupon.start_date <= Time.now
+    coupon.nil? ? false : coupon.is_active? && !coupon.is_expired? && coupon.start_date <= Time.now && coupon.expiration_date > Time.now
   end
 
   def self.details_for(coupon_code)
     Coupon.find_by_code(coupon_code)
+  end
+
+  def self.get_featured
+    coupon = Coupon.find_by_featured(true)
+    if !coupon.nil? && coupon.is_active? && !coupon.is_expired? && coupon.start_date <= Time.now
+      return coupon
+    end
+    nil
   end
 
   def is_active?

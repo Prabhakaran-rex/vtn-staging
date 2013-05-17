@@ -40,17 +40,8 @@
   </div>
   <div class="row">
     <div class="span5"></div>
-    <div class="span6">
-      <%= f.input :coupon, label: "If you have a coupon please enter the 16 character code", input_html: {maxlength: 16} %>
-      <div id="processing_coupon">
-        <span class="badge badge-info"><i class="icon-time icon-white"></i></span>
-      </div>
-      <div id="valid_coupon">
-        <span class="badge badge-success"><i class="icon-ok icon-white"></i></span>
-      </div>
-      <div id="invalid_coupon">
-        <span class="badge badge-important"><i class="icon-remove icon-white"></i></span>
-      </div>
+    <div class="span6" id="payment-coupon-div">
+      <%= f.input :coupon, label: "If you have a coupon please enter the 16 character code", input_html: {maxlength: 16, value: @featured_coupon_code  }, hint: "" %>
     </div>
   </div>
   <div class="row">
@@ -75,3 +66,9 @@
     <a href="#" class="btn btn-success pull-right" onclick="document.forms['new_payment'].submit();">Appraise Now</a></div>
 </div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+  $(
+});
+</script>

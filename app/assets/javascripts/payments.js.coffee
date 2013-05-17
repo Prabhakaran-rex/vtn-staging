@@ -9,6 +9,25 @@ jQuery ->
     $("#processing_coupon").hide()
     $(element).show()
 
+  set_coupon_badge = (status) ->
+    switch status
+      when 'error'
+        css_style = 'important'
+        css_icon = 'remove'
+        text = 'Invalid Coupon'
+      when 'success'
+        css_style = 'success'
+        css_icon = 'ok'
+        text = 'Valid Coupon'
+      when 'processing'
+        css_style = 'info'
+        css_icon = 'time'
+        text = 'Validating coupon'
+    $("#payment-coupon-div .help-block").html('<span class="badge badge-'+ css_style + '"><i class="icon-' + css_icon+' icon-white"></i> '+text+'</span>')
+
+  clear_coupon_badge = (element) ->
+      $("#payment-coupon-div .help-block").html('')
+
   #See how we can return a JSON object instead of an array
   calculate_discount = (price, discount, type) ->
     discount_amount = 0
@@ -32,19 +51,20 @@ jQuery ->
       dataType: 'json'
       data: { coupon_code : $("#payment_coupon").val() }
       success: (data) ->
-        toggle_coupon_divs("#valid_coupon")
-        console.log data
+        set_coupon_badge('success')
         update_totals(calculate_discount($("#appraisal_price").val(),data.discount,data.discount_type))
       error: (data) ->
-        toggle_coupon_divs("#invalid_coupon")
+        set_coupon_badge('error')
         update_totals(calculate_discount($("#appraisal_price").val(),0,"fixed"))
 
   $("#payment_coupon").keyup ->
     if $("#payment_coupon").val().length != 16
-      toggle_coupon_divs()
+      clear_coupon_badge()
       update_totals(calculate_discount($("#appraisal_price").val(),0,"fixed"))
       return false
     else
+      set_coupon_badge('processing')
       validate_coupon()
 
-  toggle_coupon_divs()
+  clear_coupon_badge()
+  $("#payment_coupon").keyup()

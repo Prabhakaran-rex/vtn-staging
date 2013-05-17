@@ -7,6 +7,8 @@ class PaymentsController < ApplicationController
   def index
     @payment = Payment.new
     @appraisal = Appraisal.find(params[:appraisal_id])
+    coupon = Coupon.get_featured
+    @featured_coupon_code = coupon.code unless coupon.nil?
   end
 
   def create
