@@ -23,6 +23,7 @@ FactoryGirl.define do
     code "abcd1234abcd1234"
     discount "10"
     discount_type "fixed"
+    start_date Time.now-1.day
     expiration_date Time.now+10.days
     promotion {Promotion.first || FactoryGirl.create(:promotion)}
   end
@@ -31,6 +32,7 @@ FactoryGirl.define do
     code "abcd1234abcd1234"
     discount "10"
     discount_type "fixed"
+    start_date Time.now-1.day
     expiration_date Time.now+10.days
     promotion {Promotion.first || FactoryGirl.create(:promotion)}
   end
@@ -39,6 +41,7 @@ FactoryGirl.define do
     code "abcd1234abcd1234"
     discount "10"
     discount_type "percentage"
+    start_date Time.now-1.day
     expiration_date Time.now+10.days
     promotion {Promotion.first || FactoryGirl.create(:promotion)}
   end
@@ -47,6 +50,7 @@ FactoryGirl.define do
     code "abcd1234abcd1234"
     discount "10"
     discount_type "percentage"
+    start_date Time.now-1.day
     expiration_date Time.now+10.days
     used_on nil
     promotion {Promotion.first || FactoryGirl.create(:promotion)}
@@ -56,6 +60,7 @@ FactoryGirl.define do
     code "abcd1234abcd1234"
     discount "10"
     discount_type "percentage"
+    start_date Time.now-1.day
     expiration_date Time.now+10.days
     used_on Time.now+2.day
     promotion {Promotion.first || FactoryGirl.create(:promotion)}

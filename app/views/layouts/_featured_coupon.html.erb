@@ -1,15 +1,6 @@
-<!-- Modal -->
 <% if @featured_coupon %>
-<div id="featured_coupon" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Featured Coupon</h3>
-  </div>
-  <div class="modal-body">
-    <p><%= @featured_coupon.promotion.description %></p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-  </div>
+  <div class="alert alert-success" style="text-align: center;">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong><%= @featured_coupon.description %></strong>
 </div>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516182639) do
+ActiveRecord::Schema.define(:version => 20130516221543) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -301,10 +301,14 @@ ActiveRecord::Schema.define(:version => 20130516182639) do
     t.boolean  "active",          :default => true
     t.datetime "expiration_date"
     t.datetime "used_on"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
     t.integer  "promotion_id"
     t.boolean  "featured",        :default => false
+    t.integer  "max_usage",       :default => 1
+    t.integer  "usage_count",     :default => 0
+    t.datetime "start_date",      :default => '2013-05-17 01:27:35'
+    t.string   "description"
   end
 
   create_table "customer_extras", :force => true do |t|

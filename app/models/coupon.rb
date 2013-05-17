@@ -1,20 +1,21 @@
 class Coupon < ActiveRecord::Base
   belongs_to :promotion
-  attr_accessible :code, :discount, :discount_type, :expiration_date, :featured, :used_on, :promotion_id, :active
-  validates_presence_of :code, :discount, :expiration_date, :promotion_id
+  attr_accessible :code, :description, :discount, :discount_type, :expiration_date, :featured, :used_on, :promotion_id, :active, :start_date
+  validates_presence_of :code, :discount, :expiration_date, :max_usage, :promotion_id, :start_date
   validates :discount, :numericality => { :greater_than_or_equal_to => 0.1 }
   validates :code, :length => { :is => 16 }
   validates :discount_type, :inclusion => { :in => %w(fixed percentage)}
-  validate :expiration_date_cannot_be_in_the_past, :percentage_coupon_should_not_be_bigger_than_100, :fixed_coupon_should_not_be_too_large
+  validate :expiration_date_cannot_be_in_the_past_or_before_start_date, :percentage_coupon_should_not_be_bigger_than_100, :fixed_coupon_should_not_be_too_large
+  validate :should_have_description_if_featured
   validate :used_on_should_be_greater_than_expiration_date
-  validate :can_only_have_one_featured_coupon
   validates_uniqueness_of :code
+  validates_uniqueness_of :featured, :if => :featured
 
   before_validation :generate_unique_code
 
   def self.is_coupon_valid?(coupon_code)
     coupon = Coupon.find_by_code(coupon_code)
-    coupon.nil? ? false : coupon.is_active? && !coupon.is_expired?
+    coupon.nil? ? false : coupon.is_active? && !coupon.is_expired? && coupon.start_date <= Time.now
   end
 
   def self.details_for(coupon_code)
@@ -38,9 +39,11 @@ class Coupon < ActiveRecord::Base
   end
 
   def apply!
-    if is_active? && !is_expired? && !is_used?
-      update_attributes(used_on: Time.now)
+    if is_active? && !is_expired? && !is_used? && (usage_count < max_usage)
+      increment_usage_count
+      result =update_attributes(used_on: Time.now)
     end
+    result ||= false
   end
 
   def is_expired?
@@ -57,14 +60,21 @@ class Coupon < ActiveRecord::Base
   end
 
   private
+  def increment_usage_count
+    self.usage_count += 1
+    self.save
+  end
+
   def change_active_status(status)
     self.active = status
     self.save
   end
 
-  def expiration_date_cannot_be_in_the_past
+  def expiration_date_cannot_be_in_the_past_or_before_start_date
     if expiration_date.blank? or is_expired? or expiration_date.nil?
       errors.add(:expiration_date, "can't be in the past")
+    elsif expiration_date_before_start_date?
+      errors.add(:expiration_date, "can't be before start date")
     end
   end
 
@@ -86,12 +96,6 @@ class Coupon < ActiveRecord::Base
     end
   end
 
-  def can_only_have_one_featured_coupon
-    if self.featured && !Coupon.find_by_featured(true).nil?
-      errors.add(:featured, "there is already another featured coupon")
-    end
-  end
-
   def generate_unique_code
     if code.blank? or code.nil?
       self.code = code_generator
@@ -100,5 +104,15 @@ class Coupon < ActiveRecord::Base
 
   def code_generator
     return SecureRandom.hex(10)[0...16].upcase
+  end
+
+  def expiration_date_before_start_date?
+    start_date.nil? || start_date > expiration_date
+  end
+
+  def should_have_description_if_featured
+    if self.featured && description.blank?
+      errors.add(:description, "is required if the coupon is marked as featured")
+    end
   end
 end

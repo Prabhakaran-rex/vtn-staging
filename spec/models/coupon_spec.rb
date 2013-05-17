@@ -83,6 +83,18 @@ describe Coupon do
     end
   end
 
+  context "start date" do
+    it "should require a date" do
+      dateless_coupon = FactoryGirl.build(:coupon, :start_date => "")
+      dateless_coupon.should_not be_valid
+    end
+
+    it "should not be valid before start date" do
+      expired_coupon = FactoryGirl.build(:coupon, :start_date => Time.now+2.day)
+      Coupon.is_coupon_valid?(expired_coupon.code).should be false && start_date <= Time.now
+    end
+  end
+
   context "expiration date" do
     it "should require a date" do
       dateless_coupon = FactoryGirl.build(:coupon, :expiration_date => "")
@@ -90,12 +102,17 @@ describe Coupon do
     end
 
     it "should be in the future" do
-      expired_coupon = FactoryGirl.build(:coupon, :expiration_date => Time.now-1.day)
+      expired_coupon = FactoryGirl.build(:coupon, :expiration_date => Time.now-2.day)
       expired_coupon.should_not be_valid
     end
 
+    it "should be greater than the start date" do
+      time_travelling_coupon = FactoryGirl.build(:coupon, :expiration_date => Time.now+2.day, :start_date => Time.now+4.day)
+      time_travelling_coupon.should_not be_valid
+    end
+
     it "should return it's expired status" do
-      expired_coupon = FactoryGirl.build(:coupon, :expiration_date => Time.now-1.day)
+      expired_coupon = FactoryGirl.build(:coupon, :expiration_date => Time.now-2.day)
       expired_coupon.is_expired?.should be true
     end
   end
@@ -120,12 +137,33 @@ describe Coupon do
 
   context "code validity" do
     it "should check if the coupon exists and is active"
-    it "should return coupon details"
+
+    it "should return coupon details" do
+      coupon = FactoryGirl.create(:coupon, code: "1234code1234code")
+      Coupon.details_for("1234code1234code").should be_a_kind_of(Coupon)
+    end
   end
 
   context "multiple use coupons" do
-    it "should have a max number of uses"
-    it "increments the usage count"
+    it "should have a max number of uses" do
+      multiple_use_coupon = FactoryGirl.create(:coupon)
+      multiple_use_coupon.max_usage.should be > 0
+    end
+
+    it "increments the usage count" do
+      multiple_use_coupon = FactoryGirl.create(:coupon)
+      multiple_use_coupon.apply!
+      multiple_use_coupon.usage_count.should eq 1
+    end
+
+    it "can not be used more than the allowed times" do
+      multiple_use_coupon = FactoryGirl.create(:coupon, max_usage: 2, usage_count: 2)
+      multiple_use_coupon.apply!.should be false
+    end
+
+    it "can be marked as public (can be used by many users)"
+    it "can have a list of allowed products"
+    it "can have a maximum discount amount"
   end
 
   context "using coupon" do
