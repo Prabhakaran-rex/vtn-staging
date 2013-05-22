@@ -1,6 +1,6 @@
 class Coupon < ActiveRecord::Base
   belongs_to :promotion
-  attr_accessible :code, :description, :discount, :discount_type, :expiration_date, :featured, :used_on, :promotion_id, :active, :start_date
+  attr_accessible :code, :description, :discount, :discount_type, :expiration_date, :featured, :used_on, :promotion_id, :active, :start_date, :max_discount, :max_usage
   validates_presence_of :code, :discount, :expiration_date, :max_usage, :promotion_id, :start_date
   validates :discount, :numericality => { :greater_than_or_equal_to => 0.1 }
   validates :code, :length => { :is => 16 }

@@ -11,7 +11,7 @@ ActiveAdmin.register Coupon do
     column :featured
     column :start_date
     column :expiration_date
-    column :used_on
+    column "Times Used", :usage_count
     column :max_usage
     column :description
     default_actions
