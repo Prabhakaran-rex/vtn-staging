@@ -18,6 +18,7 @@
   <% end %>
 <% flash.clear %>
 <input type="hidden" name="appraisal_price" id="appraisal_price" value="<%= PAYMENT_PLAN[ @appraisal.selected_plan-1] %>" />
+<input type="hidden" id="appraisal_type" value="<%= @appraisal.selected_plan %>" />
 <div class="form-inputs">
   <div class="row">
     <div class="span5">

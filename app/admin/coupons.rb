@@ -29,6 +29,13 @@ ActiveAdmin.register Coupon do
       f.input :start_date
       f.input :expiration_date
       f.input :description, hint: "Will be shown in places like the featured box in the home page"
+      f.input :allowed_products, :label => "Allowed Products",
+                :as => :check_boxes,
+                :multiple => true,
+                :collection => APPRAISAL_PLANS,
+                :member_label => Proc.new { |t|  APPRAISAL_PLANS_NAMES[t] },
+                :hint => "If no produccts are selected, then the coupon will be valid for any type of appraisal"
+
       f.buttons
     end
   end

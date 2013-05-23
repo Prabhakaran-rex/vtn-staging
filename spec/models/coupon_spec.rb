@@ -16,9 +16,9 @@ describe Coupon do
     end
 
     #it "should be unique" do
-      #FactoryGirl.create(:coupon, :code => "wyxz9876wyxz9876")
-      #duplicate_coupon = FactoryGirl.build(:coupon, :code => "wyxz9876wyxz9876")
-      #duplicate_coupon.should_not be_valid
+    #FactoryGirl.create(:coupon, :code => "wyxz9876wyxz9876")
+    #duplicate_coupon = FactoryGirl.build(:coupon, :code => "wyxz9876wyxz9876")
+    #duplicate_coupon.should_not be_valid
     #end
 
     it "creates a new code on save" do
@@ -168,7 +168,6 @@ describe Coupon do
       multiple_use_coupon.apply!.should be false
     end
 
-    it "can have a list of allowed products"
   end
 
   context "using coupon" do
@@ -195,5 +194,34 @@ describe Coupon do
       duplicate_featured_coupon.should_not be_valid
     end
   end
+
+  context "allowed products" do
+    it "has a list of allowed products" do
+      single_product_coupon = FactoryGirl.create(:single_product_coupon, allowed_products: [EAAppraisalTypeShortRestricted])
+      single_product_coupon.should be_valid
+    end
+
+    it "only existing products can be added to the list of allowed products" do
+      imaginary_product_coupon = FactoryGirl.build(:single_product_coupon, allowed_products: [9999])
+      imaginary_product_coupon.should_not be_valid
+    end
+
+    it "should sanitize list of allowed products" do
+      empty_string_product = FactoryGirl.create(:coupon, allowed_products: ["", EAAppraisalTypeShortRestricted, EAAppraisalTypeLongForSelling])
+      empty_string_product.allowed_products.should =~ [EAAppraisalTypeShortRestricted, EAAppraisalTypeLongForSelling]
+    end
+
+    it "only allowed products can use the coupon" do
+      non_participating_coupon = FactoryGirl.create(:single_product_coupon, allowed_products: [EAAppraisalTypeShortRestricted, EAAppraisalTypeShortForSelling])
+      non_participating_coupon.valid_for_appraisal?(EAAppraisalTypeLongForSelling).should be false
+      non_participating_coupon.valid_for_appraisal?(EAAppraisalTypeShortRestricted).should be true
+    end
+
+    it "if not set, then all products are allowed" do
+      universal_coupon = FactoryGirl.create(:coupon, allowed_products: nil)
+      universal_coupon.valid_for_appraisal?(EAAppraisalTypeShortRestricted).should be true
+    end
+  end
 end
+
 

@@ -49,7 +49,7 @@ jQuery ->
     $.ajax "/validate_coupon",
       type: 'POST'
       dataType: 'json'
-      data: { coupon_code : $("#payment_coupon").val() }
+      data: { coupon_code : $("#payment_coupon").val(), appraisal_type: $("#appraisal_type").val() }
       success: (data) ->
         set_coupon_badge('success')
         update_totals(calculate_discount($("#appraisal_price").val(),data.discount,data.discount_type))

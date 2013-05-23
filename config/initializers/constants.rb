@@ -62,6 +62,7 @@ EAAppraisalTypeLongRestricted = 2
 EAAppraisalTypeShortForSelling = 3
 EAAppraisalTypeLongForSelling = 4
 APPRAISAL_PLANS = [EAAppraisalTypeShortRestricted, EAAppraisalTypeLongRestricted, EAAppraisalTypeShortForSelling, EAAppraisalTypeLongForSelling]
+APPRAISAL_PLANS_NAMES = Hash[EAAppraisalTypeShortRestricted => "Light Restricted Use Appraisal", EAAppraisalTypeLongRestricted => "Full Restricted Use Appraisal", EAAppraisalTypeShortForSelling => "Short For Selling (Not currently available)", EAAppraisalTypeLongForSelling => "Full Summary Appraisal"]
 ## Payouts
 EAPayoutPending = 0
 EAPayoutCompleted = 1

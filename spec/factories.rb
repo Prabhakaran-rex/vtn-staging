@@ -66,4 +66,15 @@ FactoryGirl.define do
     used_on Time.now+2.day
     promotion {Promotion.first || FactoryGirl.create(:promotion)}
   end
+
+  factory :single_product_coupon, class: Coupon do
+    code "abcd1234abcd1234"
+    discount "10"
+    discount_type "fixed"
+    start_date Time.now-1.day
+    expiration_date Time.now+10.days
+    description "A single use coupon"
+    promotion {Promotion.first || FactoryGirl.create(:promotion)}
+    allowed_products  [EAAppraisalTypeShortRestricted]
+  end
 end

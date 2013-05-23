@@ -1,15 +1,18 @@
 class Coupon < ActiveRecord::Base
   belongs_to :promotion
-  attr_accessible :code, :description, :discount, :discount_type, :expiration_date, :featured, :used_on, :promotion_id, :active, :start_date, :max_discount, :max_usage
+  attr_accessible :allowed_products, :code, :description, :discount, :discount_type, :expiration_date, :featured, :used_on, :promotion_id, :active, :start_date, :max_discount, :max_usage
   validates_presence_of :code, :discount, :expiration_date, :max_usage, :promotion_id, :start_date
   validates :discount, :numericality => { :greater_than_or_equal_to => 0.1 }
   validates :code, :length => { :is => 16 }
   validates :discount_type, :inclusion => { :in => %w(fixed percentage)}
   validate :expiration_date_cannot_be_in_the_past_or_before_start_date, :percentage_coupon_should_not_be_bigger_than_100, :fixed_coupon_should_not_be_too_large
+  validate :only_existing_products_can_be_allowed
   validate :should_have_description_if_featured
   validate :used_on_should_be_greater_than_expiration_date
   validates_uniqueness_of :code
   validates_uniqueness_of :featured, :if => :featured
+  serialize :allowed_products, Array
+  before_validation :sanitize_allowed_products_list
 
   before_validation :generate_unique_code
 
@@ -30,6 +33,10 @@ class Coupon < ActiveRecord::Base
     nil
   end
 
+  def valid_for_appraisal?(appraisal_type)
+    self.allowed_products.to_a.empty? || self.allowed_products.to_a.include?(appraisal_type)
+  end
+
   def is_active?
     self.active
   end
@@ -46,8 +53,8 @@ class Coupon < ActiveRecord::Base
     change_active_status(true)
   end
 
-  def apply!
-    if is_active? && !is_expired? && !is_used? && (usage_count < max_usage)
+  def apply!(appraisal_type = nil)
+    if is_active? && !is_expired? && !is_used? && (usage_count < max_usage) && valid_for_appraisal?(appraisal_type)
       increment_usage_count
       result =update_attributes(used_on: Time.now)
     end
@@ -125,5 +132,15 @@ class Coupon < ActiveRecord::Base
     if self.featured && description.blank?
       errors.add(:description, "is required if the coupon is marked as featured")
     end
+  end
+
+  def only_existing_products_can_be_allowed
+    if !(self.allowed_products.to_a - APPRAISAL_PLANS).empty?
+      errors.add(:allowed_products, "not an existing product")
+    end
+  end
+
+  def sanitize_allowed_products_list
+    self.allowed_products = self.allowed_products.to_a.map {|x| x.to_i} - [0]
   end
 end

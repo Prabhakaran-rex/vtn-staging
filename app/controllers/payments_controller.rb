@@ -19,6 +19,13 @@ class PaymentsController < ApplicationController
       redirect_to payments_path(:appraisal_id => @appraisal) and return
     end
 
+    coupon = Coupon.find_by_code(params[:payment][:coupon])
+
+    if !coupon.valid_for_appraisal?(@appraisal.selected_plan)
+      flash[:notice] = "Cannot process: Invalid coupon"
+      redirect_to payments_path(:appraisal_id => @appraisal) and return
+    end
+
     if @appraisal.payed?
       flash[:notice] = "Cannot process: previous payment exists"
       redirect_to payments_path(:appraisal_id => @appraisal) and return
@@ -30,7 +37,7 @@ class PaymentsController < ApplicationController
     if payment_response.success?
       Payment.add_payment(payment_response.authorization, credit_card.number[-4,4], credit_card.amount/100, current_user.id, @appraisal.id)
       if params[:payment][:coupon]
-        Coupon.find_by_code(params[:payment][:coupon]).apply!
+        Coupon.find_by_code(params[:payment][:coupon]).apply!(@appraisal.selected_plan)
       end
       @appraisal.pay_and_notify!
 
@@ -47,8 +54,8 @@ class PaymentsController < ApplicationController
 
   def validate_coupon
     respond_to do |format|
-      if Coupon.is_coupon_valid?(params[:coupon_code])
-        coupon = Coupon.details_for(params[:coupon_code])
+      coupon = Coupon.details_for(params[:coupon_code])
+      if Coupon.is_coupon_valid?(params[:coupon_code]) && coupon.valid_for_appraisal?(params[:appraisal_type].to_i)
         format.json {render json: {discount: coupon.discount, discount_type: coupon.discount_type}}
       else
         format.json { render json: false, status: :unprocessable_entity }

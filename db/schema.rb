@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130517224408) do
+ActiveRecord::Schema.define(:version => 20130522183249) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -298,18 +298,19 @@ ActiveRecord::Schema.define(:version => 20130517224408) do
     t.string   "code"
     t.float    "discount"
     t.string   "discount_type"
-    t.boolean  "active",          :default => true
+    t.boolean  "active",           :default => true
     t.datetime "expiration_date"
     t.datetime "used_on"
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
     t.integer  "promotion_id"
-    t.boolean  "featured",        :default => false
-    t.integer  "max_usage",       :default => 1
-    t.integer  "usage_count",     :default => 0
-    t.datetime "start_date",      :default => '2013-05-17 01:27:35'
+    t.boolean  "featured",         :default => false
+    t.integer  "max_usage",        :default => 1
+    t.integer  "usage_count",      :default => 0
+    t.datetime "start_date",       :default => '2013-05-22 15:29:06'
     t.string   "description"
     t.float    "max_discount"
+    t.text     "allowed_products"
   end
 
   create_table "customer_extras", :force => true do |t|
@@ -663,7 +664,7 @@ ActiveRecord::Schema.define(:version => 20130517224408) do
     t.boolean  "notify_by_sms",                         :default => false
     t.boolean  "notify_by_email",                       :default => true
     t.integer  "next_notification_interval_in_minutes", :default => 60
-    t.datetime "next_notification_due_at",              :default => '2012-09-11 23:57:57'
+    t.datetime "next_notification_due_at",              :default => '2012-08-20 00:17:41'
     t.string   "payment_method",                        :default => "cheque"
     t.boolean  "uspap",                                 :default => false
     t.string   "name"
