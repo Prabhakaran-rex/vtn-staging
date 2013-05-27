@@ -130,7 +130,7 @@ describe Coupon do
 
     it "should set the usage date when applied" do
       used_coupon = FactoryGirl.build(:unused_coupon)
-      used_coupon.apply!
+      used_coupon.apply!(FactoryGirl.create(:appraisal))
       used_coupon.used_on.should_not be nil
     end
   end
@@ -159,13 +159,13 @@ describe Coupon do
 
     it "increments the usage count" do
       multiple_use_coupon = FactoryGirl.create(:coupon)
-      multiple_use_coupon.apply!
+      multiple_use_coupon.apply!(FactoryGirl.create(:appraisal))
       multiple_use_coupon.usage_count.should eq 1
     end
 
     it "can not be used more than the allowed times" do
       multiple_use_coupon = FactoryGirl.create(:coupon, max_usage: 2, usage_count: 2)
-      multiple_use_coupon.apply!.should be false
+      multiple_use_coupon.apply!(FactoryGirl.create(:appraisal)).should be false
     end
 
   end
@@ -173,17 +173,17 @@ describe Coupon do
   context "using coupon" do
     it "should return the discounted amount for fixed coupons" do
       coupon = FactoryGirl.create(:fixed_coupon, discount: 5)
-      coupon.calculate_discount(15.00).should eq 10.00
+      coupon.calculate_discounted_amount(15.00).should eq 10.00
     end
 
     it "should return the discounted amount for percentage coupons" do
       coupon = FactoryGirl.create(:percentage_coupon, discount: 20)
-      coupon.calculate_discount(15.00).should eq 12.00
+      coupon.calculate_discounted_amount(15.00).should eq 12.00
     end
 
     it "can have a maximum discount amount" do
-      maximum_discount_coupon = FactoryGirl.create(:percentage_coupon, max_discount: 5, discount: 20)
-      maximum_discount_coupon.calculate_discount(15.00).should eq 5.00
+      maximum_discount_coupon = FactoryGirl.create(:percentage_coupon, max_discount: 2, discount: 20)
+      maximum_discount_coupon.calculate_discounted_amount(15.00).should eq 13.00
     end
   end
 
@@ -220,6 +220,29 @@ describe Coupon do
     it "if not set, then all products are allowed" do
       universal_coupon = FactoryGirl.create(:coupon, allowed_products: nil)
       universal_coupon.valid_for_appraisal?(EAAppraisalTypeShortRestricted).should be true
+    end
+  end
+
+  #Can we add a field that tells us how many dollars each coupon campaign has brought in?  This number needs to be expressed in total
+  #gross margin which of course is the difference between what we collect from consumers and what we pay appraisers. This information is
+  #needed so we can easly pay anyone a percentage of the gross margin should they run a coupon campaign for us
+  context "gross profit" do
+    it "should link a coupon to the appraisal that used it" do
+      appraisal = FactoryGirl.create(:appraisal, selected_plan: EAAppraisalTypeShortRestricted)
+      coupon = FactoryGirl.create(:coupon)
+      coupon.apply!(appraisal)
+      coupon.usage_count.should eq 1
+    end
+
+    it "should calculate gross profit for a completed appraisal" do
+      appraisal = FactoryGirl.create(:appraisal, selected_plan: EAAppraisalTypeShortRestricted, status: EActivityValueFinalized)
+      appraisal_cost = PAYMENT_PLAN[appraisal.selected_plan - 1]
+      appraiser = FactoryGirl.create(:appraiser)
+      coupon = FactoryGirl.create(:fixed_coupon, discount: 5 )
+      payment = FactoryGirl.create(:payment, amount: appraisal_cost - coupon.discount)
+      coupon.apply!(appraisal)
+      payout = FactoryGirl.create(:payout, appraiser: appraiser, appraisal: appraisal, status: EAPayoutPending, amount: 10.00)
+      coupon.gross_profit.should eq (appraisal_cost - coupon.discount - payout.amount)
     end
   end
 end

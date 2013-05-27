@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  sequence(:email){|n| "example#{n}@example.net" }
+  sequence(:email){|n| "wapankh+#{n}@gmail.com" }
   sequence(:username) {|n| "test_user_#{n}" }
 
   factory :user do
@@ -12,6 +12,47 @@ FactoryGirl.define do
     password_confirmation 'Plea$e1234'
     confirmed_at Time.now
     type 'Customer'
+  end
+
+  factory :customer do
+    email
+    role 'customer'
+    name 'Test User'
+    username
+    status EAUserStatusConfirmed
+    password 'Plea$e1234'
+    password_confirmation 'Plea$e1234'
+    confirmed_at Time.now
+    type 'Customer'
+  end
+
+  factory :appraiser do
+    email
+    role 'appraiser'
+    name 'Test Appraiser'
+    username
+    status EAUserStatusConfirmed
+    password 'Plea$e1234'
+    password_confirmation 'Plea$e1234'
+    confirmed_at Time.now
+    type 'Appraiser'
+  end
+
+  factory :appraisal do
+    title "An appraisal"
+    created_by {(Customer.first || FactoryGirl.create(:customer)).id}
+    selected_plan EAAppraisalTypeShortRestricted
+  end
+
+  factory :payout do
+    appraisal {Appraisal.first || FactoryGirl.create(:appraisal)}
+    appraiser {Appraiser.first || FactoryGirl.create(:appraiser)}
+    amount 1.00
+  end
+
+  factory :payment do
+    appraisal {Appraisal.first || FactoryGirl.create(:appraisal)}
+    user {Customer.first || FactoryGirl.create(:customer)}
   end
 
   factory :promotion do

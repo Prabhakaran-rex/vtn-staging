@@ -13,6 +13,7 @@ class Coupon < ActiveRecord::Base
   validates_uniqueness_of :featured, :if => :featured
   serialize :allowed_products, Array
   before_validation :sanitize_allowed_products_list
+  has_many :coupon_usages
 
   before_validation :generate_unique_code
 
@@ -53,9 +54,9 @@ class Coupon < ActiveRecord::Base
     change_active_status(true)
   end
 
-  def apply!(appraisal_type = nil)
-    if is_active? && !is_expired? && !is_used? && (usage_count < max_usage) && valid_for_appraisal?(appraisal_type)
-      increment_usage_count
+  def apply!(appraisal)
+    if is_active? && !is_expired? && (usage_count < max_usage) && valid_for_appraisal?(appraisal.selected_plan)
+      increment_usage_count(appraisal)
       result =update_attributes(used_on: Time.now)
     end
     result ||= false
@@ -65,21 +66,32 @@ class Coupon < ActiveRecord::Base
     expiration_date < Date.today
   end
 
-  def calculate_discount(amount)
+  def calculate_discounted_amount(amount)
     if discount_type == "fixed"
-      amount = amount - discount
+      discounted_amount = amount - discount
     elsif discount_type == "percentage"
-      amount = amount * (1- discount/100)
+      discounted_amount = amount * (1- discount/100)
     end
     if max_discount
-      amount = max_discount if amount > max_discount
+      discounted_amount = (amount - max_discount) if amount > max_discount
     end
-    return amount
+    return discounted_amount
+  end
+
+  def gross_profit
+    gross_amount = 0
+    self.coupon_usages.each do |usage|
+      appraisal = usage.appraisal
+      if appraisal.status == EActivityValueFinalized
+        gross_amount += appraisal.payment.amount - appraisal.payout.amount
+      end
+    end
+    gross_amount
   end
 
   private
-  def increment_usage_count
-    self.usage_count += 1
+  def increment_usage_count(appraisal)
+    self.usage_count += 1 if CouponUsage.create({coupon_id: self.id, appraisal_id: appraisal.id})
     self.save
   end
 

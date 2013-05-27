@@ -3,6 +3,7 @@ class Appraisal < ActiveRecord::Base
   has_paper_trail :only => [:status, :assigned_to, :assigned_on], :skip => [:appraisal_info]
 
   has_one :payout, :dependent => :destroy
+  has_one :coupon_usage, :dependent => :nullify
 
   has_many :appraisal_activities
   has_many :photos, :dependent => :destroy
@@ -101,6 +102,19 @@ class Appraisal < ActiveRecord::Base
     self.status = EActivityValueRejected
     self.save
     UserMailer.notify_user_of_rejection(self,comments).deliver if (Rails.env == 'development' || Rails.env == 'production')
+  end
+
+  def claim!(params)
+    return false if self.status != EActivityValuePayed
+
+    self.assigned_to = params[:appraiser] #current_user
+    self.assigned_on = Time.now
+    self.status = EActivityValueClaimed
+    self.save
+  end
+
+  def finalize!
+    self.update_attributes(status: EActivityValueFinalized)
   end
 
   private

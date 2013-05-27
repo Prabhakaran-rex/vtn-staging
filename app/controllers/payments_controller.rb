@@ -37,7 +37,7 @@ class PaymentsController < ApplicationController
     if payment_response.success?
       Payment.add_payment(payment_response.authorization, credit_card.number[-4,4], credit_card.amount/100, current_user.id, @appraisal.id)
       if params[:payment][:coupon]
-        Coupon.find_by_code(params[:payment][:coupon]).apply!(@appraisal.selected_plan)
+        Coupon.find_by_code(params[:payment][:coupon]).apply!(@appraisal)
       end
       @appraisal.pay_and_notify!
 
@@ -75,7 +75,7 @@ class PaymentsController < ApplicationController
     credit_card[:amount]  = PAYMENT_PLAN[ @appraisal.selected_plan-1 ]*100
     credit_card[:has_coupon] = !ccparam[:coupon].blank?
     if credit_card[:has_coupon]
-      credit_card[:amount] = Coupon.details_for(ccparam[:coupon]).calculate_discount(credit_card[:amount]/100)*100
+      credit_card[:amount] = Coupon.details_for(ccparam[:coupon]).calculate_discounted_amount(credit_card[:amount]/100)*100
     end
     return Payment::CreditCard.new(credit_card)
   end

@@ -8,6 +8,8 @@ class Payment < ActiveRecord::Base
   has_one :coupon
   accepts_nested_attributes_for :coupon
   attr_accessor :coupon_attributes
+  validates_presence_of :appraisal_id
+  validates_presence_of :user_id
 
 
   class << self
