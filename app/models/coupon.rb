@@ -75,7 +75,7 @@ class Coupon < ActiveRecord::Base
     if max_discount
       discounted_amount = (amount - max_discount) if amount > max_discount
     end
-    return discounted_amount
+    return discounted_amount.round(2)
   end
 
   def gross_profit

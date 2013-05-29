@@ -56,7 +56,7 @@ class PaymentsController < ApplicationController
     respond_to do |format|
       coupon = Coupon.details_for(params[:coupon_code])
       if Coupon.is_coupon_valid?(params[:coupon_code]) && coupon.valid_for_appraisal?(params[:appraisal_type].to_i)
-        format.json {render json: {discount: coupon.discount, discount_type: coupon.discount_type}}
+        format.json {render json: {discount: coupon.calculate_discounted_amount(PAYMENT_PLAN[(params[:appraisal_type].to_i)-1]), discount_type: coupon.discount_type}}
       else
         format.json { render json: false, status: :unprocessable_entity }
       end

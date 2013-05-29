@@ -30,15 +30,14 @@ jQuery ->
 
   #See how we can return a JSON object instead of an array
   calculate_discount = (price, discount, type) ->
-    discount_amount = 0
-    if type == "percentage"
-      discount_amount = price*(discount/100)
-    else if type == "fixed"
-      discount_amount = discount
-    [price, discount_amount, price-discount_amount]
+    if discount is 0
+      ret = [price, 0, price]
+    else
+      ret = [price, price-discount, discount]
+    ret
 
   as_currency = (value) ->
-    "$"+value
+    "$" + parseFloat(value, 10).toFixed(2)
 
   update_totals = (amounts) ->
     $("#td_appraisal_cost").text(as_currency(amounts[0]))
