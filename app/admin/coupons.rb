@@ -31,7 +31,7 @@ ActiveAdmin.register Coupon do
       f.input :max_discount, hint: "If entered, this is the maximum amount that will be deducted from the price"
       f.input :start_date
       f.input :expiration_date
-      f.input :description, hint: "Will be shown in places like the featured box in the home page"
+      f.input :description, hint: "Will be shown in places like feature box in home page/should include agent payout amount for non featured coupons"
       f.input :allowed_products, :label => "Allowed Products",
                 :as => :check_boxes,
                 :multiple => true,
