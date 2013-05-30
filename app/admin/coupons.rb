@@ -13,7 +13,13 @@ ActiveAdmin.register Coupon do
     column :expiration_date
     column "Times Used", :usage_count
     column :max_usage
-    column "Gross Profit" do |coupon|
+    column "Prev Month Gross Profit" do |coupon|
+      number_with_precision coupon.gross_profit(1), :precision => 2
+    end
+    column "Current Month Gross Profit" do |coupon|
+      number_with_precision coupon.gross_profit(0), :precision => 2
+    end
+    column "Total Gross Profit" do |coupon|
       number_with_precision coupon.gross_profit, :precision => 2
     end
     column :description

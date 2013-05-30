@@ -78,15 +78,22 @@ class Coupon < ActiveRecord::Base
     return discounted_amount.round(2)
   end
 
-  def gross_profit
+  def gross_profit(month_offset = nil)
+   #appraisals.group_by{|t| t.created_at.beginning_of_month}.sort.each do |month,appraisals|
     gross_amount = 0
-    self.coupon_usages.each do |usage|
+
+    if month_offset
+      usages = self.coupon_usages.find(:all, :conditions => ['created_at > ? AND created_at < ?', month_offset.months.ago.beginning_of_month, month_offset.months.ago.end_of_month])
+    else
+      usages = self.coupon_usages
+    end
+    usages.each do |usage|
       appraisal = usage.appraisal
       if appraisal.status == EActivityValueFinalized
         gross_amount += appraisal.payment.amount - appraisal.payout.amount
       end
     end
-    gross_amount
+    gross_amount.round(2)
   end
 
   private

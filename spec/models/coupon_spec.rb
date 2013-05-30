@@ -242,7 +242,7 @@ describe Coupon do
       payment = FactoryGirl.create(:payment, amount: appraisal_cost - coupon.discount)
       coupon.apply!(appraisal)
       payout = FactoryGirl.create(:payout, appraiser: appraiser, appraisal: appraisal, status: EAPayoutPending, amount: 10.00)
-      coupon.gross_profit.should eq (appraisal_cost - coupon.discount - payout.amount)
+      coupon.gross_profit.should eq ((appraisal_cost - coupon.discount - payout.amount).round(2))
     end
   end
 end
