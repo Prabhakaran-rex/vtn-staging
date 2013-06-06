@@ -110,7 +110,7 @@ gem 'refinerycms-dashboard', '~> 2.0.9'
 gem 'refinerycms-images', '~> 2.0.9'
 gem 'refinerycms-pages', '~> 2.0.9'
 gem 'refinerycms-resources', '~> 2.0.9'
-gem "refinerycms-blog", "~> 2.0.4"
+gem 'refinerycms-blog', github: 'refinery/refinerycms-blog', branch: '2-0-stable'
 gem "tilt", "1.3.4"
 
 group :test, :development do
