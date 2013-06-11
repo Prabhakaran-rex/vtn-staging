@@ -21,7 +21,7 @@ class PaymentsController < ApplicationController
 
     coupon = Coupon.find_by_code(params[:payment][:coupon])
 
-    if !coupon.valid_for_appraisal?(@appraisal.selected_plan)
+    if coupon && !coupon.valid_for_appraisal?(@appraisal.selected_plan)
       flash[:notice] = "Cannot process: Invalid coupon"
       redirect_to payments_path(:appraisal_id => @appraisal) and return
     end
