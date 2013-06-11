@@ -36,8 +36,8 @@ class PaymentsController < ApplicationController
 
     if payment_response.success?
       Payment.add_payment(payment_response.authorization, credit_card.number[-4,4], credit_card.amount/100, current_user.id, @appraisal.id)
-      if params[:payment][:coupon]
-        Coupon.find_by_code(params[:payment][:coupon]).apply!(@appraisal)
+      if coupon
+        coupon.apply!(@appraisal)
       end
       @appraisal.pay_and_notify!
 
