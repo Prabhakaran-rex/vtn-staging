@@ -51,7 +51,7 @@ class User < Refinery::Core::BaseModel
 
   # Set requirement for signup
   validates :agree_to_tos, :acceptance => true, :on => :create
-  validates_presence_of :name, :username
+  validates_presence_of :name
 
   def notify_creator_of_appraisal_update( appraisal )
     UserMailer.notify_creator_of_appraisal_update( appraisal ).deliver
@@ -108,7 +108,7 @@ class User < Refinery::Core::BaseModel
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+      where(conditions).where(["lower(email) = :value", { :value => login.downcase }]).first
     else
       where(conditions).first
     end

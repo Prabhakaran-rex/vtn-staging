@@ -14,19 +14,14 @@
       <%= render :partial => "validation_errors" %>
 
       <%= f.input :name %>
-      <%= f.input :email, :disabled => true %>
-      <%= f.input :website, :label => "Preferred Web Address" %>
+      <%= f.input :email %>
       <%= f.simple_fields_for :address, @user.address do |a| %>
         <%= a.input :address, :required => @user.is_appraiser?  %>
-        <%= a.input :address2, :label => "Address 2" %>
         <%= a.input :city, :required => @user.is_appraiser? %>
         <%= a.input :state, :label => "State/Province", :required => @user.is_appraiser? %>
         <%= a.input :country, :priority => [ "United States" ], :required => @user.is_appraiser? %>
         <%= a.input :zip, :label => "Postal Code", :required => @user.is_appraiser? %>
-        <%= a.input :phone1, :label => "Phone 1", :input_html => {:class => "phone-input"}, :required => @user.is_appraiser? %>
-        <%= a.input :phone2, :label => "Phone 2", :input_html => {:class => "phone-input"} %>
-        <%= a.input :phone3, :label => "Phone 3", :input_html => {:class => "phone-input"} %>
-        <%= a.input :fax, :input_html => {:class => "phone-input"} %>
+        <%= a.input :phone1, :label => "Phone", :input_html => {:class => "phone-input"}, :required => @user.is_appraiser? %>
       <% end %>
   </div>
   <div class="span3 div-gravatar">
