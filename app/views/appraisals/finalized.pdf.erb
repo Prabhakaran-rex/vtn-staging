@@ -23,10 +23,10 @@ $(document).ready(function() {
 <body>
 <% unless @supplemental %>  
 <section class="container">
-  <div class="top_certificate">
+  <div class=" top_certificate <%= "top_certificate_full" if @full %>">
   </div>
 
-  <div class="content-certificate">
+  <div class="content-certificate <%= "content-certificate_full" if @full %>">
     <h1><%= @appraisal.title %></h1>
 
     <div class="slider">
@@ -78,16 +78,110 @@ $(document).ready(function() {
         </p>
       </div>
     </div>
+    <% if @full %>
+    <div class="description diff">
+      <div class="left_description">
+        <h2>Category:</h2>
+      </div>
+      <div class="right_description">
+        <p>
+        <%= @appraisal.classification.category.name %>
+        </p>
+      </div>
+      </div>
+    <% end %>
 
     <div class="description">
       <div class="container-description">
         <h1 class="clear">Description:</h1>
         <p>
-        <%= @appraisal.name.truncate(300)%>
+        <%= @appraisal.name%>
         </p>
-        <%= link_to 'See more', appraisal_url(@appraisal, :target => "_blank") %>
       </div>
     </div>
+
+    <% if @full %>
+    <div class="description">
+      <div class="container-description">
+        <h1 class="clear">Approx. Date of Manufacture:</h1>
+        <p>
+					<%= @appraisal.appraisal_info.year_of_manufacture %>
+        </p>
+      </div>
+    </div>
+    <% end %>
+
+    <% if @full %>
+    <div class="description">
+      <div class="container-description">
+        <h1 class="clear">
+          <%= "Signatures, Maker/Maker's, Dates, etc.:" %> </h1>
+        <p>
+          <%= @appraisal.appraisal_info.makers_marks %>
+        </p>
+      </div>
+    </div>
+    <% end %>
+
+    <% if @full %>
+    <div class="description">
+      <div class="container-description">
+        <h1 class="clear">
+          <%= "Inscriptions:" %> </h1>
+        <p>
+          <%= @appraisal.appraisal_info.inscriptions %>
+        </p>
+      </div>
+    </div>
+    <% end %>
+
+    <% if @full %>
+    <div class="description">
+      <div class="container-description">
+        <h1 class="clear">
+          <%= "Dimensions:" %> </h1>
+        <p>
+          <%= @appraisal.appraisal_info.dimensions %>
+        </p>
+      </div>
+    </div>
+    <% end %>
+
+    <% if @full %>
+    <div class="description">
+      <div class="container-description">
+        <h1 class="clear">
+          <%= "Condition:" %> </h1>
+        <p>
+          <%= @appraisal.appraisal_info.damage %>
+        </p>
+      </div>
+    </div>
+    <% end %>
+
+    <% if @full %>
+    <div class="description">
+      <div class="container-description">
+        <h1 class="clear">
+          <%= "Item History:" %> </h1>
+        <p>
+          <%= @appraisal.appraisal_info.item_history %>
+        </p>
+      </div>
+    </div>
+    <% end %>
+
+    <% if @full %>
+    <div class="description">
+      <div class="container-description">
+        <h1 class="clear">
+          <%= "Additional Extraordinary Assumptions:" %> </h1>
+        <p>
+          <%= @appraisal.appraisal_info.additional_ea %>
+        </p>
+      </div>
+    </div>
+    <% end %>
 
     <div class="description">
       <div class="container-description">
@@ -129,7 +223,7 @@ $(document).ready(function() {
       <%= link_to 'View Complete Report', appraisal_url(@appraisal, :target => "_blank") %>
     </div>
   </div>
-  <div class="fotter_certificate">
+  <div class="fotter_certificate <%= "fotter_certificate_full" if @full %>">
     <h1><a href="https://www.valuethisnow.com">www.ValueThisNow.com</a></h1>
   </div>
 </section>

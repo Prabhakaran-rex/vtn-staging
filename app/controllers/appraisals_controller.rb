@@ -20,6 +20,7 @@ class AppraisalsController < ApplicationController
     # TODO Guarantee that only appraisals from production environment are sent to the affiliate program
     @payment_completed = flash[:payment_completed] == @appraisal.id
     @long ||= params[:pdf_long]
+    @full ||= params[:pdf_full]
     @user = User.find_by_id(current_user)
     @appraisal_comments = @appraisal.root_comments.order('created_at ASC')
     @supplemental ||= params[:supplemental]
