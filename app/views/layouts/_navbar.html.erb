@@ -1,43 +1,21 @@
-<div class="navbar navbar-fixed-top" >
-  <div class="navbar-inner">
-    <div class="container">
-      <div class="logo"><%= link_to image_tag("logo.png", :alt=> "finding antique and collectable treasure"), main_app.root_path %>
-        <span class="nav_menu">
-          <ul class="nav" style="z-index:1000;">
-              <li style="font-size:13px;"><%= link_to("Home", main_app.root_path) %></li>
-              <li style="font-size:13px;"><a href="#">|</a></li>
-            <% if current_user %>
-              <li style="font-size:13px;"><%= link_to main_app.appraiser_steps_path do %><%= image_tag current_user.avatar_url(:small), :size => '18x18', :class=>'gravatar-tiny' %> My Account <% end %></li>
-              <% if current_user.is_appraiser? && current_user.is_confirmed? %>
-                <li style="font-size:13px;"><a href="#">|</a></li>
-                <li style="font-size:13px;"><%= link_to("My Dashboard", dashboard_detail_path) %></li>
-              <% elsif current_user.is_customer? %>
-                <li style="font-size:13px;"><a href="#">|</a></li>
-                <li style="font-size:13px;"><%= link_to("My Appraisals", main_app.users_path) %></li>
-              <% end %>
-                <li style="font-size:13px;"><a href="#">|</a></li>
-                <li style="font-size:13px;"><%= link_to("Support", main_app.tickets_path) %></li>
-            <% else %>
-              <li style="font-size:13px;"><%= link_to "Blog", refinery.blog_root_path %></li>
-              <li style="font-size:13px;"><a href="#">|</a></li>
-              <li style="font-size:13px;"><%= link_to "How it works", main_app.how_path %></li>
-              <li style="font-size:13px;"><a href="#">|</a></li>
-              <li style="font-size:13px;"><%= link_to 'What makes us different?', main_app.what_makes_path %></li>
-              <li style="font-size:13px;"><a href="#">|</a> </li>
-              <li style="font-size:13px;"><%= link_to("Become an Appraiser", main_app.become_path) %></li>
-            <% end %>
-          </ul>
-        </span>
-      </div>
-      <div class="btn-group pull-right" style="padding-top: 25px; padding-right: 180px; padding-bottom: 5px; z-index: 100;">
-        <% if current_user %>
-        <%= button_to("Signout", main_app.destroy_user_session_path, :method => :delete, :class => "btn btn-success btn-mini") %>
-        <% else %>
-        <%= link_to "Log In", main_app.new_user_session_url, :class => "btn btn-success btn-mini" %>
-        <%= link_to "Register as Customer", main_app.new_customer_registration_path, :class => "btn btn-success btn-mini" %>
-        <%= link_to "Register as Appraiser", main_app.new_appraiser_registration_path, :class => "btn btn-success btn-mini" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
+<div id="nav">
+  <%= link_to image_tag("logo.png", :alt=> "finding antique and collectable treasure", :class => 'logo'), main_app.root_path %>
+  <% if current_user %>
+    <span class="navitem"><%= link_to("Account", main_app.appraiser_steps_path) %></span>
+    <% if current_user.is_appraiser? && current_user.is_confirmed? %>
+      <span class="navitem"><%= link_to("My Dashboard", dashboard_detail_path) %></span>
+  <% elsif current_user.is_customer? %>
+      <span class="navitem"><%= link_to("My Appraisals", main_app.users_path) %></span>
+  <% end %>
+    <span class="navitem"><%= link_to("Support", main_app.tickets_path) %></span>
+    <span class="navitem"><%= link_to("Signout", main_app.destroy_user_session_path, method: :delete) %></span>
+  <% else %>
+    <span class="navitem"><%= link_to "Blog", refinery.blog_root_path %></span>
+    <span class="navitem"><%= link_to "How it works", main_app.how_path %></span>
+    <span class="navitem"><%= link_to 'What makes us different?', main_app.what_makes_path %></span>
+    <span class="navitem"><%= link_to("Become an Appraiser", main_app.become_path) %></span>
+    <span class="navitem"><%= link_to("Log In", main_app.new_user_session_path) %></span>
+    <span class="navitem"><%= link_to "Register as Customer", main_app.new_customer_registration_path %></span>
+    <span class="navitem"><%= link_to "Register as Appraiser", main_app.new_appraiser_registration_path %></span>
+  <% end %>
 </div>

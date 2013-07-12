@@ -30,7 +30,6 @@ gem 'jquery-rails', '~> 2.0.0'
 # For Twitter bootstrap
 gem 'sass-rails',   '~> 3.2.3'
 gem 'bootstrap-sass', '~> 2.0.4.0'
-# gem "bootstrap-sass", "~> 2.2.1.1"
 
 gem "heroku-forward"
 

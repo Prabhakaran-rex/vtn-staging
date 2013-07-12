@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1">
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ValueThisNow: an online appraisal service for antiques &amper; collectibles</title>
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900' rel='stylesheet' type='text/css'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%= render :partial => 'layouts/meta' %>
-<meta name="author" content="">
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+<%= stylesheet_link_tag    "application", :media => "all" %>
+<%= javascript_include_tag "application" %>
+<%= csrf_meta_tags %>
 <!--  styles -->
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -30,44 +30,45 @@ document.writeln('<scr' + 'ipt language="JavaScript" src="'+cvc_loc0+'" type="te
 </script>
 </head>
 <body>
-<%= render :partial => "layouts/welcome" %>
+<%= # render :partial => "layouts/welcome"
+%>
 <!-- Navbar -->
 <%= render :partial => "layouts/navbar"%>
-<div class="container">
-  <div id="subpage">
-    <div class="container">
-      <!-- Flash Notice -->
-      <% if flash[:notice] %>
+<div>
+  <div class="container">
+    <!-- Flash Notice -->
+    <% if flash[:notice] %>
       <div class="row">
-          <div class="alert alert-info">
-            <a class="close" data-dismiss="alert">×</a>
-            <%= flash[:notice] %>
-          </div> <!-- Alert -->
-      </div> <!-- Row Fluid -->
-      <% end %>
-      <!-- End Notice -->
-      <!-- Flash alert -->
-      <% if flash[:alert] %>
+      <div class="alert alert-info">
+        <a class="close" data-dismiss="alert">×</a>
+        <%= flash[:notice] %>
+      </div> <!-- Alert -->
+    </div> <!-- Row Fluid -->
+  <% end %>
+    <!-- End Notice -->
+    <!-- Flash alert -->
+    <% if flash[:alert] %>
       <div class="row">
-          <div class="alert">
-            <a class="close" data-dismiss="alert">×</a>
-            <%= flash[:alert] %>
-          </div> <!-- Alert -->
-      </div> <!-- Row Fluid -->
-      <% end %>
-      <!-- End Notice -->
-      <!-- Flash Error -->
-      <% if flash[:error] %>
+      <div class="alert">
+        <a class="close" data-dismiss="alert">×</a>
+        <%= flash[:alert] %>
+      </div> <!-- Alert -->
+    </div> <!-- Row Fluid -->
+  <% end %>
+    <!-- End Notice -->
+    <!-- Flash Error -->
+    <% if flash[:error] %>
       <div class="row">
-          <div class="alert alert-error">
-            <a class="close" data-dismiss="alert">×</a>
-            <%= flash[:error] %>
-          </div> <!-- Alert -->
-      </div> <!-- Row Fluid -->
-      <% end %>
-      <!-- End Notice -->
-          <%= yield %>
-      </div>
+      <div class="alert alert-error">
+        <a class="close" data-dismiss="alert">×</a>
+        <%= flash[:error] %>
+      </div> <!-- Alert -->
+    </div> <!-- Row Fluid -->
+  <% end %>
+    <!-- End Notice -->
+  </div>
+  <div>
+    <%= yield %>
   </div>
 </div>
 <%= render :partial => "layouts/footer" %>

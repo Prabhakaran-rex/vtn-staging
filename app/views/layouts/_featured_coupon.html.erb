@@ -1,6 +1,5 @@
 <% if @featured_coupon %>
-  <div class="alert alert-success" style="text-align: center;">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong><%= @featured_coupon.description %></strong>
-</div>
+  <div id="couponblock">
+  <%= raw @featured_coupon.description %>
+  </div>
 <% end %>

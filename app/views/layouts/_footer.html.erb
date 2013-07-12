@@ -1,47 +1,25 @@
-<div id="footer">
-  <div class="inner">
-    <div class="container">
-      <div id="footer-copyright">
-        <p>
-        <%= link_to "Blog", refinery.blog_root_path %> |
-        <%= link_to("Appraisal Cost", main_app.cost_path) %> |
-        <%= link_to("How It Works", main_app.how_path) %> |
-        <%= link_to("Contact", main_app.contact_path) %> |
-        <%= link_to("Become an Appraiser", main_app.become_path) %> |
-        <%= link_to("Privacy Policy", main_app.privacy_path) %> |
-        <%= link_to("Terms of Service", main_app.terms_path) %>
-        </p>
-        <p>
-        <a title="facebook" href="http://www.facebook.com/ValueThisNow" target="_blank"><img alt="Facebook"  src="https://s3.amazonaws.com/media.valuethisnow.com/images/Facebook.png"></a>
-        <a title="twitter" href="http://www.twitter.com/valuethisnow" target="_blank"><img alt="Twitter" src="https://s3.amazonaws.com/media.valuethisnow.com/images/Twitter.png"></a>
-        <a title="gplus" href="https://plus.google.com/111102739695613579731" target="_blank"><img alt="GooglePlus" src="https://s3.amazonaws.com/media.valuethisnow.com/images/Google.png"></a>
-        <a title="pinterest" href="http://pinterest.com/valuethisnow" target="_blank"><img alt="Pinterest" src="https://s3.amazonaws.com/media.valuethisnow.com/images/Pinterest.png"></a>
-        <a title="linkedin" href="http://www.linkedin.com/in/valuethisnow" target="_blank"><img alt="LinkedIn" src="https://s3.amazonaws.com/media.valuethisnow.com/images/LinkedIn.png"></a>
-        </p>
-      </div>
-    </div>
-    <!-- /container -->
+<div class="footer">
+  <div>
+    <%= link_to "Appraise my item", main_app.new_user_session_path %></a>
+  <a href="#">Learn about online appraisals</a>
+  <%= link_to "Blog", refinery.blog_root_path %>
+  <%= link_to("Support", main_app.contact_path) %>
+  <%= link_to("Become an Appraiser", main_app.become_path) %>
+  <%= link_to("Privacy Policy", main_app.privacy_path) %>
+  <%= link_to("Terms of Service", main_app.terms_path) %>
+  <%= link_to "Login", main_app.new_user_session_path %></a>
   </div>
-  <!-- /inner -->
+  <div>
+<span class="copyright">copyright 2013 Valuethisnow.com</span>
+<div class="footerLock">
+<script type="text/javascript">TrustLogo("<%= image_path ("secure.png") %>", "SC5", "none");</script>
 </div>
-<div id="logos" class="row-fluid" style="width: 100%;">
-  <div class="span2">&nbsp;</div>
-  <div class="span2">
-    <script type="text/javascript">TrustLogo("https://s3.amazonaws.com/vtn.assets.valuethisnow.com/tl_white.gif", "SC5", "none");</script>
-  </div>
-  <div class="span2">
-    <a href="https://www.paypal.com/us/verified/pal=rjohnston%40colosses%2ecom" target="_blank"><img src="https://www.paypal.com/en_US/i/icon/verification_seal.gif"  alt="Official PayPal Seal" width="75" height="75"></A>
-  </div>
-  <div class="span2">
-    <script type="text/javascript">var ANS_customer_id="e6d07733-39cf-4af2-9f8c-b27b1dbdfb31";</script> <script type="text/javascript" src="//verify.authorize.net/anetseal/seal.js" ></script> <a href="http://www.authorize.net/" id="AuthorizeNetText" target="_blank"></a>
-  </div>
-  <div class="span2">
-    <%= image_tag "cards.jpg", style: "margin-top: 20px;" %>
-  </div>
-  <div class="span2">&nbsp;</div>
+<div class="footerSocial">
+  <a href="http://www.facebook.com/ValueThisNow" title="Visit our Facebook page."><span id="fS1"></span></a>
+  <a href="http://www.twitter.com/valuethisnow" title="See our twitter feed."><span id="fS2"></span></a>
+  <a href="http://pinterest.com/valuethisnow" title="See our Pinterest board."><span id="fS3"></span></a>
 </div>
-<div class="pull-right">
-  <small>Copyright &copy; 2013 Colosses LLC, All Rights Reserved</small>
+</div>
 </div>
 <%= render :partial => "layouts/affiliate" %>
 
