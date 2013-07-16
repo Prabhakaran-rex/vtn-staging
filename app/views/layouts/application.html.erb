@@ -3,8 +3,13 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<% if !@post.nil? && @post.class.to_s == "Refinery::Blog::Post" %>
+<title><%= @post.seo_meta.browser_title unless @post.seo_meta.nil? %></title>
+<% else %>
 <title>ValueThisNow: an online appraisal service for antiques &amper; collectibles</title>
+<% end %>
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900' rel='stylesheet' type='text/css'>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%= render :partial => 'layouts/meta' %>
 <%= stylesheet_link_tag    "application", :media => "all" %>
