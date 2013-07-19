@@ -10,7 +10,7 @@
       <li><%= link_to 'View All Items', dashboard_detail_path(:detail => 'unclaimed') %></li>
     </ul>
     </li>
-    <li class="dropdown <%= !@payouts.nil? ? "active" : "" %>"">
+    <li class='dropdown <%= !@payouts.nil? ? "active" : "" %>"'>
     <a href="#" data-toggle="dropdown" class="dropdown-toggle">Transactions<b class="caret"></b></a>
     <ul class="dropdown-menu">
       <li><%= link_to 'Transactions This Month', dashboard_payouts_path(:status => 'pending') %></li>
