@@ -4,17 +4,14 @@ class AppraisalsController < ApplicationController
   before_filter :is_appraiser_confirmed, :except => [:wizard_photo_upload, :wizard_categories, :show_shared]
 
   # GET /appraisals
-  # GET /appraisals.xml
   def index
     @appraisals = Appraisal.visible
     respond_to do |format|
       format.html # index.html.haml
-      format.xml  { render :xml => @appraisals }
     end
   end
 
   # GET /appraisals/1
-  # GET /appraisals/1.xml
   def show
     @appraisal = Appraisal.find(params[:id])
     # TODO Guarantee that only appraisals from production environment are sent to the affiliate program
@@ -31,7 +28,6 @@ class AppraisalsController < ApplicationController
 
     respond_to do |format|
       format.html #{ render :layout => 'shareable' }# show.html.erb
-      format.xml  { render :xml => @appraisal }
       format.pdf { render :pdf => 'file_name.pdf', :page_size => "Legal", :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb" }
     end
   end
@@ -50,14 +46,12 @@ class AppraisalsController < ApplicationController
   end
 
   # GET /appraisals/new
-  # GET /appraisals/new.xml
   def new
     @appraisal = Appraisal.new
     1.times { @appraisal.photos.build }
 
     respond_to do |format|
       format.html # new.html.haml
-      format.xml  { render :xml => @appraisal }
     end
   end
 
@@ -76,12 +70,10 @@ class AppraisalsController < ApplicationController
       flash[:error]  = "You are not authorized to edit this appraisal"
       redirect_to root_path
     end
-    @appraisal_comments = @appraisal.root_comments.order('created_at ASC')
-    1.times { @appraisal.appraisal_datums.build }
+    @appraisal_comments = @appraisal.retrieve_comments
   end
 
   # POST /appraisals
-  # POST /appraisals.xml
   def create
     params[:appraisal][:appraisal_info] = AppraisalInfo.new(params[:appraisal][:appraisal_info])
     @appraisal = Appraisal.new(params[:appraisal])
@@ -90,21 +82,18 @@ class AppraisalsController < ApplicationController
 
     if @appraisal.save
       session[:new_appraisal] = @appraisal.id
-      log_activity(@appraisal)
       # redirect_to payments_path(:appraisal_id => @appraisal.id) 
       redirect_to wizard_photo_upload_path(:appraisal_id => @appraisal.id)     
     else
       respond_to do |format|
         flash[:error] = 'Appraisal cannot be created!'
         format.html { render :action => "new" }
-        format.xml  { render :xml => @appraisal.errors, :status => :unprocessable_entity }
       end
     end
 
   end
 
   # PUT /appraisals/1
-  # PUT /appraisals/1.xml
   def update
     @appraisal = Appraisal.find(params[:id])
     if params[:suggest_rejection]
@@ -130,26 +119,22 @@ class AppraisalsController < ApplicationController
         elsif params[:notify_user]
           @appraisal.owned_by.notify_creator_of_appraisal_update( @appraisal )
         end
-        log_activity(@appraisal)
         format.html { redirect_to(@appraisal, :notice => 'Appraisal was successfully updated.') }
-        format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @appraisal.errors, :status => :unprocessable_entity }
+        @appraisal_comments = @appraisal.retrieve_comments
+        format.html { render :action => current_user.is_appraiser? ? "reply" : "edit" }
       end
     end
   end
 
 
   # DELETE /appraisals/1
-  # DELETE /appraisals/1.xml
   def destroy
     @appraisal = Appraisal.find(params[:id])
     @appraisal.destroy
 
     respond_to do |format|
       format.html { redirect_to(root_path, :notice => 'Appraisal was deleted successfully.') }
-      format.xml  { head :ok }
     end
   end
 
@@ -177,7 +162,6 @@ class AppraisalsController < ApplicationController
 
     respond_to do |format|
       format.html #{ render :layout => 'shareable' }# show.html.erb
-      format.xml  { render :xml => @appraisal }
       format.pdf { render :pdf => 'file_name.pdf', :page_size => "letter", :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb" }
     end
   end
@@ -226,16 +210,6 @@ class AppraisalsController < ApplicationController
 
 
   protected
-
-  def log_activity(appraisal)
-    activity = AppraisalActivity.new({:appraisal_id   => appraisal.id,
-                                      :user_id      => current_user.id,
-                                      :activity_type  => User.roles.index(current_user.role),
-                                      :activity_value => appraisal.status
-    })
-    activity.save
-  end
-
   def is_appraiser_confirmed
     redirect_to :appraiser_steps if current_user.is_appraiser? && current_user.status != EAUserStatusConfirmed
   end    
