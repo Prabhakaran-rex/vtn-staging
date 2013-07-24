@@ -146,9 +146,6 @@ class Appraisal < ActiveRecord::Base
       if self.appraisal_info.appraiser_comments.blank?
         errors.add(:appraiser_comments, "can't be blank")
       end
-      if self.appraisal_info.appraiser_comments.blank?
-        errors.add(:appraiser_comments, "can't be blank")
-      end
     end
   end
 end

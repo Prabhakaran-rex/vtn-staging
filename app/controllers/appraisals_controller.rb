@@ -122,6 +122,7 @@ class AppraisalsController < ApplicationController
         format.html { redirect_to(@appraisal, :notice => 'Appraisal was successfully updated.') }
       else
         @appraisal_comments = @appraisal.retrieve_comments
+        @appraisal.status = Appraisal.find(params[:id]).status # This is so the previous status is kept when returning to reply view after invalid parameters #53889653
         format.html { render :action => current_user.is_appraiser? ? "reply" : "edit" }
       end
     end
