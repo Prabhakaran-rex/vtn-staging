@@ -19,3 +19,4 @@ routes.out
 log.out
 .vagrant
 Vagrantfile
+.env
