@@ -4,7 +4,7 @@
   <%= devise_error_messages! %>
 <%= f.hidden_field :reset_password_token %>
 <div class="form-inputs">
-  <%= f.input :password, :label => "New password", :hint => "Must have at least 8 characters: at least 1 digit, at least 1 lower case letter, at least 1 upper case letter, at least 1 non-alphanumeric character." %>
+  <%= f.input :password, :label => "New password", :hint => "Must have at least 6 characters: at least 1 digit, at least 1 upper case letter."%> 
   <%= f.input :password_confirmation, :hint => "Must have at least 8 characters: at least 1 digit, at least 1 lower case letter, at least 1 upper case letter, at least 1 non-alphanumeric character."%>
 </div>
 <div class="form-actions">
