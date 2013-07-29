@@ -4,8 +4,8 @@ class AppraisalsController < ApplicationController
   before_filter :is_appraiser_confirmed, :except => [:wizard_photo_upload, :wizard_categories, :show_shared]
 
   # GET /appraisals
+  # TODO Refactor- This can be removed
   def index
-    @appraisals = Appraisal.visible
     respond_to do |format|
       format.html # index.html.haml
     end
@@ -14,6 +14,10 @@ class AppraisalsController < ApplicationController
   # GET /appraisals/1
   def show
     @appraisal = Appraisal.find(params[:id])
+    if (@appraisal.status != EActivityValuePayed) && (@appraisal.assigned_to != current_user) && (@appraisal.created_by != current_user.id)
+      flash[:error]  = "You are not authorized to view this appraisal"
+      return redirect_to root_path
+    end
     # TODO Guarantee that only appraisals from production environment are sent to the affiliate program
     @payment_completed = flash[:payment_completed] == @appraisal.id
     @long ||= params[:pdf_long]
@@ -213,5 +217,5 @@ class AppraisalsController < ApplicationController
   protected
   def is_appraiser_confirmed
     redirect_to :appraiser_steps if current_user.is_appraiser? && current_user.status != EAUserStatusConfirmed
-  end    
+  end
 end
