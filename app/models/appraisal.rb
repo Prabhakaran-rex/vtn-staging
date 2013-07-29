@@ -1,5 +1,6 @@
 class Appraisal < ActiveRecord::Base
   before_save :sanitize_appraisal_info
+  before_validation :validate_appraisal_info
 
   has_paper_trail :only => [:status, :assigned_to, :assigned_on], :skip => [:appraisal_info]
 
@@ -21,7 +22,7 @@ class Appraisal < ActiveRecord::Base
   accepts_nested_attributes_for :appraisal_datums, :allow_destroy => true
 
   validates_presence_of :created_by
-  validates_presence_of :title
+  validates_presence_of :name, :title
   validates :selected_plan, :presence => { :message => "Please select a plan to continue" }
   validate :validate_appraisal_requirements
 
@@ -146,6 +147,12 @@ class Appraisal < ActiveRecord::Base
       if self.appraisal_info.appraiser_comments.blank?
         errors.add(:appraiser_comments, "can't be blank")
       end
+    end
+  end
+
+  def validate_appraisal_info
+    unless self.appraisal_info.valid?
+      errors.add :appraisal_info, appraisal_info.errors
     end
   end
 end
