@@ -22,7 +22,7 @@
       <%= a.input :inscriptions, :label => "Inscriptions,etc", :as => :text, :hint => "(List any inscriptions, monograms, dedications or other such markings. If none, enter 'none'.)" , :input_html => {:class => "input-xxlarge", :rows => 4}%>
       <%= a.input :dimensions, :label => "Dimensions", :as => :text, :hint => "(Enter the height, width, depth, diameter as appropriate.)" , :input_html => {:class => "input-xxlarge", :rows => 4}%>
       <%= a.input :materials, :label => "Materials", :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4} %>
-      <%= a.input :country_of_origin, :label => "Country of Origin", :as => :country, :priority => [ "Unknown", "United States" ] %>
+      <%= a.input :country_of_origin, :label => "Country of Origin", :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4} %>
 
       <%= a.input :damage, :label => "Condition", :as => :text,:hint => "(List any damages, old repairs, soiling, staining or other defects.<br>If the item is mechanical or electrical, is it in good working condition?) ", :input_html => {:class => "input-xxlarge", :rows => 4} %>
     <% end %>
