@@ -14,7 +14,7 @@ class AppraisalsController < ApplicationController
   # GET /appraisals/1
   def show
     @appraisal = Appraisal.find(params[:id])
-    if (@appraisal.status != EActivityValuePayed) && (@appraisal.assigned_to != current_user) && (@appraisal.created_by != current_user.id)
+    if (@appraisal.status != EActivityValuePayed) && (@appraisal.assigned_to != current_user) && (@appraisal.created_by != current_user.id) && (!current_user.admin?)
       flash[:error]  = "You are not authorized to view this appraisal"
       return redirect_to root_path
     end
