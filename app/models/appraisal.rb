@@ -1,6 +1,6 @@
 class Appraisal < ActiveRecord::Base
   before_save :sanitize_appraisal_info
-  #before_validation :validate_appraisal_info
+  before_validation :validate_appraisal_info
 
   has_paper_trail :only => [:status, :assigned_to, :assigned_on], :skip => [:appraisal_info]
 
