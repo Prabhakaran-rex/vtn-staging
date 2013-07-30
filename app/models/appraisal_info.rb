@@ -15,7 +15,7 @@ class AppraisalInfo
 
 	def initialize(attributes = {})
 		attributes.each do |name, value|
-			send("#{name}=", value)
+			send("#{name}=", value) unless name == "errors"
 		end
 	end
 
