@@ -330,6 +330,7 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    psych (2.0.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -530,6 +531,7 @@ DEPENDENCIES
   paperclip
   pg
   phony_rails (~> 0.1.12)
+  psych
   rails (= 3.2.11)
   rails_email_validator (~> 0.1.4)
   rb-fsevent (~> 0.9.1)

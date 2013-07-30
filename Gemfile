@@ -118,6 +118,7 @@ gem "delayed_job_active_record", "~> 0.4.4"
 gem "workless", "~> 1.1.3"
 gem "devise-async", "~> 0.5.0"
 gem "daemons", "~> 1.1.9"
+gem 'psych'
 
 group :test, :development do
   gem 'rspec-rails'
