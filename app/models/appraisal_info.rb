@@ -4,7 +4,7 @@ class AppraisalInfo
 	include ActiveModel::Conversion
 	extend ActiveModel::Naming
 
-  validates_presence_of :damage, :dimensions, :item_history
+  #validates_presence_of :damage, :dimensions, :item_history
 
 	attr_accessor :additional_ea, :dimensions, :materials, :country_of_origin, :makers_marks, 
                   :damage, :year_of_manufacture, :where_was_it_obtained, :how_was_it_obtained,
@@ -15,7 +15,7 @@ class AppraisalInfo
 
 	def initialize(attributes = {})
 		attributes.each do |name, value|
-			send("#{name}=", value) unless name == "errors"
+			send("#{name}=", value)  unless name == "errors"
 		end
 	end
 
