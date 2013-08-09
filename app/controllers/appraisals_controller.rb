@@ -15,7 +15,7 @@ class AppraisalsController < ApplicationController
   def show
     @appraisal = Appraisal.find(params[:id])
     if (@appraisal.status != EActivityValuePayed) && (@appraisal.assigned_to != current_user) && (@appraisal.created_by != current_user.id) && (!current_user.admin?)
-      flash[:error]  = "You are not authorized to view this appraisal"
+      flash[:error]  = "We are sorry, but the appraisal request you are attempting to view has already been claimed."
       return redirect_to root_path
     end
     # TODO Guarantee that only appraisals from production environment are sent to the affiliate program
@@ -63,7 +63,7 @@ class AppraisalsController < ApplicationController
   def edit
     @appraisal = Appraisal.find(params[:id])
     if @appraisal.created_by != current_user.id
-      flash[:error]  = "You are not authorized to edit this appraisal"
+      flash[:error]  = "We are sorry, but the appraisal request you are attempting to view has already been claimed."
       redirect_to root_path
     end
   end
@@ -71,7 +71,7 @@ class AppraisalsController < ApplicationController
   def reply
     @appraisal = Appraisal.find(params[:id])
     if @appraisal.assigned_to != current_user
-      flash[:error]  = "You are not authorized to edit this appraisal"
+      flash[:error]  = "We are sorry, but the appraisal request you are attempting to view has already been claimed."
       redirect_to root_path
     end
     @appraisal_comments = @appraisal.retrieve_comments
