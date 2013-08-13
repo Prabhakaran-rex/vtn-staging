@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "1.9.3"
 
 gem 'rails', '3.2.11'
 
@@ -111,6 +112,12 @@ gem 'refinerycms-pages', '~> 2.0.9'
 gem 'refinerycms-resources', '~> 2.0.9'
 gem 'refinerycms-blog', github: 'refinery/refinerycms-blog', branch: '2-0-stable'
 gem "tilt", "1.3.4"
+
+# For background jobs
+gem "delayed_job_active_record", "~> 0.4.4"
+gem "devise-async", "~> 0.5.0"
+gem "daemons", "~> 1.1.9"
+gem 'psych'
 
 group :test, :development do
   gem 'rspec-rails'

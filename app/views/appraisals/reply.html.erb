@@ -1,24 +1,22 @@
 <div class="row">
-  <h4>Edit</h1>
   <h5>Status : <%= getStringForActivityValue(@appraisal.status) %></h5>
   <h5>Type : <%= getStringForAppraisalType(@appraisal.selected_plan) %></h5>
   <h5>File Number: <%= @appraisal.id %></h5>
+  <h5>Category: <%= @appraisal.classification.category.name unless @appraisal.classification.nil? %></h5>
 </div>
 <div class="sub_box">
   <%= simple_form_for(@appraisal, :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
     <div>
-    <div>
-      <% if @appraisal.errors.any? %>
-        <div class="error_explanation">
-        <h2><%= "#{pluralize(@appraisal.errors.count, "error")} prohibited this appraisal from being saved:" %></h2>
-        <ul>
-          <% @appraisal.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <% if @appraisal.errors.any? %>
+      <div class="error_explanation">
+      <h2><%= "#{pluralize(@appraisal.errors.count, "error")} prohibited this appraisal from being saved:" %></h2>
+      <ul>
+        <% @appraisal.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end %>
+      </ul>
     </div>
+  <% end %>
   </div>
   <div class="row">
     <div class="span6">
@@ -26,20 +24,19 @@
         <%= f.input :title, :label => "Title", :hint => "(Enter a very brief noun name of the item.)", :input_html => {:class => "input-xlarge"} %>
         <%= f.input :name, :label => "Description", :hint => "(Describe the item as typically done in the trade.)", :input_html => {:class => "input-xlarge"} %>
         <%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
-          <%= a.input :year_of_manufacture, :label => "Approx. Date of Manufacture", :input_html => {:class => "input-xlarge"} %>
-        <%= a.input :country_of_origin, :label => "Country of Origin", :as => :country, :hint => "(If determinable, else 'unknown')", :input_html => {:class => "input-xlarge"}, :priority => [ "Unknown" ] %>
+          <%= a.input :year_of_manufacture, :label => "Approx. Date of Manufacture", :as => :text, :input_html => {:class => "input-xlarge", :rows => 4} %>
+          <%= a.input :country_of_origin, :label => "Country of Origin", :as => :text, :hint => "(If determinable, else 'unknown')", :input_html => {:class => "input-xlarge", :rows => 4}%>
         <%= a.input :makers_marks, :label => "Signatures, maker's marks, dates", :as => :text, :hint => "(List any signatures, maker's marks or dates. If none, enter 'none'.)", :input_html => {:class => "input-xlarge", :rows => 4}, :disabled => true %>
         <%= a.input :inscriptions, :label => "Inscriptions,etc", :as => :text, :hint => "(List any inscriptions, monograms, dedications or other such markings. If none, enter 'none'.)" , :input_html => {:class => "input-xlarge", :rows => 4}, :disabled => true%>
         <%= a.input :dimensions, :label => "Dimensions", :as => :text, :hint => "(Enter the height, width, depth, diameter as appropriate.)" , :input_html => {:class => "input-xlarge", :rows => 4}, :disabled => true%>
         <%= a.input :damage, :label => "Condition", :as => :text,:hint => "(General observations by appraiser as to condition)", :input_html => {:class => "input-xlarge", :rows => 4}%>
-        <!-- <%= a.input :materials, :label => "Materials", :as => :text, :input_html => {:class => "input-xlarge", :rows => 4} %> -->
         <%= a.input :item_history, :label => "Item history", :as => :text, :hint => "(Includes “provenance”, i.e. past ownership, how and when obtained by client or client’s family.)", :input_html => {:class => "input-xlarge", :rows => 4}, :disabled => true %>
         <%= a.input :additional_ea, :label => "Additional Extraordinary Assumptions", :hint => "This space is for extraordinary assumptions you had to make in order to develop an opinion of value, e.g.: 'teapot assumed to be sterling silver and not silverplate'. If none, state 'none'.)", :as => :text, :input_html => {:class => "input-xlarge", :rows => 4}  %>
         <%= a.input :appraiser_comments, :label => "Additional Comments including market data:", :hint => "(E.g., history of the item or its maker, how the item was used, historical significance, association with important personages, extraordinary assumptions being made by the appraisers, market data on which opinion of value was based (i.e., past comparable sales or current asking prices for similar items), how to best care for or preserve the item, relevant club to join or periodical to subscribe to if interested in learning more about the item, web sites of interest, etc.) ", :as => :text, :input_html => {:class => "input-xlarge", :rows => 4}  %>						
         <%= a.input :replacement_cost_min, :label => "Replacement Value (comparable) Minimum", :input_html => {:class => "currency-input"} %>
-        <%= a.input :replacement_cost_max, :label => "Replacement Value (comparable) Maximum", :input_html => {:class => "currency-input"}  %>
+        <%= a.input :replacement_cost_max, :label => "Replacement Value (comparable) Maximum", :input_html => {:class => "currency-input"}, hint: "Consider replacement value to be what the client would most likely have to pay in order to purchase a comparable item from a retail gallery or dealer. This is the highest price possible."  %>
         <%= a.input :fair_market_value_min, :label => "Fair Market Value Minimum", :input_html => {:class => "currency-input"}  %>
-        <%= a.input :fair_market_value_max, :label => "Fair Market Value Maximum", :input_html => {:class => "currency-input"}  %>
+        <%= a.input :fair_market_value_max, :label => "Fair Market Value Maximum", :input_html => {:class => "currency-input"}, hint: "Consider Fair Market Value to be what the client would most likely be able to sell the item for at auction. Fair Market Value is always less than replacement value."  %>
       <% end %>
         <%= f.input :status, :as => :hidden, :value => @appraisal.status %>
       </div>

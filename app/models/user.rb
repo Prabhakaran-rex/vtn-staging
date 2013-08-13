@@ -32,7 +32,7 @@ class User < Refinery::Core::BaseModel
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :secure_validatable, :confirmable, :authentication_keys => [:login]
+  :recoverable, :rememberable, :trackable, :secure_validatable, :confirmable, :async, :authentication_keys => [:login]
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me,
@@ -61,10 +61,10 @@ class User < Refinery::Core::BaseModel
     appraiser_ids = Skill.select("appraiser_id").where("category_id = ?", appraisal.classification.category_id).pluck(:appraiser_id)
     appraisers = Appraiser.where("id in (?) and status = ? ",appraiser_ids, EAUserStatusConfirmed)
     appraisers.each do |appraiser|
-      UserMailer.notify_appraiser_of_new_appraisal( appraiser ,
-        appraisal ).deliver if appraiser.notify_by_email && Rails.env != "sandbox"
+      UserMailer.delay.notify_appraiser_of_new_appraisal( appraiser ,
+        appraisal ) if appraiser.notify_by_email && Rails.env != "sandbox"
       unless (phone = PhonyRails.normalize_number(appraiser.address.phone1, :country_code => 'US')).nil?
-        self.send_sms({:number => phone, :body => "A New Appraisal is Available in one of your selected categories!"}) if appraiser.notify_by_sms
+        User.send_sms({:number => phone, :body => "A New Appraisal is Available in one of your selected categories!"}).delay(run_at: rand(30..60).seconds.from_now) if appraiser.notify_by_sms
       end
     end
   end
@@ -207,6 +207,7 @@ class User < Refinery::Core::BaseModel
 
   # TODO This should be moved out of the User model
   def self.send_sms(params)
+    Rails.logger.debug "*** delivering sms #{params.to_json}"
     nexmo = Nexmo::Client.new(SMS_API_KEY, SMS_SECRET_KEY)
     nexmo.send_message({:to => params[:number], :from => SMS_NUMBER, :text => params[:body]})
   end

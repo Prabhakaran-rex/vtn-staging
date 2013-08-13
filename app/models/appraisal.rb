@@ -1,5 +1,7 @@
 class Appraisal < ActiveRecord::Base
   before_save :sanitize_appraisal_info
+  before_validation :validate_appraisal_info
+
   has_paper_trail :only => [:status, :assigned_to, :assigned_on], :skip => [:appraisal_info]
 
   has_one :payout, :dependent => :destroy
@@ -20,8 +22,9 @@ class Appraisal < ActiveRecord::Base
   accepts_nested_attributes_for :appraisal_datums, :allow_destroy => true
 
   validates_presence_of :created_by
-  validates_presence_of :title
+  validates_presence_of :name, :title
   validates :selected_plan, :presence => { :message => "Please select a plan to continue" }
+  validate :validate_appraisal_requirements
 
   serialize :appraisal_info, AppraisalInfo
 
@@ -117,8 +120,39 @@ class Appraisal < ActiveRecord::Base
     self.update_attributes(status: EActivityValueFinalized)
   end
 
+  def retrieve_comments
+    self.root_comments.order('created_at ASC')
+  end
+
   private
   def sanitize_appraisal_info
     self.appraisal_info.sanitize
+  end
+
+  def validate_appraisal_requirements
+    case self.status
+    when EActivityValueFinalized
+      if self.appraisal_info.fair_market_value_min.blank?
+        errors.add(:fair_market_value_min, "can't be blank")
+      end
+      if self.appraisal_info.fair_market_value_max.blank?
+        errors.add(:fair_market_value_max, "can't be blank")
+      end
+      if self.appraisal_info.replacement_cost_min.blank?
+        errors.add(:replacement_cost_min, "can't be blank")
+      end
+      if self.appraisal_info.replacement_cost_max.blank?
+        errors.add(:replacement_cost_max, "can't be blank")
+      end
+      if self.appraisal_info.appraiser_comments.blank?
+        errors.add(:appraiser_comments, "can't be blank")
+      end
+    end
+  end
+
+  def validate_appraisal_info
+    unless self.appraisal_info.valid?
+      errors.add :appraisal_info, appraisal_info.errors
+    end
   end
 end
