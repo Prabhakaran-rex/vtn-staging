@@ -1,16 +1,22 @@
 <%= render :partial => "layouts/doc_has_changed" %>
-<div class="sub_box">
-<%= render :partial => "appraiser_tabs" %>
-<h4>Please enter at least 3 trade references. Remember to click on the Continue button at the bottom of the page.</h4>
+<center>
+  <div class="contentBlock">
+    <div class="formTop"><span class="title41">Account</span></div>
+    <%= render :partial => "appraiser_tabs" %>
+    <div class="sub_box">
+      <h4>Please enter at least 3 trade references. Remember to click on the Continue button at the bottom of the page.</h4>
 
-	<%= simple_form_for [@user], :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
-	<%= render :partial => "validation_errors" %>
-	<%= render :partial => "trade_references/form", :locals => {:form => f}%>
-	<hr>
-	<%= link_to_add_fields "Add Reference", f, :trade_references %>
-	<div class="form-actions">
-		<%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
-		<%= f.submit "Save and continue", :class => "btn btn-success", :id => "btn-appraiser_steps-add_references"%>
-	</div>
-	<% end%> 
-</div>
+      <%= simple_form_for [@user], :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
+        <%= render :partial => "validation_errors" %>
+      <%= render :partial => "trade_references/form", :locals => {:form => f}%>
+      <hr>
+      <%= link_to_add_fields "Add Reference", f, :trade_references %>
+      <div class="form-actions">
+        <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
+        <%= f.submit "Save and continue", :class => "btn btn-success", :id => "btn-appraiser_steps-add_references"%>
+      </div>
+    <% end%>
+    </div>
+  </div>
+</center>
+

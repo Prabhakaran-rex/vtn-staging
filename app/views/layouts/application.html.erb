@@ -43,11 +43,8 @@ document.writeln('<scr' + 'ipt language="JavaScript" src="'+cvc_loc0+'" type="te
 <%= render :partial => "layouts/navbar"%>
   <%= render :partial => 'layouts/flash', locals: {flash: flash}%>
 <div style="background:#FFF;">
-  <center>
-    <%= yield %>
-  </center>
+  <%= yield %>
 </div>
 <%= render :partial => "layouts/footer" %>
 </body>
 </html>
-

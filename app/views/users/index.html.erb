@@ -1,20 +1,3 @@
-<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
-<script type="text/javascript">stLight.options({publisher: "e499a8d7-42db-4445-9636-9141483d9fbe"});</script>
-<script type="text/javascript">
-var selectedAppraisal;
-function myCallbackFunction (event,service)
-{
-  $.ajax({
-    url: "<%= url_for share_appraisal_path %>.json",
-    type: 'post',
-    dataType: 'script',
-    data: { 'appraisal_id': selectedAppraisal },
-    success: function() {
-    }
-  });
-}
-stLight.subscribe("click",myCallbackFunction); //register the callback function with sharethis 
-</script>
 <div class="container">
   <div class="row">
     <h4><%= @user.name %>, lets get your items valued!</h4>
@@ -68,9 +51,23 @@ stLight.subscribe("click",myCallbackFunction); //register the callback function 
     <% end %>
       </tbody>
     </table>
-    <div class="row">
-      <%= link_to btnText , new_appraisal_path, :class => btnClass %>
-    </div>
   <% end %>
   </div>
 </div>
+<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "e499a8d7-42db-4445-9636-9141483d9fbe"});</script>
+<script type="text/javascript">
+var selectedAppraisal;
+function myCallbackFunction (event,service)
+{
+  $.ajax({
+    url: "<%= url_for share_appraisal_path %>.json",
+    type: 'post',
+    dataType: 'script',
+    data: { 'appraisal_id': selectedAppraisal },
+    success: function() {
+    }
+  });
+}
+stLight.subscribe("click",myCallbackFunction); //register the callback function with sharethis 
+</script>

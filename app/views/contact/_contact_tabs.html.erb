@@ -1,4 +1,4 @@
 <ul class="nav nav-tabs">
-	<li <%= current_page?(tickets_path) ? "class='active'" : "" %>><%= link_to "Tickets", tickets_path%></li>
-	<li <%= current_page?(contact_path) ? "class='active'" : "" %>><%= link_to "Contact Us", contact_path%></li>
+  <li <%= css_class_for_active_page(path: tickets_path) %> ><%= link_to "My Tickets", tickets_path %></li>
+  <li <%= css_class_for_active_page(path: contact_path) %> ><%= link_to "Contact Support", contact_path %></li>
 </ul>

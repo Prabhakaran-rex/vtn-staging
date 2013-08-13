@@ -8,12 +8,8 @@
     url_for(options)
   end %>
 <ul class="nav nav-tabs">
-	<li <%= current_page?(wizard_path(:personal)) ? raw("class='active'") : "" %>>
-		<%= link_to "Contact", wizard_path(:personal)%>
-	</li>
-    <li <%= current_page?(wizard_path(:avatar)) ? raw("class='active'") : "" %>>
-    <%= link_to "Image", wizard_path(:avatar)%>
-  </li>
-	<li <%= current_page?(wizard_path(:preferences)) ? raw("class='active'") : "" %>><%= link_to "Notifications", wizard_path(:preferences)%></li>
-	<li <%= current_page?(edit_user_registration_path) ? raw("class='active'") : "" %>><%= link_to "Change Login", edit_user_registration_path%></li>
+    <li <%= css_class_for_active_page(path: wizard_path(:personal)) %> ><%= link_to "Profile", wizard_path(:personal) %></li>
+    <li <%= css_class_for_active_page(path: wizard_path(:avatar)) %> ><%= link_to "Image", wizard_path(:avatar) %></li>
+    <li <%= css_class_for_active_page(path: wizard_path(:preferences)) %> ><%= link_to "Notifications", wizard_path(:preferences) %></li>
+    <li <%= css_class_for_active_page(path: edit_user_registration_path) %> ><%= link_to "Email & Password", edit_user_registration_path %></li>
 </ul>

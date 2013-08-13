@@ -1,11 +1,13 @@
-<div class="sub_box">
-<%= render :partial => "appraiser_tabs" %>
-
-<div>
-The following documents are available for download:
-<ul>
-<li> <%= link_to 'Appraisal Provider Agreement', appraisal_provider_agreeement_path(:format => :pdf),:target => "_blank" %></li>
-<li><%= link_to 'Appraiser Code of Ethics', ethics_path(:format => :pdf),:target => "_blank" %></li>
-</ul>
-</div>
-</div>
+<center>
+  <div class="contentBlock">
+    <div class="formTop"><span class="title41">Account</span></div>
+    <%= render :partial => "appraiser_tabs" %>
+    <div class="sub_box">
+      The following documents are available for download:
+      <ul>
+        <li> <%= link_to 'Appraisal Provider Agreement', appraisal_provider_agreeement_path(:format => :pdf),:target => "_blank" %></li>
+        <li><%= link_to 'Appraiser Code of Ethics', ethics_path(:format => :pdf),:target => "_blank" %></li>
+      </ul>
+    </div>
+  </div>
+</center>

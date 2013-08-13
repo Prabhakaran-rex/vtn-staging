@@ -1,21 +1,27 @@
-<h4>Contact Us for Non-Appraisal Related Questions</h4>
-<div class="sub_box">
-<%= render :partial => "contact_tabs" if current_user %>
-<%= simple_form_for @message, :url => contact_path, :html => {:class => "form-horizontal"}  do |f| %>
-  <% if !current_user %>
-
-    <%= f.input :name %>
-    <%= f.input :email %>
-  <% else %>
-    <%= f.input :name, :input_html => {:value => current_user.name || "Not provided"}, :as => :hidden %>
-    <%= f.input :email, :input_html => {:value => current_user.email}, :as => :hidden %>
+<center>
+  <div class="contentBlock">
+    <div class="formTop">
+      <span class="title41">Support</span><br /><br />
+      Let us know if you have any questions or comments. We’d love to hear from you and can help with non-appraisal questions. If you want an item appraised, click <%= link_to 'here', new_user_session_path %>.
+    </div>
+    <br />
+    <%= render :partial => "contact_tabs" if current_user %>
+    <%= simple_form_for @message, :url => contact_path, :html => {:class => "form-horizontal"}  do |f| %>
+      <table>
+      <% if !current_user %>
+        <%= form_text_field(form: f, field: :name ) %>
+      <%= form_text_field(form: f, field: :email ) %>
+    <% else %>
+        <%= f.input :name, :input_html => {:value => current_user.name || "Not provided"}, :as => :hidden %>
+      <%= f.input :email, :input_html => {:value => current_user.email}, :as => :hidden %>
+    <% end %>
+      <%= form_text_field(form: f, field: :subject ) %>
+      <%= form_text_field(form: f, field: :body, as: :text, input_html: {:rows => 4} ) %>
+      <tr>
+        <td class="formTitle" valign="top"></td>
+        <td class="formBlock"><%= f.submit "Send", :class => "btn btn-success"%></td>
+      </tr>
+    </table>
   <% end %>
-  <%= f.input :subject, :input_html => {:class => "input-xxlarge"} %>
-  <%= f.input :body, :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4} %>
-
-  <div class="form-actions">
-    <%= link_to 'Cancel', tickets_path, :class => "btn" %>
-    <%= f.submit "Send", :class => "btn btn-success"%>
   </div>
-<% end %>
-</div>
+</center>

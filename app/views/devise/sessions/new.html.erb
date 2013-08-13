@@ -1,22 +1,24 @@
-<div class="contentBlock">
-  <div class="formTop">
-    <span class="title41">Login</span>
+<center>
+  <div class="contentBlock">
+    <div class="formTop">
+      <span class="title41">Login</span>
+    </div>
+    <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+      <table border="0">
+      <tr>
+        <td style="padding-right:30px;" width="50%">
+          <table>
+            <%= form_text_field(form: f, field: :login, html_class: "input-xlarge" ) %>
+            <%= form_text_field(form: f, field: :password, as: :password, html_class: "input-xlarge") %>
+            <%= form_submit_button(form: f, title: "Sign in") %>
+          </table>
+        </td>
+        <td valign="top" style="padding-left:30px; border-left:1px solid #878787;">
+          <%= link_to omniauth_authorize_path(:customer, :facebook) do %><%= image_tag "b_fb.jpg" %><% end %>
+        </td>
+      </tr>
+      <tr><td><%= render "devise/shared/links" %></td></tr>
+    </table>
+  <% end %>
   </div>
-  <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-    <table border="0">
-    <tr>
-      <td style="padding-right:30px;" width="50%">
-        <table>
-          <%= form_text_field(form: f, field: :login, html_class: "input-xlarge" ) %>
-          <%= form_text_field(form: f, field: :password, as: :password, html_class: "input-xlarge") %>
-          <%= form_submit_button(form: f, title: "Sign in") %>
-        </table>
-      </td>
-      <td valign="top" style="padding-left:30px; border-left:1px solid #878787;">
-        <%= link_to omniauth_authorize_path(:customer, :facebook) do %><%= image_tag "b_fb.jpg" %><% end %>
-      </td>
-    </tr>
-    <tr><td><%= render "devise/shared/links" %></td></tr>
-  </table>
-<% end %>
-</div>
+</center>
