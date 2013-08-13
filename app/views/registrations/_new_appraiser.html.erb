@@ -1,0 +1,37 @@
+<div class="formTop">
+  <span class="title41">Become an appraiser</span>
+</div>
+<%= get_cms_content("/become") %>
+<br /><br />
+<span class="title27">Sign up below to get started as a Value This Now appraiser.</span>
+<div class="formHR"></div>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <table border="0">
+  <tr>
+    <td style="padding-right:30px;">
+      <table>
+        <%= form_text_field(form: f, field: :name, width: 300 ) %>
+        <%= form_text_field(form: f, field: :email, width: 300 ) %>
+        <%= form_text_field(form: f, field: :password, width: 300, as: :password ) %>
+        <%= form_text_field(form: f, field: :password_confirmation, width: 300, as: :password ) %>
+        <tr>
+          <td class="formTitle" valign="top"></td>
+          <td class="formBlock">
+            <div style="width:520px;" class="longTxtBox">
+              <%= get_cms_content('/appraisal-provider-agreement') %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="formTitle" valign="top"></td>
+          <td class="formBlock">
+            <%= f.input :agree_to_provider_agreement, :as => :boolean, :label => "I have read and agree to the Appraisal Provider Agreement." , :hint => false %>
+            <%= f.input :agree_to_code_of_ethics, :as => :boolean, :label => "I comply with the #{link_to 'Appraiser Code of Ethics', ethics_path}", :hint => false %>
+          </td>
+        </tr>
+      <%= form_submit_button(form: f, title: "Sign up") %>
+      </table>
+    </td>
+  </tr>
+</table>
+<% end %>

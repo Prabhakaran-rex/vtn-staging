@@ -1,86 +1,93 @@
-<!-- Home block 1 -->
-<div id="homeblock1">
-  <span class="homeTitle">Online appraisal made easy</span>
-  <form>
-    <input type="text" class="homeSearch" value="What is the name of your item? A short title is fine."><span id="homeGo">Start Appraisal</span>
-  </form>
-  <br>
-  <div id="homeVideo"><%= image_tag "video.png" %></div>
-  <div id="homeItem" class="item1">
-    <div id="homeValueBlock">
-      Chinese Ming style Meiping form vase appraised at $3,500<br>
-      <a href="#">What's your item worth?</a>
+<div style="text-align: left;">
+  <!-- Home block 1 -->
+  <div id="homeblock1">
+    <div class="div_homeTitle">
+      <span class="homeTitle">Online appraisal made easy</span>
     </div>
+    <form>
+      <input type="text" class="homeSearch" value="What is the name of your item? A short title is fine."><span id="homeGo">Start Appraisal</span>
+    </form>
+    <br />
+    <div id="homeVideo"><%= image_tag "video.png" %></div>
+    <div id="homeItem" class="item1">
+      <div id="homeValueBlock">
+        Chinese Ming style Meiping form vase appraised at $3,500<br>
+        <a href="#">What's your item worth?</a>
+      </div>
 
-    <div id="homeSocial">
-      <a href="http://www.facebook.com/ValueThisNow" title="Visit our Facebook page."><span id="hS1"></span></a>
-      <a href="http://www.twitter.com/valuethisnow" title="See our twitter feed."><span id="hS2"></span></a>
-      <a href="http://pinterest.com/valuethisnow" title="See our Pinterest board."><span id="hS3"></span></a>
-    </div>
-  </div>
-</div>
-<%= render partial: 'layouts/featured_coupon'  %>
-<!-- Middle 2 -->
-<div class="homeBg1">
-  <center>
-    <div class="contentBlock" style="padding-left:0px; padding-right:0px;">
-      <div>
-        <div class="homeHow1">
-          <span class="title27">Tell us about your item online</span><Br />
-          Fill out our appraisal form and let us know as much information about the item as you have. You can also attach photos of the item.
-        </div>
-        <br /><br />
-        <div class="homeHow2">
-          <span class="title27">Our experts will appraise it</span><br />
-          You will receive a professional appraisal of your item which will help you see it’s true value. <br />
-          <a href="#">Learn more about online appraisals.</a>
-        </div>
-        <br />
-        <div style="padding-left:90px;">
-          <span class="title27">It’s that simple</span><br />
-          <%= link_to "Get your appraisal now", main_app.new_user_session_path %>
-          <br /><br />
-        </div>
+      <div id="homeSocial">
+        <a href="http://www.facebook.com/ValueThisNow" title="Visit our Facebook page."><span id="hS1"></span></a>
+        <a href="http://www.twitter.com/valuethisnow" title="See our twitter feed."><span id="hS2"></span></a>
+        <a href="http://pinterest.com/valuethisnow" title="See our Pinterest board."><span id="hS3"></span></a>
       </div>
     </div>
-  </center>
-</div>
-<!-- Middle 3 -->
-<div class="homeBg2">
-  <center>
-    <div class="contentBlock">
-      <span class="title38">Appraisals give you more than just a value</span><br />
-      <div id="homeBg2_div">
+  </div>
+  <%= render partial: 'layouts/featured_coupon'  %>
+  <!-- Middle 2 -->
+  <div class="homeBg1">
+    <center>
+      <div class="contentBlock" style="padding-left:0px; padding-right:0px;">
         <div>
+          <div class="homeHow1">
+            <span class="title27">Tell us about your item online</span><Br />
+            Fill out our appraisal form and let us know as much information about the item as you have. One or more digital photo's of your item is all you need.
+          </div>
+          <br /><br />
+          <div class="homeHow2">
+            <span class="title27">Our experts will appraise it</span><br />
+            You will receive a professional appraisal of your item which will help you see its true value. <br />
+            <a href="#">Learn more about online appraisals.</a>
+          </div>
+          <br />
+          <div style="padding-left:90px;">
+            <span class="title27">It's that simple</span><br />
+            <%= link_to "Get your appraisal now", main_app.new_user_session_path %>
+            <br /><br />
+          </div>
+        </div>
+      </div>
+    </center>
+  </div>
+  <!-- Middle 3 -->
+  <div class="homeBg2">
+    <center>
+      <div class="contentBlock" style="padding-bottom:0px;">
+        <div class="div_title38">
+          <span class="title38">Appraisals give you more than just a value</span><br />
+        </div>
+        <div style="background:url(<%= image_path("h_items.png") %>) no-repeat bottom right; padding-right:380px;">
           You can learn a lot from an appraisal. For example, if you have an item to sell, an appraisel will 
           help you get the best price.Insurance companies may require appraisals for property insurance. 
-          If you are moving, it’s a good idea to get items appraised in case they are damaged during the move 
+          If you are moving, it's a good idea to get items appraised in case they are damaged during the move 
           and you need to file a damage claim.
-        </div>
-        <div>&nbsp;</div>
-        <div>
+          <br /><br />
           Appraisals are also very valuable for life events such as wills, inheritence and divorce. In addition to 
-          learning about the market value of your item, you can also learn about it’s history. Each piece has 
+          learning about the market value of your item, you can also learn about it's history. Each piece has 
           a story to tell and and expert appraiser can reveal that story to you.They can also help you find groups 
           and other people that share your interest in the item. <a href="#"><%= link_to "Learn about your item with an online appraisal.", main_app.new_user_session_path %></a>
+          <br /><br /><br /><br /><br /><br />
         </div>
+      </div>
+    </center>
+  </div>
+  <!-- Middle 4 -->
+  <div class="homeBg1">
+    <center>
+      <div class="contentBlock">
+        <div class="div_title38">
+          <span class="title38" style="padding-left:250px;">The Value This Now Advantage</span>
+        </div>
+        <div style="background:url(<%= image_path("h_logos.png") %>) no-repeat left top; padding-left:250px;">
+          Not all appraisal providers are equal.  ValueThisNow offers superior turnaround times, often under 3 hours.  
+          We offer reports that are suitable for property insurance related matters or matters concerning equitable property 
+          distribution. Our world class appraiser community are can provide amazing facts and history about your antiques 
+          and collectables saving you time and money before you buy or sell.  Our appraisal reports start at $19.95 are 
+          USPAP compliant and our service comes with a 100% money back guarantee if your not satisfied. 
+          What are you waiting for? <%= link_to "Lets find out what your treasure is worth.", main_app.new_user_session_path %></a>
+        <br /><br /><br /><br />
       </div>
     </div>
   </center>
 </div>
-<!-- Middle 4 -->
-<div class="homeBg1">
-  <center>
-    <div class="contentBlock">
-      <span class="title38">The Value This Now Advantage</span>
-      <div id="homeBg3_div">
-        Not all appraisal providers are equal.  ValueThisNow offers superior turnaround times, often under 3 hours.  
-        We offer reports that are suitable for property insurance related matters or matters concerning equitable property 
-        distribution. Our world class appraiser community are can provide amazing facts and history about your antiques 
-        and collectables saving you time and money before you buy or sell.  Our appraisal reports start at $19.95 are 
-        USPAP compliant and our service comes with a 100% money back guarantee if your not satisfied. 
-        What are you waiting for? <%= link_to "Lets find out what your treasure is worth.", main_app.new_user_session_path %></a>
-    </div>
-  </div>
-</center>
 </div>
+

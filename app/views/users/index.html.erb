@@ -4,7 +4,7 @@
 var selectedAppraisal;
 function myCallbackFunction (event,service)
 {
-   $.ajax({
+  $.ajax({
     url: "<%= url_for share_appraisal_path %>.json",
     type: 'post',
     dataType: 'script',
@@ -15,35 +15,36 @@ function myCallbackFunction (event,service)
 }
 stLight.subscribe("click",myCallbackFunction); //register the callback function with sharethis 
 </script>
-<div class="row">
-<h4><%= @user.name %>, lets get your items valued!</h4>
-</div>
-<div class="row">
-  <% if @appraisals.empty?
-   btnText, btnClass = "Get an item evaluated","btn btn-primary"
+<div class="container">
+  <div class="row">
+    <h4><%= @user.name %>, lets get your items valued!</h4>
+  </div>
+  <div class="row">
+    <% if @appraisals.empty?
+         btnText, btnClass = "Get an item evaluated","btn btn-primary"
     else
-     btnText, btnClass = "Add an additional item for appraisal", "btn btn-success pull-right"
-   end %>
+      btnText, btnClass = "Add an additional item for appraisal", "btn btn-success pull-right"
+    end %>
   <%= link_to btnText , new_appraisal_path, :class => btnClass %>
-  <% unless @appraisals.empty? %>  
-  <h2>What you entered so far:</h2>
-  <table class="table table-striped table-condensed ">
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Item #</th>
-        <th>Status</th>
-        <th>Date Appraised</th>
-        <th>Estimated<br>Retail Value</th>
-        <th>Estimated<br>Replacement Value</th>
-        <th>Appraisal Type</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
+    <% unless @appraisals.empty? %>  
+      <h2>What you entered so far:</h2>
+    <table class="table table-striped table-condensed ">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Item #</th>
+          <th>Status</th>
+          <th>Date Appraised</th>
+          <th>Estimated<br>Retail Value</th>
+          <th>Estimated<br>Replacement Value</th>
+          <th>Appraisal Type</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
       <% @appraisals.each do |appraisal| %>
-      <tr>
+        <tr>
         <td><%= get_linked_thumbnail(appraisal) %></td>
         <td><%= link_to(h(appraisal.title) + " ##{appraisal.id}", appraisal) %></td>
         <td><%= getStringForActivityValue(appraisal.status) %></td>
@@ -52,23 +53,24 @@ stLight.subscribe("click",myCallbackFunction); //register the callback function 
         <td><%= appraisal.status == EActivityValueFinalized ? print_replacement_cost(appraisal) : "-" %></td>
         <td><%= getStringForAppraisalType(appraisal.selected_plan) %></td>
         <td><%= button_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-success btn-mini") if appraisal.status == EActivityValueCreated %>
-          <%= link_to('Edit', edit_appraisal_path(appraisal), :class => "btn btn-success btn-mini", :style => "margin:2px;") if appraisal.status == EActivityValueCreated || appraisal.status == EActivityValuePayed %>
+        <%= link_to('Edit', edit_appraisal_path(appraisal), :class => "btn btn-success btn-mini", :style => "margin:2px;") if appraisal.status == EActivityValueCreated || appraisal.status == EActivityValuePayed %>
           <%= link_to appraisal_path(appraisal, :format => :pdf, :pdf_full => true), :class => "btn btn-success btn-mini" do %>Download PDF<% end if appraisal.status == EActivityValueFinalized%></td>
         <td><% if appraisal.status == EActivityValueCreated %>
-              <% @payment = Payment.new %>
-              <%= link_to 'Make Payment', payments_path(@payment, :appraisal_id => appraisal), :class => "btn btn-success btn-mini" %>
-              <% end %>
-            <% if appraisal.status == EActivityValueFinalized %>
-              <% @payment = Payment.new %>
-              <a href="#myModal-<%= appraisal.id %>" role="button" class="btn btn-mini btn-success" data-toggle="modal">Push to social</a>
-              <% end %></td>
+          <% @payment = Payment.new %>
+          <%= link_to 'Make Payment', payments_path(@payment, :appraisal_id => appraisal), :class => "btn btn-success btn-mini" %>
+        <% end %>
+          <% if appraisal.status == EActivityValueFinalized %>
+            <% @payment = Payment.new %>
+          <a href="#myModal-<%= appraisal.id %>" role="button" class="btn btn-mini btn-success" data-toggle="modal">Push to social</a>
+        <% end %></td>
         <td><%= render :partial => "push_to_social", :locals => {:appraisal => appraisal} %></td>
       </tr>
-      <% end %>
-    </tbody>
-  </table>
-<%= link_to btnText , new_appraisal_path, :class => btnClass %>
+    <% end %>
+      </tbody>
+    </table>
+    <div class="row">
+      <%= link_to btnText , new_appraisal_path, :class => btnClass %>
+    </div>
   <% end %>
-
+  </div>
 </div>
-

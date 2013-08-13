@@ -1,0 +1,34 @@
+<% unless flash.empty? %>
+<div class="flash">
+  <!-- Flash Notice -->
+  <% if flash[:notice] %>
+    <div>
+    <div class="alert alert-info">
+      <a class="close" data-dismiss="alert">×</a>
+      <%= flash[:notice] %>
+    </div> <!-- Alert -->
+  </div> <!-- Row Fluid -->
+<% end %>
+  <!-- End Notice -->
+  <!-- Flash alert -->
+  <% if flash[:alert] %>
+    <div>
+    <div class="alert">
+      <a class="close" data-dismiss="alert">×</a>
+      <%= flash[:alert] %>
+    </div> <!-- Alert -->
+  </div> <!-- Row Fluid -->
+<% end %>
+  <!-- End Notice -->
+  <!-- Flash Error -->
+  <% if flash[:error] %>
+    <div>
+    <div class="alert alert-error">
+      <a class="close" data-dismiss="alert">×</a>
+      <%= flash[:error] %>
+    </div> <!-- Alert -->
+  </div> <!-- Row Fluid -->
+<% end %>
+  <!-- End Notice -->
+</div>
+<% end %>

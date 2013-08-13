@@ -1,0 +1,29 @@
+<div class="formTop">
+  <span class="title41">New Users</span>
+  <br />
+  Sign up to request appraisals. If you want an item appraised, <%= link_to "click here", new_user_session_path %>
+    </div>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <table border="0">
+  <tr>
+    <td style="padding-right:30px;">
+      <table>
+        <%= form_text_field(form: f, field: :name, html_class: "input-xlarge" ) %>
+        <%= form_text_field(form: f, field: :email, html_class: "input-xlarge" ) %>
+        <%= form_text_field(form: f, field: :password, as: :password, html_class: "input-xlarge" ) %>
+        <%= form_text_field(form: f, field: :password_confirmation, as: :password, html_class: "input-xlarge" ) %>
+        <tr>
+          <td class="formTitle" valign="top"></td>
+          <td class="formBlock">
+            <%= f.input :agree_to_tos, :as => :boolean, :label => "I have read and agree to the #{link_to 'Terms of Service', terms_path(:format => :pdf),:target => "_blank"}", :hint => false %>
+          </td>
+        </tr>
+        <%= form_submit_button(form: f, title: "Sign up") %>
+      </table>
+    </td>
+    <td valign="top" style="padding-left:30px; border-left:1px solid #878787;">
+      <%= link_to omniauth_authorize_path(:customer, :facebook) do %><%= image_tag "b_fb.jpg" %><% end %>
+    </td>
+  </tr>
+</table>
+<% end %>

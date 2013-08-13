@@ -130,6 +130,60 @@ module ApplicationHelper
 
   def get_cms_content(path)
     page = Cms::Page.find_by_full_path(path)
-    return page.nil? ? "Add content to #{path}" : page.content
+    return raw(page.nil? ? "Add content to #{path}" : page.content)
+  end
+
+  def form_text_field(params)
+    title = params[:title] || params[:field].to_s.titleize
+    required = params[:required] || false
+    label = params[:label] || false
+    html_class = params[:html_class] || "input-xxlarge"
+    html_style = params[:html_style]
+    placeholder = params[:placeholder] || nil
+    priority = params[:priority] || []
+    as = params[:as] || :string
+    input_html = {class: html_class, style: html_style}
+    input_html.reverse_merge!(params[:input_html]) if params[:input_html]
+    value = params[:value] || nil
+
+    markup = "<tr><td class='formTitle' valign='top'>#{title}</td>"
+    markup += "<td class='formBlock'>"
+    markup += params[:form].input params[:field], as: as, required: required, label: label, input_html: input_html, placeholder: placeholder, priority: priority, value: value
+    markup += "</td></tr>"
+    return raw markup
+  end
+
+  def form_submit_button(params)
+    title = params[:title] || "Save"
+    html_class = params[:html_class] || "btn btn-success"
+    markup = "<tr><td class='formTitle' valign='top'></td>"
+    markup += "<td class='formBlock'>"
+    markup += params[:form].submit title.titleize, class: html_class
+    markup += "</td></tr>"
+    return raw markup
+  end
+
+  def css_class_for_active_page(params)
+    html_class = "#{params[:class]}"
+    html_class += " active" if current_page?(params[:path])
+    raw "class = '#{html_class}'" unless html_class.blank?
+  end
+
+  def html_tab(params)
+    markup = "<li>"
+    markup = "<li #{css_class_for_active_page(params)}>"
+    markup += "#{link_to params[:title], params[:path]}"
+    markup += "</li>"
+    return raw markup
+  end
+
+  # TODO Find a better place to store this monkeypatch
+  def wizard_path(goto_step = nil, options = {})
+    options = { :controller => :appraiser_steps,
+                :action     => 'show',
+                :id         => goto_step || params[:id],
+                :only_path  => true
+    }.merge options
+    url_for(options)
   end
 end

@@ -1,25 +1,22 @@
-<h4>Sign In</h4>
-<div class="row">
-	<div class="span5 loginBox">
-	<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'form-horizontal' }) do |f| %>
-    <div class="form-inputs">
-	    <%= f.input :login, :required => true, :autofocus => true, :label => "Username" %>
-		<%= f.input :password, :required => true %>
-	    <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
-    </div>
-    <div class="form-actions">
-	    <%= f.button :submit, "Sign in", :class => "btn btn-success"%>
-    </div>
-	<% end %>
-
-	<%= render "devise/shared/links" %>
-	</div>
-	<div class="span1" style="text-align: center; line-height:350px;">
-		<b>or</b>
-	</div>
-	<div class="span5" style="text-align: center; line-height:350px;">
-		<div>	
-			<%= link_to omniauth_authorize_path(:customer, :facebook) do %><%= image_tag "facebook_sign_in.png" %><% end %>
-		</div>
-	</div>
+<div class="contentBlock">
+  <div class="formTop">
+    <span class="title41">Login</span>
+  </div>
+  <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+    <table border="0">
+    <tr>
+      <td style="padding-right:30px;" width="50%">
+        <table>
+          <%= form_text_field(form: f, field: :login, html_class: "input-xlarge" ) %>
+          <%= form_text_field(form: f, field: :password, as: :password, html_class: "input-xlarge") %>
+          <%= form_submit_button(form: f, title: "Sign in") %>
+        </table>
+      </td>
+      <td valign="top" style="padding-left:30px; border-left:1px solid #878787;">
+        <%= link_to omniauth_authorize_path(:customer, :facebook) do %><%= image_tag "b_fb.jpg" %><% end %>
+      </td>
+    </tr>
+    <tr><td><%= render "devise/shared/links" %></td></tr>
+  </table>
+<% end %>
 </div>

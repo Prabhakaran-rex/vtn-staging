@@ -3,11 +3,13 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<% if !@post.nil? && @post.class.to_s == "Refinery::Blog::Post" %>
-<title><%= @post.seo_meta.browser_title unless @post.seo_meta.nil? %></title>
-<% else %>
-<title>ValueThisNow: an online appraisal service for antiques &amper; collectibles</title>
-<% end %>
+<% if !@post.nil? && @post.class.to_s == "Refinery::Blog::Post"
+     title = @post.seo_meta.browser_title unless @post.seo_meta.nil?
+else
+  title = "ValueThisNow: an online appraisal service for antiques &amper; collectibles"
+end
+%>
+<title><%= title %></title>
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900' rel='stylesheet' type='text/css'>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,48 +36,18 @@ document.writeln('<scr' + 'ipt language="JavaScript" src="'+cvc_loc0+'" type="te
 //]]>
 </script>
 </head>
-<body>
+<body <%= "class=blue-background" if current_page?(url_for(controller: 'home', action: 'index' ))  %>>
 <%= # render :partial => "layouts/welcome"
 %>
 <!-- Navbar -->
 <%= render :partial => "layouts/navbar"%>
-<div>
-  <div class="container">
-    <!-- Flash Notice -->
-    <% if flash[:notice] %>
-      <div class="row">
-      <div class="alert alert-info">
-        <a class="close" data-dismiss="alert">×</a>
-        <%= flash[:notice] %>
-      </div> <!-- Alert -->
-    </div> <!-- Row Fluid -->
-  <% end %>
-    <!-- End Notice -->
-    <!-- Flash alert -->
-    <% if flash[:alert] %>
-      <div class="row">
-      <div class="alert">
-        <a class="close" data-dismiss="alert">×</a>
-        <%= flash[:alert] %>
-      </div> <!-- Alert -->
-    </div> <!-- Row Fluid -->
-  <% end %>
-    <!-- End Notice -->
-    <!-- Flash Error -->
-    <% if flash[:error] %>
-      <div class="row">
-      <div class="alert alert-error">
-        <a class="close" data-dismiss="alert">×</a>
-        <%= flash[:error] %>
-      </div> <!-- Alert -->
-    </div> <!-- Row Fluid -->
-  <% end %>
-    <!-- End Notice -->
-  </div>
-  <div>
+  <%= render :partial => 'layouts/flash', locals: {flash: flash}%>
+<div style="background:#FFF;">
+  <center>
     <%= yield %>
-  </div>
+  </center>
 </div>
 <%= render :partial => "layouts/footer" %>
 </body>
 </html>
+
