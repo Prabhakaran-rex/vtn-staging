@@ -8,7 +8,7 @@
     else
       btnText, btnClass = "Add an additional item for appraisal", "btn btn-success pull-right"
     end %>
-  <%= link_to btnText , new_appraisal_path, :class => btnClass %>
+  <%= link_to btnText, appraisal_build_index_path(appraisal_id: 'building'), method: :post,  :class => btnClass %>
     <% unless @appraisals.empty? %>  
       <h2>What you entered so far:</h2>
     <table class="table table-striped table-condensed ">

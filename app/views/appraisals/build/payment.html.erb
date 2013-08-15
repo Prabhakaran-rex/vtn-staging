@@ -1,0 +1,206 @@
+<center>
+  <div class="contentBlock">
+    <div class="formTop">
+      <span class="title41">Payment and Confirm</span>
+      <span class="orderStep"><br />4 of 4</span>
+    </div>
+    If you want an appraisal for personal use only, select a Restricted Use appraisal. Summary appraisals are what you should choose for any selling
+    or legal needs.
+    <br /><br />
+    <!-- Requested appraisal and product snapshot -->
+    <span class="title27">Requested appraisal</span><br />
+
+    <%= simple_form_for(@appraisal, :url => payments_path, :method => :post,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
+      <%= f.simple_fields_for :payment do |p| %>
+      <input type="hidden" id="appraisal_type" value="<%= @appraisal.selected_plan %>" />
+    <input type="hidden" name="appraisal_price" id="appraisal_price" value="<%= PAYMENT_PLAN[ @appraisal.selected_plan-1] %>" />
+    <input type="hidden" name="appraisal_id" value="<%= @appraisal.id %>" />
+    <div>
+      <div>
+        <% if @appraisal.errors.any? %>
+          <div class="error_explanation">
+          <h4><%= "#{pluralize(@appraisal.errors.count, "error")} prohibited this appraisal from being saved:" %></h4>
+          <!--          <ul>
+            <% @appraisal.errors.full_messages.each do |msg| %>
+ <li><%= msg %></li>
+          <% end %>
+          </ul> -->
+        </div>
+      <% end %>
+      </div>
+      <div class="blueProdBlock">
+        <div class="row-fluid">
+          <div class="span2">
+            <%= image_tag(@appraisal.default_photo.asset.url(:medium)) %>
+          </div>
+          <div class="span9"> 
+            <span class = "title19"><%= @appraisal.title %></span>
+            <br />
+            <%= @appraisal.name %>
+            <br /><br />
+            <span class="appraisalType title19"><%= APPRAISAL_PLANS_NAMES[@appraisal.selected_plan] %> <%= number_to_currency(PAYMENT_PLAN[@appraisal.selected_plan-1]) %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= f.input :allow_share, label: false, inline_label: "Allow ValuethisNow to use my appraisal(s) for promotional purposes. My personal information will NOT be used or displayed for this." %>
+
+    <br /><br /><br />
+    <span class="title19">Appraisal Notice</span>
+    <br />
+    <div class="longTxtBox">
+      <p>This online appraisal will provide an estimate of worth that is based on the subject property's value-relevant characteristics as provided to the appraiser by the client by means of written photographs and written descriptions. As will be noted in the body of the final appraisal report, the online appraiser did not personally inspect the property. The Uniform Standards of Professional Appraisal Practice (USPAP) do not require the appraiser to personally inspect the property. However, USPAP does require that the appraiser "identify" the property and its "value-relevant characteristics." This can be accomplished either by a personal inspection of the property, or by other parties providing the identifying information to the appraiser.</p>
+      <p>The appraiser will provide ranges of values reflecting the property's fair market value as well as its replacement value (comparable). The former reflects what a seller most often accepts and a buyer most often pays for comparable properties, often within the online or onsite auction markets. The latter reflects the appraiser's opinion of what the seller would probably have to pay from within the retail market to replace the subject property with a comparable property within a reasonable amount of time from within the most convenient marketplace.</p>
+      <p>For our purposes, fair market value reflects the gross amount one would expect to realize if selling the item at auction. Replacement value (comparable) reflects the amount one would expect to pay at retail when attempting to replace the property with a comparable item.</p>
+      <p>Appraisals are opinions based on documented market data. ValueThisNow.com does not (indeed, no appraiser can) guarantee that an item will be sold for the appraised amount (items may sell for more or less), nor that a comparable property can be purchased for the appraised amount (a buyer might have to pay more or less).</p>
+    </div>
+    <div class="formHR"></div>
+    <!--Billing Information-->
+    <span class="title27">Billing Information</span><br /><br />
+    <table>
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td class="formTitle" valign="top"></td>
+              <td class="formBlock">
+                <input type="checkbox" value="true"/> Use account information
+              </td>
+            </tr>
+            <tr>
+              <td class="formTitle" valign="top">Name on Card</td>
+              <td class="formBlock">
+                <input type="text" class="formTextField shortTextField" />
+              </td>
+            </tr>
+            <tr>
+              <td class="formTitle" valign="top">Address</td>
+              <td class="formBlock">
+                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_address" name="appraisal[payment_attributes][address]"/>
+              </td>
+            </tr>
+            <tr>
+              <td class="formTitle" valign="top">City</td>
+              <td class="formBlock">
+                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_city" name="appraisal[payment_attributes][city]"/>
+              </td>
+            </tr>
+            <tr>
+              <td class="formTitle" valign="top">State/Province</td>
+              <td class="formBlock">
+                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_state" name="appraisal[payment_attributes][state]"/>
+              </td>
+            </tr>
+            <tr>
+              <td class="formTitle" valign="top">Zip/Postal Code</td>
+              <td class="formBlock">
+                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_zip" name="appraisal[payment_attributes][zip]"/>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <div class="ccDetails">
+            <table>
+              <tr>
+                <td class="ccFormTitle" valign="top"></td>
+                <td class="ccFormBlock">
+                  <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_number" name="appraisal[payment_attributes][number]" value="Card Number" style="width:130px;" />
+                </td>
+              </tr>
+              <tr>
+                <td class="ccFormTitle" valign="top">Expires</td>
+                <td class="ccFormBlock">
+                  <select class="span1 formSelect" id="appraisal_payment_attributes_expmon" name="appraisal[payment_attributes][expmon]" style="padding:3px;">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                  &nbsp; / &nbsp;
+                  <select class="span2 formSelect" id="appraisal_payment_attributes_expyear" name="appraisal[payment_attributes][expyear]" style="padding:3px;">
+                    <option value=""></option>
+                    <option>2013</option>
+                    <option>2014</option>
+                    <option>2015</option>
+                    <option>2016</option>
+                    <option>2017</option>
+                    <option>2018</option>
+                    <option>2019</option>
+                    <option>2020</option>
+                    <option>2021</option>
+                    <option>2022</option>
+                    <option>2023</option>
+                    <option>2024</option>
+                    <option>2025</option>
+                    <option>2026</option>
+                    <option>2027</option>
+                    <option>2028</option>
+                    <option>2029</option>
+                    <option>2030</option>
+                    <option>2031</option>
+                    <option>2032</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="ccFormTitle" valign="top">Type</td>
+                <td class="ccFormBlock">
+                  <select name="select" id="select" class="span3 formSelect" style="padding:3px;">
+                    <option value=""></option>
+                    <option>VISA</option>
+                    <option>Mastercard</option>
+                    <option>American Express</option>
+                    <option>Discover</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="ccFormTitle" style="padding-top:22px;" valign="top">CVV</td>
+                <td class="ccFormBlock" style="padding-top:22px;">
+                  <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_cvv" name="appraisal[payment_attributes][cvv]" style="width:30px;"/>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <div class="formHR"></div>
+    <!---Promo and Total-->
+    <span class="title27">Order Total</span><br /><br />
+    <table width="980" cellpadding="0" cellspacing="0"><tr>
+        <td width="260" style="background-color:#e9e9e9; padding:10px">
+          <span class="title19">Promo Code&nbsp;&nbsp;&nbsp;</span>
+          <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_coupon" name="appraisal[payment_attributes][coupon]" style="width:120px;" />
+          <div id="payment-coupon-div"><span class="help-block"></span></div>
+        </td>
+        <td width="40"style="background-color:#e9e9e9; padding:10px 10px 10px 0px"></td>
+        <td style="text-align:right;">
+          <span class="title27">Total charge: <span id="td_appraisal_total"><%= number_to_currency(PAYMENT_PLAN[ @appraisal.selected_plan-1]) %></span></span>
+        </td>
+      </tr>
+    </table>
+    <br /><br /><br />
+    <div style="position:relative; margin-top:20px;">
+      <div>
+        <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
+        <%= f.button :submit, "Purchase", class: "btn btn-success pull-right" %>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+<% end %>
+<% end %>
+</div>
+</center>

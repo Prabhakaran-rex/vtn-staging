@@ -1,6 +1,7 @@
 class Appraisal < ActiveRecord::Base
-  before_save :sanitize_appraisal_info
-  before_validation :validate_appraisal_info
+  before_save :sanitize_appraisal_info, if: :active?
+  before_validation :validate_appraisal_info, if: :active?
+  after_create :initialize_classification
 
   has_paper_trail :only => [:status, :assigned_to, :assigned_on], :skip => [:appraisal_info]
 
@@ -20,15 +21,18 @@ class Appraisal < ActiveRecord::Base
 
   accepts_nested_attributes_for :photos, :allow_destroy => true
   accepts_nested_attributes_for :appraisal_datums, :allow_destroy => true
+  accepts_nested_attributes_for :classification, :allow_destroy => true
+  accepts_nested_attributes_for :payment, :allow_destroy => true
 
-  validates_presence_of :created_by
-  validates_presence_of :name, :title
-  validates :selected_plan, :presence => { :message => "Please select a plan to continue" }
-  validate :validate_appraisal_requirements
+  validates_presence_of :created_by, if: :active?
+  validates_presence_of :name, :title, if: :active?
+  validates :selected_plan, :presence => { :message => "Please select a plan to continue" }, if: :active?
+  validate :validate_appraisal_requirements, if: :active?
 
   serialize :appraisal_info, AppraisalInfo
 
-  attr_accessible :allow_share, :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type, :title
+  attr_accessible :allow_share, :created_by, :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type, :title
+  attr_accessible :classification_attributes, :payment_attributes
   acts_as_commentable
 
   scope :visible, where("status != ?", EActivityValueHidden)
@@ -69,7 +73,7 @@ class Appraisal < ActiveRecord::Base
   end
 
   def payed?
-    !self.payment.nil?
+    !self.payment.nil? && !self.payment.is_charged && !self.payment.auth_code.nil?
   end
 
   def pay!
@@ -124,6 +128,17 @@ class Appraisal < ActiveRecord::Base
     self.root_comments.order('created_at ASC')
   end
 
+  def active?
+    step == 'active'
+  end
+
+  def merge_appraisal_info(params)
+    params[:appraisal][:appraisal_info] = Hash.new if params[:appraisal][:appraisal_info].nil?
+    current_appraisal_info = self.appraisal_info.instance_values
+    current_appraisal_info.merge!(AppraisalInfo.new(params[:appraisal][:appraisal_info]).instance_values)
+    return AppraisalInfo.new(current_appraisal_info)
+  end
+
   private
   def sanitize_appraisal_info
     self.appraisal_info.sanitize
@@ -154,5 +169,9 @@ class Appraisal < ActiveRecord::Base
     unless self.appraisal_info.valid?
       errors.add :appraisal_info, appraisal_info.errors
     end
+  end
+
+  def initialize_classification
+    Classification.create(appraisal_id: self.id)
   end
 end

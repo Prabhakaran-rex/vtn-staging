@@ -89,4 +89,20 @@ body {
 .homeContentBlock {
   min-height:0;
 }
-
+.blueProdBlock {
+  min-height: 86px;
+  padding-left: 10px;
+}
+.form-horizontal .control-label {
+  font-size: 19px;
+  font-weight: bold;
+  text-align: right;
+  padding-right: 10px;
+}
+.form-horizontal .help-block {
+  font-size: 12px;
+  color: #8b8b8b;
+}
+.formProdSelect {
+  min-height: 35px;
+}

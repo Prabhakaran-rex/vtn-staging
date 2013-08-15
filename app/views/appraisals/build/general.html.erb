@@ -1,0 +1,42 @@
+<center>
+  <div class="contentBlock">
+    <div class="formTop">
+      <span class="title41">Tell us about your item</span>
+      <span class="orderStep"><br />1 of 4</span>
+    </div>
+    <%= simple_form_for(@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
+      <div class="row sub_box">
+      <div>
+        <% if @appraisal.errors.any? %>
+          <div class="error_explanation">
+          <h4><%= "#{pluralize(@appraisal.errors.count, "error")} prohibited this appraisal from being saved:" %></h4>
+          <!--          <ul>
+            <% @appraisal.errors.full_messages.each do |msg| %>
+ <li><%= msg %></li>
+          <% end %>
+          </ul> -->
+        </div>
+      <% end %>
+      </div>
+      <div class="form-inputs">
+        <%= f.input :title, :label => "Item Name", :input_html => {:class => "span8"} %>
+        <%= f.input :name, :as => :text, :label => "Description",  :input_html => {:class => "span8", :rows => 4},:hint => "Describe the item. Let us know the color, shape and function if any. The more detail the better."%>
+        <%= f.simple_fields_for :photos do|p| %>
+          <%= p.input :asset, as: :file, label: "Item Photo" %>
+      <% end %>
+        <%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
+          <%= a.input :item_history, :label => "Item History", :as => :text, :input_html => {:class => "span8", :rows => 4}, hint: "Where was it made? Has it been in your family? Where did you first get this item?" %>
+        <%= a.input :country_of_origin, :label => "Country of Origin", :as => :country %>
+      <% end %>
+        <%= f.simple_fields_for :classification do |c| %>
+          <%= c.association :category, as: :select %>
+      <% end %> 
+      </div>
+      <div>
+        <%= f.button :submit, "Next", class: "btn btn-success pull-right" %>
+      </div>
+    </div>
+  <% end %>
+
+  </div>
+</center>

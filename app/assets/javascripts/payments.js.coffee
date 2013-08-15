@@ -48,7 +48,7 @@ jQuery ->
     $.ajax "/validate_coupon",
       type: 'POST'
       dataType: 'json'
-      data: { coupon_code : $("#payment_coupon").val(), appraisal_type: $("#appraisal_type").val() }
+      data: { coupon_code : $("#appraisal_payment_attributes_coupon").val(), appraisal_type: $("#appraisal_type").val() }
       success: (data) ->
         set_coupon_badge('success')
         update_totals(calculate_discount($("#appraisal_price").val(),data.discount,data.discount_type))
@@ -56,8 +56,8 @@ jQuery ->
         set_coupon_badge('error')
         update_totals(calculate_discount($("#appraisal_price").val(),0,"fixed"))
 
-  $("#payment_coupon").keyup ->
-    if $("#payment_coupon").val().length != 16
+  $("#appraisal_payment_attributes_coupon").keyup ->
+    if $("#appraisal_payment_attributes_coupon").val().length != 16
       clear_coupon_badge()
       update_totals(calculate_discount($("#appraisal_price").val(),0,"fixed"))
       return false
@@ -66,4 +66,4 @@ jQuery ->
       validate_coupon()
 
   clear_coupon_badge()
-  $("#payment_coupon").keyup()
+  $("#appraisal_payment_attributes_coupon").keyup()

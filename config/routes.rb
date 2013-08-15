@@ -40,6 +40,7 @@ PurexNew::Application.routes.draw do
   match '/appraisals/share' => 'appraisals#share', :as => :share_appraisal
   get '/appraisals/show_shared/:id' => 'appraisals#show_shared', :as => :show_shared
   resources :appraisals do
+    resources :build, controller: 'appraisals/build'
     resources :photos
     member do
       get 'reply'

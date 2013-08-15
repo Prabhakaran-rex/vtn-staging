@@ -12,27 +12,31 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    @appraisal = Appraisal.find(params[:payment][:appraisal_id])
+    @appraisal = Appraisal.find(params[:appraisal_id])
+    appraisal_params = params[:appraisal]
 
-    if params[:payment][:coupon] && !params[:payment][:coupon].blank? && !Coupon.is_coupon_valid?(params[:payment][:coupon])
+    if appraisal_params[:payment_attributes][:coupon] && !appraisal_params[:payment_attributes][:coupon].blank? && !Coupon.is_coupon_valid?(appraisal_params[:payment_attributes][:coupon])
       flash[:notice] = "Cannot process: Invalid coupon"
+      #TODO Redirect to last step of wizard
       redirect_to payments_path(:appraisal_id => @appraisal) and return
     end
 
-    coupon = Coupon.find_by_code(params[:payment][:coupon])
+    coupon = Coupon.find_by_code(appraisal_params[:payment_attributes][:coupon])
 
     if coupon && !coupon.valid_for_appraisal?(@appraisal.selected_plan)
       flash[:notice] = "Cannot process: Invalid coupon"
+      #TODO Redirect to last step of wizard
       redirect_to payments_path(:appraisal_id => @appraisal) and return
     end
 
     if @appraisal.payed?
       flash[:notice] = "Cannot process: previous payment exists"
+      #TODO Redirect to last step of wizard
       redirect_to payments_path(:appraisal_id => @appraisal) and return
     end
 
-    credit_card = create_credit_card(params[:payment])
-    payment_response  = AuthorizenetModule::PayGateway.new.charge(credit_card, create_billing_address(params[:payment]))
+    credit_card = create_credit_card(appraisal_params[:payment_attributes])
+    payment_response  = AuthorizenetModule::PayGateway.new.charge(credit_card, create_billing_address(appraisal_params[:payment_attributes]))
 
     if payment_response.success?
       Payment.add_payment(payment_response.authorization, credit_card.number[-4,4], credit_card.amount/100, current_user.id, @appraisal.id)
@@ -83,11 +87,11 @@ class PaymentsController < ApplicationController
   def create_billing_address(ccparam)
     billing_address = Hash.new
     billing_address[:address] = ccparam[:address]
-    billing_address[:company] = ccparam[:company]
-    billing_address[:phone] = ccparam[:phone]
+    billing_address[:company] = ccparam[:company] || ""
+    billing_address[:phone] = ccparam[:phone] || ""
     billing_address[:zip] = ccparam[:zip]
     billing_address[:city] = ccparam[:city]
-    billing_address[:country] = ccparam[:country]
+    billing_address[:country] = ccparam[:country] || ""
     billing_address[:state] = ccparam[:state]
     return Payment::BillingAddress.new(billing_address)
   end

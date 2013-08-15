@@ -4,6 +4,7 @@ class Payment < ActiveRecord::Base
 
   attr_accessor :number, :cvv, :expmon, :expyear
   attr_accessor :address, :company, :phone, :zip, :city, :country, :state
+  attr_accessible :appraisal_id, :user_id
 
   has_one :coupon
   accepts_nested_attributes_for :coupon
