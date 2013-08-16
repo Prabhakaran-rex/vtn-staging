@@ -16,6 +16,7 @@ module ApplicationHelper
   end
 
   def getStringForActivityValue(eValue)
+    eValue = eValue.to_i
     if APPRAISAL_STATUS[eValue].empty?
       return ""
     else
