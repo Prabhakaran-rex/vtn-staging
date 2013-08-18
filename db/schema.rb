@@ -318,7 +318,7 @@ ActiveRecord::Schema.define(:version => 20130815182221) do
     t.boolean  "featured",         :default => false
     t.integer  "max_usage",        :default => 1
     t.integer  "usage_count",      :default => 0
-    t.datetime "start_date",       :default => '2013-05-17 01:27:35'
+    t.datetime "start_date",       :default => '2013-05-22 15:29:06'
     t.string   "description"
     t.float    "max_discount"
     t.text     "allowed_products"
@@ -675,7 +675,7 @@ ActiveRecord::Schema.define(:version => 20130815182221) do
     t.boolean  "notify_by_sms",                         :default => false
     t.boolean  "notify_by_email",                       :default => true
     t.integer  "next_notification_interval_in_minutes", :default => 60
-    t.datetime "next_notification_due_at",              :default => '2012-09-11 23:57:57'
+    t.datetime "next_notification_due_at",              :default => '2012-08-20 00:17:41'
     t.string   "payment_method",                        :default => "cheque"
     t.boolean  "uspap",                                 :default => false
     t.string   "name"

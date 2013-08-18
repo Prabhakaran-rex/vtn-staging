@@ -226,7 +226,7 @@ When /^I edit "(.*?)" with "(.*?)" inside my profile$/ do |field, value|
 end
 
 When /^I go to the list of users$/ do
-  visit users_path
+  visit appraisals_path
 end
 
 When /^I visit the sign in path$/ do

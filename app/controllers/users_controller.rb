@@ -3,25 +3,6 @@ class UsersController < ApplicationController
   before_filter :rename_params
   before_filter :get_user, :except => [:facebook_login, :save_signature, :save_avatar]
 
-  def index
-    # TODO Check if performance can be improved
-    # Order appraisals by specific status
-    @appraisals = []
-    [EActivityValueCreated, EActivityValuePayed, EActivityValueClaimed, EActivityValueFinalized].each do |s|
-      @appraisals << Appraisal.where(:created_by => @user.id, :status =>s )
-    end
-    @appraisals = @appraisals.flatten
-
-    if @appraisals.empty?
-      @appraisal = Appraisal.new
-      1.times { @appraisal.photos.build }
-    end
-
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def facebook_login
     redirect_to user_omniauth_authorize_path(:facebook)
   end

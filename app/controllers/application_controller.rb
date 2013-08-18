@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     elsif(current_user.is_appraiser?)
       dashboard_detail_path
     else
-      users_path
+      appraisals_path
     end
 
   end

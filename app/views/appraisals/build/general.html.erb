@@ -29,8 +29,8 @@
         <%= a.input :country_of_origin, :label => "Country of Origin", :as => :country %>
       <% end %>
         <%= f.simple_fields_for :classification do |c| %>
-          <%= c.association :category, as: :select %>
-      <% end %> 
+          <%= c.association :category, as: :select, input_html: {class: "chzn-select"} %>
+      <% end %>
       </div>
       <div>
         <%= f.button :submit, "Next", class: "btn btn-success pull-right" %>

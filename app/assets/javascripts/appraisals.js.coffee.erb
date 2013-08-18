@@ -5,9 +5,12 @@
 //= require jquery.carouFredSel-6.1.0-packed
 //= require jquery.fancybox-1.3.4.pack
 //= require magiczoom
+//= require chosen.jquery.min
+
 jQuery ->
 	$(".currency-input").maskMoney()
 	$("#supplemental_information").collapse({toggle:false})
+	$(".chzn-select").chosen()
 	
 	# Make sure that at least one image has been uploaded before continuing
 	$('#btn_step_2_wizard_image_upload').click ->

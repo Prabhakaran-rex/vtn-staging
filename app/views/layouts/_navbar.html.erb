@@ -5,7 +5,7 @@
     <% if current_user.is_appraiser? && current_user.is_confirmed? %>
       <span class="navitem"><%= link_to("My Dashboard", dashboard_detail_path) %></span>
   <% elsif current_user.is_customer? %>
-      <span class="navitem"><%= link_to("My Appraisals", main_app.users_path) %></span>
+      <span class="navitem"><%= link_to("My Appraisals", main_app.appraisals_path) %></span>
   <% end %>
     <span class="navitem"><%= link_to("Support", main_app.tickets_path) %></span>
     <span class="navitem"><%= link_to("Signout", main_app.destroy_user_session_path, method: :delete) %></span>
