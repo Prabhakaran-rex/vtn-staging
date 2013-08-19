@@ -84,6 +84,20 @@ jQuery ->
 
   setSelectedPlan()
   # End Code for Plan Selection in Appraisal Wizard
+  
+  $("#chkImportAccount").change ->
+    if $(this).is(':checked')
+      $("#txtCardName").val($("#appraiser_name").val())
+      $("#appraisal_payment_attributes_address").val($("#appraiser_address_attributes_address").val())
+      $("#appraisal_payment_attributes_city").val($("#appraiser_address_attributes_city").val())
+      $("#appraisal_payment_attributes_state").val($("#appraiser_address_attributes_state").val())
+      $("#appraisal_payment_attributes_zip").val($("#appraiser_address_attributes_zip").val())
+    else
+      $("#txtCardName").val("")
+      $("#appraisal_payment_attributes_address").val("")
+      $("#appraisal_payment_attributes_city").val("")
+      $("#appraisal_payment_attributes_state").val("")
+      $("#appraisal_payment_attributes_zip").val("")
 
 resetSelectTxt = ->
   $("#plansel1").html "Select"
@@ -95,5 +109,3 @@ setSelectedPlan = ->
     $("#plansel"+$("#appraisal_selected_plan").val()).trigger('click')
   else
     $("#plansel4").trigger('click')
-
-

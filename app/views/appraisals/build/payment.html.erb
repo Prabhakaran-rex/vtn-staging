@@ -15,6 +15,15 @@
       <input type="hidden" id="appraisal_type" value="<%= @appraisal.selected_plan %>" />
     <input type="hidden" name="appraisal_price" id="appraisal_price" value="<%= PAYMENT_PLAN[ @appraisal.selected_plan-1] %>" />
     <input type="hidden" name="appraisal_id" value="<%= @appraisal.id %>" />
+    <%= simple_fields_for current_user do |u| %>
+      <%= u.input :name, as: :hidden %>
+    <%= u.simple_fields_for :address do |a| %>
+      <%= a.input :address, as: :hidden %>
+      <%= a.input :city, as: :hidden %>
+    <%= a.input :state, as: :hidden %>
+    <%= a.input :zip, as: :hidden %>
+  <% end %>
+  <% end %>
     <div>
       <div>
         <% if @appraisal.errors.any? %>
@@ -64,13 +73,13 @@
             <tr>
               <td class="formTitle" valign="top"></td>
               <td class="formBlock">
-                <input type="checkbox" value="true"/> Use account information
+                <input type="checkbox" value="true" id="chkImportAccount" /> Use account information
               </td>
             </tr>
             <tr>
               <td class="formTitle" valign="top">Name on Card</td>
               <td class="formBlock">
-                <input type="text" class="formTextField shortTextField" />
+                <input type="text" class="formTextField shortTextField" id="txtCardName" />
               </td>
             </tr>
             <tr>
