@@ -94,10 +94,10 @@ class Appraisal < ActiveRecord::Base
     [EAAppraisalTypeLongRestricted, EAAppraisalTypeLongForSelling].include?(self.selected_plan)
   end
 
-  def suggest_for_rejection
+  def suggest_for_rejection(params)
     self.status = EActivityValueReviewRejection
     self.save
-    UserMailer.notify_admin_of_suggested_rejection(self).deliver if (Rails.env == 'development' || Rails.env == 'production')
+    UserMailer.notify_admin_of_suggested_rejection({appraisal: self, reason: params[:reason]}).deliver if (Rails.env == 'development' || Rails.env == 'production')
   end
 
   def reject(comments)

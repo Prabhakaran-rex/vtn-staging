@@ -25,7 +25,7 @@
         <%= f.input :name, :label => "Description", :hint => "(Describe the item as typically done in the trade.)", :input_html => {:class => "input-xlarge"} %>
         <%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
           <%= a.input :year_of_manufacture, :label => "Approx. Date of Manufacture", :as => :text, :input_html => {:class => "input-xlarge", :rows => 4} %>
-          <%= a.input :country_of_origin, :label => "Country of Origin", :as => :text, :hint => "(If determinable, else 'unknown')", :input_html => {:class => "input-xlarge", :rows => 4}%>
+        <%= a.input :country_of_origin, :label => "Country of Origin", :as => :text, :hint => "(If determinable, else 'unknown')", :input_html => {:class => "input-xlarge", :rows => 4}%>
         <%= a.input :makers_marks, :label => "Signatures, maker's marks, dates", :as => :text, :hint => "(List any signatures, maker's marks or dates. If none, enter 'none'.)", :input_html => {:class => "input-xlarge", :rows => 4}, :disabled => true %>
         <%= a.input :inscriptions, :label => "Inscriptions,etc", :as => :text, :hint => "(List any inscriptions, monograms, dedications or other such markings. If none, enter 'none'.)" , :input_html => {:class => "input-xlarge", :rows => 4}, :disabled => true%>
         <%= a.input :dimensions, :label => "Dimensions", :as => :text, :hint => "(Enter the height, width, depth, diameter as appropriate.)" , :input_html => {:class => "input-xlarge", :rows => 4}, :disabled => true%>
@@ -48,8 +48,14 @@
         <button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
       <% else %>
           <label class="checkbox">
-          <input type="checkbox" name="suggest_rejection" value="false">Suggest to admin that this assignment be rejected and the customer so notified
+          <input type="checkbox" name="suggest_rejection" id="chkSuggestRejection" value="false">Suggest to admin that this assignment be rejected and the customer so notified
         </label>
+        <div id="divRejectionReason">
+          <label class="string optional control-label" for="txtRejectionReason">Reason For Rejection</label>
+          <div class="controls">
+            <input type="text" name="txtRejectionReason" id="txtRejectionReason" value="" />
+          </div>
+        </div>
         <button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
         <button class="btn btn-success" id="btnSubmitAppraisalReply">Save and submit appraisal to Client</button>
       <% end %>

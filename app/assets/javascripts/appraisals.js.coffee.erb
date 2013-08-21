@@ -6,60 +6,73 @@
 //= require jquery.fancybox-1.3.4.pack
 //= require magiczoom
 jQuery ->
-	$(".currency-input").maskMoney()
-	$("#supplemental_information").collapse({toggle:false})
-	
-	# Make sure that at least one image has been uploaded before continuing
-	$('#btn_step_2_wizard_image_upload').click ->
-		if $('.template-download').length is 0
-			alert "Please upload at least one image to continue"
-			false
+  $(".currency-input").maskMoney()
+  $("#supplemental_information").collapse({toggle:false})
+  
+  # Make sure that at least one image has been uploaded before continuing
+  $('#btn_step_2_wizard_image_upload').click ->
+    if $('.template-download').length is 0
+      alert "Please upload at least one image to continue"
+      false
 
-	# An appraisal can have one default image
-	set_as_default_image = (btn) ->
-		$('.btn_make_image_primary').removeClass('btn-success')
-		$('.btn_make_image_primary').html('<i class="icon-picture"></i> Mark as Primary')
-		$(btn).addClass("btn-success")
-		$(btn).addClass("btn-success").html('<i class="icon-picture icon-white"></i> Primary')
+  # An appraisal can have one default image
+  set_as_default_image = (btn) ->
+    $('.btn_make_image_primary').removeClass('btn-success')
+    $('.btn_make_image_primary').html('<i class="icon-picture"></i> Mark as Primary')
+    $(btn).addClass("btn-success")
+    $(btn).addClass("btn-success").html('<i class="icon-picture icon-white"></i> Primary')
 
-
-
-
-	if ($('#fileupload').length != 0)
-		$('#fileupload').fileupload({formData: {iframe_redirect_to: '<%= "#{ENV['BASE_URI']}" %>/result.html?%s', authenticity_token: $('meta[name="csrf-token"]').attr('content') }})
+  if ($('#fileupload').length != 0)
+    $('#fileupload').fileupload({formData: {iframe_redirect_to: '<%= "#{ENV['BASE_URI']}" %>/result.html?%s', authenticity_token: $('meta[name="csrf-token"]').attr('content') }})
 
 #  if navigator.userAgent.indexOf("MSIE 10") > 0
   $("#fileupload").bind "mousedown", (event) ->
     $(this).trigger "click"
 
-	$('#appraisal_images_table').on('click','.btn_make_image_primary', ( (event)->
-		$.ajax $(this).attr("href"),
-			type: 'POST'
-			dataType: 'json'
-			success: (data) ->
-				set_as_default_image(event.target)
-			error: (data) ->
-				alert "Unable to set image as primary"
-		false
-	))
+  $('#appraisal_images_table').on('click','.btn_make_image_primary', ( (event)->
+    $.ajax $(this).attr("href"),
+      type: 'POST'
+      dataType: 'json'
+      success: (data) ->
+        set_as_default_image(event.target)
+      error: (data) ->
+        alert "Unable to set image as primary"
+    false
+  ))
 
-	$('#btnSaveComment').click ->
-		$('#div_comment').hide()
-		$('#div_saving_comment').show()
-		$.ajax ('/appraisals/comment'),
-			type: 'POST'
-			dataType: 'json'
-			data: {comment_appraisal_id: $('#comment_appraisal_id').val(), comment: {body: $('#comment_body').val()}}
-			success: (data) ->
-				$('#comment_list').append('<div class="well"><h5>I wrote on ' + data.created_at +  ' :  </h5>' + data.body + '</div>')
-				$('#div_comment').show()
-				$('#div_saving_comment').hide()
-				$('#comment_body').val("")
-			error: (data) ->
-				alert "Unable to save comment"
-				$('#div_comment').show()
-				$('#div_saving_comment').hide()
-		false
+  $('#btnSaveComment').click ->
+    $('#div_comment').hide()
+    $('#div_saving_comment').show()
+    $.ajax ('/appraisals/comment'),
+      type: 'POST'
+      dataType: 'json'
+      data: {comment_appraisal_id: $('#comment_appraisal_id').val(), comment: {body: $('#comment_body').val()}}
+      success: (data) ->
+        $('#comment_list').append('<div class="well"><h5>I wrote on ' + data.created_at +  ' :  </h5>' + data.body + '</div>')
+        $('#div_comment').show()
+        $('#div_saving_comment').hide()
+        $('#comment_body').val("")
+      error: (data) ->
+        alert "Unable to save comment"
+        $('#div_comment').show()
+        $('#div_saving_comment').hide()
+    false
 
-	$('#btnSubmitAppraisalReply').click ->
-		$('#appraisal_status').val("10")
+  $('#btnSubmitAppraisalReply').click ->
+    $('#appraisal_status').val("10")
+
+  $("#divRejectionReason").hide()
+
+  $('#chkSuggestRejection').click ->
+    if $(this).is(':checked')
+      $("#divRejectionReason").show()
+    else
+      $("#divRejectionReason").hide()
+      $("#txtRejectionReason").val("")
+
+  $('#btnUpdateAppraisalReply').click ->
+    if $("#chkSuggestRejection").is(':checked') and $("#txtRejectionReason").val().length == 0
+      alert "Please enter a reason for rejecting the appraisal"
+      false
+    else
+      true

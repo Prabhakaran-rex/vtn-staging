@@ -7,6 +7,7 @@ Dear Value This Now Administrator,
   <li><b>Assignment Created on</b> <%= @appraisal.created_at %></li>
   <li><b>Submitted by:</b><%= "#{@appraiser.name} (#{@appraiser.email}) #{@appraiser.address.phone1}" %></li>
   <li><b>Customer:</b><%= "#{@customer.name} (#{@customer.email})" %></li>
+  <li><b>Reason:</b><%= @reason %></li>
 </ul>
 
 Thank you
