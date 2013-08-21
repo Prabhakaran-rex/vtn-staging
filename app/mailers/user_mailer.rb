@@ -67,8 +67,8 @@ class UserMailer < ActionMailer::Base
     @appraisal = Appraisal.find(appraisal)
     @appraiser = @appraisal.assigned_to
     @customer = Customer.find(@appraisal.created_by)
-    mail(#:to => ["dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
-         :to => ["wapankh@gmail.com"],
+    mail(:to => ["dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
+         :to => ["sergio@purplecowwebsites.com"],
          :subject => "[Appraisal Suggested for Rejection] #{appraisal.name}")
   end
 
@@ -76,8 +76,8 @@ class UserMailer < ActionMailer::Base
     @appraisal = Appraisal.find(appraisal)
     @customer = Customer.find(@appraisal.created_by)
     @additional_comments = comments.to_s
-    mail(#:to => ["dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
-         :to => ["wapankh@gmail.com"],
+    mail(:to => ["dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
+         :to => @customer.email,
          :subject => "[Appraisal Rejected ] #{appraisal.name}")
   end
 
