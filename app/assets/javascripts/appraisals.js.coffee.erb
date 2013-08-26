@@ -8,74 +8,74 @@
 //= require chosen.jquery.min
 
 jQuery ->
-	$(".currency-input").maskMoney()
-	$("#supplemental_information").collapse({toggle:false})
-	$(".chzn-select").chosen()
-	
-	# Make sure that at least one image has been uploaded before continuing
-	$('#btn_step_2_wizard_image_upload').click ->
-		if $('.template-download').length is 0
-			alert "Please upload at least one image to continue"
-			false
+  $(".currency-input").maskMoney()
+  $("#supplemental_information").collapse({toggle:false})
+  $(".chzn-select").chosen()
+  
+  # Make sure that at least one image has been uploaded before continuing
+  $('#btn_step_2_wizard_image_upload').click ->
+    if $('.template-download').length is 0
+      alert "Please upload at least one image to continue"
+      false
 
-	# An appraisal can have one default image
-	set_as_default_image = (btn) ->
-		$('.btn_make_image_primary').removeClass('btn-success')
-		$('.btn_make_image_primary').html('<i class="icon-picture"></i> Mark as Primary')
-		$(btn).addClass("btn-success")
-		$(btn).addClass("btn-success").html('<i class="icon-picture icon-white"></i> Primary')
+  # An appraisal can have one default image
+  set_as_default_image = (btn) ->
+    $('.btn_make_image_primary').removeClass('btn-success')
+    $('.btn_make_image_primary').html('<i class="icon-picture"></i> Mark as Primary')
+    $(btn).addClass("btn-success")
+    $(btn).addClass("btn-success").html('<i class="icon-picture icon-white"></i> Primary')
 
-	if ($('#fileupload').length != 0)
-		$('#fileupload').fileupload({formData: {iframe_redirect_to: '<%= "#{ENV['BASE_URI']}" %>/result.html?%s', authenticity_token: $('meta[name="csrf-token"]').attr('content') }})
+  if ($('#fileupload').length != 0)
+    $('#fileupload').fileupload({formData: {iframe_redirect_to: '<%= "#{ENV['BASE_URI']}" %>/result.html?%s', authenticity_token: $('meta[name="csrf-token"]').attr('content') }})
 
-	$('#appraisal_images_table').on('click','.btn_make_image_primary', ( (event)->
-		$.ajax $(this).attr("href"),
-			type: 'POST'
-			dataType: 'json'
-			success: (data) ->
-				set_as_default_image(event.target)
-			error: (data) ->
-				alert "Unable to set image as primary"
-		false
-	))
+  $('#appraisal_images_table').on('click','.btn_make_image_primary', ( (event)->
+    $.ajax $(this).attr("href"),
+      type: 'POST'
+      dataType: 'json'
+      success: (data) ->
+        set_as_default_image(event.target)
+      error: (data) ->
+        alert "Unable to set image as primary"
+    false
+  ))
 
-	$('#btnSaveComment').click ->
-		$('#div_comment').hide()
-		$('#div_saving_comment').show()
-		$.ajax ('/appraisals/comment'),
-			type: 'POST'
-			dataType: 'json'
-			data: {comment_appraisal_id: $('#comment_appraisal_id').val(), comment: {body: $('#comment_body').val()}}
-			success: (data) ->
-				$('#comment_list').append('<div class="well"><h5>I wrote on ' + data.created_at +  ' :  </h5>' + data.body + '</div>')
-				$('#div_comment').show()
-				$('#div_saving_comment').hide()
-				$('#comment_body').val("")
-			error: (data) ->
-				alert "Unable to save comment"
-				$('#div_comment').show()
-				$('#div_saving_comment').hide()
+  $('#btnSaveComment').click ->
+    $('#div_comment').hide()
+    $('#div_saving_comment').show()
+    $.ajax ('/appraisals/comment'),
+      type: 'POST'
+      dataType: 'json'
+      data: {comment_appraisal_id: $('#comment_appraisal_id').val(), comment: {body: $('#comment_body').val()}}
+      success: (data) ->
+        $('#comment_list').append('<div class="well"><h5>I wrote on ' + data.created_at +  ' :  </h5>' + data.body + '</div>')
+        $('#div_comment').show()
+        $('#div_saving_comment').hide()
+        $('#comment_body').val("")
+      error: (data) ->
+        alert "Unable to save comment"
+        $('#div_comment').show()
+        $('#div_saving_comment').hide()
     false
 
-	$('#btnSubmitAppraisalReply').click ->
-	  $('#appraisal_status').val("10")
+  $('#btnSubmitAppraisalReply').click ->
+    $('#appraisal_status').val("10")
 
   # Begin Code for Plan Selection in Appraisal Wizard
-	$("#plansel1").click ->
+  $("#plansel1").click ->
     $("#planprod1").addClass("formProdOn").siblings().removeClass "formProdOn"
     $(this).addClass("formProdSelected").siblings().removeClass "formProdSelected"
     resetSelectTxt()
     $(this).html "Selected"
     $("#appraisal_selected_plan").val(<%= EAAppraisalTypeShortRestricted %>)
 
-	$("#plansel2").click ->
+  $("#plansel2").click ->
     $("#planprod2").addClass("formProdOn").siblings().removeClass "formProdOn"
     $(this).addClass("formProdSelected").siblings().removeClass "formProdSelected"
     resetSelectTxt()
     $(this).html "Selected"
     $("#appraisal_selected_plan").val(<%= EAAppraisalTypeLongRestricted %>)
 
-	$("#plansel4").click ->
+  $("#plansel4").click ->
     $("#planprod4").addClass("formProdOn").siblings().removeClass "formProdOn"
     $(this).addClass("formProdSelected").siblings().removeClass "formProdSelected"
     resetSelectTxt()
@@ -84,6 +84,21 @@ jQuery ->
 
   setSelectedPlan()
   # End Code for Plan Selection in Appraisal Wizard
+  $("#divRejectionReason").hide()
+
+  $('#chkSuggestRejection').click ->
+    if $(this).is(':checked')
+      $("#divRejectionReason").show()
+    else
+      $("#divRejectionReason").hide()
+      $("#txtRejectionReason").val("")
+
+  $('#btnUpdateAppraisalReply').click ->
+    if $("#chkSuggestRejection").is(':checked') and $("#txtRejectionReason").val().length == 0
+      alert "Please enter a reason for rejecting the appraisal"
+      false
+    else
+      true
   
   $("#chkImportAccount").change ->
     if $(this).is(':checked')

@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     @user = User.new
     @featured_coupon = Coupon.find_by_featured(true)
     flash.keep
-    return redirect_to after_sign_in_path_for(current_user) unless current_user.nil?
+    return redirect_to get_index_for_user_type(current_user) unless current_user.nil?
   end
 
   # Terms and Conditions
