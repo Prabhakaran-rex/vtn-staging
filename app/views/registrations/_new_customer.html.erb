@@ -8,14 +8,14 @@
   <tr>
     <td style="padding-right:30px;">
       <table>
-        <%= form_text_field(form: f, field: :name, html_class: "input-xlarge" ) %>
-        <%= form_text_field(form: f, field: :email, html_class: "input-xlarge" ) %>
-        <%= form_text_field(form: f, field: :password, as: :password, html_class: "input-xlarge" ) %>
-        <%= form_text_field(form: f, field: :password_confirmation, as: :password, html_class: "input-xlarge" ) %>
+        <%= form_text_field(form: f, field: :name, html_class: "input-xlarge", required: true ) %>
+        <%= form_text_field(form: f, field: :email, html_class: "input-xlarge", required: true ) %>
+        <%= form_text_field(form: f, field: :password, as: :password, html_class: "input-xlarge", required: true ) %>
+        <%= form_text_field(form: f, field: :password_confirmation, as: :password, html_class: "input-xlarge", required: true, title: "Confirm Password" ) %>
         <tr>
           <td class="formTitle" valign="top"></td>
           <td class="formBlock">
-            <%= f.input :agree_to_tos, :as => :boolean, :label => "I have read and agree to the #{link_to 'Terms of Service', terms_path(:format => :pdf),:target => "_blank"}", :hint => false %>
+            <%= f.input :agree_to_tos, :as => :boolean, :wrapper => :checkbox_inline_with_control_group, :label => "I have read and agree to the #{link_to 'Terms of Service', terms_path(:format => :pdf),:target => "_blank"}" %>
           </td>
         </tr>
         <%= form_submit_button(form: f, title: "Sign up") %>

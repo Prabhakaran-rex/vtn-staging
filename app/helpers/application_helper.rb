@@ -147,7 +147,7 @@ module ApplicationHelper
     input_html.reverse_merge!(params[:input_html]) if params[:input_html]
     value = params[:value] || nil
 
-    markup = "<tr><td class='formTitle' valign='top'>#{title}</td>"
+    markup = "<tr><td class='formTitle' valign='top'>#{'*' if required} #{title}</td>"
     markup += "<td class='formBlock'>"
     markup += params[:form].input params[:field], as: as, required: required, label: label, input_html: input_html, placeholder: placeholder, priority: priority, value: value
     markup += "</td></tr>"

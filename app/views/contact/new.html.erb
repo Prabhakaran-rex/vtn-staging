@@ -6,7 +6,7 @@
     </div>
     <br />
     <%= render :partial => "contact_tabs" if current_user %>
-    <%= simple_form_for @message, :url => contact_path, :html => {:class => "form-horizontal"}  do |f| %>
+    <%= simple_form_for @message, :url => contact_path, :html => {}  do |f| %>
       <table>
       <% if !current_user %>
         <%= form_text_field(form: f, field: :name ) %>
@@ -16,7 +16,7 @@
       <%= f.input :email, :input_html => {:value => current_user.email}, :as => :hidden %>
     <% end %>
       <%= form_text_field(form: f, field: :subject ) %>
-      <%= form_text_field(form: f, field: :body, as: :text, input_html: {:rows => 4} ) %>
+      <%= form_text_field(form: f, field: :body, as: :text, title: "Messsage", input_html: {:rows => 4} ) %>
       <tr>
         <td class="formTitle" valign="top"></td>
         <td class="formBlock"><%= f.submit "Send", :class => "btn btn-success"%></td>

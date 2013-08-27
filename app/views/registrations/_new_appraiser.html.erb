@@ -10,10 +10,10 @@
   <tr>
     <td style="padding-right:30px;">
       <table>
-        <%= form_text_field(form: f, field: :name, width: 300 ) %>
-        <%= form_text_field(form: f, field: :email, width: 300 ) %>
-        <%= form_text_field(form: f, field: :password, width: 300, as: :password ) %>
-        <%= form_text_field(form: f, field: :password_confirmation, width: 300, as: :password ) %>
+        <%= form_text_field(form: f, field: :name, width: 300, required: true ) %>
+        <%= form_text_field(form: f, field: :email, width: 300, required: true ) %>
+        <%= form_text_field(form: f, field: :password, width: 300, as: :password, required: true ) %>
+        <%= form_text_field(form: f, field: :password_confirmation, width: 300, as: :password, title: "Confirm Password", required: true ) %>
         <tr>
           <td class="formTitle" valign="top"></td>
           <td class="formBlock">
@@ -25,8 +25,8 @@
         <tr>
           <td class="formTitle" valign="top"></td>
           <td class="formBlock">
-            <%= f.input :agree_to_provider_agreement, :as => :boolean, :label => "I have read and agree to the Appraisal Provider Agreement." , :hint => false %>
-            <%= f.input :agree_to_code_of_ethics, :as => :boolean, :label => "I comply with the #{link_to 'Appraiser Code of Ethics', ethics_path}", :hint => false %>
+            <%= f.input :agree_to_provider_agreement, :as => :boolean, :wrapper => :checkbox_inline_with_control_group, :label => "I have read and agree to the Appraisal Provider Agreement." , :hint => false %>
+            <%= f.input :agree_to_code_of_ethics, :as => :boolean, :wrapper => :checkbox_inline_with_control_group, :label => "I comply with the #{link_to 'Appraiser Code of Ethics', ethics_path}", :hint => false %>
           </td>
         </tr>
       <%= form_submit_button(form: f, title: "Sign up") %>

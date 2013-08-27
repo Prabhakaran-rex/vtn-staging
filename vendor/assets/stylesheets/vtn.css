@@ -113,3 +113,6 @@ body {
 .chzn-select {
   width: auto;
 }
+.navbar-inverse .brand {
+  padding-left: 0px;
+}
