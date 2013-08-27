@@ -99,20 +99,22 @@ jQuery ->
       false
     else
       true
-  
+
   $("#chkImportAccount").change ->
     if $(this).is(':checked')
-      $("#txtCardName").val($("#appraiser_name").val())
-      $("#appraisal_payment_attributes_address").val($("#appraiser_address_attributes_address").val())
-      $("#appraisal_payment_attributes_city").val($("#appraiser_address_attributes_city").val())
-      $("#appraisal_payment_attributes_state").val($("#appraiser_address_attributes_state").val())
-      $("#appraisal_payment_attributes_zip").val($("#appraiser_address_attributes_zip").val())
+      $("#txtCardName").val($("#customer_name").val())
+      $("#appraisal_payment_attributes_address").val($("#customer_address_attributes_address").val())
+      $("#appraisal_payment_attributes_city").val($("#customer_address_attributes_city").val())
+      $("#appraisal_payment_attributes_state").val($("#customer_address_attributes_state").val())
+      $("#appraisal_payment_attributes_zip").val($("#customer_address_attributes_zip").val())
     else
       $("#txtCardName").val("")
       $("#appraisal_payment_attributes_address").val("")
       $("#appraisal_payment_attributes_city").val("")
       $("#appraisal_payment_attributes_state").val("")
       $("#appraisal_payment_attributes_zip").val("")
+
+  true
 
 resetSelectTxt = ->
   $("#plansel1").html "Select"

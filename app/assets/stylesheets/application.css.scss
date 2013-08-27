@@ -12,10 +12,13 @@
  *= require jquery.tag
  *= require jquery-ui.custom
  *= require magiczoom
+ *= require bootstrap
+ *= require bootstrap-responsive
  *= require site
  *= require style
  *= require chosen
+ *= require vtn
  */
-$linkColor: #1e92d5;
-@import "bootstrap";
-@import "bootstrap-responsive";
+/*$linkColor: #1e92d5;*/
+/*@import "bootstrap";*/
+/*@import "bootstrap-responsive";*/

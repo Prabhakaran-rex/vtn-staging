@@ -1,25 +1,32 @@
-<div class="footer">
-  <div>
-    <%= link_to "Appraise my item", main_app.new_user_session_path %></a>
-  <a href="#">Learn about online appraisals</a>
-  <%= link_to "Blog", refinery.blog_root_path %>
-  <%= link_to("Support", main_app.contact_path) %>
-  <%= link_to("Become an Appraiser", main_app.become_path) %>
-  <%= link_to("Privacy Policy", main_app.privacy_path) %>
-  <%= link_to("Terms of Service", main_app.terms_path) %>
-  <%= link_to "Login", main_app.new_user_session_path %></a>
+<footer class="footer">
+  <div class="container">
+
+    <ul class="footer-links">
+      <li><%= link_to "Appraise my item", main_app.new_user_session_path %></a></li>
+    <li> <a href="#">Learn about online appraisals</a></li>
+    <li> <%= link_to "Blog", refinery.blog_root_path %></li>
+    <li> <%= link_to("Support", main_app.contact_path) %></li>
+    <li> <%= link_to("Become an Appraiser", main_app.become_path) %></li>
+    <li> <%= link_to("Privacy Policy", main_app.privacy_path) %></li>
+    <li> <%= link_to("Terms of Service", main_app.terms_path) %></li>
+    <li> <%= link_to "Log In", main_app.new_user_session_path %></a></li>
+</ul>
+
+<div class="row-fluid show-grid">
+  <div class="span4 social">
+
+    <a href="http://www.twitter.com/valuethisnow" target="_blank" ><%= image_tag "tw.png" %></a>
+    <a href="http://pinterest.com/valuethisnow" target="_blank"><%= image_tag "pin.png" %></a>
+    <a href="http://www.facebook.com/ValueThisNow" target="_blank"><%= image_tag "fb.png" %></a>
   </div>
-  <div>
-<span class="copyright">copyright 2013 Valuethisnow.com</span>
-<div class="footerLock">
-<script type="text/javascript">TrustLogo("<%= image_path ("secure.png") %>", "SC5", "none");</script>
+  <div class="span4 copy">copyright 2013 Valuethisnow.com</div>
+  <div class="span4 f-last">
+    <script type="text/javascript">TrustLogo("<%= image_path ("secure.png") %>", "SC5", "none");</script>
+  </div>
 </div>
-<div class="footerSocial">
-  <a href="http://www.facebook.com/ValueThisNow" title="Visit our Facebook page."><span id="fS1"></span></a>
-  <a href="http://www.twitter.com/valuethisnow" title="See our twitter feed."><span id="fS2"></span></a>
-  <a href="http://pinterest.com/valuethisnow" title="See our Pinterest board."><span id="fS3"></span></a>
+
+
 </div>
-</div>
-</div>
+</footer>
 <%= render :partial => "layouts/affiliate" %>
 

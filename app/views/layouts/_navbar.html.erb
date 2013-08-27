@@ -1,21 +1,36 @@
-<div id="nav">
-  <%= link_to image_tag("logo.png", :alt=> "finding antique and collectable treasure", :class => 'logo'), main_app.root_path %>
-  <% if current_user %>
-    <span class="navitem"><%= link_to("Account", main_app.appraiser_steps_path) %></span>
-    <% if current_user.is_appraiser? && current_user.is_confirmed? %>
-      <span class="navitem"><%= link_to("My Dashboard", dashboard_detail_path) %></span>
-  <% elsif current_user.is_customer? %>
-      <span class="navitem"><%= link_to("My Appraisals", main_app.appraisals_path) %></span>
-  <% end %>
-    <span class="navitem"><%= link_to("Support", main_app.tickets_path) %></span>
-    <span class="navitem"><%= link_to("Signout", main_app.destroy_user_session_path, method: :delete) %></span>
-  <% else %>
-    <span class="navitem"><%= link_to "Blog", refinery.blog_root_path %></span>
-    <span class="navitem"><%= link_to "How it works", main_app.how_path %></span>
-    <span class="navitem"><%= link_to 'What makes us different?', main_app.what_makes_path %></span>
-    <span class="navitem"><%= link_to("Become an Appraiser", main_app.become_path) %></span>
-    <span class="navitem"><%= link_to("Log In", main_app.new_user_session_path) %></span>
-    <span class="navitem"><%= link_to "Register as Customer", main_app.new_customer_registration_path %></span>
-    <span class="navitem"><%= link_to "Register as Appraiser", main_app.new_appraiser_registration_path %></span>
-  <% end %>
-</div>
+<!--HEADER-->
+<header id="header">
+  <!-- Navbar
+    ================================================== -->
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <%= link_to image_tag("logo.png", :alt=> "finding antique and collectable treasure", :class => 'brand'), main_app.root_path %>
+
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <% if current_user %>
+              <li><%= link_to("Account", main_app.appraiser_steps_path) %></li>
+            <% if current_user.is_appraiser? && current_user.is_confirmed? %>
+              <li><%= link_to("My Dashboard", dashboard_detail_path) %></li>
+          <% elsif current_user.is_customer? %>
+              <li><%= link_to("My Appraisals", main_app.appraisals_path) %></li>
+          <% end %>
+            <li><%= link_to("Support", main_app.contact_path) %></li>
+            <li><%= link_to("Signout", main_app.destroy_user_session_path, method: :delete) %></li>
+          <% else %>
+              <li><%= link_to "Blog", refinery.blog_root_path %></li>
+            <li><%= link_to "How it works", main_app.how_path %></li>
+            <li><%= link_to("Log In", main_app.new_user_session_path) %></li>
+            <li><%= link_to "Register as Customer", main_app.new_customer_registration_path %></li>
+            <li><%= link_to "Register as Appraiser", main_app.new_appraiser_registration_path %></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!--HEADER ENDS-->
+

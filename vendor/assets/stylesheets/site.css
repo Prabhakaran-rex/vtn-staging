@@ -21,27 +21,6 @@ body{
 
 a:hover{text-decoration:underline;}
 
-#nav{
-	position:relative;
-	display:block;
-	font-size: 14px;
-	color: #ffa200;
-	padding: 7px 20px;
-	background: -moz-linear-gradient(top,#ffffff 0%,#f1f0e8);
-	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff),to(#f1f0e8));
-	background-color:#f3f2eb;
-	border: 1px solid #afafaf;
-	min-width:700px;
-
-}
-
-
-.navitem{position:relative; height:22px; float:right; top:10px; font-weight:bold; padding:0px 15px 5px 7px; font-size:16px; color:#515151;}
-.natitem a:link{color:#515151;}
-.navSelected{color:#b79701;}
-.navitem a:link, .navitem a:visited{text-decoration:none; color:#515151;}
-.navitem a:link:hover, .navselect a:link, .navselect a:visited{color:#b79701;}
-
 .footer{
 position:relative;
 padding:20px;
