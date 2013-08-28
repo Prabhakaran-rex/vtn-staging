@@ -19,7 +19,7 @@
       <%= u.input :name, as: :hidden %>
     <%= u.simple_fields_for :address do |a| %>
       <%= a.input :address, as: :hidden %>
-      <%= a.input :city, as: :hidden %>
+    <%= a.input :city, as: :hidden %>
     <%= a.input :state, as: :hidden %>
     <%= a.input :zip, as: :hidden %>
   <% end %>
@@ -200,6 +200,15 @@
         </td>
       </tr>
     </table>
+    <div id="logos" class="row-fluid" style="width: 100%;">
+      <div class="span12">
+        <div class="pull-right">
+        <script type="text/javascript">TrustLogo("https://s3.amazonaws.com/vtn.assets.valuethisnow.com/tl_white.gif", "SC5", "none");</script>
+        <a href="https://www.paypal.com/us/verified/pal=rjohnston%40colosses%2ecom" target="_blank"><img src="https://www.paypal.com/en_US/i/icon/verification_seal.gif"  alt="Official PayPal Seal" width="75" height="75"></A>
+        <script type="text/javascript">var ANS_customer_id="e6d07733-39cf-4af2-9f8c-b27b1dbdfb31";</script> <script type="text/javascript" src="//verify.authorize.net/anetseal/seal.js" ></script> <a href="http://www.authorize.net/" id="AuthorizeNetText" target="_blank"></a>
+        <%= image_tag "cards.jpg", style: "margin-top: 20px;" %>
+        </div>
+    </div>
     <br /><br /><br />
     <div style="position:relative; margin-top:20px;">
       <div>

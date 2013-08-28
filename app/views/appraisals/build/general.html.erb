@@ -10,11 +10,6 @@
         <% if @appraisal.errors.any? %>
           <div class="error_explanation">
           <h4><%= "#{pluralize(@appraisal.errors.count, "error")} prohibited this appraisal from being saved:" %></h4>
-          <!--          <ul>
-            <% @appraisal.errors.full_messages.each do |msg| %>
- <li><%= msg %></li>
-          <% end %>
-          </ul> -->
         </div>
       <% end %>
       </div>
