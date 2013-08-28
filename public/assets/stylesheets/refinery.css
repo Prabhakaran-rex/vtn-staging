@@ -357,11 +357,9 @@ footer p a:hover{
 	padding:5px 10px;
 	font-size:15px;
 	color:#FFF;
-	background:#000;
 	float:left;
 }
 .right_side .btn:hover {
-	background:#1e1e1e;
 }
 .right_side ul {
 	list-style:none;
@@ -431,7 +429,6 @@ border-radius: 10px; margin-top:2px;}
 	font-size:18px;
 	color:#000;
 	text-transform:uppercase;
-	background:url(/images/heading-bg.png) no-repeat left center;
 	line-height:14px;
 	padding:6px 6px;
 	margin:10px 0;
@@ -446,11 +443,9 @@ border-radius: 10px; margin-top:2px;}
 	padding:5px 10px;
 	font-size:15px;
 	color:#FFF;
-	background:#000;
 	float:left;
 }
 .about .btn:hover {
-	background:#1e1e1e;
 }
 .sidebar .category {
 	margin:0
@@ -467,7 +462,6 @@ border-radius: 10px; margin-top:2px;}
 	font-size:18px;
 	color:#000;
 	text-transform:uppercase;
-	background:url(/images/heading-bg.png) no-repeat left center;
 	line-height:14px;
 	padding:6px 6px;
 	margin:10px 0;

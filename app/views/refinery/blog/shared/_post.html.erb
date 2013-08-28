@@ -19,7 +19,7 @@
       <%=raw tags.collect { |tag| link_to tag, refinery.blog_tagged_posts_path(tag.id, tag.name.parameterize) }.to_sentence %>
     </div>
   <% end %>
-    <%= link_to 'Continue Reading', refinery.blog_post_path(post), :class => "btn" if blog_post_teaser_enabled? %>
+    <%= link_to 'Continue Reading', refinery.blog_post_path(post), :class => "btn btn-success" if blog_post_teaser_enabled? %>
   </div> <!-- end post_right_side -->
 </div> <!-- end div.post -->
 <% end %>
