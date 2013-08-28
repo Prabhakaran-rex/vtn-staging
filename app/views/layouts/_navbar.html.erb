@@ -20,9 +20,9 @@
             <li><%= link_to("Support", main_app.contact_path) %></li>
             <li><%= link_to("Signout", main_app.destroy_user_session_path, method: :delete) %></li>
           <% else %>
-              <li><%= link_to "Blog", refinery.blog_root_path %></li>
+            <li><%= link_to("Login", main_app.new_user_session_path) %></li>
+            <li><%= link_to "Blog", refinery.blog_root_path %></li>
             <li><%= link_to "How it works", main_app.how_path %></li>
-            <li><%= link_to("Log In", main_app.new_user_session_path) %></li>
             <li><%= link_to "Register as Customer", main_app.new_customer_registration_path %></li>
             <li><%= link_to "Register as Appraiser", main_app.new_appraiser_registration_path %></li>
           <% end %>
