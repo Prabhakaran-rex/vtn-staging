@@ -139,6 +139,10 @@ class Appraisal < ActiveRecord::Base
     return AppraisalInfo.new(current_appraisal_info)
   end
 
+  def category
+    self.classification.category
+  end
+
   private
   def sanitize_appraisal_info
     self.appraisal_info.sanitize

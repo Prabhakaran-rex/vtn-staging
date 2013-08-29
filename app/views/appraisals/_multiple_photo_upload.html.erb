@@ -7,7 +7,7 @@
   <div class="container">
     <% unless current_user.is_appraiser? %>
     <div class="row">
-      <h4 style="text-align: center;">Upload Images Of The Item Being Appraised</h4>
+      <h4 style="margin-left: 30px; margin-bottom: 15px;">Upload Images Of The Item Being Appraised</h4>
     </div>
     <% end %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
@@ -20,27 +20,9 @@
           <span>Add files...</span>
           <input type="file" name="photo[asset]" multiple>
         </span>
-        <button type="submit" class="btn btn-success start">
-          <i class="icon-upload"></i>
-          <span>Start upload</span>
-        </button>
-        <button type="reset" class="btn btn-warning cancel">
-          <i class="icon-ban-circle"></i>
-          <span>Cancel upload</span>
-        </button>
-        <% end %>
-        <% if can_delete %>
-        <button type="button" class="btn btn-danger delete">
-          <i class="icon-trash"></i>
-          <span>Delete</span>
-        </button>
         <% end %>
       </div>
       <div class="span5">
-        <!-- The global progress bar -->
-        <div class="progress progress-success progress-striped active fade">
-          <div class="bar" style="width:0%;"></div>
-        </div>
       </div>
     </div>
     <!-- The loading indicator is shown during image processing -->
