@@ -52,8 +52,10 @@
         </div>
       </div>
     </div>
-    <%= f.input :allow_share, label: false, inline_label: "Allow ValuethisNow to use my appraisal(s) for promotional purposes. My personal information will NOT be used or displayed for this." %>
-
+<%= f.input :allow_share,
+        :collection => [[true, "Allow ValuethisNow to use my appraisal(s) for promotional purposes. My personal information will NOT be used or displayed for this."] ,[false, "I don't want anyone to be able to share my appraisal except me"]], :value_method => :first, :label_method => :last, :as => :radio_buttons, 
+        :item_wrapper_class => 'radio',
+        :label => ""%>
     <br /><br /><br />
     <span class="title19">Appraisal Notice</span>
     <br />
