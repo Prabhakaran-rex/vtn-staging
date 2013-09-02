@@ -114,6 +114,20 @@ jQuery ->
       $("#appraisal_payment_attributes_state").val("")
       $("#appraisal_payment_attributes_zip").val("")
 
+  $("#btnBuildWizardPhoto").click ->
+    if $("#appraisal_images_table").length isnt 0 and $(".template-download").length <= 0
+      alert "Please upload at least one image to continue"
+      false
+    else
+      true
+
+  $("#btnBuildWizardGeneral").click ->
+    if $("#appraisal_classification_attributes_category_id").val() is ""
+      alert "Error. Please choose a category before proceeding"
+      false
+    else
+      true
+
   true
 
 resetSelectTxt = ->

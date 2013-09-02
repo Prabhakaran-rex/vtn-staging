@@ -18,6 +18,7 @@ class Appraisals::BuildController < ApplicationController
   def update
     @appraisal = Appraisal.find(params[:appraisal_id])
     params[:appraisal][:appraisal_info] = @appraisal.merge_appraisal_info(params)
+    params[:appraisal][:step] = step
     params[:appraisal][:step] = 'active' if step == steps.last
     @appraisal.update_attributes(params[:appraisal])
     render_wizard @appraisal

@@ -14,6 +14,9 @@
   </div>
   <div>
     <div class="form-inputs">
+      <%= f.simple_fields_for :classification do |c| %>
+          <%= c.association :category, as: :select, input_html: {class: "chzn-select"} %>
+      <% end %>
       <%= f.input :title, :label => "Item title", :hint => "(Enter a brief noun name of the item.)", :input_html => {:class => "input-xxlarge"} %>
       <%= f.input :name, :as => :text, :label => "Item description", :hint => "(Enter a brief description of your item including any characteristics you feel are relevant to its value.)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
       <%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>

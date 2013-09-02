@@ -9,7 +9,7 @@
       <div>
         <% if @appraisal.errors.any? %>
           <div class="error_explanation">
-          <h4><%= "#{pluralize(@appraisal.errors.count, "error")} prohibited this appraisal from being saved:" %></h4>
+          <h4>Errors prohibited this appraisal from being saved</h4>
         </div>
       <% end %>
       </div>
@@ -25,10 +25,9 @@
       <% end %>
       </div>
       <div>
-        <%= f.button :submit, "Next", class: "btn btn-success pull-right" %>
+        <%= f.button :submit, "Next", class: "btn btn-success pull-right",id: "btnBuildWizardGeneral"  %>
       </div>
     </div>
   <% end %>
-
   </div>
 </center>

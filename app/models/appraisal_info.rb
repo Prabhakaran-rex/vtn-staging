@@ -4,7 +4,9 @@ class AppraisalInfo
 	include ActiveModel::Conversion
 	extend ActiveModel::Naming
 
-  validates_presence_of :damage, :dimensions, :item_history
+  validates_presence_of :item_history, on: :general
+  validates_presence_of :damage, :dimensions, :item_history, on: :characteristics
+  validates_presence_of :damage, :dimensions, :item_history, on: :active
 
 	attr_accessor :additional_ea, :dimensions, :materials, :country_of_origin, :makers_marks, 
                   :damage, :year_of_manufacture, :where_was_it_obtained, :how_was_it_obtained,
