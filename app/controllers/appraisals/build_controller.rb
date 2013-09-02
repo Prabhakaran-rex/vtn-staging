@@ -1,7 +1,7 @@
 class Appraisals::BuildController < ApplicationController
   include Wicked::Wizard
 
-  steps :general, :characteristics, :plan, :payment
+  steps :general, :characteristics, :photos, :plan, :payment
 
   def show
     @appraisal = Appraisal.find(params[:appraisal_id])

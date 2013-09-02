@@ -1,0 +1,26 @@
+<%= render :partial => "appraisals/includes_for_photo_upload"%>
+<center>
+  <div class="contentBlock">
+    <div class="formTop">
+      <span class="title41">Upload Photos</span>
+      <span class="orderStep"><br />3 of 5</span>
+    </div>
+      <div class="container row-fluid sub_box">
+      <div>
+        <% if @appraisal.errors.any? %>
+          <div class="error_explanation">
+          <h4><%= "#{pluralize(@appraisal.errors.count, "error")} prohibited this appraisal from being saved:" %></h4>
+        </div>
+      <% end %>
+      </div>
+      <div class="row-fluid">
+      <%= render  :partial => "appraisals/multiple_photo_upload" %>
+    </div>
+      <div>
+        <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
+        <%= link_to "Next", next_wizard_path, class: "btn btn-success pull-right" %>
+      </div>
+    </div>
+  </div>
+</center>
+

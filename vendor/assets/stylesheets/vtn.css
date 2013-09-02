@@ -131,3 +131,6 @@ body {
 .bigYellow:hover {
 	color: #976001;
 }
+#appraisal_images_table {
+  max-width: 80%;
+}
