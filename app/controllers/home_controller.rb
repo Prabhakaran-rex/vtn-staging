@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   # Home Page
   def index
     @user = User.new
-    @featured_coupon = Coupon.find_by_featured(true)
+    @featured_coupon = Coupon.get_featured
     flash.keep
     return redirect_to get_index_for_user_type(current_user) unless current_user.nil?
   end
