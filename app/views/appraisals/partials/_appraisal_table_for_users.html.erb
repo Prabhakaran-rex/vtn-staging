@@ -15,19 +15,19 @@
   <tbody>
   <% appraisals.each do |appraisal| %>
     <tr>
-    <td><%= get_linked_thumbnail(appraisal) %></td>
-    <!-- <td><%= link_to(h(appraisal.title) + " ##{appraisal.id}", appraisal_build_index_path(appraisal_id: appraisal)) %></td> -->
-    <td><%= link_to(h(appraisal.title) + " ##{appraisal.id}", appraisal) %></td>
+    <td><%= linked_thumbnail(appraisal) %></td>
+    <td><%= linked_title(appraisal) %></td>
     <td><%= getStringForActivityValue(appraisal.status) %></td>
-    <td><%= appraisal.status == EActivityValueFinalized ? distance_of_time_in_words(Time.now,appraisal.updated_at) + " ago" : "-" %></td>
-    <td><%= appraisal.status == EActivityValueFinalized ? print_fair_market_value(appraisal) : "-" %></td>
-    <td><%= appraisal.status == EActivityValueFinalized ? print_replacement_cost(appraisal) : "-" %></td>
+    <td><%= completed_on(appraisal) %></td>
+    <td><%= print_fair_market_value(appraisal) %></td>
+    <td><%= print_replacement_cost(appraisal) %></td>
     <td><%= getStringForAppraisalType(appraisal.selected_plan) %></td>
-    <td><%= button_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-success btn-mini") if appraisal.status == EActivityValueCreated %>
+    <td>
     <%= link_to('Edit', appraisal_build_index_path(appraisal), :class => "btn btn-success btn-mini", :style => "margin:2px;") if appraisal.status == EActivityValueCreated %>
     <%= link_to('Edit', edit_appraisal_path(appraisal), :class => "btn btn-success btn-mini", :style => "margin:2px;") if appraisal.status == EActivityValuePayed %>
       <%= link_to appraisal_path(appraisal, :format => :pdf, :pdf_full => true), :class => "btn btn-success btn-mini" do %>Download PDF<% end if appraisal.status == EActivityValueFinalized%></td>
     <td>
+      <%= button_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-success btn-mini") if appraisal.status == EActivityValueCreated %>
       <% if appraisal.status == EActivityValueFinalized %>
         <% @payment = Payment.new %>
       <a href="#myModal-<%= appraisal.id %>" role="button" class="btn btn-mini btn-success" data-toggle="modal">Push to social</a>

@@ -14,10 +14,6 @@
         <h5>Status : <%= getStringForActivityValue(@appraisal.status) %></h5>
         <h5>Type : <%= getStringForAppraisalType(@appraisal.selected_plan) %></h5>
         <h3><%= @appraisal.title %>
-        <% if @appraisal.status == EActivityValueCreated %>
-            <% @payment = Payment.new %>
-          <%= link_to 'Make Payment', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right" %>
-        <% end %>
           <% if @appraisal.status != EActivityValueFinalized %>
             <%= link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
         <% end %>
@@ -125,9 +121,7 @@
               <%= link_to appraisal_path(@appraisal, :format => :pdf, :pdf_full => true), :class => "btn btn-success" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
           <% end %>
           </div>
-          <% if @appraisal.status == EActivityValueCreated %>
-            <%= link_to 'Save and Make Payment', payments_path(@payment, :appraisal_id => @appraisal), :class => "btn btn-success pull-right" %>
-        <% elsif @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValuePayed %>
+        <% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValuePayed %>
             <%= link_to 'Save and Continue', @appraisal, :class => "btn btn-success pull-right" %>
         <% end %>
         </div>

@@ -10,7 +10,7 @@
     <!-- Requested appraisal and product snapshot -->
     <span class="title27">Requested appraisal</span><br />
 
-    <%= simple_form_for(@appraisal, :url => payments_path, :method => :post,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
+    <%= simple_form_for(@appraisal, :url => wizard_path , :method => :put,  :html => {:multipart => true, :class => "form-horizontal payment_form"}) do |f| %>
       <%= f.simple_fields_for :payment do |p| %>
       <input type="hidden" id="appraisal_type" value="<%= @appraisal.selected_plan %>" />
     <input type="hidden" name="appraisal_price" id="appraisal_price" value="<%= PAYMENT_PLAN[ @appraisal.selected_plan-1] %>" />
@@ -81,31 +81,31 @@
             <tr>
               <td class="formTitle" valign="top">Name on Card</td>
               <td class="formBlock">
-                <input type="text" class="formTextField shortTextField" id="txtCardName" />
+                <input type="text" class="formTextField shortTextField" id="txtCardName" name="appraisal[payment_attributes][name]" required />
               </td>
             </tr>
             <tr>
               <td class="formTitle" valign="top">Address</td>
               <td class="formBlock">
-                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_address" name="appraisal[payment_attributes][address]"/>
+                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_address" name="appraisal[payment_attributes][address]" required/>
               </td>
             </tr>
             <tr>
               <td class="formTitle" valign="top">City</td>
               <td class="formBlock">
-                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_city" name="appraisal[payment_attributes][city]"/>
+                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_city" name="appraisal[payment_attributes][city]" required/>
               </td>
             </tr>
             <tr>
               <td class="formTitle" valign="top">State/Province</td>
               <td class="formBlock">
-                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_state" name="appraisal[payment_attributes][state]"/>
+                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_state" name="appraisal[payment_attributes][state]" required/>
               </td>
             </tr>
             <tr>
               <td class="formTitle" valign="top">Zip/Postal Code</td>
               <td class="formBlock">
-                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_zip" name="appraisal[payment_attributes][zip]"/>
+                <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_zip" name="appraisal[payment_attributes][zip]" required/>
               </td>
             </tr>
           </table>
@@ -116,13 +116,13 @@
               <tr>
                 <td class="ccFormTitle" valign="top"></td>
                 <td class="ccFormBlock">
-                  <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_number" name="appraisal[payment_attributes][number]" value="Card Number" style="width:130px;" />
+                  <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_number" name="appraisal[payment_attributes][number]" value="" style="width:130px;" placeholder="Card Number" maxlength="16" required/>
                 </td>
               </tr>
               <tr>
                 <td class="ccFormTitle" valign="top">Expires</td>
                 <td class="ccFormBlock">
-                  <select class="span1 formSelect" id="appraisal_payment_attributes_expmon" name="appraisal[payment_attributes][expmon]" style="padding:3px; width: 45px;">
+                  <select class="span1 formSelect" id="appraisal_payment_attributes_expmon" name="appraisal[payment_attributes][expmon]" style="padding:3px; width: 45px;" required>
                     <option value=""></option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -138,7 +138,7 @@
                     <option value="12">12</option>
                   </select>
                   &nbsp; / &nbsp;
-                  <select class="span2 formSelect" id="appraisal_payment_attributes_expyear" name="appraisal[payment_attributes][expyear]" style="padding:3px; width: 59px;">
+                  <select class="span2 formSelect" id="appraisal_payment_attributes_expyear" name="appraisal[payment_attributes][expyear]" style="padding:3px; width: 59px;" required>
                     <option value=""></option>
                     <option>2013</option>
                     <option>2014</option>
@@ -166,7 +166,7 @@
               <tr>
                 <td class="ccFormTitle" valign="top">Type</td>
                 <td class="ccFormBlock">
-                  <select name="select" id="select" class="span3 formSelect" style="padding:3px; width: 127px;">
+                  <select name="select" id="select" class="span3 formSelect" style="padding:3px; width: 127px;" required>
                     <option value=""></option>
                     <option>VISA</option>
                     <option>Mastercard</option>
@@ -178,7 +178,7 @@
               <tr>
                 <td class="ccFormTitle" style="padding-top:15px;" valign="top">CVV</td>
                 <td class="ccFormBlock" style="padding-top:15px;">
-                  <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_cvv" name="appraisal[payment_attributes][cvv]" style="width:30px;"/>
+                  <input type="text" class="formTextField shortTextField" id="appraisal_payment_attributes_cvv" name="appraisal[payment_attributes][cvv]" style="width:30px;" required/>
                 </td>
               </tr>
             </table>
@@ -215,7 +215,7 @@
     <div style="position:relative; margin-top:20px;">
       <div>
         <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
-        <%= f.button :submit, "Purchase", class: "btn btn-success pull-right" %>
+        <%= f.button :submit, "Purchase", class: "btn btn-success pull-right", id: "btnBuildWizardPayment" %>
       </div>
       <div style="clear:both;"></div>
     </div>
@@ -224,3 +224,17 @@
 <% end %>
 </div>
 </center>
+<div id="paymentModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <h3 id="myModalLabel">Processing payment</h3>
+  </div>
+  <div class="modal-body">
+    <div>
+    <p id="paymentModalLoading"><%= image_tag "loader.gif" %> Please wait...</p>
+    <p id="paymentModalDeclined"></p>
+    </div>
+  </div>
+  <div class="modal-footer" id="paymentModalFooter" style="display: none;">
+    <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
