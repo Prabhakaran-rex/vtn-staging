@@ -12,7 +12,7 @@
       <table>
         <%= form_text_field(form: f, field: :name, width: 300, required: true ) %>
         <%= form_text_field(form: f, field: :email, width: 300, required: true ) %>
-        <%= form_text_field(form: f, field: :password, width: 300, as: :password, required: true ) %>
+        <%= form_text_field(form: f, field: :password, width: 300, as: :password, required: true, hint: "Must have at least 6 characters: at least 1 digit, at least 1 upper case letter." ) %>
         <%= form_text_field(form: f, field: :password_confirmation, width: 300, as: :password, title: "Confirm Password", required: true ) %>
         <tr>
           <td class="formTitle" valign="top"></td>

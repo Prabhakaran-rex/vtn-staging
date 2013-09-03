@@ -6,11 +6,11 @@
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <table border="0">
   <tr>
-    <td style="padding-right:30px;">
+    <td style="padding-right:30px;" width="50%">
       <table>
         <%= form_text_field(form: f, field: :name, html_class: "input-xlarge", required: true ) %>
         <%= form_text_field(form: f, field: :email, html_class: "input-xlarge", required: true ) %>
-        <%= form_text_field(form: f, field: :password, as: :password, html_class: "input-xlarge", required: true ) %>
+        <%= form_text_field(form: f, field: :password, as: :password, html_class: "input-xlarge", required: true, hint: "Must have at least 6 characters: at least 1 digit,\n at least 1 upper case letter." ) %>
         <%= form_text_field(form: f, field: :password_confirmation, as: :password, html_class: "input-xlarge", required: true, title: "Confirm Password" ) %>
         <tr>
           <td class="formTitle" valign="top"></td>
