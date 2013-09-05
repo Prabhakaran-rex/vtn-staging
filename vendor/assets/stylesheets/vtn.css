@@ -114,7 +114,14 @@ body {
   width: auto;
 }
 .navbar-inverse .brand {
-  padding-left: 0px;
+  padding-left: 40px;
+}
+.navbar {
+  min-width: 1200px;
+  max-height: 65px;
+}
+.navbar .pull-right {
+  padding-top: 15px;
 }
 .bigYellow{
 	position:relative;
@@ -130,6 +137,9 @@ body {
 }
 .bigYellow:hover {
 	color: #976001;
+}
+.smallYellow {
+  font-size: 15px;
 }
 #appraisal_images_table {
   max-width: 80%;

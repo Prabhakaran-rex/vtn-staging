@@ -29,18 +29,17 @@
       <div>
         <div class="homeHow1">
           <span class="title27">Tell us about your item online</span><Br />
-          Fill out our appraisal form and let us know as much information about the item as you have. One or more digital photo's of your item is all you need.
+          Fill out our appraisal form and let us know as much information about the item as you have. One or more digital photos of your item is all you need.
         </div>
         <br /><br />
         <div class="homeHow2">
-          <span class="title27">Our experts will appraise it</span><br />
+          <span class="title27">Our experts will appraise it. It's that simple</span><br />
           You will receive a professional appraisal of your item which will help you see its true value. <br />
           <%= link_to 'Learn more about online appraisals.', how_path(role: 'consumer') %>
         </div>
         <br />
         <div style="padding-left:90px;">
-          <span class="title27">It's that simple</span><br />
-          <%= link_to "Get your appraisal now", main_app.new_user_session_path %>
+          <%= link_to "Sign in / Sign up to get an appraisal", main_app.new_user_session_path, class: "bigYellow smallYellow", style: "text-decoration:none;" %>
           <br /><br />
         </div>
       </div>
@@ -56,13 +55,13 @@
       </div>
       <div style="background:url(<%= image_path("h_items.png") %>) no-repeat bottom right; padding-right:380px;">
         You can learn a lot from an appraisal. For example, if you have an item to sell, an appraisel will 
-        help you get the best price.Insurance companies may require appraisals for property insurance. 
+        help you get the best price. Insurance companies may require appraisals for property insurance. 
         If you are moving, it's a good idea to get items appraised in case they are damaged during the move 
         and you need to file a damage claim.
         <br /><br />
         Appraisals are also very valuable for life events such as wills, inheritence and divorce. In addition to 
-        learning about the market value of your item, you can also learn about it's history. Each piece has 
-        a story to tell and and expert appraiser can reveal that story to you.They can also help you find groups 
+        learning about the market value of your item, you can also learn about its history. Each piece has 
+        a story to tell and expert appraiser can reveal that story to you.They can also help you find groups 
         and other people that share your interest in the item. <a href="#"><%= link_to "Learn about your item with an online appraisal.", main_app.new_user_session_path %></a>
         <br /><br /><br /><br /><br /><br />
       </div>
@@ -83,11 +82,11 @@
           <area shape="poly" coords="93,0,52,20,41,52,44,74,0,75,0,105,62,107,89,120,129,115,147,104,130,103,140,69,162,68,160,41,146,20,124,2," href="http://en.wikipedia.org/wiki/Uniform_Standards_of_Professional_Appraisal_Practice" alt="1" title="1" onfocus="blur();" />
             <area shape="poly" coords="187,110,198,89,196,70,181,69,163,71,151,68,144,67,132,102,143,110,174,113,160,113," href="http://www.aoaonline.org" alt="2" title="2" onfocus="blur();" />
             </map>
-            Not all appraisal providers are equal.  ValueThisNow offers superior turnaround times, often under 3 hours.  
+            Not all appraisal providers are equal.  ValueThisNow offers superior turnaround times &mdash; often under 3 hours.  
             We offer reports that are suitable for property insurance related matters or matters concerning equitable property 
-            distribution. Our world class appraiser community are can provide amazing facts and history about your antiques 
-            and collectables saving you time and money before you buy or sell.  Our appraisal reports start at $19.95 are 
-            USPAP compliant and our service comes with a 100% money back guarantee if your not satisfied. 
+            distribution. Our world class appraiser community can provide amazing facts and history about your antiques 
+            and collectibles saving you time and money before you buy or sell.  Our appraisal reports start at $19.95, are 
+            USPAP compliant and come with a 100% money back guarantee if your not satisfied. 
             What are you waiting for? <%= link_to "Lets find out what your treasure is worth.", main_app.new_user_session_path %></a>
           </p>
           <br /><br /><br /><br />
