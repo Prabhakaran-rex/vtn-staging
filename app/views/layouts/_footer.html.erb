@@ -3,7 +3,7 @@
 
     <ul class="footer-links">
       <li><%= link_to "Appraise my item", main_app.new_user_session_path %></a></li>
-    <li> <a href="#">Learn about online appraisals</a></li>
+    <li><%= link_to 'Learn about online appraisals', main_app.how_path(role: 'consumer') %></li>
     <li> <%= link_to "Blog", refinery.blog_root_path %></li>
     <li> <%= link_to("Support", main_app.contact_path) %></li>
     <li> <%= link_to("Become an Appraiser", main_app.new_appraiser_registration_path) %></li>

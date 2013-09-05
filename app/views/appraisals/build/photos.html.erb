@@ -5,7 +5,7 @@
       <span class="title41">Upload Photos</span>
       <span class="orderStep"><br />3 of 5</span>
     </div>
-      <div class="container row-fluid sub_box">
+      <div class="container row-fluid sub_box" style="min-height: 480px;">
       <div>
         <% if @appraisal.errors.any? %>
           <div class="error_explanation">
@@ -13,7 +13,7 @@
         </div>
       <% end %>
       </div>
-      <div class="row-fluid" style="min-height: 350px;">
+      <div class="row-fluid" style="min-height: 380px;">
       <%= render  :partial => "appraisals/multiple_photo_upload" %>
     </div>
       <div>
