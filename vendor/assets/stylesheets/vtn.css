@@ -134,3 +134,6 @@ body {
 #appraisal_images_table {
   max-width: 80%;
 }
+#divAllowShare .controls {
+  margin-left: 5px;
+}

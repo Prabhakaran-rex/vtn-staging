@@ -1,19 +1,19 @@
 <%= stylesheet_link_tag 'stylesheets/refinery'%>
-<% content_for :title, "#{t('.blog_archive_for', :date => @archive_date.strftime('%B %Y'))}" %>
-
 <% content_for :body_content_left do %>
+  <div class="span2"></div>
+<div class="span7">
   <h2><%= t('.blog_archive_for', :date => @archive_date.strftime('%B %Y')) %></h2>
-<div class="left_blog"> <!-- begin left_blog -->
-  <% if @posts.any? %>
-    <section id="blog_posts">
+  <div class="left_blog"> <!-- begin left_blog -->
+    <% if @posts.any? %>
+      <section id="blog_posts">
       <%= render :partial => "/refinery/blog/shared/post", :collection => @posts %>
     </section>
   <% else %>
-    <p><%= t('.no_blog_articles_posted', :date => @archive_date.strftime('%B %Y')) %></p>
+      <p><%= t('.no_blog_articles_posted', :date => @archive_date.strftime('%B %Y')) %></p>
   <% end %>
-</div>
+  </div>
 <% end %>
-
+</div>
 <%= render :partial => '/refinery/blog/shared/body_content_right' %>
 
 <%= render :partial => "/refinery/content_page" %>

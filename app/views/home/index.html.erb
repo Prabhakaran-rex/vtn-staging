@@ -2,7 +2,7 @@
   <!-- Home block 1 -->
   <div id="homeblock1">
     <div class="div_homeTitle">
-      <span class="homeTitle">Online appraisal made easy</span>
+      <span class="homeTitle">Online appraisals made easy</span>
     </div>
     <br /> <br />
     <%= link_to "Sign in / Sign up to get an appraisal", main_app.new_user_session_path, class: "bigYellow", style: "text-decoration:none;" %>
@@ -35,7 +35,7 @@
         <div class="homeHow2">
           <span class="title27">Our experts will appraise it</span><br />
           You will receive a professional appraisal of your item which will help you see its true value. <br />
-          <a href="#">Learn more about online appraisals.</a>
+          <%= link_to 'Learn more about online appraisals.', how_path(role: 'consumer') %>
         </div>
         <br />
         <div style="padding-left:90px;">

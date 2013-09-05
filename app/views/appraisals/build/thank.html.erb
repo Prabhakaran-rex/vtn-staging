@@ -1,0 +1,35 @@
+<center>
+  <div class="contentBlock">
+    <div class="formTop">
+      <span class="title41">Thank you for your order!</span>
+    </div>
+    <div class="row sub_box" style="margin-left: 4px;">
+      <div class="row-fluid">
+        <div class="span12">
+          Your appraisal has been submitted to our team of expert USPAP compliant appraisers and will be processed shortly. If your appraiser has any questions for you they will reachout by way of email.
+        </div>
+      </div>
+      <div class="row-fluid" style="margin-top: 15px; margin-bottom: 30px;">
+        <div class="span12">
+          If you would like to appraise an additional item please click on the green button below and use the coupon code under the green button for 10% off on your next order.
+        </div>
+      </div>
+      <div class="row-fluid" style="margin-bottom: 30px;">
+        <div class="span12">
+          <%= link_to "Appraise Now",appraisal_build_index_path(appraisal_id: 'building'), method: :post, class: "btn btn-success btn-large pull-right" %>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span12">
+          <form class="form-horizontal">
+            <fieldset>
+              <input type="text" disabled class="pull-right" value="<%= get_cms_content('thank-you-coupon') %>" />
+              <span class="help-block pull-right" style="padding-right: 10px;">Use the following code at checkout:</span>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</center>
+
