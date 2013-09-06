@@ -115,7 +115,6 @@ gem "tilt", "1.3.4"
 
 # For background jobs
 gem "delayed_job_active_record", "~> 0.4.4"
-gem "devise-async", "~> 0.5.0"
 gem "daemons", "~> 1.1.9"
 gem 'psych'
 
