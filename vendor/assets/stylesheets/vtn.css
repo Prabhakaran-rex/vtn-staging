@@ -121,7 +121,6 @@ body {
   max-height: 65px;
 }
 .navbar .pull-right {
-  padding-top: 15px;
 }
 .bigYellow{
 	position:relative;
@@ -146,4 +145,15 @@ body {
 }
 #divAllowShare .controls {
   margin-left: 5px;
+}
+.chzn-container .chzn-results li {
+  padding-bottom: 0px;
+}
+.btnAddNewItem {
+  margin-top: 20px;
+}
+#welcomeDiv {
+  text-align: right;
+  margin-right: 15px;
+  padding-top: 10px;
 }

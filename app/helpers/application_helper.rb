@@ -131,7 +131,7 @@ module ApplicationHelper
 
   def get_cms_content(path)
     page = Cms::Page.find_by_full_path(path)
-    return raw(page.nil? ? "Add content to #{path}" : page.content)
+    return raw(page.nil? ? "Add content to '#{path}'" : page.content)
   end
 
   def form_text_field(params)

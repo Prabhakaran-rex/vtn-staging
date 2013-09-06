@@ -14,14 +14,14 @@
       <% end %>
       </div>
       <div class="form-inputs">
-        <%= f.input :title, :label => "Item Name", :input_html => {:class => "span8"} %>
-        <%= f.input :name, :as => :text, :label => "Description",  :input_html => {:class => "span8", :rows => 4},:hint => "Describe the item. Let us know the color, shape and function if any. The more detail the better."%>
+        <%= f.input :title, :label => "Item Name", :input_html => {:class => "span8"}, required: true %>
+        <%= f.input :name, :as => :text, :label => "Description",  :input_html => {:class => "span8", :rows => 4}, required: true, :hint => "(Enter a brief description of your item including any characteristics you feel are relevant to its value.)" %>
         <%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
-          <%= a.input :item_history, :label => "Item History", :as => :text, :input_html => {:class => "span8", :rows => 4}, hint: "Where was it made? Has it been in your family? Where did you first get this item?" %>
+          <%= a.input :item_history, :label => "Item History", :as => :text, required: true,:input_html => {:class => "span8", :rows => 4}, hint: "(Where did you get it? Purchase at auction, flea market? Family Heirloom? How long have you owned it?)" %>
           <%= a.input :country_of_origin, :label => "Country of Origin", :as => :country, input_html: {class: "chzn-select"} %>
       <% end %>
         <%= f.simple_fields_for :classification do |c| %>
-          <%= c.association :category, as: :select, input_html: {class: "chzn-select"} %>
+          <%= c.association :category, as: :select, collection: Category.all(order: 'name'), required: true, input_html: {class: "chzn-select"} %>
       <% end %>
       </div>
       <div>
