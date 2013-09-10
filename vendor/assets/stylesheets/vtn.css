@@ -157,3 +157,6 @@ body {
   margin-right: 15px;
   padding-top: 10px;
 }
+.navbar-inverse .brand {
+  width: 131px;
+}
