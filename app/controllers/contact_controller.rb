@@ -34,7 +34,7 @@ class ContactController < ApplicationController
 	def tickets
 		@user = current_user
 		@ticketConnector = Complaints::Lighthouse.new()
-		@tickets = current_user.tickets
+		@tickets = @user.nil? ? [] : current_user.tickets
 	end
 
 	def ticket
