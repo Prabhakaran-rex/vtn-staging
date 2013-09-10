@@ -14,7 +14,7 @@
             <% if current_user %>
               <li><%= link_to("My Account", main_app.appraiser_steps_path) %></li>
             <% if current_user.is_appraiser? && current_user.is_confirmed? %>
-              <li><%= link_to("My Dashboard", dashboard_detail_path) %></li>
+              <li><%= link_to("My Dashboard", main_app.dashboard_detail_path) %></li>
           <% elsif current_user.is_customer? %>
               <li><%= link_to "Appraise my item", main_app.new_user_session_path %></a></li>
               <li><%= link_to("My Appraisals", main_app.appraisals_path) %></li>
