@@ -19,7 +19,8 @@ GIT
 
 GIT
   remote: git://github.com/slopezm/refinerycms.git
-  revision: ce3c55c0799571a22e52cc6bca8b36e3150e9a8c
+  revision: a751f9aaa9006b5db38b30b71e7d86fb148df2a5
+  ref: a751f9a
   branch: 2-0-stable
   specs:
     refinerycms-core (2.0.10)

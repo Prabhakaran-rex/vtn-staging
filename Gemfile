@@ -106,7 +106,7 @@ gem "acts_as_commentable_with_threading", "~> 1.1.2"
 gem "paper_trail", "~> 2.6.4"
 
 # For blogging
-gem 'refinerycms-core', '~>2.0.9', github: 'slopezm/refinerycms', branch: '2-0-stable'
+gem 'refinerycms-core', '~>2.0.9', github: 'slopezm/refinerycms', branch: '2-0-stable', ref: "a751f9a"
 gem 'refinerycms-dashboard', '~> 2.0.9'
 gem 'refinerycms-images', '~> 2.0.9'
 gem 'refinerycms-pages', '~> 2.0.9'
