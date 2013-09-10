@@ -14,6 +14,7 @@ end
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%= render :partial => 'layouts/meta' %>
+<%= render partial: 'layouts/js_constants' %>
 <%= stylesheet_link_tag    "application", :media => "all" %>
 <%= javascript_include_tag "application" %>
 <%= csrf_meta_tags %>
@@ -48,3 +49,6 @@ document.writeln('<scr' + 'ipt language="JavaScript" src="'+cvc_loc0+'" type="te
 <%= render :partial => "layouts/footer" %>
 </body>
 </html>
+<pre>
+  <%= refinery.admin_dialogs_path %>
+</pre>

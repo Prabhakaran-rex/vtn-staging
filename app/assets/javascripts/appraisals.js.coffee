@@ -26,7 +26,7 @@ jQuery ->
     $(btn).addClass("btn-success").html('<i class="icon-picture icon-white"></i> Primary')
 
   if ($('#fileupload').length != 0)
-    $('#fileupload').fileupload({formData: {iframe_redirect_to: '<%= "#{ENV['BASE_URI']}" %>/result.html?%s', authenticity_token: $('meta[name="csrf-token"]').attr('content') }})
+    $('#fileupload').fileupload({formData: {iframe_redirect_to: vtn_constants.BASE_URI+'/result.html?%s', authenticity_token: $('meta[name="csrf-token"]').attr('content') }})
 
   $('#appraisal_images_table').on('click','.btn_make_image_primary', ( (event)->
     $.ajax $(this).attr("href"),
@@ -66,21 +66,21 @@ jQuery ->
     $(this).addClass("formProdSelected").siblings().removeClass "formProdSelected"
     resetSelectTxt()
     $(this).html "Selected"
-    $("#appraisal_selected_plan").val(<%= EAAppraisalTypeShortRestricted %>)
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeShortRestricted)
 
   $("#plansel2").click ->
     $("#planprod2").addClass("formProdOn").siblings().removeClass "formProdOn"
     $(this).addClass("formProdSelected").siblings().removeClass "formProdSelected"
     resetSelectTxt()
     $(this).html "Selected"
-    $("#appraisal_selected_plan").val(<%= EAAppraisalTypeLongRestricted %>)
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongRestricted)
 
   $("#plansel4").click ->
     $("#planprod4").addClass("formProdOn").siblings().removeClass "formProdOn"
     $(this).addClass("formProdSelected").siblings().removeClass "formProdSelected"
     resetSelectTxt()
     $(this).html "Selected"
-    $("#appraisal_selected_plan").val(<%= EAAppraisalTypeLongForSelling %>)
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongForSelling)
 
   setSelectedPlan()
   # End Code for Plan Selection in Appraisal Wizard
