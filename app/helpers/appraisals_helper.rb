@@ -1,14 +1,14 @@
 module AppraisalsHelper
 
   def print_replacement_cost(appraisal)
-    return "-" if appraisal.status != EActivityValueFinalized
+    return "-" if appraisal.status != EActivityValueFinalized || appraisal.status != EActivityValueClaimed
     unless (appraisal.appraisal_info.replacement_cost_min.blank? || appraisal.appraisal_info.replacement_cost_max.blank?)
       "#{print_as_currency(appraisal.appraisal_info.replacement_cost_min)} to #{print_as_currency(appraisal.appraisal_info.replacement_cost_max)} " 
     end
   end
 
   def print_fair_market_value(appraisal)
-    return "-" if appraisal.status != EActivityValueFinalized
+    return "-" if appraisal.status != EActivityValueFinalized || appraisal.status != EActivityValueClaimed
     unless (appraisal.appraisal_info.fair_market_value_min.blank? || appraisal.appraisal_info.fair_market_value_max.blank?)
       "#{print_as_currency(appraisal.appraisal_info.fair_market_value_min)} to #{print_as_currency(appraisal.appraisal_info.fair_market_value_max)}"
     end
@@ -27,7 +27,7 @@ module AppraisalsHelper
   end
 
   def linked_thumbnail(appraisal)
-    link_to image_tag(appraisal.default_photo.asset.url(:thumb), :class => "tagThumb"), _get_linked_path(appraisal), :title => h(appraisal.title) unless appraisal.photos.count == 0
+    link_to image_tag(appraisal.default_photo.picture_url(:thumb), :class => "tagThumb"), _get_linked_path(appraisal), :title => h(appraisal.title) unless appraisal.photos.count == 0
   end
 
   def linked_title(appraisal)

@@ -1,0 +1,119 @@
+<% #TODO Remove this once blog has been migrated to new server %>
+<%= javascript_include_tag "vendor/jquery.ui.widget", "jquery.iframe-transport", 
+                           "jquery.fileupload", "jquery.cloudinary" %>
+<div class="row-fluid">
+  <div class="span12">
+    <div id="direct_upload" class="fileupload-buttonbar">
+      <%= form_for(Photo.new, :url => appraisal_photos_path) do |f| %>
+        <div class="row-fluid">
+        <div class="span2">
+
+          <span class="btn fileinput-button" style="height: 20px; margin-top: 0px;margin-right: 3px;">
+            <i class="icon-plus icon-white"></i>
+            <span>Add files...</span>
+            <%= f.cl_image_upload(:picture,:html => { :multiple => true } ) %>
+          </span>
+        </div>
+        <div class="span10">
+          <span class="status"></span>
+          <span class="statusImg"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12">
+<table class="table table-striped" id="img-table">
+  <tbody>
+  <% @photos.each do |photo| %>
+    <tr class="img-row">
+    <td class="preview"><%= image_tag(photo.picture_url(:thumb)) %></td>
+    <td class="name"><%= File.basename(photo.picture.to_s) %></td>
+    <td class="size"></td>
+    <td>
+      <%= link_to photo_tag_url(@appraisal, photo), class: "btn btn-success" do %><i class="icon-tag icon-white"></i> Tag<% end %>
+    </td>
+    <td>
+      <a href="#" class="btn btn-warning">Default goes here</a>
+    </td>
+    <td class="delete">
+      <button class="fileupload-buttonbar btn" data-type="DELETE" data-url="<%= appraisal_photo_url(:id => photo.id, :appraisal_id => @appraisal) %>">
+        <i class="icon-trash"></i>
+        <span>Delete</span>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+<% end %>
+</table>
+  </div>
+</div>
+<!-- Configure Cloudinary jQuery plugin -->
+<%= cloudinary_js_config %>
+
+<script>
+var progressElements = { };
+$(document).ready(function() {
+  $(".cloudinary-fileupload")
+  .fileupload(
+    {
+    start: function (e) {
+      $(".status").text("Starting upload...");
+      $(".statusImg").html('<%= image_tag 'loader.gif'%>');
+    },
+    fail: function (e, data) {
+      $(".status").text("Upload failed");
+      $(".statusImg").html("");
+    },
+    done: function (e,data) {
+      $(".status").text("Upload completed");
+      $(".statusImg").html("");
+    },
+    send: function (e,data) {
+      $(".status").text("Uploading files... Please wait");
+      $(".statusImg").html('<%= image_tag 'loader.gif'%>');
+    }
+  } 
+  )
+  .off("cloudinarydone").on("cloudinarydone", function (e, data) {
+    var extra_data = data;
+    data.result.appraisal_id = '<%= @appraisal.id %>';
+    $.ajax({
+      type: "POST",
+      url: '/photos.json',
+      data: data.result,
+      success: function(data) {
+        var fileName = extra_data.files[0].name;
+        var el = progressElements[ extra_data.files[0].name ];
+        el.find("img:first").attr("src", data.files[0].thumbnailUrl);
+      },
+      dataType: 'json'
+    });
+  });
+
+  $(".cloudinary-fileupload").bind("fileuploadadd", function(e, data){
+    $("#img-table .img-row:first").before('<tr class="img-row"><td class="preview"><%= image_tag 'loader.gif' %></td><td class="name">'+data.files[0].name+'</td><td class="size"></td><td colspan="3"><div class="progress">Uploading...Please wait<div class="bar bar-success"></div></div></td></tr>');
+    progressElements[ data.files[0].name ] = $("#img-table .img-row:first");
+    $("#fileUploads").fileupload("send", {files: data.files});
+  });
+  $(".cloudinary-fileupload").bind("fileuploaddone", function(e, data){
+    var fileName = data.files[0].name;
+    var el = progressElements[ data.files[0].name ];
+    el.find(".progress").hide();
+    $(el).find("td:last").remove();
+    $(el).append('<td><a href="https://www.valuethisnow.com/photos/tag/214/618" class="btn btn-success" target="_blank"><i class="icon-tag icon-white"></i> Tag</a></td><td><a href="/photos/set_as_default/214/618" class="btn btn_make_image_primary"><i class="icon-picture"></i> Mark as Primary</a></td><td><button class="fileupload-buttonbar btn" data-type="DELETE" data-url="https://www.valuethisnow.com/appraisals/214/photos/618"><i class="icon-trash"></i><span>Delete</span></button></td>');
+  });
+  $(".cloudinary-fileupload").bind("fileuploadprogress", function(e, data){
+    var el = progressElements[ data.files[0].name ];
+    var progress = parseInt(data.loaded / data.total * 100, 10);
+    el.find(".bar").css('width',progress+"%" );
+  });
+
+});
+</script>
+
+

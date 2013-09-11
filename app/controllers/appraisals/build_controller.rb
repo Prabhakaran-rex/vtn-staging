@@ -5,7 +5,7 @@ class Appraisals::BuildController < ApplicationController
 
   def show
     @appraisal = Appraisal.find(params[:appraisal_id])
-    @appraisal.photos.build if @appraisal.photos.empty?
+    @photos = @appraisal.photos
     @appraisal.payment = Payment.new(user_id: current_user.id, appraisal_id: @appraisal.id) if @appraisal.payment.nil?
     render_wizard
   end

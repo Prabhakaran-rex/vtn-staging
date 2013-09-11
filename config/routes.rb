@@ -31,7 +31,7 @@ PurexNew::Application.routes.draw do
     match '/users/crop_avatar' => 'users#crop_avatar', :as => :crop_avatar
 
   resources :appraiser_steps
-  resources :photos
+  resources :photos, :only => [:index, :create, :destroy]
   get '/photos/tag/:appraisal_id/:photo_id' => 'photos#tag', :as => :photo_tag
   post '/photos/set_as_default/:appraisal_id/:photo_id' => "photos#set_as_default"
 
@@ -41,7 +41,7 @@ PurexNew::Application.routes.draw do
   get '/appraisals/show_shared/:id' => 'appraisals#show_shared', :as => :show_shared
   resources :appraisals do
     resources :build, controller: 'appraisals/build'
-    resources :photos
+    resources :photos, :only => [:index, :create, :destroy]
     member do
       get 'reply'
       get 'claim'
@@ -52,7 +52,6 @@ PurexNew::Application.routes.draw do
 
   resource :appraiser , :controller => "appraiser" do
     resources :skills
-    resources :photos
   end
 
   get '/appraisers/submit_application' => 'appraiser#submit_application', :as => :submit_application
@@ -102,9 +101,6 @@ PurexNew::Application.routes.draw do
   get '/home/static5' => 'home#static5'
   get '/home/static6' => 'home#static6'
   get '/home/appraisal_provider_agreement' => 'home#appraisal_provider_agreement', :as => "appraisal_provider_agreeement"
-
-  get '/photos/create'
-  post '/photos/create'
 
   post '/appraisals/comment' => "appraisals#comment", :as => :comments
   match '/appraisals/reject/:id' => "appraisals#reject", :as => :appraisal_reject

@@ -2,14 +2,16 @@ class PhotosController < ApplicationController
   load_and_authorize_resource
   before_filter :authenticate_user!
   before_filter :load_appraisal
-  # GET /photos
-  # GET /photos.json
+
   def index
-    @photos = @appraisal.photos
+    @photos = @appraisal.photos.order("created_at DESC")
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
-  # GET /photos/1
-  # GET /photos/1.json
   def show
     @photo = @appraisal.photos.find(params[:id])
 
@@ -19,8 +21,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  # GET /photos/new
-  # GET /photos/new.json
   def new
     @photo = @appraisal.photos.new
 
@@ -30,34 +30,40 @@ class PhotosController < ApplicationController
     end
   end
 
-  # GET /photos/1/edit
   def edit
     @photo = @appraisal.photos.find(params[:id])
   end
 
-  # POST /photos
-  # POST /photos.json
-  def create
-    @photo = @appraisal.photos.new(params[:photo])
+  #def create
+  #@photo = @appraisal.photos.new(params[:photo])
 
+  #if @photo.save
+  #respond_to do |format|
+  #@photos = [@photo]
+  #if !params[:iframe_redirect_to].nil?
+  #json_string = render_to_string(template: 'photos/index.json.jbuilder', locals: { photos: @photos})
+  #redirect_url = params[:iframe_redirect_to].gsub("%s",URI::escape(json_string))
+  #end
+  #redirect_url ||= appraisal_photos_path(@appraisal)
+  #format.html {redirect_to redirect_url, notice: 'Photo was successfully created.'}
+  #format.json {render 'index'}
+  #end
+  #else
+  #render 'new'
+  #end
+  #end
+
+  def create
+    cloudinary_asset = "image/upload/v#{params[:version]}/#{params[:public_id]}.#{params[:format]}##{params[:signature]}"
+    @photo = @appraisal.photos.find_or_initialize_by_name(picture: cloudinary_asset, name: params[:public_id])
     if @photo.save
-      respond_to do |format|
-        @photos = [@photo]
-        if !params[:iframe_redirect_to].nil?
-            json_string = render_to_string(template: 'photos/index.json.jbuilder', locals: { photos: @photos})
-            redirect_url = params[:iframe_redirect_to].gsub("%s",URI::escape(json_string))
-        end
-        redirect_url ||= appraisal_photos_path(@appraisal)
-        format.html {redirect_to redirect_url, notice: 'Photo was successfully created.'}
-        format.json {render 'index'}
-      end
+      @photos = [@photo]
+      render 'index'
     else
-      render 'new'
+      render :json => [{:error => "custom_failure"}], :status => 304
     end
   end
 
-  # PUT /photos/1
-  # PUT /photos/1.json
   def update
     @photo = @appraisal.photos.find(params[:id])
 
@@ -72,16 +78,19 @@ class PhotosController < ApplicationController
     end
   end
 
-  # DELETE /photos/1
-  # DELETE /photos/1.json
+  #def destroy
+  #@photo = @appraisal.photos.find(params[:id])
+  #@photo.destroy
+
+  #respond_to do |format|
+  #format.html { redirect_to @appraisal }
+  #format.json { head :no_content }
+  #end
+  #end
   def destroy
     @photo = @appraisal.photos.find(params[:id])
     @photo.destroy
-
-    respond_to do |format|
-      format.html { redirect_to @appraisal }
-      format.json { head :no_content }
-    end
+    render :json => true
   end
 
   def tag

@@ -38,6 +38,7 @@ gem "heroku-forward"
 # TODO Move all storage from Paperclip to Carrierwave
 gem 'paperclip'
 gem 'carrierwave', '~> 0.7.0'
+gem "cloudinary", "~> 1.0.63"
 gem 'rmagick'
 gem 'aws-s3'
 gem 'aws-sdk'
@@ -62,7 +63,7 @@ gem 'haml' #more consise template files, easier to read and maintain
 gem 'activemerchant'#, '1.23.0', :require => 'active_merchant'
 
 # To use Jbuilder templates for JSON
-gem 'jbuilder'
+gem "jbuilder", "~> 1.5.1"
 
 # For the skills categories and subcategories
 gem 'ancestry'

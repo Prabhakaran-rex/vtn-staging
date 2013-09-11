@@ -1,0 +1,20 @@
+development:
+  cloud_name: hpc
+  api_key: '859272523539336'
+  api_secret: YpKxWm0SEFJ2QpnFCGOgxoYtIpc
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: hpc
+  api_key: '859272523539336'
+  api_secret: YpKxWm0SEFJ2QpnFCGOgxoYtIpc
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: hpc
+  api_key: '859272523539336'
+  api_secret: YpKxWm0SEFJ2QpnFCGOgxoYtIpc
+  enhance_image_tag: true
+  static_image_support: false
+
+

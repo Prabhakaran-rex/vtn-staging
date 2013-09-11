@@ -10,7 +10,7 @@
 		<div class="row-fluid">
 			<div class="span5">
 				<em>Click the image to add a tag</em>
-				<img src="<%= path_to_image(@photo.asset.url(:large)) %>", id="img">
+				<img src="<%= path_to_image(@photo.picture_url(:large)) %>", id="img">
 
 				<script>
 				$(document).ready(function(){

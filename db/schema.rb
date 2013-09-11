@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130815182221) do
+ActiveRecord::Schema.define(:version => 20130911154637) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -386,6 +386,9 @@ ActiveRecord::Schema.define(:version => 20130815182221) do
     t.integer  "asset_file_size"
     t.datetime "asset_updated_at"
     t.boolean  "default",            :default => false
+    t.string   "name"
+    t.string   "asset"
+    t.string   "picture"
   end
 
   add_index "photos", ["appraisal_id"], :name => "index_photos_on_appraisal_id"
