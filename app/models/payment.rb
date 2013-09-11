@@ -23,7 +23,8 @@ class Payment < ActiveRecord::Base
     end
 
     def add_payment(auth_code, ccnum, amount, user_id, appraisal_id)
-      payment = self.new
+      payment =  Payment.find_by_appraisal_id(appraisal_id)
+      payment = self.new if payment.nil?
       payment.user_id = user_id
       payment.appraisal_id = appraisal_id
       payment.amount = amount

@@ -86,7 +86,7 @@ module AuthorizenetModule
       payment_response = _get_gateway.purchase(mycc.amount.to_i, credit_card, {:billing_address => params[:billing_address].as_json})
       if payment_response.success?
         appraisal = Appraisal.find(params[:appraisal])
-        Payment.add_payment(payment_response.authorization, mycc.number[-4,4], mycc.amount.to_i/100, appraisal.created_by, appraisal.id)
+        Payment.add_payment(payment_response.authorization, mycc.number[-4,4], mycc.amount/100, appraisal.created_by, appraisal.id)
         coupon = Coupon.find_by_code(params[:coupon])
         if coupon
           coupon.apply!(appraisal)
