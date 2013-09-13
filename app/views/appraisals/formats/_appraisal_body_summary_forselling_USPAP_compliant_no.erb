@@ -1,5 +1,5 @@
 <p>&nbsp;</p>
-<% content = Cms::Page.find_by_full_path('/appraisal-body-summary-forselling-uspap-compliant-no').content
+<% content = get_cms_page('/appraisal-body-summary-forselling-uspap-compliant-no')
 unless appraisal.nil?
 	content = content.gsub("[%created_at%]","#{appraisal.created_at}")
 	content = content.gsub("[%created_at%]","#{appraisal.created_at}")

@@ -3,9 +3,9 @@
     <div class="row sub_box">
       <div class="span12">
         <% if @role == "consumer" %>
-          <%= raw "#{Cms::Page.find_by_full_path('/how-it-works-consumers').content}" %>
+          <%= get_cms_content('/how-it-works-consumers') %>
       <% elsif @role == "appraiser" %>
-          <%= raw "#{Cms::Page.find_by_full_path('/how-it-works-appraisers').content}" %>
+          <%= get_cms_content('/how-it-works-appraisers') %>
       <% else %>
           <div class="row-fluid">
           <div class="span5">
