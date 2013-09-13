@@ -14,3 +14,7 @@ base_user.add_role :superadmin
 ```
 
 More info can be found at [Rolify's FAQ](https://github.com/EppO/rolify/wiki/FAQ#does-rolify-support-sti-)
+
+### Seeding the categories list
+
+In the CLI run `rake purex:categories` this will insert all categories found on [lib\tasks\categories.rake](https://github.com/slopezm/colosses/blob/master/lib/tasks/categories.rake)
