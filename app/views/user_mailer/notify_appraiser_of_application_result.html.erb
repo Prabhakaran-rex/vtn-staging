@@ -1,7 +1,7 @@
 Dear <%= @message.name %>,
 
-<% body = @status == EAUserStatusConfirmed ? '/appraiser-approved' : '/appraiser-rejected'  
-content = Cms::Page.find_by_full_path(body).content
+<%
+content = get_cms_content(@status == EAUserStatusConfirmed ? '/appraiser-approved' : '/appraiser-rejected')
 content = content.gsub("[%additional_comments%]",@additional_comments) 
 
 reasons = []
