@@ -142,7 +142,6 @@ PurexNew::Application.routes.draw do
       end
     end unless ComfortableMexicanSofa.config.admin_route_prefix.blank?
     
-  mount Refinery::Core::Engine, :at => '/cms'
     scope :controller => :cms_content do
       get 'cms-css/:site_id/:identifier' => :render_css,  :as => 'cms_css'
       get 'cms-js/:site_id/:identifier'  => :render_js,   :as => 'cms_js'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130815182221) do
+ActiveRecord::Schema.define(:version => 20130913224019) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -414,155 +414,6 @@ ActiveRecord::Schema.define(:version => 20130815182221) do
     t.datetime "updated_at",                    :null => false
   end
 
-  create_table "refinery_blog_categories", :force => true do |t|
-    t.string   "title"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.string   "cached_slug"
-    t.string   "slug"
-  end
-
-  add_index "refinery_blog_categories", ["id"], :name => "index_refinery_blog_categories_on_id"
-  add_index "refinery_blog_categories", ["slug"], :name => "index_refinery_blog_categories_on_slug"
-
-  create_table "refinery_blog_categories_blog_posts", :force => true do |t|
-    t.integer "blog_category_id"
-    t.integer "blog_post_id"
-  end
-
-  add_index "refinery_blog_categories_blog_posts", ["blog_category_id", "blog_post_id"], :name => "index_blog_categories_blog_posts_on_bc_and_bp"
-
-  create_table "refinery_blog_comments", :force => true do |t|
-    t.integer  "blog_post_id"
-    t.boolean  "spam"
-    t.string   "name"
-    t.string   "email"
-    t.text     "body"
-    t.string   "state"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "refinery_blog_comments", ["id"], :name => "index_refinery_blog_comments_on_id"
-
-  create_table "refinery_blog_posts", :force => true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.boolean  "draft"
-    t.datetime "published_at"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.integer  "user_id"
-    t.string   "cached_slug"
-    t.string   "custom_url"
-    t.text     "custom_teaser"
-    t.string   "source_url"
-    t.string   "source_url_title"
-    t.integer  "access_count",     :default => 0
-    t.string   "slug"
-  end
-
-  add_index "refinery_blog_posts", ["access_count"], :name => "index_refinery_blog_posts_on_access_count"
-  add_index "refinery_blog_posts", ["id"], :name => "index_refinery_blog_posts_on_id"
-  add_index "refinery_blog_posts", ["slug"], :name => "index_refinery_blog_posts_on_slug"
-
-  create_table "refinery_images", :force => true do |t|
-    t.string   "image_mime_type"
-    t.string   "image_name"
-    t.integer  "image_size"
-    t.integer  "image_width"
-    t.integer  "image_height"
-    t.string   "image_uid"
-    t.string   "image_ext"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  create_table "refinery_page_part_translations", :force => true do |t|
-    t.integer  "refinery_page_part_id"
-    t.string   "locale"
-    t.text     "body"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
-  end
-
-  add_index "refinery_page_part_translations", ["locale"], :name => "index_refinery_page_part_translations_on_locale"
-  add_index "refinery_page_part_translations", ["refinery_page_part_id"], :name => "index_f9716c4215584edbca2557e32706a5ae084a15ef"
-
-  create_table "refinery_page_parts", :force => true do |t|
-    t.integer  "refinery_page_id"
-    t.string   "title"
-    t.text     "body"
-    t.integer  "position"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  add_index "refinery_page_parts", ["id"], :name => "index_refinery_page_parts_on_id"
-  add_index "refinery_page_parts", ["refinery_page_id"], :name => "index_refinery_page_parts_on_refinery_page_id"
-
-  create_table "refinery_page_translations", :force => true do |t|
-    t.integer  "refinery_page_id"
-    t.string   "locale"
-    t.string   "title"
-    t.string   "custom_slug"
-    t.string   "menu_title"
-    t.string   "slug"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  add_index "refinery_page_translations", ["locale"], :name => "index_refinery_page_translations_on_locale"
-  add_index "refinery_page_translations", ["refinery_page_id"], :name => "index_d079468f88bff1c6ea81573a0d019ba8bf5c2902"
-
-  create_table "refinery_pages", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "path"
-    t.string   "slug"
-    t.boolean  "show_in_menu",        :default => true
-    t.string   "link_url"
-    t.string   "menu_match"
-    t.boolean  "deletable",           :default => true
-    t.boolean  "draft",               :default => false
-    t.boolean  "skip_to_first_child", :default => false
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "depth"
-    t.string   "view_template"
-    t.string   "layout_template"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-  end
-
-  add_index "refinery_pages", ["depth"], :name => "index_refinery_pages_on_depth"
-  add_index "refinery_pages", ["id"], :name => "index_refinery_pages_on_id"
-  add_index "refinery_pages", ["lft"], :name => "index_refinery_pages_on_lft"
-  add_index "refinery_pages", ["parent_id"], :name => "index_refinery_pages_on_parent_id"
-  add_index "refinery_pages", ["rgt"], :name => "index_refinery_pages_on_rgt"
-
-  create_table "refinery_resources", :force => true do |t|
-    t.string   "file_mime_type"
-    t.string   "file_name"
-    t.integer  "file_size"
-    t.string   "file_uid"
-    t.string   "file_ext"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
-  create_table "refinery_settings", :force => true do |t|
-    t.string   "name"
-    t.text     "value"
-    t.boolean  "destroyable",     :default => true
-    t.string   "scoping"
-    t.boolean  "restricted",      :default => false
-    t.string   "form_value_type"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
-  end
-
-  add_index "refinery_settings", ["name"], :name => "index_refinery_settings_on_name"
-
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -574,19 +425,6 @@ ActiveRecord::Schema.define(:version => 20130815182221) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
-
-  create_table "seo_meta", :force => true do |t|
-    t.integer  "seo_meta_id"
-    t.string   "seo_meta_type"
-    t.string   "browser_title"
-    t.string   "meta_keywords"
-    t.text     "meta_description"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  add_index "seo_meta", ["id"], :name => "index_seo_meta_on_id"
-  add_index "seo_meta", ["seo_meta_id", "seo_meta_type"], :name => "index_seo_meta_on_seo_meta_id_and_seo_meta_type"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -610,23 +448,6 @@ ActiveRecord::Schema.define(:version => 20130815182221) do
   add_index "skills", ["appraiser_id"], :name => "index_skills_on_appraiser_id"
   add_index "skills", ["category_id"], :name => "index_skills_on_category_id"
 
-  create_table "taggings", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context"
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
-
-  create_table "tags", :force => true do |t|
-    t.string "name"
-  end
-
   create_table "tickets", :force => true do |t|
     t.integer  "user_id"
     t.integer  "appraisal_id"
@@ -649,14 +470,6 @@ ActiveRecord::Schema.define(:version => 20130815182221) do
   end
 
   add_index "trade_references", ["appraiser_id"], :name => "index_trade_references_on_appraiser_id"
-
-  create_table "user_plugins", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.integer  "position"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",                    :null => false

@@ -1,9 +1,4 @@
-<% if !@post.nil? && @post.class.to_s == "Refinery::Blog::Post" %>
-  <!-- This is a blog post -->
-  <meta name="keywords" content ="<%= @post.seo_meta.meta_keywords unless @post.seo_meta.nil? %>">
-  <meta name="description" content ="<%= @post.seo_meta.meta_description unless @post.seo_meta.nil? %>">
-<% else %>
-  <meta name="keywords" content="Antique appraisals, online appraisal, collectibles, coin value, what’s it worth, how much is it worth, 
+<meta name="keywords" content="Antique appraisals, online appraisal, collectibles, coin value, what’s it worth, how much is it worth, 
 featured appraisals, auction house, online auction, digital certificate, antique articles, collectible books, meet the appraiser, social appraisal, 
 Online antique appraisals and antique valuations of antiques and collectibles, Online art appraisals and expert appraisers, professional appraiser
 Show your appraisal certificate on ebay, show your appraisal certificate on facebook, show your appraisal certificate on twitter, show your 
@@ -13,5 +8,4 @@ Sell my antique to antique buyers, From car valuations to art and antique valuat
 <meta name="description" content="Online appraisers offering antique valuations and appraisals for everything from antiques, 
 art, painting, sculpture and fine art, to coin, doll, toy, wine car, vintage, book, jewelry,watch and clock appraisal. Free articles, featured appraisals, 
 value this now, social appraisal and more"> 
-<% end %>
 <meta name="google-site-verification" content="EkJuYcrcrlWigeibb0tHvx9Ri6ifSe4I7gYyn2ciM_o" />

@@ -26,7 +26,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails', '~> 2.0.0'
+gem 'jquery-rails'
 
 # For Twitter bootstrap
 gem 'sass-rails',   '~> 3.2.3'
@@ -106,12 +106,6 @@ gem "acts_as_commentable_with_threading", "~> 1.1.2"
 gem "paper_trail", "~> 2.6.4"
 
 # For blogging
-gem 'refinerycms-core', '~>2.0.9', github: 'slopezm/refinerycms', branch: '2-0-stable', ref: "a751f9a"
-gem 'refinerycms-dashboard', '~> 2.0.9'
-gem 'refinerycms-images', '~> 2.0.9'
-gem 'refinerycms-pages', '~> 2.0.9'
-gem 'refinerycms-resources', '~> 2.0.9'
-gem 'refinerycms-blog', github: 'refinery/refinerycms-blog', branch: '2-0-stable'
 gem "tilt", "1.3.4"
 
 # For background jobs

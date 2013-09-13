@@ -69,21 +69,18 @@ PurexNew::Application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   ActionMailer::Base.smtp_settings = {
-  :address        => 'smtp.sendgrid.net',
-  :port           => '587',
-  :authentication => :plain,
-  :user_name      => ENV['SENDGRID_USERNAME'],
-  :password       => ENV['SENDGRID_PASSWORD'],
-  :domain         => 'heroku.com'
-}
-ActionMailer::Base.delivery_method = :smtp
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'heroku.com'
+  }
+  ActionMailer::Base.delivery_method = :smtp
 
   ActiveMerchant::Billing::Base.mode = :test
 
   # Google Analytics tracking
   SendgridToolkit.api_user = ENV['SENDGRID_USERNAME']
   SendgridToolkit.api_key = ENV['SENDGRID_PASSWORD']
-
-  Refinery::Core.config.s3_backend = true
-  Refinery::Core.config.s3_bucket_name= 'vtn.vtn-blog-staging'
 end
