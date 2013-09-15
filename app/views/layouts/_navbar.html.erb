@@ -5,28 +5,28 @@
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <div>
-        <%= link_to image_tag("logo.png", :alt=> "finding antique and collectable treasure", :class => 'brand'), main_app.root_path %>
+        <%= link_to image_tag("logo.png", :alt=> "finding antique and collectable treasure", :class => 'brand'), root_path %>
         <%= render :partial => "layouts/welcome" %>
 
         <div class="pull-right">
           <ul class="nav">
-            <li><%= link_to("Home", main_app.root_path) %></li>
+            <li><%= link_to("Home", root_path) %></li>
             <% if current_user %>
-              <li><%= link_to("My Account", main_app.appraiser_steps_path) %></li>
+              <li><%= link_to("My Account", appraiser_steps_path) %></li>
                   <% if current_user.is_customer? %>
-                    <li><%= link_to "Appraise my Item", main_app.new_user_session_path %></a></li>
-                    <li><%= link_to("My Appraisals", main_app.appraisals_path) %></li>
+                    <li><%= link_to "Appraise my Item", new_user_session_path %></a></li>
+                    <li><%= link_to("My Appraisals", appraisals_path) %></li>
                   <% elsif current_user.is_appraiser? && current_user.is_confirmed? %>
-                    <li><%= link_to("My Dashboard", main_app.dashboard_detail_path) %></li>
+                    <li><%= link_to("My Dashboard", dashboard_detail_path) %></li>
                   <% end %>
-                  <li><%= link_to("Support", main_app.contact_path) %></li>
-                  <li><%= link_to("Signout", main_app.destroy_user_session_path, method: :delete) %></li>
+                  <li><%= link_to("Support", contact_path) %></li>
+                  <li><%= link_to("Signout", destroy_user_session_path, method: :delete) %></li>
             <% else %>
-                  <li><%= link_to "Blog", refinery.blog_root_path %></li>
-                  <li><%= link_to "How it works", main_app.how_path %></li>
-                  <li><%= link_to "Register as Customer", main_app.new_customer_registration_path %></li>
-                  <li><%= link_to "Register as Appraiser", main_app.new_appraiser_registration_path %></li>
-                  <li><%= link_to("Login", main_app.new_user_session_path) %></li>
+                  <li><%= link_to "Blog", 'http://blog.valuethisnow.com' %></li>
+                  <li><%= link_to "How it works", how_path %></li>
+                  <li><%= link_to "Register as Customer", new_customer_registration_path %></li>
+                  <li><%= link_to "Register as Appraiser", new_appraiser_registration_path %></li>
+                  <li><%= link_to("Login", new_user_session_path) %></li>
             <% end %>
         </ul>
       </div>

@@ -5,5 +5,3 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
-# Added by Refinery CMS Blog engine
-Refinery::Blog::Engine.load_seed

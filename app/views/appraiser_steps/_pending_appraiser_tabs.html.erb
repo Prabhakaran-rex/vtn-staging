@@ -26,7 +26,7 @@
 <% if current_user.is_appraiser? && !current_user.is_confirmed? %>
 		<div class="alert alert-error" id="applicationNotification" <%= raw ("style='display: none;'") if current_user.is_appraiser_application_complete  %> >
 			<p>
-		   <%= raw "#{Cms::Page.find_by_full_path('/appraiser-application-welcome-message').content}" %>
+		   <%= get_cms_content('/appraiser-application-welcome-message') %>
 </p>
 		</div>
 		 <div class="alert alert-info" id="applicationCompleted" <%= raw ("style='display: none;'") unless current_user.is_appraiser_application_complete && !current_user.is_under_review?  %>>
