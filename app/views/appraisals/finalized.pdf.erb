@@ -34,12 +34,12 @@ $(document).ready(function() {
       <div class=zoomer>
         <div class=holder>
           <div class=image>
-            <%= wicked_pdf_image_tag @appraisal.default_photo.asset.url(:carrousel), :size => "421x421", :class => 'target'%>
+            <%= wicked_pdf_image_tag @appraisal.default_photo.picture_url(:carrousel), :size => "421x421", :class => 'target'%>
           </div>
         </div>
         <div class=thumbs>
           <% @appraisal.photos[0..3].each_with_index do |image,i| %>
-          <%= wicked_pdf_image_tag image.asset.url(:carrousel), :size => "93x96" %>
+          <%= wicked_pdf_image_tag image.picture_url(:carrousel), :size => "93x96" %>
           <% end %>
         </div>		
       </div>

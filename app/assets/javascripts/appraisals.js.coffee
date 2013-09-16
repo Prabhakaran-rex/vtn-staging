@@ -14,7 +14,7 @@ jQuery ->
   
   # Make sure that at least one image has been uploaded before continuing
   $('#btn_step_2_wizard_image_upload').click ->
-    if $('.template-download').length is 0
+    if $('.img-row').length is 0
       alert "Please upload at least one image to continue"
       false
 
@@ -115,7 +115,7 @@ jQuery ->
       $("#appraisal_payment_attributes_zip").val("")
 
   $("#btnBuildWizardPhoto").click ->
-    if $("#appraisal_images_table").length isnt 0 and $(".template-download").length <= 0
+    if $('.img-row').length is 0
       alert "Please upload at least one image to continue"
       false
     else

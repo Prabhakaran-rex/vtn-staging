@@ -16,4 +16,5 @@
 //= require bootstrap
 //= require jquery.maskedinput-1.3.min
 //= require excanvas.compiled
+//= require cloudinary 
 //= require_tree .

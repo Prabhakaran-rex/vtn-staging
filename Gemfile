@@ -26,7 +26,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+gem "jquery-rails", "~> 3.0.4"
+gem "jquery-ui-rails", "~> 4.0.4"
 
 # For Twitter bootstrap
 gem 'sass-rails',   '~> 3.2.3'

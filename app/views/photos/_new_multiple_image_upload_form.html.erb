@@ -1,55 +1,73 @@
-<% #TODO Remove this once blog has been migrated to new server %>
-<%= javascript_include_tag "vendor/jquery.ui.widget", "jquery.iframe-transport", 
-                           "jquery.fileupload", "jquery.cloudinary" %>
-<div class="row-fluid">
-  <div class="span12">
-    <div id="direct_upload" class="fileupload-buttonbar">
-      <%= form_for(Photo.new, :url => appraisal_photos_path) do |f| %>
-        <div class="row-fluid">
-        <div class="span2">
+<% can_tag ||= can_tag.nil?
+can_delete ||= can_delete.nil?
+can_upload ||= can_upload.nil?
+can_mark_as_primary ||= can_mark_as_primary.nil? %>
+<!-- new design -->
+<div class="container">
+  <% unless current_user.is_appraiser? %>
+    <div class="row">
+    <h4 style="margin-left: 30px; margin-bottom: 15px;">Upload Images Of The Item Being Appraised</h4>
+  </div>
+<% end %>
+  <%= form_for(Photo.new, :url => appraisal_photos_path) do |f| %>
 
-          <span class="btn fileinput-button" style="height: 20px; margin-top: 0px;margin-right: 3px;">
-            <i class="icon-plus icon-white"></i>
-            <span>Add files...</span>
-            <%= f.cl_image_upload(:picture,:html => { :multiple => true } ) %>
-          </span>
-        </div>
-        <div class="span10">
-          <span class="status"></span>
-          <span class="statusImg"></span>
-        </div>
-      </div>
+    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+  <div class="row fileupload-buttonbar">
+    <div class="span12">
+      <!-- The fileinput-button span is used to style the file input field as button -->
+      <% if can_upload %>
+        <span class="btn fileinput-button" style="height: 20px; margin-top: 0px;margin-right: 3px;">
+        <i class="icon-plus icon-white"></i>
+        <span>Add files...</span>
+        <%= f.cl_image_upload(:picture,:html => { :multiple => true } ) %>
+      </span>
+    <% end %>
     </div>
   </div>
 <% end %>
-</div>
+  <!-- The loading indicator is shown during image processing -->
+  <div class="span10">
+    <span class="status"></span>
+    <span class="statusImg"></span>
   </div>
+  <br>
+  <!-- The table listing the files available for upload/download -->
+  <table id="appraisal_images_table" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
 </div>
+<!-- Old design -->
 <div class="row-fluid">
   <div class="span12">
-<table class="table table-striped" id="img-table">
-  <tbody>
-  <% @photos.each do |photo| %>
-    <tr class="img-row">
-    <td class="preview"><%= image_tag(photo.picture_url(:thumb)) %></td>
-    <td class="name"><%= File.basename(photo.picture.to_s) %></td>
-    <td class="size"></td>
-    <td>
-      <%= link_to photo_tag_url(@appraisal, photo), class: "btn btn-success" do %><i class="icon-tag icon-white"></i> Tag<% end %>
-    </td>
-    <td>
-      <a href="#" class="btn btn-warning">Default goes here</a>
-    </td>
-    <td class="delete">
-      <button class="fileupload-buttonbar btn" data-type="DELETE" data-url="<%= appraisal_photo_url(:id => photo.id, :appraisal_id => @appraisal) %>">
-        <i class="icon-trash"></i>
-        <span>Delete</span>
-      </button>
-    </td>
-  </tr>
-  </tbody>
-<% end %>
-</table>
+    <table class="table table-striped" id="img-table">
+      <tbody>
+      <% @photos.each do |photo| %>
+        <tr class="img-row">
+        <td class="preview"><%= link_to image_tag(photo.picture_url(:thumb)), photo.picture_url(:huge) %></td>
+        <td class="name"><%= link_to File.basename(photo.picture.to_s), photo.picture_url(:huge) %></td>
+        <td class="size"></td>
+        <td>
+          <%= link_to photo_tag_url(@appraisal, photo), class: "btn btn-success" do %><i class="icon-tag icon-white"></i> Tag<% end %>
+        </td>
+        <td>
+          <% if can_mark_as_primary %>
+            <% if (photo.default?) %>
+            <%= link_to set_default_photo_path(:appraisal_id => @appraisal, :photo_id => photo.id), method: :post, remote: true, class: "btn btn-success disabled btn_make_image_primary" do %><i class="icon-picture icon-white"></i> Primary<% end %>
+        <% else %>
+            <%= link_to set_default_photo_path(:appraisal_id => @appraisal, :photo_id => photo.id), method: :post, remote: true, class: "btn btn_make_image_primary" do %><i class="icon-picture"></i> Mark as Primary<% end %>
+        <% end %>
+        <% end %>
+        </td>
+        <td class="delete">
+          <% if can_delete %>
+            <%= link_to appraisal_photo_url(:id => photo.id, :appraisal_id => @appraisal), method: :delete, class: 'btn btn_delete_image', :remote => true do %>
+            <i class="icon-trash"></i>
+          <span>Delete</span>
+        <% end %>
+        <% end %>
+        </td>
+      </tr>
+      </tbody>
+    <% end %>
+    </table>
   </div>
 </div>
 <!-- Configure Cloudinary jQuery plugin -->
@@ -63,7 +81,7 @@ $(document).ready(function() {
     {
     start: function (e) {
       $(".status").text("Starting upload...");
-      $(".statusImg").html('<%= image_tag 'loader.gif'%>');
+      $(".statusImg").html('<%= image_tag 'green_loader.gif'%>');
     },
     fail: function (e, data) {
       $(".status").text("Upload failed");
@@ -75,7 +93,7 @@ $(document).ready(function() {
     },
     send: function (e,data) {
       $(".status").text("Uploading files... Please wait");
-      $(".statusImg").html('<%= image_tag 'loader.gif'%>');
+      $(".statusImg").html('<%= image_tag 'green_loader.gif'%>');
     }
   } 
   )
@@ -90,22 +108,26 @@ $(document).ready(function() {
         var fileName = extra_data.files[0].name;
         var el = progressElements[ extra_data.files[0].name ];
         el.find("img:first").attr("src", data.files[0].thumbnailUrl);
+        el.find(".thumb_link").attr("href", data.files[0].url);
+        $(el).find("td:last").remove();
+        $(el).append('<td><a href="'+data.files[0].tag_url+'" class="btn btn-success"><i class="icon-tag icon-white"></i> Tag</a></td>');
+        $(el).append('<td><a href="'+data.files[0].set_as_default_url+'" class="btn btn_make_image_primary" data-method="post" data-remote="true" rel="nofollow"><i class="icon-picture"></i>Mark As Primary</a></td>');
+        $(el).append('<td><a href="'+data.files[0].deleteUrl+'" class="btn btn_delete_image" data-method="delete" data-remote="true" rel="nofollow"><i class="icon-trash"></i>Delete</a></td>');
       },
       dataType: 'json'
     });
   });
 
   $(".cloudinary-fileupload").bind("fileuploadadd", function(e, data){
-    $("#img-table .img-row:first").before('<tr class="img-row"><td class="preview"><%= image_tag 'loader.gif' %></td><td class="name">'+data.files[0].name+'</td><td class="size"></td><td colspan="3"><div class="progress">Uploading...Please wait<div class="bar bar-success"></div></div></td></tr>');
+    $("#img-table .img-row:first").before('<tr class="img-row"><td class="preview"><a href="#" class="thumb_link"><%= image_tag 'green_loader.gif' %></a></td><td class="name"><a href="#" class="thumb_link">'+data.files[0].name+'</a></td><td class="size"></td><td colspan="3"><div class="progress">Uploading...Please wait<div class="bar bar-success"></div></div></td></tr>');
     progressElements[ data.files[0].name ] = $("#img-table .img-row:first");
     $("#fileUploads").fileupload("send", {files: data.files});
   });
   $(".cloudinary-fileupload").bind("fileuploaddone", function(e, data){
+    console.log(data);
     var fileName = data.files[0].name;
-    var el = progressElements[ data.files[0].name ];
+    var el = progressElements[ data.files[0].name];
     el.find(".progress").hide();
-    $(el).find("td:last").remove();
-    $(el).append('<td><a href="https://www.valuethisnow.com/photos/tag/214/618" class="btn btn-success" target="_blank"><i class="icon-tag icon-white"></i> Tag</a></td><td><a href="/photos/set_as_default/214/618" class="btn btn_make_image_primary"><i class="icon-picture"></i> Mark as Primary</a></td><td><button class="fileupload-buttonbar btn" data-type="DELETE" data-url="https://www.valuethisnow.com/appraisals/214/photos/618"><i class="icon-trash"></i><span>Delete</span></button></td>');
   });
   $(".cloudinary-fileupload").bind("fileuploadprogress", function(e, data){
     var el = progressElements[ data.files[0].name ];
@@ -115,5 +137,3 @@ $(document).ready(function() {
 
 });
 </script>
-
-
