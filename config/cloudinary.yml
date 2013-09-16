@@ -4,6 +4,12 @@ development:
   api_secret: YpKxWm0SEFJ2QpnFCGOgxoYtIpc
   enhance_image_tag: true
   static_image_support: false
+staging:
+  cloud_name: htb0l8crj
+  api_key: '189984384197571'
+  api_secret: MHYW4h6x7TsIVHbz39AI5j5yMhA
+  enhance_image_tag: true
+  static_image_support: true
 production:
   cloud_name: hpc
   api_key: '859272523539336'
