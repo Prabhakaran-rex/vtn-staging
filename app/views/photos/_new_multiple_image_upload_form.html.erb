@@ -9,27 +9,27 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
     <h4 style="margin-left: 30px; margin-bottom: 15px;">Upload Images Of The Item Being Appraised</h4>
   </div>
 <% end %>
-  <%= form_for(Photo.new, :url => appraisal_photos_path) do |f| %>
+  <%= form_for(Photo.new) do |f| %>
 
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
   <div class="row fileupload-buttonbar">
-    <div class="span12">
+    <div class="span2">
       <!-- The fileinput-button span is used to style the file input field as button -->
       <% if can_upload %>
-        <span class="btn fileinput-button" style="height: 20px; margin-top: 0px;margin-right: 3px;">
+        <span class="btn btn-success fileinput-button" style="height: 20px; margin-top: 0px;margin-right: 3px; margin-left: 30px;">
         <i class="icon-plus icon-white"></i>
         <span>Add files...</span>
         <%= f.cl_image_upload(:picture,:html => { :multiple => true } ) %>
       </span>
     <% end %>
     </div>
+    <div class="span10">
+      <span class="status"></span>
+      <span class="statusImg"></span>
+    </div>
   </div>
 <% end %>
   <!-- The loading indicator is shown during image processing -->
-  <div class="span10">
-    <span class="status"></span>
-    <span class="statusImg"></span>
-  </div>
   <br>
   <!-- The table listing the files available for upload/download -->
   <table id="appraisal_images_table" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
@@ -39,7 +39,8 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
   <div class="span12">
     <table class="table table-striped" id="img-table">
       <tbody>
-      <% @photos.each do |photo| %>
+      <tr class="img-row"></tr>
+      <% photos.each do |photo| %>
         <tr class="img-row">
         <td class="preview"><%= link_to image_tag(photo.picture_url(:thumb)), photo.picture_url(:huge) %></td>
         <td class="name"><%= link_to File.basename(photo.picture.to_s), photo.picture_url(:huge) %></td>

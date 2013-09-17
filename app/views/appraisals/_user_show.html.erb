@@ -115,7 +115,7 @@
         </div>
         <hr>
         <div class="row">
-          <%= render :partial => "multiple_photo_upload" unless @appraisal.status == EActivityValueFinalized%>
+          <%= render  :partial => "photos/new_multiple_image_upload_form", locals: {photos: @photos} unless @appraisal.status == EActivityValueFinalized%>
           <div class="span11">
             <% if @appraisal.status == EActivityValueFinalized %>
               <%= link_to appraisal_path(@appraisal, :format => :pdf, :pdf_full => true), :class => "btn btn-success" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>

@@ -34,25 +34,6 @@ class PhotosController < ApplicationController
     @photo = @appraisal.photos.find(params[:id])
   end
 
-  #def create
-  #@photo = @appraisal.photos.new(params[:photo])
-
-  #if @photo.save
-  #respond_to do |format|
-  #@photos = [@photo]
-  #if !params[:iframe_redirect_to].nil?
-  #json_string = render_to_string(template: 'photos/index.json.jbuilder', locals: { photos: @photos})
-  #redirect_url = params[:iframe_redirect_to].gsub("%s",URI::escape(json_string))
-  #end
-  #redirect_url ||= appraisal_photos_path(@appraisal)
-  #format.html {redirect_to redirect_url, notice: 'Photo was successfully created.'}
-  #format.json {render 'index'}
-  #end
-  #else
-  #render 'new'
-  #end
-  #end
-
   def create
     cloudinary_asset = "image/upload/v#{params[:version]}/#{params[:public_id]}.#{params[:format]}##{params[:signature]}"
     @photo = @appraisal.photos.find_or_initialize_by_name(picture: cloudinary_asset, name: params[:public_id])
@@ -78,15 +59,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  #def destroy
-  #@photo = @appraisal.photos.find(params[:id])
-  #@photo.destroy
-
-  #respond_to do |format|
-  #format.html { redirect_to @appraisal }
-  #format.json { head :no_content }
-  #end
-  #end
   def destroy
     @photo = @appraisal.photos.find(params[:id])
     @photo.destroy

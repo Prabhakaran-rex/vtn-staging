@@ -27,6 +27,7 @@ class AppraisalsController < ApplicationController
   # GET /appraisals/1
   def show
     @appraisal = Appraisal.find(params[:id])
+    @photos = @appraisal.photos
     if (@appraisal.status != EActivityValuePayed) && (@appraisal.assigned_to != current_user) && (@appraisal.created_by != current_user.id) && (!current_user.admin?)
       flash[:error]  = "We are sorry, but the appraisal request you are attempting to view has already been claimed."
       return redirect_to root_path
