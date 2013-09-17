@@ -10,10 +10,16 @@ staging:
   api_secret: MHYW4h6x7TsIVHbz39AI5j5yMhA
   enhance_image_tag: true
   static_image_support: true
+sandbox:
+  cloud_name: hus8jwcwk
+  api_key: '292919144341449'
+  api_secret: 0pCvWQ3Ahkzu-6O_5YLU8SVn3ts
+  enhance_image_tag: true
+  static_image_support: false
 production:
-  cloud_name: hpc
-  api_key: '859272523539336'
-  api_secret: YpKxWm0SEFJ2QpnFCGOgxoYtIpc
+  cloud_name: hfdf6awie
+  api_key: '835771273662921'
+  api_secret: spZWeEalNEP5savQDGJclyNVmd0
   enhance_image_tag: true
   static_image_support: true
 test:
