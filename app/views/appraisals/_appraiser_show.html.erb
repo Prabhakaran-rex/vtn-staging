@@ -100,7 +100,7 @@
           </div>
         </div>
         <div class="row">
-          <%= render :partial => "multiple_photo_upload", :locals => {:can_upload => false, :can_delete => false, :can_mark_as_primary => false} if @appraisal.status == EActivityValueClaimed %>
+          <%= render :partial => "photos/new_multiple_image_upload_form", :locals => {photos: @appraisal.photos, can_upload: false, can_delete: false, can_mark_as_primary: false} if @appraisal.status == EActivityValueClaimed %>
           <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValuePayed %>
           <%= link_to 'Edit', reply_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValueClaimed %>
           <div class="span11" style="margin-bottom:10px;">

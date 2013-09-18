@@ -6,7 +6,7 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
 <div class="container">
   <% unless current_user.is_appraiser? %>
     <div class="row">
-    <h4 style="margin-left: 30px; margin-bottom: 15px;">Upload Images Of The Item Being Appraised</h4>
+    <h5 style="margin-left: 30px; margin-bottom: 15px;">You must upload at least one image, but more would be better. Send close-up images such as of signatures, maker's marks, damages or other details you feel important.</h5>
   </div>
 <% end %>
   <%= form_for(Photo.new) do |f| %>
