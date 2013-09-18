@@ -3,7 +3,6 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 //= require jquery.maskMoney.min
 //= require jquery.carouFredSel-6.1.0-packed
-//= require jquery.fancybox-1.3.4.pack
 //= require magiczoom
 //= require chosen.jquery.min
 
