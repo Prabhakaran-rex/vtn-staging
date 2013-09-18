@@ -1,9 +1,10 @@
 <p>&nbsp;</p>
-<% content = Cms::Page.find_by_full_path('/appraisal-body-summary-forselling-uspap-compliant-no').content
-unless appraisal.nil?
-	content = content.gsub("[%created_at%]","#{appraisal.created_at}")
-	content = content.gsub("[%created_at%]","#{appraisal.created_at}")
-	content = content.gsub("[%assigned_to%]","#{appraisal.assigned_to.name}")
+<% page = Cms::Page.find_by_full_path('/appraisal-body-summary-forselling-uspap-compliant-no')
+content = ""
+unless (appraisal.nil? || page.nil?)
+	content = page.content.gsub("[%created_at%]","#{appraisal.created_at}")
+	content = page.content.gsub("[%created_at%]","#{appraisal.created_at}")
+	content = page.content.gsub("[%assigned_to%]","#{appraisal.assigned_to.name}")
 end
 %>
 <%= raw "#{content}" %>
