@@ -95,18 +95,21 @@ var set_as_default_image;
   $(".status").text("Starting upload...");
   $(".statusImg").html('<%= image_tag 'green_loader.gif'%>');
   $("#btn_upload_image").addClass('disabled');
+  $("#btn_upload_image").prop('disabled', true);
   $("#btn_upload_image_input").prop('disabled', true);
   },
   fail: function (e, data) {
   $(".status").text("Upload failed");
   $(".statusImg").html("");
   $("#btn_upload_image").removeClass('disabled');
+  $("#btn_upload_image").prop('disabled', false);
   $("#btn_upload_image_input").prop('disabled', false);
   },
   done: function (e,data) {
   $(".status").text("Upload completed");
   $(".statusImg").html("");
   $("#btn_upload_image").removeClass('disabled');
+  $("#btn_upload_image").prop('disabled', false);
   $("#btn_upload_image_input").prop('disabled', false);
   },
   send: function (e,data) {
