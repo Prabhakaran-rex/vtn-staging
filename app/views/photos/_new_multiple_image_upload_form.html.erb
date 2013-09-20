@@ -6,29 +6,29 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
 <div class="container">
   <% unless current_user.is_appraiser? %>
     <div class="row">
-    <h5 style="margin-left: 30px; margin-bottom: 15px;">You must upload at least one image, but more would be better. Send close-up images such as of signatures, maker's marks, damages or other details you feel important.</h5>
-  </div>
-<% end %>
+      <h5 style="margin-left: 30px; margin-bottom: 15px;">You must upload at least one image, but more would be better. Send close-up images such as of signatures, maker's marks, damages or other details you feel important.</h5>
+    </div>
+  <% end %>
   <%= form_for(Photo.new) do |f| %>
 
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-  <div class="row fileupload-buttonbar">
-    <div class="span2">
-      <!-- The fileinput-button span is used to style the file input field as button -->
-      <% if can_upload %>
-        <span class="btn btn-success fileinput-button" style="height: 20px; margin-top: 0px;margin-right: 3px; margin-left: 30px;">
-        <i class="icon-plus icon-white"></i>
-        <span>Add files...</span>
-        <%= f.cl_image_upload(:picture,:html => { :multiple => true } ) %>
-      </span>
-    <% end %>
+    <div class="row fileupload-buttonbar">
+      <div class="span2">
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <% if can_upload %>
+          <span class="btn btn-success fileinput-button" style="height: 20px; margin-top: 0px;margin-right: 3px; margin-left: 30px;" id="btn_upload_image">
+            <i class="icon-plus icon-white"></i>
+            <span id="btn_image_upload_label">Add files...</span>
+            <%= f.cl_image_upload(:picture,:html => { :multiple => true, id: "btn_upload_image_input" } ) %>
+          </span>
+        <% end %>
+      </div>
+      <div class="span10">
+        <span class="status"></span>
+        <span class="statusImg"></span>
+      </div>
     </div>
-    <div class="span10">
-      <span class="status"></span>
-      <span class="statusImg"></span>
-    </div>
-  </div>
-<% end %>
+  <% end %>
   <!-- The loading indicator is shown during image processing -->
   <br>
   <!-- The table listing the files available for upload/download -->
@@ -39,35 +39,35 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
   <div class="span12">
     <table class="table table-striped" id="img-table">
       <tbody>
-      <tr class="img-row"></tr>
-      <% photos.each do |photo| %>
-        <tr class="img-row">
-        <td class="preview"><%= link_to image_tag(photo.picture_url(:thumb)), photo.picture_url(:huge) %></td>
-        <td class="name"><%= link_to File.basename(photo.picture.to_s), photo.picture_url(:huge) %></td>
-        <td class="size"></td>
-        <td>
-          <%= link_to photo_tag_url(@appraisal, photo), class: "btn btn-success" do %><i class="icon-tag icon-white"></i> Tag<% end %>
-        </td>
-        <td>
-          <% if can_mark_as_primary %>
-            <% if (photo.default?) %>
-            <%= link_to set_default_photo_path(:appraisal_id => @appraisal, :photo_id => photo.id), method: :post, remote: true, class: "btn btn-success disabled btn_make_image_primary" do %><i class="icon-picture icon-white"></i> Primary<% end %>
-        <% else %>
-            <%= link_to set_default_photo_path(:appraisal_id => @appraisal, :photo_id => photo.id), method: :post, remote: true, class: "btn btn_make_image_primary" do %><i class="icon-picture"></i> Mark as Primary<% end %>
-        <% end %>
-        <% end %>
-        </td>
-        <td class="delete">
-          <% if can_delete %>
-            <%= link_to appraisal_photo_url(:id => photo.id, :appraisal_id => @appraisal), method: :delete, class: 'btn btn_delete_image', :remote => true do %>
-            <i class="icon-trash"></i>
-          <span>Delete</span>
-        <% end %>
-        <% end %>
-        </td>
-      </tr>
-      </tbody>
-    <% end %>
+        <tr class="img-row"></tr>
+        <% photos.each do |photo| %>
+          <tr class="img-row">
+            <td class="preview"><%= link_to image_tag(photo.picture_url(:thumb)), photo.picture_url(:huge) %></td>
+            <td class="name"><%= link_to File.basename(photo.picture.to_s), photo.picture_url(:huge) %></td>
+            <td class="size"></td>
+            <td>
+              <%= link_to photo_tag_url(@appraisal, photo), class: "btn btn-success" do %><i class="icon-tag icon-white"></i> Tag<% end %>
+            </td>
+            <td>
+              <% if can_mark_as_primary %>
+                <% if (photo.default?) %>
+                  <%= link_to set_default_photo_path(:appraisal_id => @appraisal, :photo_id => photo.id), method: :post, remote: true, class: "btn btn-success disabled btn_make_image_primary" do %><i class="icon-picture icon-white"></i> Primary<% end %>
+                <% else %>
+                  <%= link_to set_default_photo_path(:appraisal_id => @appraisal, :photo_id => photo.id), method: :post, remote: true, class: "btn btn_make_image_primary" do %><i class="icon-picture"></i> Mark as Primary<% end %>
+                <% end %>
+              <% end %>
+            </td>
+            <td class="delete">
+              <% if can_delete %>
+                <%= link_to appraisal_photo_url(:id => photo.id, :appraisal_id => @appraisal), method: :delete, class: 'btn btn_delete_image', :remote => true do %>
+                  <i class="icon-trash"></i>
+                  <span>Delete</span>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
     </table>
   </div>
 </div>
@@ -75,66 +75,97 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
 <%= cloudinary_js_config %>
 
 <script>
-var progressElements = { };
-$(document).ready(function() {
+  var progressElements = { };
+  $(document).ready(function() {
+
+var set_as_default_image;
+
+  set_as_default_image = function(btn) {
+    console.log("local",btn);
+    $('.btn_make_image_primary').removeClass('btn-success');
+    $('.btn_make_image_primary').html('<i class="icon-picture"></i> Mark as Primary');
+    $(btn).addClass("btn-success");
+    return $(btn).addClass("btn-success").html('<i class="icon-picture icon-white"></i> Primary');
+  };
+
   $(".cloudinary-fileupload")
   .fileupload(
-    {
-    start: function (e) {
-      $(".status").text("Starting upload...");
-      $(".statusImg").html('<%= image_tag 'green_loader.gif'%>');
-    },
-    fail: function (e, data) {
-      $(".status").text("Upload failed");
-      $(".statusImg").html("");
-    },
-    done: function (e,data) {
-      $(".status").text("Upload completed");
-      $(".statusImg").html("");
-    },
-    send: function (e,data) {
-      $(".status").text("Uploading files... Please wait");
-      $(".statusImg").html('<%= image_tag 'green_loader.gif'%>');
-    }
+  {
+  start: function (e) {
+  $(".status").text("Starting upload...");
+  $(".statusImg").html('<%= image_tag 'green_loader.gif'%>');
+  $("#btn_upload_image").addClass('disabled');
+  $("#btn_upload_image_input").prop('disabled', true);
+  },
+  fail: function (e, data) {
+  $(".status").text("Upload failed");
+  $(".statusImg").html("");
+  $("#btn_upload_image").removeClass('disabled');
+  $("#btn_upload_image_input").prop('disabled', false);
+  },
+  done: function (e,data) {
+  $(".status").text("Upload completed");
+  $(".statusImg").html("");
+  $("#btn_upload_image").removeClass('disabled');
+  $("#btn_upload_image_input").prop('disabled', false);
+  },
+  send: function (e,data) {
+  $(".status").text("Uploading files... Please wait");
+  $(".statusImg").html('<%= image_tag 'green_loader.gif'%>');
+  }
   } 
   )
   .off("cloudinarydone").on("cloudinarydone", function (e, data) {
-    var extra_data = data;
-    data.result.appraisal_id = '<%= @appraisal.id %>';
-    $.ajax({
-      type: "POST",
-      url: '/photos.json',
-      data: data.result,
+  var extra_data = data;
+  data.result.appraisal_id = '<%= @appraisal.id %>';
+  $.ajax({
+  type: "POST",
+  url: '/photos.json',
+  data: data.result,
+  success: function(data) {
+  var fileName = extra_data.files[0].name;
+  var el = progressElements[ extra_data.files[0].name ];
+  el.find("img:first").attr("src", data.files[0].thumbnailUrl);
+  el.find(".thumb_link").attr("href", data.files[0].url);
+  $(el).find("td:last").remove();
+  $(el).append('<td><a href="'+data.files[0].tag_url+'" class="btn btn-success"><i class="icon-tag icon-white"></i> Tag</a></td>');
+  $(el).append('<td><a href="'+data.files[0].set_as_default_url+'" class="btn btn_make_image_primary" data-method="post" data-remote="true" rel="nofollow"><i class="icon-picture"></i>Mark As Primary</a></td>');
+  $(el).append('<td><a href="'+data.files[0].deleteUrl+'" class="btn btn_delete_image" data-method="delete" data-remote="true" rel="nofollow"><i class="icon-trash"></i>Delete</a></td>');
+  $(el).find(".btn_make_image_primary").on('click',(function(event) {
+    $.ajax($(this).attr("href"), {
+      type: 'POST',
+      dataType: 'json',
       success: function(data) {
-        var fileName = extra_data.files[0].name;
-        var el = progressElements[ extra_data.files[0].name ];
-        el.find("img:first").attr("src", data.files[0].thumbnailUrl);
-        el.find(".thumb_link").attr("href", data.files[0].url);
-        $(el).find("td:last").remove();
-        $(el).append('<td><a href="'+data.files[0].tag_url+'" class="btn btn-success"><i class="icon-tag icon-white"></i> Tag</a></td>');
-        $(el).append('<td><a href="'+data.files[0].set_as_default_url+'" class="btn btn_make_image_primary" data-method="post" data-remote="true" rel="nofollow"><i class="icon-picture"></i>Mark As Primary</a></td>');
-        $(el).append('<td><a href="'+data.files[0].deleteUrl+'" class="btn btn_delete_image" data-method="delete" data-remote="true" rel="nofollow"><i class="icon-trash"></i>Delete</a></td>');
+        return set_as_default_image(event.target);
       },
-      dataType: 'json'
+      error: function(data) {
+        return alert("Unable to set image as primary");
+      }
     });
+    return false;
+  }));
+  
+  },
+  dataType: 'json'
+  });
   });
 
   $(".cloudinary-fileupload").bind("fileuploadadd", function(e, data){
-    $("#img-table .img-row:first").before('<tr class="img-row"><td class="preview"><a href="#" class="thumb_link"><%= image_tag 'green_loader.gif' %></a></td><td class="name"><a href="#" class="thumb_link">'+data.files[0].name+'</a></td><td class="size"></td><td colspan="3"><div class="progress">Uploading...Please wait<div class="bar bar-success"></div></div></td></tr>');
-    progressElements[ data.files[0].name ] = $("#img-table .img-row:first");
-    $("#fileUploads").fileupload("send", {files: data.files});
+  $("#img-table .img-row:first").before('<tr class="img-row"><td class="preview"><a href="#" class="thumb_link"><%= image_tag 'green_loader.gif' %></a></td><td class="name"><a href="#" class="thumb_link">'+data.files[0].name+'</a></td><td class="size"></td><td colspan="3"><div class="progress">Uploading...Please wait<div class="bar bar-success"></div></div></td></tr>');
+  progressElements[ data.files[0].name ] = $("#img-table .img-row:first");
+  $("#fileUploads").fileupload("send", {files: data.files});
   });
   $(".cloudinary-fileupload").bind("fileuploaddone", function(e, data){
-    console.log(data);
-    var fileName = data.files[0].name;
-    var el = progressElements[ data.files[0].name];
-    el.find(".progress").hide();
+  console.log(data);
+  var fileName = data.files[0].name;
+  var el = progressElements[ data.files[0].name];
+  el.find(".progress").hide();
   });
   $(".cloudinary-fileupload").bind("fileuploadprogress", function(e, data){
-    var el = progressElements[ data.files[0].name ];
-    var progress = parseInt(data.loaded / data.total * 100, 10);
-    el.find(".bar").css('width',progress+"%" );
+  var el = progressElements[ data.files[0].name ];
+  var progress = parseInt(data.loaded / data.total * 100, 10);
+  el.find(".bar").css('width',progress+"%" );
   });
 
-});
+  });
 </script>
