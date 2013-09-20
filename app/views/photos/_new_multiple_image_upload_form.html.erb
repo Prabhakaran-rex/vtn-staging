@@ -46,7 +46,7 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
             <td class="name"><%= link_to File.basename(photo.picture.to_s), photo.picture_url(:huge) %></td>
             <td class="size"></td>
             <td>
-              <%= link_to photo_tag_url(@appraisal, photo), class: "btn btn-success" do %><i class="icon-tag icon-white"></i> Tag<% end %>
+              <%= link_to photo_tag_url(@appraisal, photo), class: "btn btn-success", :target => "_blank" do %><i class="icon-tag icon-white"></i> Tag<% end %>
             </td>
             <td>
               <% if can_mark_as_primary %>
@@ -128,7 +128,7 @@ var set_as_default_image;
   el.find("img:first").attr("src", data.files[0].thumbnailUrl);
   el.find(".thumb_link").attr("href", data.files[0].url);
   $(el).find("td:last").remove();
-  $(el).append('<td><a href="'+data.files[0].tag_url+'" class="btn btn-success"><i class="icon-tag icon-white"></i> Tag</a></td>');
+  $(el).append('<td><a href="'+data.files[0].tag_url+'" class="btn btn-success" target="_blank"><i class="icon-tag icon-white"></i> Tag</a></td>');
   $(el).append('<td><a href="'+data.files[0].set_as_default_url+'" class="btn btn_make_image_primary" data-method="post" data-remote="true" rel="nofollow"><i class="icon-picture"></i>Mark As Primary</a></td>');
   $(el).append('<td><a href="'+data.files[0].deleteUrl+'" class="btn btn_delete_image" data-method="delete" data-remote="true" rel="nofollow"><i class="icon-trash"></i>Delete</a></td>');
   $(el).find(".btn_make_image_primary").on('click',(function(event) {
