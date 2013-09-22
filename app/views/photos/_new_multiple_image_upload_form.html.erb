@@ -78,14 +78,13 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
   var progressElements = { };
   $(document).ready(function() {
 
-var set_as_default_image;
+  var set_as_default_image;
 
   set_as_default_image = function(btn) {
-    console.log("local",btn);
-    $('.btn_make_image_primary').removeClass('btn-success');
-    $('.btn_make_image_primary').html('<i class="icon-picture"></i> Mark as Primary');
-    $(btn).addClass("btn-success");
-    return $(btn).addClass("btn-success").html('<i class="icon-picture icon-white"></i> Primary');
+  $('.btn_make_image_primary').removeClass('btn-success');
+  $('.btn_make_image_primary').html('<i class="icon-picture"></i> Mark as Primary');
+  $(btn).addClass("btn-success");
+  return $(btn).addClass("btn-success").html('<i class="icon-picture icon-white"></i> Primary');
   };
 
   $(".cloudinary-fileupload")
@@ -133,21 +132,24 @@ var set_as_default_image;
   $(el).find("td:last").remove();
   $(el).append('<td><a href="'+data.files[0].tag_url+'" class="btn btn-success" target="_blank"><i class="icon-tag icon-white"></i> Tag</a></td>');
   $(el).append('<td><a href="'+data.files[0].set_as_default_url+'" class="btn btn_make_image_primary" data-method="post" data-remote="true" rel="nofollow"><i class="icon-picture"></i>Mark As Primary</a></td>');
-  $(el).append('<td><a href="'+data.files[0].deleteUrl+'" class="btn btn_delete_image" data-method="delete" data-remote="true" rel="nofollow"><i class="icon-trash"></i>Delete</a></td>');
+  $(el).append('<td class="delete"><a href="'+data.files[0].deleteUrl+'" class="btn btn_delete_image" data-method="delete" data-remote="true" rel="nofollow"><i class="icon-trash"></i><span>Delete</span></a></td>');
+  $(".btn_delete_image").click(function() {
+  $(this).closest("tr").hide();
+  });
   $(el).find(".btn_make_image_primary").on('click',(function(event) {
-    $.ajax($(this).attr("href"), {
-      type: 'POST',
-      dataType: 'json',
-      success: function(data) {
-        return set_as_default_image(event.target);
-      },
-      error: function(data) {
-        return alert("Unable to set image as primary");
-      }
-    });
-    return false;
+  $.ajax($(this).attr("href"), {
+  type: 'POST',
+  dataType: 'json',
+  success: function(data) {
+  return set_as_default_image(event.target);
+  },
+  error: function(data) {
+  return alert("Unable to set image as primary");
+  }
+  });
+  return false;
   }));
-  
+
   },
   dataType: 'json'
   });
@@ -159,7 +161,6 @@ var set_as_default_image;
   $("#fileUploads").fileupload("send", {files: data.files});
   });
   $(".cloudinary-fileupload").bind("fileuploaddone", function(e, data){
-  console.log(data);
   var fileName = data.files[0].name;
   var el = progressElements[ data.files[0].name];
   el.find(".progress").hide();
