@@ -1,40 +1,38 @@
 <% the_steps = [:personal, :avatar, :professional, :trade, :bank, :signature, :categories] %>
 <ul class="nav nav-tabs">
-	<% if the_steps.index(:personal) <= the_steps.index(current_user.get_last_step.to_sym) %>
-  <li <%= css_class_for_active_page(path: wizard_path(:personal)) %> ><%= link_to "Profile", wizard_path(:personal) %></li>
-	<% end %>
-	<% if the_steps.index(:avatar) <= the_steps.index(current_user.get_last_step.to_sym) %>
-  <li <%= css_class_for_active_page(path: wizard_path(:avatar)) %> ><%= link_to "Image", wizard_path(:avatar) %></li>
-	<% end %>
-	<% if the_steps.index(:professional) <= the_steps.index(current_user.get_last_step.to_sym) %>
-  <li <%= css_class_for_active_page(path: wizard_path(:professional)) %> ><%= link_to "Professional", wizard_path(:professional) %></li>
-	<% end %>
-	<% if the_steps.index(:trade) <= the_steps.index(current_user.get_last_step.to_sym) %>
-  <li <%= css_class_for_active_page(path: wizard_path(:trade)) %> ><%= link_to "References", wizard_path(:trade) %></li>
-	<% end %>
-	<% if the_steps.index(:bank) <= the_steps.index(current_user.get_last_step.to_sym) %>
-  <li <%= css_class_for_active_page(path: wizard_path(:bank)) %> ><%= link_to "Bank Account", wizard_path(:bank) %></li>
-	<% end %>
-	<% if the_steps.index(:signature) <= the_steps.index(current_user.get_last_step.to_sym) %>
-  <li <%= css_class_for_active_page(path: wizard_path(:signature)) %> ><%= link_to "Signature", wizard_path(:signature) %></li>
-	<% end %>
-	<% if the_steps.index(:categories) <= the_steps.index(current_user.get_last_step.to_sym) %>
-  <li <%= css_class_for_active_page(path: wizard_path(:categories)) %> ><%= link_to "Categories", wizard_path(:categories) %></li>
-	<% end %>
+  <% if the_steps.index(:personal) <= the_steps.index(current_user.get_last_step.to_sym) %>
+    <li <%= css_class_for_active_page(path: wizard_path(:personal)) %> ><%= link_to "Profile", wizard_path(:personal) %></li>
+  <% end %>
+  <% if the_steps.index(:avatar) <= the_steps.index(current_user.get_last_step.to_sym) %>
+    <li <%= css_class_for_active_page(path: wizard_path(:avatar)) %> ><%= link_to "Image", wizard_path(:avatar) %></li>
+  <% end %>
+  <% if the_steps.index(:professional) <= the_steps.index(current_user.get_last_step.to_sym) %>
+    <li <%= css_class_for_active_page(path: wizard_path(:professional)) %> ><%= link_to "Professional", wizard_path(:professional) %></li>
+  <% end %>
+  <% if the_steps.index(:trade) <= the_steps.index(current_user.get_last_step.to_sym) %>
+    <li <%= css_class_for_active_page(path: wizard_path(:trade)) %> ><%= link_to "References", wizard_path(:trade) %></li>
+  <% end %>
+  <% if the_steps.index(:bank) <= the_steps.index(current_user.get_last_step.to_sym) %>
+    <li <%= css_class_for_active_page(path: wizard_path(:bank)) %> ><%= link_to "Bank Account", wizard_path(:bank) %></li>
+  <% end %>
+  <% if the_steps.index(:signature) <= the_steps.index(current_user.get_last_step.to_sym) %>
+    <li <%= css_class_for_active_page(path: wizard_path(:signature)) %> ><%= link_to "Signature", wizard_path(:signature) %></li>
+  <% end %>
+  <% if the_steps.index(:categories) <= the_steps.index(current_user.get_last_step.to_sym) %>
+    <li <%= css_class_for_active_page(path: wizard_path(:categories)) %> ><%= link_to "Categories", wizard_path(:categories) %></li>
+  <% end %>
 </ul>
 
 <% if current_user.is_appraiser? && !current_user.is_confirmed? %>
-		<div class="alert alert-error" id="applicationNotification" <%= raw ("style='display: none;'") if current_user.is_appraiser_application_complete  %> >
-			<p>
-		   <%= get_cms_content('/appraiser-application-welcome-message') %>
-</p>
-		</div>
-		 <div class="alert alert-info" id="applicationCompleted" <%= raw ("style='display: none;'") unless current_user.is_appraiser_application_complete && !current_user.is_under_review?  %>>
-		    <i class="icon-hand-right"></i> Your application is complete. Please submit it by clicking on the "Save and Submit" button <%= @current_step == :categories ? "located at the bottom of this page" : "in the Categories tab" %>
-		</div>
-	<% if current_user.is_under_review?%>
-		<div class="alert alert-success">
-		    <i class="icon-hand-right"></i> Your application is under review. Our administrators will contact you soon.
-		</div>
-	<% end %>
+  <div class="alert alert-error" id="applicationNotification" <%= raw ("style='display: none;'") if current_user.is_appraiser_application_complete  %> >
+    <%= get_cms_content('/appraiser-application-welcome-message') %>
+  </div>
+  <div class="alert alert-info" id="applicationCompleted" <%= raw ("style='display: none;'") unless current_user.is_appraiser_application_complete && !current_user.is_under_review?  %>>
+    <i class="icon-hand-right"></i> Your application is complete. Please submit it by clicking on the "Save and Submit" button <%= @current_step == :categories ? "located at the bottom of this page" : "in the Categories tab" %>
+</div>
+<% if current_user.is_under_review?%>
+  <div class="alert alert-success">
+    <i class="icon-hand-right"></i> Your application is under review. Our administrators will contact you soon.
+  </div>
+<% end %>
 <% end %>
