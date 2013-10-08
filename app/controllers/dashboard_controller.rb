@@ -25,6 +25,7 @@ class DashboardController < ApplicationController
 			end
 
 			@appraisals = @appraisals.visible				
+      @appraisals = @appraisals.where("appraiser_referral is NULL or appraiser_referral in (?)",["", current_user.referral_id])
 
 			respond_to do |format|
 				format.html # index.html.haml

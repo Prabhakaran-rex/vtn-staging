@@ -6,28 +6,36 @@
     </div>
     <%= simple_form_for(@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
       <div class="row sub_box">
-      <div>
-        <% if @appraisal.errors.any? %>
-          <div class="error_explanation">
-          <h4>Errors prohibited this appraisal from being saved</h4>
+        <div>
+          <% if @appraisal.errors.any? %>
+            <div class="error_explanation">
+              <h4>Errors prohibited this appraisal from being saved</h4>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+        <div class="form-inputs">
+          <div class="row">
+            <div class="span7">
+              <%= f.input :title, :label => "Item Name", :input_html => {:class => "span5"}, required: true %>
+            </div>
+            <div class="span3">
+              <%= f.input :appraiser_referral, :label => "Appraiser ID <a href='#' id='tooltipAppraiserId'> <span class='badge badge-success'>?</span></a>", :input_html => {:class => "span1 "}, required: false %>
+
+            </div>
+          </div>
+          <%= f.input :name, :as => :text, :label => "Description",  :input_html => {:class => "span8", :rows => 4}, required: true, :hint => "(Enter a brief description of your item including any characteristics you feel are relevant to its value.)" %>
+          <%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
+            <%= a.input :item_history, :label => "Item History", :as => :text, required: true,:input_html => {:class => "span8", :rows => 4}, hint: "(Where did you get it? Purchase at auction, flea market? Family Heirloom? How long have you owned it?)" %>
+            <%= a.input :country_of_origin, :label => "Country of Origin", :as => :country, input_html: {class: "chzn-select"} %>
+          <% end %>
+          <%= f.simple_fields_for :classification do |c| %>
+            <%= c.association :category, as: :select, collection: Category.all(order: 'name'), required: true, input_html: {class: "chzn-select"} %>
+          <% end %>
+        </div>
+        <div>
+          <%= f.button :submit, "Next", class: "btn btn-success pull-right",id: "btnBuildWizardGeneral"  %>
+        </div>
       </div>
-      <div class="form-inputs">
-        <%= f.input :title, :label => "Item Name", :input_html => {:class => "span8"}, required: true %>
-        <%= f.input :name, :as => :text, :label => "Description",  :input_html => {:class => "span8", :rows => 4}, required: true, :hint => "(Enter a brief description of your item including any characteristics you feel are relevant to its value.)" %>
-        <%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
-          <%= a.input :item_history, :label => "Item History", :as => :text, required: true,:input_html => {:class => "span8", :rows => 4}, hint: "(Where did you get it? Purchase at auction, flea market? Family Heirloom? How long have you owned it?)" %>
-          <%= a.input :country_of_origin, :label => "Country of Origin", :as => :country, input_html: {class: "chzn-select"} %>
-      <% end %>
-        <%= f.simple_fields_for :classification do |c| %>
-          <%= c.association :category, as: :select, collection: Category.all(order: 'name'), required: true, input_html: {class: "chzn-select"} %>
-      <% end %>
-      </div>
-      <div>
-        <%= f.button :submit, "Next", class: "btn btn-success pull-right",id: "btnBuildWizardGeneral"  %>
-      </div>
-    </div>
-  <% end %>
+    <% end %>
   </div>
 </center>

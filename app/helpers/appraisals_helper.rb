@@ -31,7 +31,8 @@ module AppraisalsHelper
   end
 
   def linked_title(appraisal)
-    link_to(h(appraisal.title) + " ##{appraisal.id}", _get_linked_path(appraisal))
+    badge = "<span class='label'><i class='icon-lock icon-white'></i></span>" unless appraisal.appraiser_referral.blank?
+    link_to(raw(badge) + h(appraisal.title) + " ##{appraisal.id}", _get_linked_path(appraisal))
   end
 
   def completed_on(appraisal)

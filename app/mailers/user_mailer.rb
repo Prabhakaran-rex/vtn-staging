@@ -10,6 +10,13 @@ class UserMailer < ActionMailer::Base
          :subject => "A new appraisal is available" )
   end
 
+  def notify_referral_of_new_appraisal(appraiser,appraisal)
+    @appraiser = appraiser
+    @appraisal = appraisal
+    mail( :to      => @appraiser.email ,
+         :subject => "A new appraisal is available" )
+  end
+
   def notify_creator_of_appraisal_update( appraisal )
     @appraisal = appraisal
     mail( :to      => @appraisal.owned_by.email ,

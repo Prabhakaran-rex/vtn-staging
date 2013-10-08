@@ -66,7 +66,19 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
+  def self.notify_referral_of_new_appraisal( appraisal )
+    appraiser_ids = Appraiser.find_by_referral_id(appraisal.appraiser_referral).id
+    appraisers = Appraiser.where("id in (?) and status = ? ",appraiser_ids, EAUserStatusConfirmed)
+    appraisers.each_with_index do |appraiser, index|
+      UserMailer.delay.notify_referral_of_new_appraisal( appraiser ,
+        appraisal ) if appraiser.notify_by_email && Rails.env != "sandbox"
+      unless (phone = PhonyRails.normalize_number(appraiser.address.phone1, :country_code => 'US')).nil?
+        User.send_sms({:number => phone, :body => "A New Appraisal is Available in one of your selected categories!"}).delay(run_at: (30*index).seconds.from_now) if appraiser.notify_by_sms
+      end
+    end
+  end
+
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info']
     token = access_token['credentials']['token']

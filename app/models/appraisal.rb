@@ -28,10 +28,11 @@ class Appraisal < ActiveRecord::Base
   validates_presence_of :name, :title, if: :active_or_general?
   validates :selected_plan, :presence => { :message => "Please select a plan to continue" }, if: :active?
   validate :validate_appraisal_requirements, if: :active?
+  validate :validate_appraiser_referral, if: :active_or_general?
 
   serialize :appraisal_info, AppraisalInfo
 
-  attr_accessible :allow_share, :created_by, :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type, :title
+  attr_accessible :appraiser_referral, :allow_share, :created_by, :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type, :title
   attr_accessible :classification_attributes, :payment_attributes, :step
   acts_as_commentable
 
@@ -83,7 +84,11 @@ class Appraisal < ActiveRecord::Base
 
   def pay_and_notify!
     self.pay!
-    User.notify_appraisers_of_new_appraisal(self) if (Rails.env == 'development' || Rails.env == 'production')
+    if self.appraiser_referral.blank?
+      User.notify_appraisers_of_new_appraisal(self) if (Rails.env == 'development' || Rails.env == 'production')
+    else
+      User.notify_referral_of_new_appraisal(self)
+    end
   end
 
   def default_photo
@@ -176,6 +181,12 @@ class Appraisal < ActiveRecord::Base
   def validate_appraisal_info
     unless self.appraisal_info.valid?(step.to_s.to_sym)
       errors.add :appraisal_info, appraisal_info.errors
+    end
+  end
+
+  def validate_appraiser_referral
+    if !self.appraiser_referral.blank? && Appraiser.find_by_referral_id(self.appraiser_referral).nil?
+      errors.add(:appraiser_referral, "is invalid")
     end
   end
 
