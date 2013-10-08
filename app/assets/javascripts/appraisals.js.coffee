@@ -159,7 +159,7 @@ jQuery ->
 
   $("#tooltipAppraiserId").tooltip
     placement: "bottom"
-    title: "If you would like this appraisal report to go to a specific appraiser please enter in their appraiser ID number. If you do not know their ID number please email support at: support@ValueThisNow.com or call the referring appraiser and ask them"
+    title: "If you would like this appraisal report to go to a specific appraiser please enter in their appraiser ID number. If you do not know their ID number please email support at: support@ValueThisNow.com or call the referring appraiser and ask them."
 
 requiredFields = ->
   isValid = true
