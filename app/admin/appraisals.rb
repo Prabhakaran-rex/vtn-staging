@@ -15,7 +15,7 @@ ActiveAdmin.register Appraisal do
     column :updated_at
     column :owned_by, :sortable => "owned_bies_appraisals.name"
     column :assigned_to, :sortable => "users.name"
-    column :appraiser_referral
+    column("Ref") {|t| "#{t.appraiser_referral}"}
     column :assigned_on, :sortable => :assigned_on do |t|
       "#{Time.at(t.assigned_on)}" unless t.assigned_on.nil?
     end
