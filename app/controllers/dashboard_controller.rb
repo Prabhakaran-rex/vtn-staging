@@ -14,6 +14,8 @@ class DashboardController < ApplicationController
 					@appraisals = Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueClaimed)
 				when "unclaimed"
 					@appraisals = Appraisal.where('status = ?', EActivityValuePayed)
+				when "referrals"
+					@appraisals = Appraisal.where("appraiser_referral = ? and status = ?",current_user.referral_id,EActivityValuePayed)
 				when "completed"
 					@appraisals = Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueFinalized)
 				else
@@ -25,6 +27,7 @@ class DashboardController < ApplicationController
 			end
 
 			@appraisals = @appraisals.visible				
+      @appraisals = @appraisals.where("appraiser_referral is NULL or appraiser_referral in (?)",["", current_user.referral_id])
 
 			respond_to do |format|
 				format.html # index.html.haml

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130915104800) do
+ActiveRecord::Schema.define(:version => 20131007235411) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20130915104800) do
     t.string   "title"
     t.boolean  "allow_share",               :default => true
     t.string   "step"
+    t.string   "appraiser_referral"
   end
 
   add_index "appraisals", ["assigned_to"], :name => "index_appraisals_on_assigned_to"
@@ -386,9 +387,9 @@ ActiveRecord::Schema.define(:version => 20130915104800) do
     t.integer  "asset_file_size"
     t.datetime "asset_updated_at"
     t.boolean  "default",            :default => false
+    t.string   "picture"
     t.string   "name"
     t.string   "asset"
-    t.string   "picture"
   end
 
   add_index "photos", ["appraisal_id"], :name => "index_photos_on_appraisal_id"
@@ -516,6 +517,7 @@ ActiveRecord::Schema.define(:version => 20130915104800) do
     t.string   "paypal_email"
     t.string   "last_step"
     t.string   "signature"
+    t.string   "referral_id"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

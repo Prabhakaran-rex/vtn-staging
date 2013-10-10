@@ -1,6 +1,6 @@
 ActiveAdmin.register Appraiser do
   menu :if => proc{ can?(:manage, Appraiser) } 
-  
+
   actions :all, :except => [:new, :destroy]    
 
   action_item :only => :show do
@@ -10,25 +10,26 @@ ActiveAdmin.register Appraiser do
   action_item :only => :show do
     link_to "Become", "/switch_user?scope_identifier=user_#{appraiser.id}"
   end
- 
-	index do
-		column :id
-		column :email
-		column :name
+
+  index do
+    column :id
+    column :email
+    column :name
     column :status, :sortable => "users.status" do |appraiser|
       appraiser.status_as_string
-      end
-		column :current_sign_in_at
-		column :last_sign_in_at
-		column :sign_in_count
-		default_actions
-	end
+    end
+    column :current_sign_in_at
+    column :last_sign_in_at
+    column :sign_in_count
+    column :referral_id
+    default_actions
+  end
 
   filter :id
   filter :name
   filter :status, :as => :select, :collection => EAUserStatusHash.map {|k,v| [v,k]}
 
-	form do |f|
+  form do |f|
     f.inputs "Admin Details" do
       f.input :name
       f.input :email
@@ -43,13 +44,13 @@ ActiveAdmin.register Appraiser do
 
 
   controller do
-  	load_and_authorize_resource :except => :index
-  	def scoped_collection
-  		end_of_association_chain.accessible_by(current_ability)
-  	end
-  	rescue_from CanCan::AccessDenied do |exception|
-  		redirect_to admin_dashboard_path, :alert => exception.message
-  	end
+    load_and_authorize_resource :except => :index
+    def scoped_collection
+      end_of_association_chain.accessible_by(current_ability)
+    end
+    rescue_from CanCan::AccessDenied do |exception|
+      redirect_to admin_dashboard_path, :alert => exception.message
+    end
   end
 
   show :title => :name do
@@ -70,7 +71,7 @@ ActiveAdmin.register Appraiser do
     end
 
     panel "Additional Information" do
-       render :partial=> "admin/users/appraiser_info", :locals => {:extra_info => appraiser.appraiser_extra}
+      render :partial=> "admin/users/appraiser_info", :locals => {:extra_info => appraiser.appraiser_extra}
     end
 
     panel "Trade References" do
@@ -81,7 +82,7 @@ ActiveAdmin.register Appraiser do
       appraiser.skills.each do |skill|
         li skill.category.name  
       end
-      
+
     end
   end
 end

@@ -8,6 +8,7 @@ class Appraiser < User
   alias_attribute :appraiser_info, :appraiser_extra
   accepts_nested_attributes_for :appraiser_extra
   after_create :create_appraiser_extra
+  after_create :assign_referral_id
   attr_accessible :appraiser_extra_attributes
 
   has_many :trade_references, :dependent => :destroy
@@ -59,5 +60,14 @@ class Appraiser < User
   def create_appraiser_extra
     y = AppraiserExtra.new(); y.appraiser_id = self.id;
     y.save(:validate => false)
+  end
+
+  def assign_referral_id
+    self.referral_id = generate_referral_id(8)
+    self.save
+  end
+
+  def generate_referral_id(size = 6)
+    self.id
   end
 end

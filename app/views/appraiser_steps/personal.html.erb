@@ -6,32 +6,35 @@
     <div class="sub_box">
       <% unless current_user.is_rejected? %>
         <% if current_user.is_appraiser? %>
-        <div class="alert alert-info">
-        <i class="icon-warning-sign"></i>  <strong>NOTICE:</strong> This information is primarily for the private use of ValueThisNow.com and will not be made public. Only the appraiser’s name, image and website will be made public.
-      </div>
-    <% end %>
-      <div class="row">
-        <div class="span12">
-          <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
-            <%= render :partial => "validation_errors" %>
-
-            <%= f.input :name, input_html: {class: "input-xxlarge"} %>
-          <%= f.input :email, input_html: {class: "input-xxlarge"} %>
-          <%= f.simple_fields_for :address, @user.address do |a| %>
-            <%= a.input :address, :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"}  %>
-          <%= a.input :city, :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"} %>
-          <%= a.input :state, :label => "State/Province", :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"} %>
-          <%= a.input :country, :priority => [ "United States" ], :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"} %>
-          <%= a.input :zip, :label => "Postal Code", :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"} %>
-          <%= a.input :phone1, :label => "Phone", :input_html => {:class => "phone-input"}, :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"} %>
+          <div class="alert alert-info">
+            <i class="icon-warning-sign"></i>  <strong>NOTICE:</strong> This information is primarily for the private use of ValueThisNow.com and will not be made public. Only the appraiser’s name, image and website will be made public.
+          </div>
         <% end %>
-        </div>
-      </div>
-      <div class="form-actions">
-        <%= f.submit "Save and Continue", :class => "btn btn-success"%>
-      </div>
-    <% end %>
-    <% end %>
+        <div class="row">
+          <div class="span12">
+            <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
+              <%= render :partial => "validation_errors" %>
+
+              <% if @user.is_appraiser? %>
+                <%= f.input :referral_id, label: "Appraiser ID", input_html: {class: "input-xxlarge"}, disabled: true %>
+              <% end %>
+              <%= f.input :name, input_html: {class: "input-xxlarge"} %>
+              <%= f.input :email, input_html: {class: "input-xxlarge"} %>
+              <%= f.simple_fields_for :address, @user.address do |a| %>
+                <%= a.input :address, :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"}  %>
+                <%= a.input :city, :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"} %>
+                <%= a.input :state, :label => "State/Province", :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"} %>
+                <%= a.input :country, :priority => [ "United States" ], :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"} %>
+                <%= a.input :zip, :label => "Postal Code", :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"} %>
+                <%= a.input :phone1, :label => "Phone", :input_html => {:class => "phone-input"}, :required => @user.is_appraiser?, input_html: {class: "input-xxlarge"} %>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-actions">
+            <%= f.submit "Save and Continue", :class => "btn btn-success"%>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </center>
