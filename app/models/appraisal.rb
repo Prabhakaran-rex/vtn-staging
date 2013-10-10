@@ -148,6 +148,10 @@ class Appraisal < ActiveRecord::Base
     self.classification.category
   end
 
+  def payout_amount
+    self.payout.nil? ? 0 : self.payout.amount
+  end
+
   private
   def sanitize_appraisal_info
     self.appraisal_info.sanitize

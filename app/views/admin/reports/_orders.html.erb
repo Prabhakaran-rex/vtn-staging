@@ -1,38 +1,151 @@
-<% if current_user.superadmin? %>
-<% 
-    # @appraisals = Appraisal.find(:all, :order => "created_at, id")
-    @appraisals = Appraisal.complete.order("created_at, id")
-@appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year}
-%>
-
-<% @appraisals_years.sort.each do |year, appraisals| %>
-  <h1><%= "#{year.strftime('%Y')} (#{appraisals.count})" %></h1>
-<table>
-  <thead>
+<% if !current_user.superadmin? %>
+  <b>You are not authorized</b>
+<% else %>
+  <!-- Appraisals by type -->
+  <% @appraisals = Appraisal.complete.order("created_at, id")
+  @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
+  <% @appraisals_years.sort.each do |year, appraisals| %>
+  <h1>Reports</h1>
+  <h2>Appraisals for <%= "#{year.strftime('%Y')} (#{appraisals.count})" %></h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Month</th>
+        <% APPRAISAL_PLANS.sort.each do |plan_id| %>
+          <th><%= getStringForAppraisalType plan_id %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% appraisals.group_by{|t| t.created_at.beginning_of_month}.sort.each do |month,appraisals|
+        result = Hash.new(0)
+        appraisals.each {|x| result[x.selected_plan] += 1 }
+      %>
     <tr>
-      <th>Month</th>
-      <% APPRAISAL_PLANS.sort.each do |plan_id| %>
-        <th><%= getStringForAppraisalType plan_id %></th>
-    <% end %>
-    </tr>
-  </thead>
-  <tbody>
-  <% appraisals.group_by{|t| t.created_at.beginning_of_month}.sort.each do |month,appraisals|
-    result = Hash.new(0)
-    appraisals.each {|x| result[x.selected_plan] += 1 }
-  %>
-  <tr>
       <td><%= "#{month.strftime('%B')} (#{appraisals.count})"  %></td>
 
       <% APPRAISAL_PLANS.sort.each do |plan_id| %>
         <td><%= result[plan_id] %></td>
-    <% end %>
-    <% end %>
+      <% end %>
     </tr>
-    </tbody>
+    <% end %>
+  </tbody>
   </table>
-<% end %>
+  <% end %>
+  <!-- End Appraisals by type -->
+  <!-- Revenue and profit per type -->
+  <% @appraisals = Appraisal.complete.order("created_at, id")
+  @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
+  <% @appraisals_years.sort.each do |year, appraisals| %>
+  <h2>Company Gross Revenues for <%= "#{year.strftime('%Y')}" %></h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Month</th>
+        <% APPRAISAL_PLANS.sort.each do |plan_id| %>
+          <th><%= getStringForAppraisalType plan_id %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @totals = Hash.new(0)
+        appraisals.group_by{|t| t.created_at.beginning_of_month}.sort.each do |month,appraisals|
+        result = Hash.new(0)
+        appraisals.each {|x| result[x.selected_plan] += x.payment.amount; @totals[x.selected_plan] += x.payment.amount; }
+      %>
+    <tr>
+      <td><%= "#{month.strftime('%B')} (#{number_to_currency(result.inject(0){|sum,x| sum + x[1]})})"  %></td>
 
-<% else %>
-<b>You are not authorized</b>
+      <% APPRAISAL_PLANS.sort.each do |plan_id| %>
+        <td><%= number_to_currency(result[plan_id]) %></td>
+      <% end %>
+  </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <th>Totals (<%=number_to_currency(@totals.inject(0){|sum,x| sum + x[1]}) %>)</th>
+    <% APPRAISAL_PLANS.each do |plan_id| %>
+    <th><%= number_to_currency(@totals[plan_id]) %></th>
+  <% end %>
+  </tfoot>
+  </table>
+  <% end %>
+  <!-- End Appraisals by type -->
+   <!-- Profit per type -->
+  <% @appraisals = Appraisal.complete.order("created_at, id")
+  @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
+  <% @appraisals_years.sort.each do |year, appraisals| %>
+  <h2>Company Profits for <%= "#{year.strftime('%Y')}" %></h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Month</th>
+        <% APPRAISAL_PLANS.sort.each do |plan_id| %>
+          <th><%= getStringForAppraisalType plan_id %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @totals = Hash.new(0)
+        appraisals.group_by{|t| t.created_at.beginning_of_month}.sort.each do |month,appraisals|
+        result = Hash.new(0)
+        appraisals.each {|x| result[x.selected_plan] += x.payment.amount - x.payout_amount; @totals[x.selected_plan] += x.payment.amount - x.payout_amount; }
+      %>
+    <tr>
+      <td><%= "#{month.strftime('%B')} (#{number_to_currency(result.inject(0){|sum,x| sum + x[1]})})"  %></td>
+
+      <% APPRAISAL_PLANS.sort.each do |plan_id| %>
+        <td><%= number_to_currency(result[plan_id]) %></td>
+      <% end %>
+  </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <th>Totals (<%=number_to_currency(@totals.inject(0){|sum,x| sum + x[1]}) %>)</th>
+    <% APPRAISAL_PLANS.each do |plan_id| %>
+    <th><%= number_to_currency(@totals[plan_id]) %></th>
+  <% end %>
+  </tfoot>
+  </table>
+  <% end %>
+  <!-- End Comissions by type -->
+   <!-- Comissions per type -->
+  <% @appraisals = Appraisal.complete.order("created_at, id")
+  @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
+  <% @appraisals_years.sort.each do |year, appraisals| %>
+  <h2>Appraiser's Commisions for <%= "#{year.strftime('%Y')}" %></h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Month</th>
+        <% APPRAISAL_PLANS.sort.each do |plan_id| %>
+          <th><%= getStringForAppraisalType plan_id %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @totals = Hash.new(0)
+        appraisals.group_by{|t| t.created_at.beginning_of_month}.sort.each do |month,appraisals|
+        result = Hash.new(0)
+        appraisals.each {|x| result[x.selected_plan] += x.payout_amount; @totals[x.selected_plan] += x.payout_amount; }
+      %>
+    <tr>
+      <td><%= "#{month.strftime('%B')} (#{number_to_currency(result.inject(0){|sum,x| sum + x[1]})})"  %></td>
+
+      <% APPRAISAL_PLANS.sort.each do |plan_id| %>
+        <td><%= number_to_currency(result[plan_id]) %></td>
+      <% end %>
+  </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <th>Totals (<%=number_to_currency(@totals.inject(0){|sum,x| sum + x[1]}) %>)</th>
+    <% APPRAISAL_PLANS.each do |plan_id| %>
+    <th><%= number_to_currency(@totals[plan_id]) %></th>
+  <% end %>
+  </tfoot>
+  </table>
+  <% end %>
+  <!-- End Comissions by type -->
+
 <% end %>
