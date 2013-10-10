@@ -37,7 +37,7 @@
   <% @appraisals = Appraisal.complete.order("created_at, id")
   @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
   <% @appraisals_years.sort.each do |year, appraisals| %>
-  <h2>Revenue for <%= "#{year.strftime('%Y')}" %></h2>
+  <h2>Company Gross Revenues for <%= "#{year.strftime('%Y')}" %></h2>
   <table>
     <thead>
       <tr>
@@ -75,7 +75,7 @@
   <% @appraisals = Appraisal.complete.order("created_at, id")
   @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
   <% @appraisals_years.sort.each do |year, appraisals| %>
-  <h2>Commisions for <%= "#{year.strftime('%Y')}" %></h2>
+  <h2>Company Profits for <%= "#{year.strftime('%Y')}" %></h2>
   <table>
     <thead>
       <tr>
@@ -113,7 +113,7 @@
   <% @appraisals = Appraisal.complete.order("created_at, id")
   @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
   <% @appraisals_years.sort.each do |year, appraisals| %>
-  <h2>Commisions for <%= "#{year.strftime('%Y')}" %></h2>
+  <h2>Appraiser's Commisions for <%= "#{year.strftime('%Y')}" %></h2>
   <table>
     <thead>
       <tr>
