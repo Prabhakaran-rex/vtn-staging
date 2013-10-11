@@ -10,6 +10,7 @@
           <table>
             <%= form_text_field(form: f, field: :login, html_class: "input-xlarge" ) %>
             <%= form_text_field(form: f, field: :password, as: :password, html_class: "input-xlarge") %>
+            <%= form_text_field(form: f, field: :remember_me, as: :boolean)  if devise_mapping.rememberable? %>
             <%= form_submit_button(form: f, title: "Sign in") %>
           </table>
         </td>
