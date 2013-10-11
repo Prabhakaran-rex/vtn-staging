@@ -4,7 +4,7 @@
 jQuery ->
   $("#featured_coupon").modal('show')
 
-  number = 1 + Math.floor(Math.random() * 8)
+  number = 1 + Math.floor(Math.random() * 9)
   title = ""
 
   switch number
@@ -31,6 +31,9 @@ jQuery ->
       $("#homeItem").css "background-image", "url(https://s3.amazonaws.com/vtn.assets.valuethisnow.com/carrousel/ap7.png)"
     when 8
       title = "1952 Topps #407 Eddie Mathews RC appraised at $10,000"
-      $("#homeItem").css "background-image", "url(https://s3.amazonaws.com/vtn.assets.valuethisnow.com/carrousel/ap9.png)"
+      $("#homeItem").css "background-image", "url(https://s3.amazonaws.com/vtn.assets.valuethisnow.com/carrousel/ap8.png)"
+    when 9
+      title = "Chinese Ming style Meiping form vase appraised at $3,500"
+      $("#homeItem").css "background-image", "url(https://www.valuethisnow.com/assets/appraise1.png)"
 
   $("#theTitle").html title
