@@ -493,7 +493,7 @@ padding-bottom:10px;
 	height:500px;
 }
 
-.item1{background:url(appraise1.png) no-repeat bottom right;}
+.item1{background: no-repeat bottom right;}
 
 #homeValueBlock{
 	background:url(bg_semi_white.png) repeat;
