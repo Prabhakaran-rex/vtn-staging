@@ -15,7 +15,7 @@ jQuery ->
       title = "18 Karat gold pocket watch appraised at $12,631"
       $("#homeItem").css "background-image", "url(https://s3.amazonaws.com/vtn.assets.valuethisnow.com/carrousel/ap5.png)"
     when 3
-      title = "Babe Ruth Autographied Ball appraised at $32,000.00"
+      title = "Babe Ruth Autographed Ball appraised at $32,000.00"
       $("#homeItem").css "background-image", "url(https://s3.amazonaws.com/vtn.assets.valuethisnow.com/carrousel/ap4.png)"
     when 4
       title = "18k white gold ladies dinner ring appraised at $3,200"
