@@ -7,27 +7,29 @@ class DashboardController < ApplicationController
 		elsif @user.is_appraiser? and !@user.is_confirmed?
 			redirect_to appraiser_steps_path
 		else
-			@specializedAppraisals = nil
 			
 			case @detail = params[:detail]
 				when "processing"
 					@appraisals = Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueClaimed)
 				when "unclaimed"
 					@appraisals = Appraisal.where('status = ?', EActivityValuePayed)
+          if Setting.is_set("show_all_appraisals","false")
+            @specializedAppraisals = Appraisal.select("appraisals.id").joins(:classification => {:category => {:skills => :appraiser}}).where('appraisals.status in (?) and categories.id in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ],current_user.skills.pluck(:category_id).uniq).pluck('appraisals.id').uniq
+            @appraisals = @appraisals.where("id in (?)",@specializedAppraisals)
+          end
 				when "referrals"
 					@appraisals = Appraisal.where("appraiser_referral = ? and status = ?",current_user.referral_id,EActivityValuePayed)
 				when "completed"
 					@appraisals = Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueFinalized)
-				else
-					@appraisals = Appraisal.where("assigned_to = ? or status = ?", current_user, EActivityValuePayed)
-				end
-			if params[:specialized]
-				@specializedAppraisals = Appraisal.select("appraisals.id").joins(:classification => {:category => {:skills => :appraiser}}).where('appraisals.status in (?) and categories.id in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ],current_user.skills.pluck(:category_id).uniq).pluck('appraisals.id').uniq
-				@appraisals = @appraisals.where("id in (?)",@specializedAppraisals)
-			end
+        else
+					@appraisals = Appraisal.where('status = ?', EActivityValuePayed)
+          if Setting.is_set("show_all_appraisals","false")
+            @specializedAppraisals = Appraisal.select("appraisals.id").joins(:classification => {:category => {:skills => :appraiser}}).where('appraisals.status in (?) and categories.id in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ],current_user.skills.pluck(:category_id).uniq).pluck('appraisals.id').uniq
+            @appraisals = @appraisals.where("id in (?)",@specializedAppraisals)
+          end
 
-			@appraisals = @appraisals.visible				
-      @appraisals = @appraisals.where("appraiser_referral is NULL or appraiser_referral in (?)",["", current_user.referral_id])
+				end
+			@appraisals = @appraisals.visible	unless @appraisals.nil?			
 
 			respond_to do |format|
 				format.html # index.html.haml
