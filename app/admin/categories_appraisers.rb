@@ -18,3 +18,10 @@
       render :partial => "admin/reports/orphan_categories"
     end
  end
+
+ ActiveAdmin.register_page "Export Static Content" do
+   menu :label => "Export Static Content", :parent => "Reports"
+    content do
+      render :partial => "admin/reports/static_content"
+    end
+ end
