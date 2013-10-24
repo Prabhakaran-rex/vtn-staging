@@ -75,9 +75,8 @@ class UserMailer < ActionMailer::Base
     @appraiser = @appraisal.assigned_to
     @customer = Customer.find(@appraisal.created_by)
     @reason = params[:reason]
-    mail(:to => ["dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
-         :to => ["sergio@purplecowwebsites.com"],
-         :subject => "[Appraisal Suggested for Rejection] #{@appraisal.name}")
+    mail(:to => ["dmaloney@valuethisnow.com","rjohnston@valuethisnow.com","sergio@purplecowwebsites.com"],
+         :subject => "[Appraisal Suggested for Rejection] #{@appraisal.name[0..15]}")
   end
 
   def notify_user_of_rejection(appraisal, comments)
