@@ -108,6 +108,7 @@ PurexNew::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   get '/cms/blog/posts/:slug' => 'home#blog_redirect'
+  get '/cms/blog' => 'home#blog_redirect'
 
   # Begin ComfortableMexicanSofa
   namespace :cms_admin, :path => ComfortableMexicanSofa.config.admin_route_prefix, :except => :show do
