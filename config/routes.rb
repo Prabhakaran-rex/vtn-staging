@@ -106,6 +106,10 @@ PurexNew::Application.routes.draw do
   match '/appraisals/reject/:id' => "appraisals#reject", :as => :appraisal_reject
   match 'switch_user' => 'switch_user#set_current_user'
   ActiveAdmin.routes(self)
+
+  get '/cms/blog/posts/:slug' => 'home#blog_redirect'
+  get '/cms/blog' => 'home#blog_redirect'
+
   # Begin ComfortableMexicanSofa
   namespace :cms_admin, :path => ComfortableMexicanSofa.config.admin_route_prefix, :except => :show do
       get '/', :to => 'cms_admin/sites#index'

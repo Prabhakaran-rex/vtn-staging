@@ -134,4 +134,9 @@ class HomeController < ApplicationController
     end
   end
   # End For Future Use
+  #
+  def blog_redirect
+    url = params[:slug] ? "http://blog.valuethisnow.com/posts/#{params[:slug]}" : "http://blog.valuethisnow.com"
+    redirect_to url
+  end
 end

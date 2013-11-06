@@ -9,13 +9,13 @@ jQuery ->
 
   switch number
     when 1
-      title = "F. Scott Fitzgerald - Tender Is The Night appraised at $19,133.38"
+      title = "F. Scott Fitzgerald - Tender Is The Night appraised at $19,100.00"
       $("#homeItem").css "background-image", "url(https://s3.amazonaws.com/vtn.assets.valuethisnow.com/carrousel/ap2.png)"
     when 2
-      title = "18 carrot gold pocket watch appraised at $12,631"
+      title = "18 Karat gold pocket watch appraised at $12,631"
       $("#homeItem").css "background-image", "url(https://s3.amazonaws.com/vtn.assets.valuethisnow.com/carrousel/ap5.png)"
     when 3
-      title = "Babe Ruth Autographied Ball appraised at $32,000.00"
+      title = "Babe Ruth Autographed Ball appraised at $32,000.00"
       $("#homeItem").css "background-image", "url(https://s3.amazonaws.com/vtn.assets.valuethisnow.com/carrousel/ap4.png)"
     when 4
       title = "18k white gold ladies dinner ring appraised at $3,200"
