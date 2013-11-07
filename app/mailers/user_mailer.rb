@@ -10,6 +10,14 @@ class UserMailer < ActionMailer::Base
          :subject => "A new appraisal is available" )
   end
 
+  def notify_appraisers_in_category(params)
+    @appraiser = params[:appraiser]
+    @comments = params[:comments]
+    @category = params[:category]
+    mail( :to      => @appraiser.email ,
+         :subject => "Message for Appraisers in Category #{@category.name}" )
+  end
+
   def notify_referral_of_new_appraisal(appraiser,appraisal)
     @appraiser = appraiser
     @appraisal = appraisal
