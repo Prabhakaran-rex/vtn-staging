@@ -115,7 +115,7 @@ class AppraisalsController < ApplicationController
   def update
     @appraisal = Appraisal.find(params[:id])
     if params[:suggest_rejection]
-      pending_rejection = @appraisal.suggest_for_rejection(reason: params[:txtRejectionReason])
+      pending_rejection = @appraisal.suggest_for_rejection(rejection_reason: params[:txtRejectionReason])
     end
     previous_status = @appraisal.status
     params[:appraisal][:appraisal_info] = Hash.new if params[:appraisal][:appraisal_info].nil?

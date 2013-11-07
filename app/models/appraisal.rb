@@ -33,7 +33,7 @@ class Appraisal < ActiveRecord::Base
   serialize :appraisal_info, AppraisalInfo
 
   attr_accessible :appraiser_referral, :allow_share, :created_by, :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type, :title
-  attr_accessible :classification_attributes, :payment_attributes, :step
+  attr_accessible :classification_attributes, :payment_attributes, :step, :rejection_reason
   acts_as_commentable
 
   scope :visible, where("status != ?", EActivityValueHidden)
@@ -105,13 +105,15 @@ class Appraisal < ActiveRecord::Base
 
   def suggest_for_rejection(params)
     self.status = EActivityValueReviewRejection
+    self.rejection_reason = params[:rejection_reason]
     self.save
-    UserMailer.notify_admin_of_suggested_rejection({appraisal: self, reason: params[:reason]}).deliver if (Rails.env == 'development' || Rails.env == 'production')
+    UserMailer.notify_admin_of_suggested_rejection({appraisal: self, rejection_reason: params[:rejection_reason]}).deliver if (Rails.env == 'development' || Rails.env == 'production')
   end
 
   def reject(comments)
     comments ||= "No reason for rejection was given"
     self.status = EActivityValueRejected
+    self.rejection_reason = self.rejection_reason + " ADMIN COMMENTS: " + comments
     self.save
     UserMailer.notify_user_of_rejection(self,comments).deliver if (Rails.env == 'development' || Rails.env == 'production')
   end
