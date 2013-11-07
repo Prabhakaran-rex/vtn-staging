@@ -10,7 +10,9 @@ class ContactController < ApplicationController
 		@message = Message.new(params[:message])
 
 		if @message.valid?
-			if current_user.is_appraiser?
+      if !current_user
+				mailer_method = "contact_us"
+      elsif current_user.is_appraiser?
 				mailer_method = "appraiser_support"
 			elsif current_user.is_customer?
 				mailer_method = "user_support"
