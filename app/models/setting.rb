@@ -6,4 +6,9 @@ class Setting < ActiveRecord::Base
     return true if theKey.nil?
     return theKey.value == value ? true : false
   end
+
+  def self.get(key)
+    theKey = find_by_key(key)
+    return theKey.nil? ? "" : theKey.value
+  end
 end

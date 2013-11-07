@@ -38,6 +38,7 @@ ActiveAdmin.register Appraisal do
       row("Title") {appraisal.title}
       row("Description") {appraisal.name}
       row("Status") {|t| "#{getStringForActivityValue(t.status)}"}
+      row("Rejection Reason") {|t| "#{t.rejection_reason}"}
       row("Selected Plan") {|t| "#{getStringForAppraisalType(t.selected_plan)}"}
       row("Appraiser Referral") {appraisal.appraiser_referral}
       row("Shareable") {|t| "#{t.allow_share}"}

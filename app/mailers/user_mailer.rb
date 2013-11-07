@@ -25,28 +25,25 @@ class UserMailer < ActionMailer::Base
 
   def contact_us(message)
     @message = message
-    mail( :to => ["adminjr@valuethisnow.com","dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
+    mail(:to => Setting.get("admin_distribution_list").split(','),
          :subject => "[Contact Us] #{message.subject}")
   end
 
   def appraiser_support(message)
     @message = message
-    mail( #:to => "appraiser_support@colosses.com", 
-         :to => ["adminjr@valuethisnow.com","dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
+    mail(:to => Setting.get("admin_distribution_list").split(','),
          :subject => "[Appraiser Support] #{message.subject}")
   end
 
   def user_support(message)
     @message = message
-    mail( #:to => "appraiser_support@colosses.com", 
-         :to => ["adminjr@valuethisnow.com","dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
+    mail(:to => Setting.get("admin_distribution_list").split(','),
          :subject => "[User Support] #{message.subject}")
   end
 
   def notify_admin_of_new_application(message)
     @message = message
-    mail( #:to => "appraiser_support@colosses.com", 
-         :to => ["dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
+    mail(:to => Setting.get("admin_distribution_list").split(','),
          :subject => "[New Appraiser Application] #{message.name}")
   end
 
@@ -74,8 +71,8 @@ class UserMailer < ActionMailer::Base
     @appraisal = Appraisal.find(params[:appraisal])
     @appraiser = @appraisal.assigned_to
     @customer = Customer.find(@appraisal.created_by)
-    @reason = params[:reason]
-    mail(:to => ["dmaloney@valuethisnow.com","rjohnston@valuethisnow.com","sergio@purplecowwebsites.com"],
+    @reason = params[:rejection_reason]
+    mail(:to => Setting.get("admin_distribution_list").split(','),
          :subject => "[Appraisal Suggested for Rejection] #{@appraisal.name[0..15]}")
   end
 
@@ -83,7 +80,7 @@ class UserMailer < ActionMailer::Base
     @appraisal = Appraisal.find(appraisal)
     @customer = Customer.find(@appraisal.created_by)
     @additional_comments = comments.to_s
-    mail(:to => ["dmaloney@valuethisnow.com","rjohnston@valuethisnow.com"],
+    mail(:bcc => Setting.get("admin_distribution_list").split(','),
          :to => @customer.email,
          :subject => "[Appraisal Rejected ] #{appraisal.name}")
   end
