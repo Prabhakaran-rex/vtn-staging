@@ -1,6 +1,7 @@
 class AppraiserController < ApplicationController
 
-  before_filter :check_appraiser
+  before_filter :check_appraiser, :except => :notify
+  protect_from_forgery :except => :notify
 
   def show
     @user.photos.build if @user.photos.size == 0
@@ -27,6 +28,15 @@ class AppraiserController < ApplicationController
     respond_to do |format|
       format.json { render json: {:appraiser_id => u.id, :status => isComplete} }
     end
+  end
+
+  def notify
+    #Parameters: {"comments"=>"test tewt 3", "notify_category"=>"10"}
+    if current_user.admin?
+      User.notify_appraisers_in_category(category: Category.find(params[:notify_category]), comments: params[:comments])
+      flash[:error] = "Appraisers were notified"
+    end
+    redirect_to admin_root_path
   end
 end
 

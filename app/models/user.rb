@@ -67,6 +67,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.notify_appraisers_in_category(params)
+    appraiser_ids = Skill.select("appraiser_id").where("category_id = ?", params[:category].id).pluck(:appraiser_id)
+    appraisers = Appraiser.where("id in (?) and status = ? ",appraiser_ids, EAUserStatusConfirmed)
+    appraisers.each do |appraiser|
+      UserMailer.delay.notify_appraisers_in_category(appraiser: appraiser , comments: params[:comments], category: params[:category]) if appraiser.notify_by_email && Rails.env != "sandbox"
+    end
+  end
+
   def self.notify_referral_of_new_appraisal( appraisal )
     appraiser_ids = Appraiser.find_by_referral_id(appraisal.appraiser_referral).id
     appraisers = Appraiser.where("id in (?) and status = ? ",appraiser_ids, EAUserStatusConfirmed)

@@ -1,14 +1,21 @@
 <h2>Categories vs Categories</h2>
+<form id="frmAppraisalActions" action="<%= url_for appraisers_notify_path %>" method="post" >
+    <p><label for="comments">Send notification to all appraisers in selected category</label></p>
+    <p><textarea rows="4" cols="50" name="comments" value=""></textarea></p>
+    <input type="submit" value="Notify" id="btnNotify" class="my_btn">
+
+
 <table class="index_table">
 	<thead>
 		<tr>
-			<th width="60%">Category</th>
+			<th colspan=2 width="60%">Category</th>
 			<th>Appraisers</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% Category.order(:name).each do |category| %>
 		<tr class="<%= cycle("odd", "even") %>">
+      <td><%= radio_button_tag 'notify_category', category.id %></td>
 			<td><%= category.name %></td>
 			<td>
 				<ul>
@@ -24,3 +31,4 @@
 		<% end %>
 	</tbody>
 </table>
+</form>

@@ -56,6 +56,7 @@ PurexNew::Application.routes.draw do
 
   get '/appraisers/submit_application' => 'appraiser#submit_application', :as => :submit_application
   match '/appraisers/get_application_status/:id' => "appraiser#get_application_status", :as => :get_application_status
+  match '/appraisers/notify' => "appraiser#notify", :as => :appraisers_notify
 
   get '/skills/getRootCategories' => 'skills#getRootCategories'
   resources :classifications
