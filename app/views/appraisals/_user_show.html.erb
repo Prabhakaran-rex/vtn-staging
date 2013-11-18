@@ -18,7 +18,7 @@
             <%= link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
         <% end %>
           <% if @appraisal.status == EActivityValueFinalized %>
-            <%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini pull-right" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
+            <%= link_to show_shared_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini pull-right" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
         <% end %>
         </h3>
       </div>
@@ -118,7 +118,7 @@
           <%= render  :partial => "photos/new_multiple_image_upload_form", locals: {photos: @photos} unless @appraisal.status == EActivityValueFinalized%>
           <div class="span11">
             <% if @appraisal.status == EActivityValueFinalized %>
-              <%= link_to appraisal_path(@appraisal, :format => :pdf, :pdf_full => true), :class => "btn btn-success" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
+              <%= link_to show_shared_path(@appraisal, :format => :pdf, :full => true), :class => "btn btn-success" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
           <% end %>
           </div>
         <% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValuePayed %>

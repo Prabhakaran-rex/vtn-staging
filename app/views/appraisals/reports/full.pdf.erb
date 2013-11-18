@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ValueThisNow: an online appraisal service for antiques &amper; collectibles</title>
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900' rel='stylesheet' type='text/css'>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%= render :partial => 'layouts/meta.html.erb' %>
+<%= render partial: 'layouts/js_constants.html.erb' %>
+<link rel="stylesheet" type="text/css" href="http://vtn.assets.valuethisnow.com.s3.amazonaws.com/full_finalized_appraisal.css">
+<%= javascript_include_tag "application" %>
+<%= csrf_meta_tags %>
+<!--  styles -->
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" href="/ie.css">
+<![endif]-->
+<!--[if IE]><script src="https://s3.amazonaws.com/screencasts.valuemytreasure.com/js/excanvas.compiled.js"></script><![endif]-->
+<!-- Le fav and touch icons -->
+<%= analytics_init if Rails.env.production? %>
+<style type="text/css" media="all">
+  .navbar {
+    min-width: 0px;
+  }
+</style>
+</head>
+<body <%= "class=blue-background" if current_page?(main_app.url_for(controller: 'home', action: 'index' ))  %>>
+<!-- Navbar -->
+<!--HEADER-->
+<header id="header">
+  <!-- Navbar
+    ================================================== -->
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div>
+        <a href="http://www.valuethisnow.com"><img class="brand" src="https://www.valuethisnow.com/assets/logo.png" alt="finding antique and collectable treasure" /></a>
+        <div class="pull-right">
+          <ul class="nav">
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+<!--HEADER ENDS-->
+<div style="background:#FFF;">
+<center>
+<div class="contentBlock">
+<div class="row sub_box">
+<% if @appraisal.status == EActivityValuePayed %>
+  <% if @payment_completed  %>
+    <img src="https://valuethisnow.postaffiliatepro.com/scripts/sale.php?AccountId=default1&TotalCost=<%= number_with_precision(@appraisal.payment.amount, precision: 2) %>&OrderID=<%= @appraisal.id %>&ProductID=appraisal-<%= @appraisal.selected_plan %>" width="1" height="1" >
+  <% end %>
+  <div class="alert alert-info">
+  <i class="icon-ok"></i> Congratulations your item has been submitted for valuation! Click <%= link_to "here", new_appraisal_path, :class => "btn btn-mini btn-success" %> to get more items appraised!
+  </div>
+<% end %>
+
+<div class="page-header">
+<h5>Status : <%= getStringForActivityValue(@appraisal.status) %></h5>
+<h5>Type : <%= getStringForAppraisalType(@appraisal.selected_plan) %></h5>
+<h3><%= @appraisal.title %>
+          </h3>
+          </div>
+          <div class="container">
+          <div class="row">
+        <div class="span5">
+        <%= render :partial => "/appraisals/photo_carousel.html.erb"      %>
+    </div>
+          <div class="span7 appraisal-info">
+          <table class="table table-condensed">
+          <tbody>
+          <% if @appraisal.status == EActivityValueFinalized%>
+            <tr>
+            <td><%= "File #".upcase %></td>
+            <td><%= @appraisal.id %></td>
+            </tr>
+            <tr>
+            <td><%= "Effective Date of Report".upcase %></td>
+            <td><%= @appraisal.updated_at.strftime("%d %b. %Y") %></td>
+            </tr>
+          <% end %>
+          <% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized %>
+            <tr>
+            <td><%= "Appraised by".upcase %></td>
+            <td><%= @appraiser.name %></td>
+            </tr>
+          <% end %>
+          <tr>
+          <td width="165px">CATEGORY</td>
+          <td><% if @appraisal.status == EActivityValueFinalized %>
+          <%= @appraisal.classification.nil? ? "" : @appraisal.classification.category.name %>
+        <% else %>
+          <%= render :partial => "appraisals/edit_classification", :locals => {:appraisal => @appraisal} %>
+        <% end %>
+        </td>
+        </tr>
+        <tr width="165px">
+        <td><%= "Title".upcase %></td>
+        <td><%= @appraisal.title %></td>
+        </tr>
+        <tr>
+        <td><%= "Description".upcase %></td>
+        <td><%= @appraisal.name %></td>
+        </tr>
+        <tr>
+        <td><%= "Approx. Date of Manufacture".upcase %></td>
+        <td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
+        </tr>
+        <tr>
+        <td><%= "Country of Origin".upcase %></td>
+        <td><%= @appraisal.appraisal_info.country_of_origin %></td>
+        </tr>
+        <tr>
+        <td><%= "Signatures, Maker/Maker's, Dates, etc.".upcase %></td>
+        <td><%= @appraisal.appraisal_info.makers_marks %></td>
+        </tr>
+        <tr>
+        <td><%= "Inscriptions".upcase %></td>
+        <td><%= @appraisal.appraisal_info.inscriptions %></td>
+        </tr>
+        <tr>
+        <td><%= "Dimensions".upcase %></td>
+        <td><%= @appraisal.appraisal_info.dimensions %></td>
+        </tr>
+        <tr>
+        <td><%= "Condition".upcase %></td>
+        <td><%= @appraisal.appraisal_info.damage %></td>
+        </tr>
+        <tr>
+        <td><%= "Item History".upcase %></td>
+        <td><%= @appraisal.appraisal_info.item_history %></td>
+        </tr>
+        <% if @appraisal.status == EActivityValueFinalized %>
+          <tr>
+          <td><%= "Additional Extraordinary Assumptions".upcase %></td>
+          <td><%= @appraisal.appraisal_info.additional_ea %></td>
+          </tr>
+          <tr>
+          <td><%= "Comments".upcase %></td>
+          <td><%= @appraisal.appraisal_info.appraiser_comments %></td>
+          </tr>
+          <tr>
+          <td><%= "Replacement Value".upcase%></br><small>(Comparable)</small></td>
+          <td><%= print_replacement_cost(@appraisal) %></td>
+          </tr>
+          <tr>
+          <td><%= "Fair Market Value".upcase %></td>
+          <td><%= print_fair_market_value(@appraisal) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+        </table>
+        </div>
+    </div>
+    <hr>
+    <% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized %>
+      <div class="row">
+      <%= render :partial => "appraisals/comments.html.erb", :locals => {:appraisal => @appraisal, :comments => @appraisal_comments}
+    %>
+  </div>
+<% end %>
+<div class="row">
+&nbsp;
+</div>
+<% if @appraisal.status == EActivityValueFinalized %>
+
+  <div class="row">
+  <div class="span11">
+  <% if @appraisal.status == EActivityValueFinalized %>
+    <% selected_plan = @appraisal.selected_plan
+    appraiser_type = @appraiser.appraiser_info.uspap.to_i
+
+    if (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type == EAAppraiserUSPAPFamiliar
+      format = "appraisal_body_restricteduse_USPAP_compliant_yes"
+      option = 1
+    elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type == EAAppraiserUSPAPFamiliar
+      format = "appraisal_body_summary_forselling_USPAP_compliant_yes"
+      option =2
+    elsif (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type != EAAppraiserUSPAPFamiliar
+      format = "appraisal_body_restricteduse_USPAP_compliant_no"
+      option =3
+    elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type != EAAppraiserUSPAPFamiliar
+      format = "appraisal_body_summary_forselling_USPAP_compliant_no"
+      option =4
+    else
+      raise "Invalid selected_plan and appraiser_type combination"
+    end
+  %>
+<div id="supplemental_information" >
+<%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
+<% if @appraisal.status == EActivityValueFinalized %>
+  <div id="appraiser-info">
+  <% if (@appraiser.signature?) %> 
+    <%= image_tag "#{@appraiser.signature.standard.url}?id=#{rand(1000)}", :height => "100", :width => "250"%>
+  <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
+    <canvas id="appraiser-signature" height="100" width="250"></canvas>
+  <% end %>
+  <h4><%= @appraiser.name %></h4>
+  </div>
+<% end %>
+</div>
+          <% end %>
+          </div>
+          </div>
+        <% end %>
+        </div>
+        </div>
+        </div>
+        </center>
+        </div>
+        <footer class="footer">
+        <div class="container">
+
+        <ul class="footer-links">
+        <li><%= link_to "Appraise my item", new_user_session_path %></a></li>
+        <li><%= link_to 'Learn about online appraisals', how_path(role: 'consumer') %></li>
+        <li> <%= link_to "Blog", 'http://blog.valuethisnow.com' %></li>
+        <li> <%= link_to("Support", contact_path) %></li>
+        <li> <%= link_to("Become an Appraiser", new_appraiser_registration_path) %></li>
+        <li> <%= link_to("Privacy Policy", privacy_path) %></li>
+        <li> <%= link_to("Terms of Service", terms_path) %></li>
+        <li> <%= link_to "Login", new_user_session_path %></a></li>
+        </ul>
+
+        <div class="row-fluid show-grid">
+        <div class="span4 social">
+
+        <a href="http://www.twitter.com/valuethisnow" target="_blank" ><img src="https://www.valuethisnow.com/assets/tw.png" alt="" /></a>
+        <a href="http://pinterest.com/valuethisnow" target="_blank"><img src="https://www.valuethisnow.com/assets/pin.png" alt="" /></a>
+        <a href="http://www.facebook.com/ValueThisNow" target="_blank"><img src="https://www.valuethisnow.com/assets/fb.png" alt="" /></a>
+        </div>
+        <div class="span4 copy">Copyright &copy; 2013 Colosses LLC, All Rights Reserved</div>
+        <div class="span4 f-last">
+        <script type="text/javascript">TrustLogo("<%= image_path ("secure.png") %>", "SC5", "none");</script>
+        </div>
+        </div>
+
+
+        </div>
+        </footer>
+
+
+        </body>
+        </html>

@@ -25,7 +25,7 @@
     <td>
       <%= link_to('Edit', appraisal_build_index_path(appraisal), :class => "btn btn-success btn-mini", :style => "margin:2px;") if appraisal.status == EActivityValueCreated %>
       <%= link_to('Edit', edit_appraisal_path(appraisal), :class => "btn btn-success btn-mini", :style => "margin:2px;") if appraisal.status == EActivityValuePayed %>
-      <%= link_to appraisal_path(appraisal, :format => :pdf, :pdf_full => true), :class => "btn btn-success btn-mini" do %>Download PDF<% end if appraisal.status == EActivityValueFinalized%></td>
+      <%= link_to show_shared_path(appraisal, :format => :pdf), :class => "btn btn-success btn-mini" do %>Download PDF<% end if appraisal.status == EActivityValueFinalized%></td>
     <td>
       <%= button_to('Delete', appraisal, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-success btn-mini") if appraisal.status == EActivityValueCreated %>
       <% if appraisal.status == EActivityValueFinalized %>

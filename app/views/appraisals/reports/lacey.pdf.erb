@@ -23,10 +23,10 @@ $(document).ready(function() {
 <body>
 <% unless @supplemental %>  
 <section class="container">
-  <div class=" top_certificate <%= "top_certificate_full" if @full %>">
+  <div class=" top_certificate">
   </div>
 
-  <div class="content-certificate <%= "content-certificate_full" if @full %>">
+  <div class="content-certificate">
     <h1><%= @appraisal.title %></h1>
 
     <div class="slider">
@@ -78,110 +78,15 @@ $(document).ready(function() {
         </p>
       </div>
     </div>
-    <% if @full %>
-    <div class="description diff">
-      <div class="left_description">
-        <h2>Category:</h2>
-      </div>
-      <div class="right_description">
-        <p>
-        <%= @appraisal.classification.category.name %>
-        </p>
-      </div>
-      </div>
-    <% end %>
 
     <div class="description">
       <div class="container-description">
         <h1 class="clear">Description:</h1>
         <p>
-        <%= @appraisal.name%>
+        <%= @appraisal.name.truncate(300) %>
         </p>
       </div>
     </div>
-
-    <% if @full %>
-    <div class="description">
-      <div class="container-description">
-        <h1 class="clear">Approx. Date of Manufacture:</h1>
-        <p>
-					<%= @appraisal.appraisal_info.year_of_manufacture %>
-        </p>
-      </div>
-    </div>
-    <% end %>
-
-    <% if @full %>
-    <div class="description">
-      <div class="container-description">
-        <h1 class="clear">
-          <%= "Signatures, Maker/Maker's, Dates, etc.:" %> </h1>
-        <p>
-          <%= @appraisal.appraisal_info.makers_marks %>
-        </p>
-      </div>
-    </div>
-    <% end %>
-
-    <% if @full %>
-    <div class="description">
-      <div class="container-description">
-        <h1 class="clear">
-          <%= "Inscriptions:" %> </h1>
-        <p>
-          <%= @appraisal.appraisal_info.inscriptions %>
-        </p>
-      </div>
-    </div>
-    <% end %>
-
-    <% if @full %>
-    <div class="description">
-      <div class="container-description">
-        <h1 class="clear">
-          <%= "Dimensions:" %> </h1>
-        <p>
-          <%= @appraisal.appraisal_info.dimensions %>
-        </p>
-      </div>
-    </div>
-    <% end %>
-
-    <% if @full %>
-    <div class="description">
-      <div class="container-description">
-        <h1 class="clear">
-          <%= "Condition:" %> </h1>
-        <p>
-          <%= @appraisal.appraisal_info.damage %>
-        </p>
-      </div>
-    </div>
-    <% end %>
-
-    <% if @full %>
-    <div class="description">
-      <div class="container-description">
-        <h1 class="clear">
-          <%= "Item History:" %> </h1>
-        <p>
-          <%= @appraisal.appraisal_info.item_history %>
-        </p>
-      </div>
-    </div>
-    <% end %>
-
-    <% if @full %>
-    <div class="description">
-      <div class="container-description">
-        <h1 class="clear">
-          <%= "Additional Extraordinary Assumptions:" %> </h1>
-        <p>
-          <%= @appraisal.appraisal_info.additional_ea %>
-        </p>
-      </div>
-    </div>
-    <% end %>
 
     <div class="description">
       <div class="container-description">
@@ -189,7 +94,7 @@ $(document).ready(function() {
         <p>
         <%= @appraisal.appraisal_info.appraiser_comments.truncate(300) %>
         </p>
-        <%= link_to 'See more', appraisal_url(@appraisal, :target => "_blank") %>
+        <%= link_to 'See more', show_shared_path(@appraisal, format: :pdf, full: true), style: "color: rgb(55, 55, 192); text-decoration: underline;" %>
       </div>
     </div>	
     <div class="description">
@@ -219,11 +124,9 @@ $(document).ready(function() {
       <canvas id="appraiser-signature" height="75" width="188"></canvas>
       <% end %>
       <h1 class="signature clear" >Prepared by <%= @appraiser.name %></h1>
-      <img src="https://s3.amazonaws.com/vtn.assets.valuethisnow.com/finalized_images/adobe.png" alt="" title=""  />
-      <%= link_to 'View Complete Report', appraisal_url(@appraisal, :target => "_blank") %>
     </div>
   </div>
-  <div class="fotter_certificate <%= "fotter_certificate_full" if @full %>">
+  <div class="fotter_certificate">
     <h1><a href="https://www.valuethisnow.com">www.ValueThisNow.com</a></h1>
   </div>
 </section>

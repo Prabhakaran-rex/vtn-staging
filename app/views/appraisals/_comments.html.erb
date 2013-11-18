@@ -1,7 +1,7 @@
 <h4>Customer/Appraiser Messaging</h4>
 <div id="comment_list">
 <% comments.each do |comment| %>
-	<%= render :partial => "appraisals/comment_block", :locals => {:comment => comment} %>
+	<%= render :partial => "appraisals/comment_block.html.erb", :locals => {:comment => comment} %>
 <% end %>
 </div>
 <% if @appraisal.status == EActivityValueClaimed %>
