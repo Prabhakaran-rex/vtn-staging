@@ -94,7 +94,7 @@ $(document).ready(function() {
         <p>
         <%= @appraisal.appraisal_info.appraiser_comments.truncate(300) %>
         </p>
-        <%= link_to 'See more', show_shared_path(@appraisal, format: :pdf, full: true), style: "color: rgb(55, 55, 192); text-decoration: underline;" %>
+        <%= link_to 'See more', show_shared_url(@appraisal, format: :pdf, full: true), style: "color: rgb(55, 55, 192); text-decoration: underline;" %>
       </div>
     </div>	
     <div class="description">
