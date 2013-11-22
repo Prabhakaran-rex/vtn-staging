@@ -100,7 +100,7 @@ module ApplicationHelper
   end
 
   def get_url_for_shared_appraisal(appraisal)
-    show_shared_url(appraisal)
+    show_shared_url(appraisal, format: :pdf)
   end
 
   def print_as_currency(number)
