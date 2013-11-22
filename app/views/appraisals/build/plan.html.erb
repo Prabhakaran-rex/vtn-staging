@@ -1,4 +1,5 @@
 <center>
+    <%= simple_form_for(@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
   <div class="contentBlock">
     <!--- Content start -->
     <div class="formTop">
@@ -20,7 +21,8 @@
         <div class="formProdItem">Equitable distribution</div>
         <div class="formProdItem">Estate planning</div>
         <div class="formProdItem">USPAP compliant</div>
-        <div class="formProdPrice"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeShortRestricted-1]) %></div>
+        <div class="formProdPrice planPrice" id="planPrice1"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeShortRestricted-1]) %></div>
+        <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeShortRestricted-1]+20) %></div>
       </div>
 
       <div class="formProd" id="planprod2">
@@ -37,7 +39,8 @@
         <div class="formProdItem">Equitable distribution</div>
         <div class="formProdItem">Estate planning</div>
         <div class="formProdItem">USPAP compliant</div>
-        <div class="formProdPrice"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongRestricted-1]) %></div>
+        <div class="formProdPrice planPrice" id="planPrice2"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongRestricted-1]) %></div>
+        <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongRestricted-1]+20) %></div>
       </div>
 
       <div class="formProd formProdOn" id="planprod4">
@@ -58,20 +61,23 @@
         <div class="formProdItem">Damage claims</div>
         <div class="formProdItem">Acquiring insurance</div>
         <div class="formProdItem">Other legal uses</div>
-        <div class="formProdPrice"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongForSelling-1]) %></div>
+        <div class="formProdPrice planPrice" id="planPrice3"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongForSelling-1]) %></div>
+        <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongForSelling-1]+20) %></div>
       </div>
       <div class="formProdSelect" id="plansel1">Select</div>
       <div class="formProdSelect" id="plansel2">Select</div>
       <div class="formProdSelect formProdSelected" id="plansel4">Select</div>
       <div style="clear:both;"></div>
+      <div class="formProdPair"><input type="checkbox" name="isPair" id="isPair" value="1" />This appraisal is for a pair, a suite, or a service ($20.00)</div>
+      <div class="formProdPairText"><b>* Note:</b> if your appraisal is for a pair (2 bookends, 2 end tables etc.) a site (a bedroom set, living room set of like kind) or a service (tea service, silverware service etc.) please check the appropriate box above.</div>
+      <div style="clear:both;"></div>
     </div>
-    <%= simple_form_for(@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
       <%= f.input :selected_plan, as: :hidden %>
       <div style="padding-bottom: 20px;">
       <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
       <%= f.button :submit, "Next", class: "btn btn-success pull-right" %>
     </div>
-  <% end %>
   </div>
+  <% end %>
 </center>
 

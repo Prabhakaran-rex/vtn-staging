@@ -1,122 +1,123 @@
 <% # TODO This can be refactored with _user_show.html.erb
 %>
 <div class="page-header">
-	<h1><%= @appraisal.title %></h1>
+  <h1><%= @appraisal.title %></h1>
 </div>
 <div class="container">
-	<div class="row">
-		<div class="span7 appraisal-info">
-			<table class="table table-condensed">
-				<tbody>
-					<tr>
-						<td><%= "File #".upcase %></td>
-						<td><%= @appraisal.id %></td>
-					</tr>
-					<tr>
-						<td><%= "Effective Date of Report".upcase %></td>
-						<td><%= @appraisal.updated_at.strftime("%d %b. %Y") %></td>
-					</tr>
-					<tr>
-						<td><%= "Title".upcase %></td>
-						<td><%= @appraisal.title %></td>
-					</tr>
-					<tr>
-						<td><%= "Description".upcase %></td>
-						<td><%= @appraisal.name %></td>
-					</tr>
-					<% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling %>
-						<tr>
-							<td><%= "Approx. Date of Manufacture".upcase %></td>
-							<td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
-						</tr>
-						<tr>
-							<td><%= "Country of Origin".upcase %></td>
-							<td><%= @appraisal.appraisal_info.country_of_origin %></td>
-						</tr>
-						<tr>
-							<td><%= "Signatures, Maker/Maker's, Dates, etc.".upcase %></td>
-							<td><%= @appraisal.appraisal_info.makers_marks %></td>
-						</tr>
-						<tr>
-							<td><%= "Inscriptions".upcase %></td>
-							<td><%= @appraisal.appraisal_info.inscriptions %></td>
-						</tr>
-						<tr>
-							<td><%= "Dimensions".upcase %></td>
-							<td><%= @appraisal.appraisal_info.dimensions %></td>
-						</tr>
-						<tr>
-							<td><%= "Condition".upcase %></td>
-							<td><%= @appraisal.appraisal_info.damage %></td>
-						</tr>
-						<tr>
-							<td><%= "Item History".upcase %></td>
-							<td><%= @appraisal.appraisal_info.item_history %></td>
-						</tr>
-					<% end %>
-					<tr>
-						<td><%= "Additional Extraordinary Assumptions".upcase %></td>
-						<td><%= @appraisal.appraisal_info.additional_ea %></td>
-					</tr>
-					<tr>
-						<td><%= "Comments".upcase %></td>
-						<td><%= @appraisal.appraisal_info.appraiser_comments %></td>
-					</tr>
-					<tr>
-						<td><%= "Replacement Value".upcase%></br><small>(Comparable)</small></td>
-						<td><%= print_replacement_cost(@appraisal) %></td>
-					</tr>
-					<tr>
-						<td><%= "Fair Market Value".upcase %></td>
-						<td><%= print_fair_market_value(@appraisal) %></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="span5">
-			<%= render :partial => "photo_carousel" %>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span11">
-			<div class="pull-right" id="appraiser-info">
-			<% if (@appraiser.signature?) %> 
-                <%= image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
-            <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
-            	<canvas id="appraiser-signature" height="100" width="250"></canvas>
-            <% end %>
-			<h4>Appraised by <%= @appraiser.name.nil? || @appraiser.name.empty? ? "#{@appraiser.name}" : "#{@appraiser.name}" %></h4>
-		</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span11">
-			<button type="button" class="btn btn-mini btn-success" data-toggle="collapse" data-target="#supplemental_information">
-				<i class="icon-file icon-white"></i>
-				More (important supplemental information)
-			</button>
-			<% selected_plan = @appraisal.selected_plan
-			appraiser_type = @appraiser.appraiser_info.uspap.to_i
+  <div class="row">
+    <div class="span7 appraisal-info">
+      <table class="table table-condensed">
+        <tbody>
+          <tr>
+            <td><%= "File #".upcase %></td>
+            <td><%= @appraisal.id %></td>
+          </tr>
+          <tr>
+            <td><%= "Effective Date of Report".upcase %></td>
+            <td><%= @appraisal.updated_at.strftime("%d %b. %Y") %></td>
+          </tr>
+          <tr>
+            <td><%= "Title".upcase %></td>
+            <td><%= @appraisal.title %></td>
+          </tr>
+          <tr>
+            <td><%= "Description".upcase %></td>
+            <td><%= @appraisal.name %></td>
+          </tr>
+          <% if @appraisal.selected_plan == EAAppraisalTypeLongRestricted  || @appraisal.selected_plan == EAAppraisalTypeLongForSelling ||
+        @appraisal.selected_plan == EAAppraisalTypeLongRestrictedPair  || @appraisal.selected_plan == EAAppraisalTypeLongForSellingPair %>
+            <tr>
+              <td><%= "Approx. Date of Manufacture".upcase %></td>
+              <td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
+            </tr>
+            <tr>
+              <td><%= "Country of Origin".upcase %></td>
+              <td><%= @appraisal.appraisal_info.country_of_origin %></td>
+            </tr>
+            <tr>
+              <td><%= "Signatures, Maker/Maker's, Dates, etc.".upcase %></td>
+              <td><%= @appraisal.appraisal_info.makers_marks %></td>
+            </tr>
+            <tr>
+              <td><%= "Inscriptions".upcase %></td>
+              <td><%= @appraisal.appraisal_info.inscriptions %></td>
+            </tr>
+            <tr>
+              <td><%= "Dimensions".upcase %></td>
+              <td><%= @appraisal.appraisal_info.dimensions %></td>
+            </tr>
+            <tr>
+              <td><%= "Condition".upcase %></td>
+              <td><%= @appraisal.appraisal_info.damage %></td>
+            </tr>
+            <tr>
+              <td><%= "Item History".upcase %></td>
+              <td><%= @appraisal.appraisal_info.item_history %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td><%= "Additional Extraordinary Assumptions".upcase %></td>
+            <td><%= @appraisal.appraisal_info.additional_ea %></td>
+          </tr>
+          <tr>
+            <td><%= "Comments".upcase %></td>
+            <td><%= @appraisal.appraisal_info.appraiser_comments %></td>
+          </tr>
+          <tr>
+            <td><%= "Replacement Value".upcase%></br><small>(Comparable)</small></td>
+            <td><%= print_replacement_cost(@appraisal) %></td>
+          </tr>
+          <tr>
+            <td><%= "Fair Market Value".upcase %></td>
+            <td><%= print_fair_market_value(@appraisal) %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="span5">
+      <%= render :partial => "photo_carousel" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span11">
+      <div class="pull-right" id="appraiser-info">
+        <% if (@appraiser.signature?) %> 
+          <%= image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
+        <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
+          <canvas id="appraiser-signature" height="100" width="250"></canvas>
+        <% end %>
+        <h4>Appraised by <%= @appraiser.name.nil? || @appraiser.name.empty? ? "#{@appraiser.name}" : "#{@appraiser.name}" %></h4>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span11">
+      <button type="button" class="btn btn-mini btn-success" data-toggle="collapse" data-target="#supplemental_information">
+        <i class="icon-file icon-white"></i>
+        More (important supplemental information)
+      </button>
+      <% selected_plan = @appraisal.selected_plan
+      appraiser_type = @appraiser.appraiser_info.uspap.to_i
 
-			if (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type == EAAppraiserUSPAPFamiliar
-				format = "appraisal_body_restricteduse_USPAP_compliant_yes"
-				option = 1
-			elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type == EAAppraiserUSPAPFamiliar
-				format = "appraisal_body_summary_forselling_USPAP_compliant_yes"
-				option =2
-			elsif (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type != EAAppraiserUSPAPFamiliar
-				format = "appraisal_body_restricteduse_USPAP_compliant_no"
-				option =3
-			elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type != EAAppraiserUSPAPFamiliar
-				format = "appraisal_body_summary_forselling_USPAP_compliant_no"
-				option =4
-			else
-				raise "Invalid selected_plan and appraiser_type combination"
-			end
-			%>
-			<div id="supplemental_information" class="collapse">
-				<%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
-			</div>
-		</div>
-	</div>
+      if (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted || selected_plan == EAAppraisalTypeShortRestrictedPair || selected_plan == EAAppraisalTypeLongRestrictedPair) && appraiser_type == EAAppraiserUSPAPFamiliar
+        format = "appraisal_body_restricteduse_USPAP_compliant_yes"
+        option = 1
+      elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling || selected_plan == EAAppraisalTypeShortForSellingPair || selected_plan == EAAppraisalTypeLongForSellingPair) && appraiser_type == EAAppraiserUSPAPFamiliar
+        format = "appraisal_body_summary_forselling_USPAP_compliant_yes"
+        option =2
+      elsif (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted || selected_plan == EAAppraisalTypeShortRestrictedPair || selected_plan == EAAppraisalTypeLongRestrictedPair) && appraiser_type != EAAppraiserUSPAPFamiliar
+        format = "appraisal_body_restricteduse_USPAP_compliant_no"
+        option =3
+      elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling || selected_plan == EAAppraisalTypeShortForSellingPair || selected_plan == EAAppraisalTypeLongForSellingPair) && appraiser_type != EAAppraiserUSPAPFamiliar
+        format = "appraisal_body_summary_forselling_USPAP_compliant_no"
+        option =4
+      else
+        raise "Invalid selected_plan and appraiser_type combination"
+      end
+    %>
+  <div id="supplemental_information" class="collapse">
+    <%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
+  </div>
+</div>
+  </div>
 </div>

@@ -96,11 +96,11 @@ class Appraisal < ActiveRecord::Base
   end
 
   def is_short?
-    [EAAppraisalTypeShortRestricted, EAAppraisalTypeShortForSelling].include?(self.selected_plan)
+    [EAAppraisalTypeShortRestricted, EAAppraisalTypeShortForSelling, EAAppraisalTypeShortRestrictedPair, EAAppraisalTypeShortForSellingPair].include?(self.selected_plan)
   end
 
   def is_long?
-    [EAAppraisalTypeLongRestricted, EAAppraisalTypeLongForSelling].include?(self.selected_plan)
+    [EAAppraisalTypeLongRestricted, EAAppraisalTypeLongForSelling, EAAppraisalTypeLongRestrictedPair, EAAppraisalTypeLongForSellingPair].include?(self.selected_plan)
   end
 
   def suggest_for_rejection(params)

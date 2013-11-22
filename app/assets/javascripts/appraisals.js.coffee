@@ -17,6 +17,15 @@ jQuery ->
       alert "Please upload at least one image to continue"
       false
 
+  $("#isPair").click ->
+    selectedPlan = $(this).val()
+    if $(this).is(':checked')
+      $(".planPrice").hide()
+      $(".planPairPrice").show()
+    else
+      $(".planPrice").show()
+      $(".planPairPrice").hide()
+
   # An appraisal can have one default image
   set_as_default_image = (btn) ->
     $('.btn_make_image_primary').removeClass('btn-success')
