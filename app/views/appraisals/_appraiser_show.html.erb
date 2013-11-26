@@ -10,9 +10,6 @@
           <% if (@appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized) && (current_user == @appraisal.assigned_to) %>
             <%= link_to 'Edit', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
         <% end %>
-          <% if @appraisal.status == EActivityValueFinalized %>
-            <%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
-        <% end %>
         </h3>
       </div>
       <div class="container">
@@ -104,9 +101,6 @@
           <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValuePayed %>
           <%= link_to 'Edit', reply_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValueClaimed %>
           <div class="span11" style="margin-bottom:10px;">
-            <% if @appraisal.status == EActivityValueFinalized %>
-              <%= link_to appraisal_path(@appraisal, :format => :pdf), :class => "btn btn-success" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
-          <% end %>
           </div>
         </div>
         <% if (@appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized) && (current_user == @appraisal.assigned_to) %>

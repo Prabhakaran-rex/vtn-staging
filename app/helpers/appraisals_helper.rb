@@ -48,7 +48,7 @@ module AppraisalsHelper
       when EActivityValuePayed
         link_to appraisal, :class => "btn btn-success btn-mini" do raw('<i class="icon-folder-open icon-white"></i> View') end
       when EActivityValueFinalized
-        link_to "Download PDF", appraisal_path(appraisal, :format => :pdf), :class => "btn btn-success btn-mini" 
+        link_to "Download PDF", show_shared_path(appraisal, :format => :pdf), :class => "btn btn-success btn-mini" 
       end
     end
   end

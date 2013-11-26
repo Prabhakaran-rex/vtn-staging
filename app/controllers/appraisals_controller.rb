@@ -34,11 +34,8 @@ class AppraisalsController < ApplicationController
     end
     # TODO Guarantee that only appraisals from production environment are sent to the affiliate program
     @payment_completed = flash[:payment_completed] == @appraisal.id
-    @long ||= params[:pdf_long]
-    @full ||= params[:pdf_full]
     @user = User.find_by_id(current_user)
     @appraisal_comments = @appraisal.root_comments.order('created_at ASC')
-    @supplemental ||= params[:supplemental]
     if (!@appraisal.assigned_to.nil?)
       @appraiser = User.find_by_id(@appraisal.assigned_to)
     end
@@ -46,20 +43,19 @@ class AppraisalsController < ApplicationController
 
     respond_to do |format|
       format.html #{ render :layout => 'shareable' }# show.html.erb
-      format.pdf { render :pdf => 'file_name.pdf', :page_size => "Legal", :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb" }
     end
   end
 
   def show_shared
     @appraisal = Appraisal.find(params[:id])
+    @supplemental ||= params[:supplemental]
     @appraiser = @appraisal.assigned_to
-
-    if @appraisal.shared
-      respond_to do |format|
-        format.html
-      end
-    else
-      redirect_to root_path
+    @pdf_full ||= params[:full]
+    @appraisal_comments = @appraisal.root_comments.order('created_at ASC')
+    
+    template_file = @pdf_full ? "/appraisals/reports/full.pdf.erb" : "/appraisals/reports/lacey.pdf.erb"
+    respond_to do |format|
+      format.pdf { render :pdf => 'report.pdf', :page_size => "Legal", :show_as_html => params[:debug].present?, :template => template_file }
     end
   end
 
@@ -167,21 +163,6 @@ class AppraisalsController < ApplicationController
       else
         redirect_to(@appraisal, :alert => "Please try claiming this item again in a few minutes.")
       end
-    end
-  end
-
-  # TODO Remove this
-  def test
-    @appraisal = Appraisal.find(params[:id])
-    @user = User.find_by_id(current_user)
-    if (!@appraisal.assigned_to.nil?)
-      @appraiser = User.find_by_id(@appraisal.assigned_to)
-    end
-    flash[:title] = "Appraisal" unless !flash[:title].nil?
-
-    respond_to do |format|
-      format.html #{ render :layout => 'shareable' }# show.html.erb
-      format.pdf { render :pdf => 'file_name.pdf', :page_size => "letter", :show_as_html => params[:debug].present?, :template => "/appraisals/finalized.pdf.erb" }
     end
   end
 
