@@ -17,14 +17,14 @@ jQuery ->
       alert "Please upload at least one image to continue"
       false
 
-  $("#isPair").click ->
+  $(".isPair").click ->
     selectedPlan = $(this).val()
     if $(this).is(':checked')
-      $(".planPrice").hide()
-      $(".planPairPrice").show()
+      $(".planPrice"+selectedPlan).hide()
+      $(".planPairPrice"+selectedPlan).show()
     else
-      $(".planPrice").show()
-      $(".planPairPrice").hide()
+      $(".planPrice"+selectedPlan).show()
+      $(".planPairPrice"+selectedPlan).hide()
 
   # An appraisal can have one default image
   set_as_default_image = (btn) ->
@@ -68,7 +68,28 @@ jQuery ->
   $('#btnSubmitAppraisalReply').click ->
     $('#appraisal_status').val("10")
 
-  # Begin Code for Plan Selection in Appraisal Wizard
+  # Begin Code for Plan Selection in Appraisal Wizard $("#plansel1").click ->
+  $("#planprod1").click ->
+    $("#planprod1").addClass("formProdOn").siblings().removeClass "formProdOn"
+    $("#plansel1").addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    resetSelectTxt()
+    $("#plansel1").html "Selected"
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeShortRestricted)
+
+  $("#planprod2").click ->
+    $("#planprod2").addClass("formProdOn").siblings().removeClass "formProdOn"
+    $("#plansel2").addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    resetSelectTxt()
+    $("#plansel2").html "Selected"
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongRestricted)
+
+  $("#planprod4").click ->
+    $("#planprod4").addClass("formProdOn").siblings().removeClass "formProdOn"
+    $("#plansel4").addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    resetSelectTxt()
+    $("#plansel4").html "Selected"
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongForSelling)
+
   $("#plansel1").click ->
     $("#planprod1").addClass("formProdOn").siblings().removeClass "formProdOn"
     $(this).addClass("formProdSelected").siblings().removeClass "formProdSelected"
