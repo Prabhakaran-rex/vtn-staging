@@ -38,7 +38,7 @@
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <div>
-        <a href="http://www.valuethisnow.com"><img class="brand" src="https://www.valuethisnow.com/assets/logo.png" alt="finding antique and collectable treasure" /></a>
+        <a href="http://www.valuethisnow.com"><img class="brand" src="http://vtn.assets.valuethisnow.com.s3.amazonaws.com/logo.png" alt="finding antique and collectable treasure" /></a>
         <div class="pull-right">
           <ul class="nav">
         </ul>
@@ -70,7 +70,7 @@
           <div class="container">
           <div class="row">
         <div class="span5">
-        <%= render :partial => "/appraisals/photo_carousel.html.erb"      %>
+        <%= render :partial => "/appraisals/photo_carousel.html.erb", locals: {pdf: true}   %>
     </div>
           <div class="span7 appraisal-info">
           <table class="table table-condensed">
@@ -231,9 +231,9 @@
         <div class="row-fluid show-grid">
         <div class="span4 social">
 
-        <a href="http://www.twitter.com/valuethisnow" target="_blank" ><img src="https://www.valuethisnow.com/assets/tw.png" alt="" /></a>
-        <a href="http://pinterest.com/valuethisnow" target="_blank"><img src="https://www.valuethisnow.com/assets/pin.png" alt="" /></a>
-        <a href="http://www.facebook.com/ValueThisNow" target="_blank"><img src="https://www.valuethisnow.com/assets/fb.png" alt="" /></a>
+        <a href="http://www.twitter.com/valuethisnow" target="_blank" ><img src="http://vtn.assets.valuethisnow.com.s3.amazonaws.com/tw.png" alt="" /></a>
+        <a href="http://pinterest.com/valuethisnow" target="_blank"><img src="http://vtn.assets.valuethisnow.com.s3.amazonaws.com/pin.png" alt="" /></a>
+        <a href="http://www.facebook.com/ValueThisNow" target="_blank"><img src="http://vtn.assets.valuethisnow.com.s3.amazonaws.com/b.png" alt="" /></a>
         </div>
         <div class="span4 copy">Copyright &copy; 2013 Colosses LLC, All Rights Reserved</div>
         <div class="span4 f-last">
