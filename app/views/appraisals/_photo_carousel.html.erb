@@ -1,4 +1,6 @@
-<% if @appraisal.photos.count != 0 && !pdf %>
+<%
+    pdf ||= false
+    if @appraisal.photos.count != 0 && !pdf %>
   <div>
   <div>
     <%= link_to @appraisal.default_photo.picture_url(:huge), :class => "MagicZoom", :rel => "zoom-width: 600; zoom-height: 600; zoom-distance: 50px; show-title: false; hint: false; zoom-position: left; disable-zoom: false", :id => "zoom" do %>
