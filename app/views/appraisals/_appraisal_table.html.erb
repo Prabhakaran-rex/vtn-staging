@@ -8,6 +8,7 @@
         <tr>
           <th>Item</th>
           <th>Item #</th>
+          <th>Insurance Appraisal</th>
           <th>Date Created</th>
           <th>Status</th>
           <th>Amount Paid</th>
@@ -19,6 +20,7 @@
           <tr>
             <td><%= linked_thumbnail(appraisal) %></td>
             <td><%= linked_title(appraisal) %></td>
+            <td><%= appraisal.is_insurance? ? "Yes" : "No" %></td>
             <td><%= completed_on(appraisal) %></td>
             <td><%= getStringForActivityValue(appraisal.status) %></td>
             <td><%= "#{print_amount_paid(appraisal)}"%></br><small><%= "#{print_payout_status(appraisal)}" %></small></td>

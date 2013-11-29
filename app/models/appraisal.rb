@@ -34,6 +34,7 @@ class Appraisal < ActiveRecord::Base
 
   attr_accessible :appraiser_referral, :allow_share, :created_by, :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type, :title
   attr_accessible :classification_attributes, :payment_attributes, :step, :rejection_reason
+  attr_accessible :insurance_claim, :insurance_prior, :insurance_location
   acts_as_commentable
 
   scope :visible, where("status != ?", EActivityValueHidden)
@@ -152,6 +153,10 @@ class Appraisal < ActiveRecord::Base
 
   def payout_amount
     self.payout.nil? ? 0 : self.payout.amount
+  end
+
+  def is_insurance?
+    self.insurance_claim || self.insurance_prior
   end
 
   private
