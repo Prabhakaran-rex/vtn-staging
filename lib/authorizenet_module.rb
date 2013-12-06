@@ -106,3 +106,32 @@ module AuthorizenetModule
   end
 end
 
+module ActiveMerchant
+   module Billing
+     class AuthorizeNetGateway < Gateway
+       private
+        def add_customer_data(post, options)
+        if options.has_key? :email
+          post[:email] = options[:email]
+          #post[:email_customer] = false
+        end
+
+        if options.has_key? :customer
+          post[:cust_id] = options[:customer] if Float(options[:customer]) rescue nil
+        end
+
+        if options.has_key? :ip
+          post[:customer_ip] = options[:ip]
+        end
+
+        if options.has_key? :cardholder_authentication_value
+          post[:cardholder_authentication_value] = options[:cardholder_authentication_value]
+        end
+
+        if options.has_key? :authentication_indicator
+          post[:authentication_indicator] = options[:authentication_indicator]
+        end
+      end
+     end
+   end
+end
