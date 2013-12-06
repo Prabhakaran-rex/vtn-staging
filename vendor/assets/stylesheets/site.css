@@ -399,7 +399,7 @@ cursor:pointer;
 position:relative;
 display:block;
 float:left;
-margin-bottom:30px;
+margin-bottom:10px;
 background-color:#fff;
 font-size:13px;
 color:#2d2d2d;
@@ -408,7 +408,7 @@ cursor:pointer;
 }
 
 #isPair {
-  margin-top: -1px;
+  margin-top: -4px;
 }
 
 .blueProdBlock{

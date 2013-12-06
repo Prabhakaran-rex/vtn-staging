@@ -18,13 +18,12 @@ jQuery ->
       false
 
   $(".isPair").click ->
-    selectedPlan = $(this).val()
     if $(this).is(':checked')
-      $(".planPrice"+selectedPlan).hide()
-      $(".planPairPrice"+selectedPlan).show()
+      $(".planPrice").hide()
+      $(".planPairPrice").show()
     else
-      $(".planPrice"+selectedPlan).show()
-      $(".planPairPrice"+selectedPlan).hide()
+      $(".planPrice").show()
+      $(".planPairPrice").hide()
 
   # An appraisal can have one default image
   set_as_default_image = (btn) ->

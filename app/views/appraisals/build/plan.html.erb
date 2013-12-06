@@ -19,8 +19,8 @@
           <div class="formProdItem">Equitable distribution</div>
           <div class="formProdItem">Estate planning</div>
           <div class="formProdItem">USPAP compliant</div>
-          <div class="formProdPrice planPrice1" id="planPrice1"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeShortRestricted-1]) %></div>
-          <div class="formProdPrice planPairPrice1" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeShortRestricted-1]+20) %></div>
+          <div class="formProdPrice planPrice" id="planPrice1"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeShortRestricted-1]) %></div>
+          <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeShortRestricted-1]+20) %></div>
         </div>
 
         <div class="formProd" id="planprod2">
@@ -37,8 +37,8 @@
           <div class="formProdItem">Equitable distribution</div>
           <div class="formProdItem">Estate planning</div>
           <div class="formProdItem">USPAP compliant</div>
-          <div class="formProdPrice planPrice2" id="planPrice2"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongRestricted-1]) %></div>
-          <div class="formProdPrice planPairPrice2" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongRestricted-1]+20) %></div>
+          <div class="formProdPrice planPrice" id="planPrice2"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongRestricted-1]) %></div>
+          <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongRestricted-1]+20) %></div>
         </div>
 
         <div class="formProd formProdOn" id="planprod4">
@@ -59,18 +59,16 @@
           <div class="formProdItem">Damage claims</div>
           <div class="formProdItem">Acquiring insurance</div>
           <div class="formProdItem">Other legal uses</div>
-          <div class="formProdPrice planPrice4" id="planPrice3"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongForSelling-1]) %></div>
-          <div class="formProdPrice planPairPrice4" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongForSelling-1]+20) %></div>
+          <div class="formProdPrice planPrice" id="planPrice"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongForSelling-1]) %></div>
+          <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongForSelling-1]+20) %></div>
         </div>
         <div class="formProdSelect" id="plansel1">Select</div>
         <div class="formProdSelect" id="plansel2">Select</div>
         <div class="formProdSelect formProdSelected" id="plansel4">Select</div>
         <div style="clear:both;"></div>
-        <div class="formProdPair"><input type="checkbox" name="isPair" class="isPair" value="1" /> Appraisal for a set, service or suite (+$20)</div>
-        <div class="formProdPair"><input type="checkbox" name="isPair" class="isPair" value="2" /> Appraisal for a set, service or suite (+$20)</div>
-        <div class="formProdPair"><input type="checkbox" name="isPair" class="isPair" value="4" /> Appraisal for a set, service or suite (+$20)</div>
-        <div class="formProdPairText"><b>* Note:</b> Check the box above if your appraisal request is for a set (e.g., dresser set), service (e.g., flatware or dinnerware service), or a suite 
+        <div class="formProdPairText"><b>* Note:</b> Check the box below if your appraisal request is for a set (e.g., dresser set), service (e.g., flatware or dinnerware service), or a suite 
 (e.g., suite of bedroom furniture). An additional $20.00 will be applied.</div>
+        <div class="formProdPair"><input type="checkbox" name="isPair" class="isPair" value="1" style="margin-top: -4px;" /> Appraisal for a set, service or suite adds $20.00</div>
         <div style="clear:both;"></div>
       </div>
       <%= f.input :selected_plan, as: :hidden %>
