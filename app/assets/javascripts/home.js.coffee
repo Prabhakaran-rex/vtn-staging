@@ -37,3 +37,8 @@ jQuery ->
       $("#homeItem").css "background-image", "url(https://www.valuethisnow.com/assets/appraise1.png)"
 
   $("#theTitle").html title
+
+  $("ul.nav li.dropdown").hover (->
+    $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeIn()
+  ), ->
+    $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeOut()

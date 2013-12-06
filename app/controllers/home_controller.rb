@@ -35,7 +35,6 @@ class HomeController < ApplicationController
   end
 
   # How it works
-  # TODO This can be removed
   def how
     @role = params[:role]
   end
