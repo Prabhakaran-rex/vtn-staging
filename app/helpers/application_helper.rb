@@ -134,6 +134,21 @@ module ApplicationHelper
     return raw(page.nil? ? "Add content to '#{path}'" : page.content)
   end
 
+  def get_page_title(path)
+    page = Cms::Snippet.find_by_label("title-"+path)
+    return raw(page.nil? ? "ValueThisNow: an online appraisal service for antiques &amper; collectibles" : page.content)
+  end
+
+  def get_page_description(path)
+    page = Cms::Snippet.find_by_label("description-"+path)
+    return raw(page.nil? ? "Online appraisers offering antique valuations and appraisals for everything from antiques, art, painting, sculpture and fine art, to coin, doll, toy, wine car, vintage, book, jewelry,watch and clock appraisal. Free articles, featured appraisals, value this now, social appraisal and more" : page.content)
+  end
+
+  def get_page_keywords(path)
+    page = Cms::Snippet.find_by_label("keywords-"+path)
+    return raw(page.nil? ? "" : page.content)
+  end
+
   def form_text_field(params)
     title = params[:title] || params[:field].to_s.titleize
     required = params[:required] || false
