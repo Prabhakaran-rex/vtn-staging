@@ -1,4 +1,6 @@
-<% if @appraisal.photos.count != 0 %>
+<%
+    pdf ||= false
+    if @appraisal.photos.count != 0 && !pdf %>
   <div>
   <div>
     <%= link_to @appraisal.default_photo.picture_url(:huge), :class => "MagicZoom", :rel => "zoom-width: 600; zoom-height: 600; zoom-distance: 50px; show-title: false; hint: false; zoom-position: left; disable-zoom: false", :id => "zoom" do %>
@@ -10,6 +12,18 @@
       <%= link_to image.picture_url(:huge), :rel => "zoom-id:zoom;", :rev => image.picture_url(:carrousel) do %>
       <%= image_tag image.picture_url(:thumb) %>
   <% end %>
+  <% end %>
+  </div>
+</div>
+<% end %>
+<% if @appraisal.photos.count != 0 && pdf %>
+  <div>
+  <div>
+      <%= image_tag @appraisal.default_photo.picture_url(:carrousel) %>
+  </div>
+  <div id="foobar">
+    <% @appraisal.photos.each_with_index do |image, i| %>
+      <%= image_tag image.picture_url(:thumb) %>
   <% end %>
   </div>
 </div>
