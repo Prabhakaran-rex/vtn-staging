@@ -4,7 +4,7 @@ class PaymentsController < ApplicationController
 
   def create
     @appraisal = Appraisal.find(params[:appraisal_id])
-    payment_response = AuthorizenetModule::PayGateway.new.process(appraisal: @appraisal, appraisal_params: params[:appraisal] )
+    payment_response = AuthorizenetModule::PayGateway.new.process(appraisal: @appraisal, appraisal_params: params[:appraisal], email: current_user.email )
     respond_to do |format|
       format.json {render :json => payment_response.to_json}
     end
