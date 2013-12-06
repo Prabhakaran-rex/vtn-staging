@@ -4,7 +4,14 @@ ActiveAdmin.register Appraisal do
   index do
     selectable_column
     column :id
-    column :title
+    column "Title", :sortable => :title do |t|
+      if t.is_insurance?
+        title = "<span style='color: red;'>#{t.title}</span>"
+      else
+        title = "#{t.title}"
+      end
+      raw title
+    end
     column "Status", :sortable => :status do |t|
       "#{getStringForActivityValue(t.status)}"
     end
