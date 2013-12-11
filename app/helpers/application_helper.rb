@@ -136,12 +136,12 @@ module ApplicationHelper
 
   def get_page_title(path)
     page = Cms::Snippet.find_by_label("title-"+path)
-    return raw(page.nil? ? "ValueThisNow: an online appraisal service for antiques &amper; collectibles" : page.content)
+    return raw(page.nil? ? "ValueThisNow: An Online Appraisal Service For Antiques & Collectibles" : page.content)
   end
 
   def get_page_description(path)
     page = Cms::Snippet.find_by_label("description-"+path)
-    return raw(page.nil? ? "Online appraisers offering antique valuations and appraisals for everything from antiques, art, painting, sculpture and fine art, to coin, doll, toy, wine car, vintage, book, jewelry,watch and clock appraisal. Free articles, featured appraisals, value this now, social appraisal and more" : page.content)
+    return raw(page.nil? ? "ValueThisNow is a group of online appraisers offering antique valuations and appraisals for everything from antiques and art paintings to toys and jewelry" : page.content)
   end
 
   def get_page_keywords(path)
