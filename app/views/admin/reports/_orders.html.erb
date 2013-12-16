@@ -1,11 +1,13 @@
 <% if !current_user.superadmin? %>
   <b>You are not authorized</b>
 <% else %>
+  <% start_year = year.to_i %>
+  <% end_year = start_year+1 %>
+  <h1>Reports</h1>
   <!-- Appraisals by type -->
-  <% @appraisals = Appraisal.complete.order("created_at, id")
+  <% @appraisals = Appraisal.complete.where("created_at between ? and ?", "#{start_year}-01-01 00:00:01 -0600", "#{end_year}-01-01 00:00:01 -0600").order("created_at, id")
   @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
   <% @appraisals_years.sort.each do |year, appraisals| %>
-  <h1>Reports</h1>
   <h2>Appraisals for <%= "#{year.strftime('%Y')} (#{appraisals.count})" %></h2>
   <table>
     <thead>
@@ -34,8 +36,7 @@
   <% end %>
   <!-- End Appraisals by type -->
   <!-- Revenue and profit per type -->
-  <% @appraisals = Appraisal.complete.order("created_at, id")
-  @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
+  <% @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
   <% @appraisals_years.sort.each do |year, appraisals| %>
   <h2>Company Gross Revenues for <%= "#{year.strftime('%Y')}" %></h2>
   <table>
@@ -72,8 +73,7 @@
   <% end %>
   <!-- End Appraisals by type -->
    <!-- Profit per type -->
-  <% @appraisals = Appraisal.complete.order("created_at, id")
-  @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
+  <% @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
   <% @appraisals_years.sort.each do |year, appraisals| %>
   <h2>Company Profits for <%= "#{year.strftime('%Y')}" %></h2>
   <table>
@@ -110,8 +110,7 @@
   <% end %>
   <!-- End Comissions by type -->
    <!-- Comissions per type -->
-  <% @appraisals = Appraisal.complete.order("created_at, id")
-  @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
+  <% @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
   <% @appraisals_years.sort.each do |year, appraisals| %>
   <h2>Appraiser's Commisions for <%= "#{year.strftime('%Y')}" %></h2>
   <table>
