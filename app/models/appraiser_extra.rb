@@ -9,6 +9,6 @@ class AppraiserExtra < ActiveRecord::Base
   validates_presence_of :affiliated_with, :certifications, :description, :years_appraising, :uspap
 
   def tax_info_complete?
-    !(tax_ein.blank? || tax_wages.blank? || tax_id.blank? || tax_name.blank? || tax_address.blank?)
+    !(tax_wages.blank? || tax_name.blank? || tax_address.blank?) && (!tax_ein.blank? || !tax_wages.blank?)
   end
 end
