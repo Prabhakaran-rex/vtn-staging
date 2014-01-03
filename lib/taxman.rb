@@ -1,3 +1,4 @@
+include ActionView::Helpers::NumberHelper
 module Taxman
   class Printer
     @data = {}
@@ -6,12 +7,12 @@ module Taxman
       @data = {}
       @data[:tax_address_1] = {value: params[:tax_name] + "\n" + params[:tax_address]}
       @data[:tax_id_1] = {value: params[:tax_id]}
-      @data[:tax_wages_1] = {value: params[:tax_wages]}
+      @data[:tax_wages_1] = {value: number_with_precision(params[:tax_wages], :precision => 2)}
       @data[:tax_ein_1] = {value: params[:tax_ein]}
       @data[:tax_address_2] = {value: params[:tax_name] + "\n" + params[:tax_address]}
       @data[:tax_id_2] = {value: params[:tax_id]}
       @data[:tax_ein_2] = {value: params[:tax_ein]}
-      @data[:tax_wages_2] = {value: params[:tax_wages]}
+      @data[:tax_wages_2] = {value: number_with_precision(params[:tax_wages], :precision => 2)}
     end
 
     def print(params)
