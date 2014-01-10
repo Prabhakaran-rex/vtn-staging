@@ -115,6 +115,9 @@ gem "delayed_job_active_record", "~> 0.4.4"
 gem "daemons", "~> 1.1.9"
 gem 'psych'
 
+gem "prawn"
+gem "prawn-fillform"
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'growl', "~> 1.0.3"

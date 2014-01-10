@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107015848) do
+ActiveRecord::Schema.define(:version => 20140110170111) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -102,6 +102,9 @@ ActiveRecord::Schema.define(:version => 20131107015848) do
     t.string   "step"
     t.string   "appraiser_referral"
     t.text     "rejection_reason"
+    t.boolean  "insurance_claim",           :default => false
+    t.boolean  "insurance_prior",           :default => false
+    t.text     "insurance_location"
   end
 
   add_index "appraisals", ["assigned_to"], :name => "index_appraisals_on_assigned_to"
@@ -131,6 +134,12 @@ ActiveRecord::Schema.define(:version => 20131107015848) do
     t.integer  "appraiser_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.string   "tax_name"
+    t.string   "tax_address"
+    t.string   "tax_id"
+    t.string   "tax_ein"
+    t.float    "tax_wages"
+    t.string   "tax_address_2"
   end
 
   add_index "appraiser_extras", ["appraiser_id"], :name => "index_appraiser_extras_on_appraiser_id"
@@ -324,6 +333,7 @@ ActiveRecord::Schema.define(:version => 20131107015848) do
     t.string   "description"
     t.float    "max_discount"
     t.text     "allowed_products"
+    t.string   "pap_id"
   end
 
   create_table "customer_extras", :force => true do |t|
