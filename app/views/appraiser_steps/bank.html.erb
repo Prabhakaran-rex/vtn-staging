@@ -11,10 +11,11 @@
           <div class="span6">
             <%= f.simple_fields_for :appraiser_extra, @user.appraiser_extra do |a| %>
               <%= a.input :tax_name, label: "First and Last Name", input_html: {class: "input-xlarge"} %>
-              <%= a.input :tax_address, label: "Address (City, State and Zip)", input_html: {class: "input-xlarge"} %>
+              <%= a.input :tax_address, label: "Street Address", input_html: {class: "input-xlarge"} %>
+              <%= a.input :tax_address_2, label: "City, State and Zip", input_html: {class: "input-xlarge"} %>
               <%= a.input :tax_id, label: "Tax Payers Federal Tax ID", input_html: {class: "input-xlarge"} %>
               <%= a.input :tax_ein, label: "Social Security Number", input_html: {class: "input-xlarge"}, hint: "Only provide your social security number if you DO NOT have a federal tax ID" %>
-              <%= a.input :tax_wages, label: "Total Wages Paid in 2013", input_html: {class: "input-xlarge"}, as: :string, hint: "Note: Total payments made for the year will be filled out by VTN management. Please enter the amount wihout commas (i.e. 1000.00)" %>
+              <%= a.input :tax_wages, label: "Total Compensation Paid Last Year", input_html: {class: "input-xlarge"}, as: :string, hint: "Note: Total payments made for the year will be filled out by VTN management." %>
             <% end %>
           </div>
           <div class="span6">
