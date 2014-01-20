@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/Reprazent/ruby-paypal.git
+  remote: git://github.com/slopezm/ruby-paypal.git
   revision: bde36806717b0156a70e30383eef8e7e922c1579
   specs:
     ruby-paypal (0.0.7)
