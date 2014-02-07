@@ -491,7 +491,7 @@ DEPENDENCIES
   rmagick
   rolify
   rspec-rails
-  ruby-paypal (~> 0.0.5)!
+  ruby-paypal (= 0.0.5)!
   sass-rails (~> 3.2.3)
   sendgrid_toolkit (>= 1.1.1)
   simple_form

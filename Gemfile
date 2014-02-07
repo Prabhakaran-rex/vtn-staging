@@ -94,7 +94,7 @@ gem 'google-analytics-rails'
 gem 'sendgrid_toolkit', '>= 1.1.1'
 
 # For Paypal payouts
-gem "ruby-paypal", "~> 0.0.5",  :git => "git://github.com/slopezm/ruby-paypal.git"
+gem "ruby-paypal", "0.0.5",  :git => "git://github.com/slopezm/ruby-paypal.git"
 # For SMS Notifications
 gem "nexmo", "~> 1.0.0"
 gem "phony_rails", "~> 0.1.12"
