@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/slopezm/ruby-paypal.git
+  revision: 1ce0b5b6fbdbc950282c92b5bf2ac2ba98d27f7d
+  specs:
+    ruby-paypal (0.0.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -364,7 +370,6 @@ GEM
       railties (>= 3.0)
       rspec (~> 2.11.0)
     ruby-hmac (0.4.0)
-    ruby-paypal (0.0.5)
     ruby-rc4 (0.1.5)
     rubyzip (0.9.9)
     sass (3.2.1)
@@ -486,7 +491,7 @@ DEPENDENCIES
   rmagick
   rolify
   rspec-rails
-  ruby-paypal (~> 0.0.5)
+  ruby-paypal (~> 0.0.5)!
   sass-rails (~> 3.2.3)
   sendgrid_toolkit (>= 1.1.1)
   simple_form
