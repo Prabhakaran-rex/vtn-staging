@@ -118,6 +118,11 @@ class Appraisal < ActiveRecord::Base
     UserMailer.notify_user_of_rejection(self,comments).deliver if (Rails.env == 'development' || Rails.env == 'production')
   end
 
+  def return_to_claimed_status
+    self.status = EActivityValueClaimed
+    self.save
+  end
+
   def claim!(params)
     return false if self.status != EActivityValuePayed
 
