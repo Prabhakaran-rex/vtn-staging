@@ -162,7 +162,7 @@ jQuery ->
     title: "If you would like this appraisal report to go to a specific appraiser please enter in their appraiser ID number. If you do not know their ID number please email support at: support@ValueThisNow.com or call the referring appraiser and ask them."
 
   $("#txtAppraisalComments").textareaCount {originalStyle: "originalDisplayInfo"}, (data) ->
-    if data.words >= 10
+    if data.words >= 100
       $("#fullSummaryHelp").hide()
     else
       $("#fullSummaryHelp").show()
