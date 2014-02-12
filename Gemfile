@@ -12,9 +12,7 @@ gem 'pg'
 #   gem "wkhtmltopdf-heroku", "~> 1.0.0"
 # end
 
-group :production do
-  gem 'thin'
-end
+gem 'thin'
 
 gem 'wkhtmltopdf-binary'
 
