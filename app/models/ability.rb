@@ -26,13 +26,14 @@ class Ability
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
     user ||= User.new # guest user (not logged in)
     if user.admin? && !user.superadmin?
-        can :manage, :all
-        cannot :manage, Payout 
+      can :manage, :all
+      cannot :manage, Payout
+      cannot :manage, Coupon
+      cannot :manage, Promotion
     elsif user.superadmin?
-        can :manage, :all
+      can :manage, :all
     else
-        can :manage, :all
-
+      can :manage, :all
     end
   end
 end
