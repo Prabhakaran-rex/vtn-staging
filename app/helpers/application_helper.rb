@@ -45,7 +45,11 @@ module ApplicationHelper
     hItems = {EAAppraisalTypeShortRestricted => "Light Restricted Use Appraisal",
               EAAppraisalTypeLongRestricted  => "Full Restricted Use Appraisal",
               EAAppraisalTypeShortForSelling => "Light Summary Appraisal",
-              EAAppraisalTypeLongForSelling => "Full Summary Appraisal"}
+              EAAppraisalTypeLongForSelling => "Full Summary Appraisal", 
+              EAAppraisalTypeShortRestrictedPair => "Light Restricted Use Appraisal Pair",
+              EAAppraisalTypeLongRestrictedPair  => "Full Restricted Use Appraisal Pair",
+              EAAppraisalTypeShortForSellingPair => "Light Summary Appraisal Pair",
+              EAAppraisalTypeLongForSellingPair => "Full Summary Appraisal Pair"}
 
     hItems[nType].empty? ? "" : hItems[nType]
   end
@@ -65,7 +69,7 @@ module ApplicationHelper
     end
   end
 
-  
+
   def wicked_pdf_image_tag(img, options={})
     if img[0].chr == "/" # images from paperclip
       new_image = img.slice 1..-1
@@ -105,12 +109,12 @@ module ApplicationHelper
 
   def display_time(total_seconds)
     total_seconds = total_seconds.to_i
-    
+
     days = total_seconds / 86400
     hours = (total_seconds / 3600) - (days * 24)
     minutes = (total_seconds / 60) - (hours * 60) - (days * 1440)
     seconds = total_seconds % 60
-    
+
     display = ''
     display_concat = ''
     if days > 0
@@ -132,6 +136,21 @@ module ApplicationHelper
   def get_cms_content(path)
     page = Cms::Page.find_by_full_path(path)
     return raw(page.nil? ? "Add content to '#{path}'" : page.content)
+  end
+
+  def get_page_title(path)
+    page = Cms::Snippet.find_by_label("title-"+path)
+    return raw(page.nil? ? "ValueThisNow: An Online Appraisal Service For Antiques & Collectibles" : page.content)
+  end
+
+  def get_page_description(path)
+    page = Cms::Snippet.find_by_label("description-"+path)
+    return raw(page.nil? ? "ValueThisNow is a group of online appraisers offering antique valuations and appraisals for everything from antiques and art paintings to toys and jewelry" : page.content)
+  end
+
+  def get_page_keywords(path)
+    page = Cms::Snippet.find_by_label("keywords-"+path)
+    return raw(page.nil? ? "" : page.content)
   end
 
   def form_text_field(params)

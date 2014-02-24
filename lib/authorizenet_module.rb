@@ -5,7 +5,7 @@ module AuthorizenetModule
       hash = _validate(appraisal: params[:appraisal], appraisal_params: appraisal_params)
       return hash if hash[:status] == false
      credit_card = _create_credit_card(appraisal: params[:appraisal], appraisal_params: appraisal_params)
-     _charge(credit_card: credit_card, billing_address: _create_billing_address(payment_attributes: appraisal_params[:payment_attributes]), appraisal: params[:appraisal], coupon:appraisal_params[:payment_attributes][:coupon])
+     _charge(credit_card: credit_card, billing_address: _create_billing_address(payment_attributes: appraisal_params[:payment_attributes]), appraisal: params[:appraisal], coupon:appraisal_params[:payment_attributes][:coupon], email: params[:email])
     end
 
     private
@@ -83,7 +83,7 @@ module AuthorizenetModule
         :month     => mycc.expmon,
         :year      => mycc.expyear,
         :verification_value => mycc.cvv)
-      payment_response = _get_gateway.purchase(mycc.amount.to_i, credit_card, {:billing_address => params[:billing_address].as_json})
+      payment_response = _get_gateway.purchase(mycc.amount.to_i, credit_card, {:billing_address => params[:billing_address].as_json, :email => params[:email]})
       if payment_response.success?
         appraisal = Appraisal.find(params[:appraisal])
         Payment.add_payment(payment_response.authorization, mycc.number[-4,4], mycc.amount/100, appraisal.created_by, appraisal.id)
@@ -106,3 +106,32 @@ module AuthorizenetModule
   end
 end
 
+module ActiveMerchant
+   module Billing
+     class AuthorizeNetGateway < Gateway
+       private
+        def add_customer_data(post, options)
+        if options.has_key? :email
+          post[:email] = options[:email]
+          #post[:email_customer] = false
+        end
+
+        if options.has_key? :customer
+          post[:cust_id] = options[:customer] if Float(options[:customer]) rescue nil
+        end
+
+        if options.has_key? :ip
+          post[:customer_ip] = options[:ip]
+        end
+
+        if options.has_key? :cardholder_authentication_value
+          post[:cardholder_authentication_value] = options[:cardholder_authentication_value]
+        end
+
+        if options.has_key? :authentication_indicator
+          post[:authentication_indicator] = options[:authentication_indicator]
+        end
+      end
+     end
+   end
+end

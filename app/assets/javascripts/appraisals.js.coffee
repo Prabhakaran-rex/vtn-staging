@@ -17,6 +17,14 @@ jQuery ->
       alert "Please upload at least one image to continue"
       false
 
+  $(".isPair").click ->
+    if $(this).is(':checked')
+      $(".planPrice").hide()
+      $(".planPairPrice").show()
+    else
+      $(".planPrice").show()
+      $(".planPairPrice").hide()
+
   # An appraisal can have one default image
   set_as_default_image = (btn) ->
     $('.btn_make_image_primary').removeClass('btn-success')
@@ -59,7 +67,28 @@ jQuery ->
   $('#btnSubmitAppraisalReply').click ->
     $('#appraisal_status').val("10")
 
-  # Begin Code for Plan Selection in Appraisal Wizard
+  # Begin Code for Plan Selection in Appraisal Wizard $("#plansel1").click ->
+  $("#planprod1").click ->
+    $("#planprod1").addClass("formProdOn").siblings().removeClass "formProdOn"
+    $("#plansel1").addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    resetSelectTxt()
+    $("#plansel1").html "Selected"
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeShortRestricted)
+
+  $("#planprod2").click ->
+    $("#planprod2").addClass("formProdOn").siblings().removeClass "formProdOn"
+    $("#plansel2").addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    resetSelectTxt()
+    $("#plansel2").html "Selected"
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongRestricted)
+
+  $("#planprod4").click ->
+    $("#planprod4").addClass("formProdOn").siblings().removeClass "formProdOn"
+    $("#plansel4").addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    resetSelectTxt()
+    $("#plansel4").html "Selected"
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongForSelling)
+
   $("#plansel1").click ->
     $("#planprod1").addClass("formProdOn").siblings().removeClass "formProdOn"
     $(this).addClass("formProdSelected").siblings().removeClass "formProdSelected"
@@ -160,6 +189,13 @@ jQuery ->
   $("#tooltipAppraiserId").tooltip
     placement: "bottom"
     title: "If you would like this appraisal report to go to a specific appraiser please enter in their appraiser ID number. If you do not know their ID number please email support at: support@ValueThisNow.com or call the referring appraiser and ask them."
+
+  $("#txtAppraisalComments").textareaCount {originalStyle: "originalDisplayInfo"}, (data) ->
+    if data.words >= 100
+      $("#fullSummaryHelp").hide()
+    else
+      $("#fullSummaryHelp").show()
+    return textareaCount
 
 requiredFields = ->
   isValid = true

@@ -1,4 +1,6 @@
 ActiveAdmin.register Coupon do
+  menu :if => proc{ can?(:manage, Coupon) }
+  controller.authorize_resource 
 	actions :all, :except => [:destroy]
 
   index do

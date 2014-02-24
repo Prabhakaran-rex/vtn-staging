@@ -21,6 +21,7 @@ class Appraisals::BuildController < ApplicationController
     params[:appraisal].except!(:payment_attributes)
     params[:appraisal][:step] = step
     params[:appraisal][:step] = 'active' if step == steps.last
+    params[:appraisal][:selected_plan] = (params[:appraisal][:selected_plan].to_i + 4) if params[:isPair]
     @appraisal.update_attributes(params[:appraisal])
     render_wizard @appraisal
   end

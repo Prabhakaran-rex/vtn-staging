@@ -61,8 +61,12 @@ EAAppraisalTypeShortRestricted = 1
 EAAppraisalTypeLongRestricted = 2
 EAAppraisalTypeShortForSelling = 3
 EAAppraisalTypeLongForSelling = 4
-APPRAISAL_PLANS = [EAAppraisalTypeShortRestricted, EAAppraisalTypeLongRestricted, EAAppraisalTypeShortForSelling, EAAppraisalTypeLongForSelling]
-APPRAISAL_PLANS_NAMES = Hash[EAAppraisalTypeShortRestricted => "Light Restricted Use Appraisal", EAAppraisalTypeLongRestricted => "Full Restricted Use Appraisal", EAAppraisalTypeShortForSelling => "Short For Selling (Not currently available)", EAAppraisalTypeLongForSelling => "Full Summary Appraisal"]
+EAAppraisalTypeShortRestrictedPair = 5
+EAAppraisalTypeLongRestrictedPair = 6
+EAAppraisalTypeShortForSellingPair = 7
+EAAppraisalTypeLongForSellingPair = 8
+APPRAISAL_PLANS = [EAAppraisalTypeShortRestricted, EAAppraisalTypeLongRestricted, EAAppraisalTypeShortForSelling, EAAppraisalTypeLongForSelling, EAAppraisalTypeShortRestrictedPair, EAAppraisalTypeLongRestrictedPair,EAAppraisalTypeShortForSellingPair, EAAppraisalTypeLongForSellingPair   ]
+APPRAISAL_PLANS_NAMES = Hash[EAAppraisalTypeShortRestricted => "Light Restricted Use Appraisal", EAAppraisalTypeLongRestricted => "Full Restricted Use Appraisal", EAAppraisalTypeShortForSelling => "Short For Selling (Not currently available)", EAAppraisalTypeLongForSelling => "Full Summary Appraisal", EAAppraisalTypeShortRestrictedPair => "Light Restricted Use Appraisal Pair", EAAppraisalTypeLongRestrictedPair => "Full Restricted Use Appraisal Pair", EAAppraisalTypeShortForSellingPair => "Short For Selling (Not currently available) Pair", EAAppraisalTypeLongForSellingPair => "Full Summary Appraisal Pair"]
 ## Payouts
 EAPayoutPending = 0
 EAPayoutCompleted = 1

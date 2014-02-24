@@ -135,18 +135,18 @@ $(document).ready(function() {
   <% selected_plan = @appraisal.selected_plan
   appraiser_type = @appraiser.appraiser_info.uspap.to_i
 
-  if (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type == EAAppraiserUSPAPFamiliar
-  format = "appraisal_body_restricteduse_USPAP_compliant_yes"
-  option = 1
-  elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type == EAAppraiserUSPAPFamiliar
-  format = "appraisal_body_summary_forselling_USPAP_compliant_yes"
-  option =2
-  elsif (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type != EAAppraiserUSPAPFamiliar
-  format = "appraisal_body_restricteduse_USPAP_compliant_no"
-  option =3
-  elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type != EAAppraiserUSPAPFamiliar
-  format = "appraisal_body_summary_forselling_USPAP_compliant_no"
-  option =4
+  if (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted || selected_plan == EAAppraisalTypeShortRestrictedPair || selected_plan == EAAppraisalTypeLongRestrictedPair) && appraiser_type == EAAppraiserUSPAPFamiliar
+    format = "appraisal_body_restricteduse_USPAP_compliant_yes"
+    option = 1
+  elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling || selected_plan == EAAppraisalTypeShortForSellingPair || selected_plan == EAAppraisalTypeLongForSellingPair) && appraiser_type == EAAppraiserUSPAPFamiliar
+    format = "appraisal_body_summary_forselling_USPAP_compliant_yes"
+    option =2
+  elsif (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted || selected_plan == EAAppraisalTypeShortRestrictedPair || selected_plan == EAAppraisalTypeLongRestrictedPair) && appraiser_type != EAAppraiserUSPAPFamiliar
+    format = "appraisal_body_restricteduse_USPAP_compliant_no"
+    option =3
+  elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling || selected_plan == EAAppraisalTypeShortForSellingPair || selected_plan == EAAppraisalTypeLongForSellingPair) && appraiser_type != EAAppraiserUSPAPFamiliar
+    format = "appraisal_body_summary_forselling_USPAP_compliant_no"
+    option =4
   else
   raise "Invalid selected_plan and appraiser_type combination"
   end

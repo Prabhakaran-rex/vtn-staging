@@ -96,8 +96,15 @@ ActiveAdmin.register_page "Email Reports" do
 end
 
 ActiveAdmin.register_page "Orders" do
-  menu :label => "Monthly Report", :parent => "Reports"
+  menu :label => "Monthly Report 2013", :parent => "Reports"
   content do
-      render :partial => "admin/reports/orders", :locals => {} 
+      render :partial => "admin/reports/orders", :locals => {year: "2013"} 
+  end
+end
+
+ActiveAdmin.register_page "Orders2014" do
+  menu :label => "Monthly Report 2014", :parent => "Reports"
+  content do
+      render :partial => "admin/reports/orders", :locals => {year: "2014"} 
   end
 end
