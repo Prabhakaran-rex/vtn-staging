@@ -202,8 +202,13 @@ class AppraisalsController < ApplicationController
   def reject
     if current_user.admin?
       @appraisal = Appraisal.find(params[:id])
-      @appraisal.reject(params[:comments])
-      flash[:error]  = "The appraisal was rejected"
+      if params[:btn_submit] == "Return to Claimed"
+        @appraisal.return_to_claimed_status
+        flash[:error]  = "The appraisal was returned for claimed status"
+      else
+        @appraisal.reject(params[:comments])
+        flash[:error]  = "The appraisal was rejected"
+      end
     end
     redirect_to admin_root_path
   end

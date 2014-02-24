@@ -2,12 +2,18 @@
   <!-- Home block 1 -->
   <div id="homeblock1">
     <div class="div_homeTitle">
-      <span class="homeTitle">Online appraisals made easy</span>
+      <span class="homeTitle"><h1>Online appraisals made easy</h1></span>
     </div>
     <br /> <br />
     <%= link_to "Sign in / Sign up to get an appraisal", main_app.new_user_session_path, class: "bigYellow", style: "text-decoration:none;" %>
     <br />
-    <div id="homeVideo"><iframe width="538" height="302" src="https://www.youtube.com/embed/5q8XwHpGMZY?rel=0" frameborder="0" allowfullscreen></iframe></div>
+    <div id="homeVideo">
+      <object type="application/x-shockwave-flash" style="width:538px; height:302px;" data="https://www.youtube.com/v/5q8XwHpGMZY?color2=FBE9EC&amp;version=3">
+        <param name="movie" value="https://www.youtube.com/v/5q8XwHpGMZY?color2=FBE9EC&amp;version=3" />
+        <param name="allowFullScreen" value="true" />
+        <param name="allowscriptaccess" value="always" />
+      </object>
+    </div>
     <div id="homeItem" class="item1">
       <div id="homeValueBlock">
         <div id="theTitle"></div>
@@ -23,6 +29,7 @@
 </div>
 <%= render partial: 'layouts/featured_coupon'  %>
 <!-- Middle 2 -->
+<%= render partial: "layouts/livehelpnow" %>
 <div class="homeBg1">
   <center>
     <div class="contentBlock homeContentBlock" style="padding-left:0px; padding-right:0px;">

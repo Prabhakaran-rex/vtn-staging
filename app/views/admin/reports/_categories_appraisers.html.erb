@@ -20,7 +20,7 @@
 			<td>
 				<ul>
 				<% category.skills.each do |skill|
-					user = User.find_by_id(skill.appraiser_id) 
+					user = Appraiser.confirmed.find_by_id(skill.appraiser_id) 
 					unless user.nil? %>
 					<li><%= link_to user.name, admin_appraiser_path(user) %></li>
 					<% end %>

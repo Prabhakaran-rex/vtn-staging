@@ -11,6 +11,12 @@ $(document).ready(function() {
     isEdit = true;  
   }); 
 
+
+  // Ugly hack to prevent the tax generating key from triggering the "document changed" warning
+ $('#txt_tax_code').change(function () {
+   isEdit = false;
+ });
+
   function checkIsEdit() {  
     if(isEdit)  
       return "You have modified some content. Please save this form.";  

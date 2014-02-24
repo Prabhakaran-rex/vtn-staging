@@ -12,9 +12,7 @@ gem 'pg'
 #   gem "wkhtmltopdf-heroku", "~> 1.0.0"
 # end
 
-group :production do
-  gem 'thin'
-end
+gem 'thin'
 
 gem 'wkhtmltopdf-binary'
 
@@ -94,8 +92,7 @@ gem 'google-analytics-rails'
 gem 'sendgrid_toolkit', '>= 1.1.1'
 
 # For Paypal payouts
-gem "ruby-paypal", :git => "git://github.com/Reprazent/ruby-paypal.git"
-
+gem "ruby-paypal", "0.0.5",  :git => "git://github.com/slopezm/ruby-paypal.git"
 # For SMS Notifications
 gem "nexmo", "~> 1.0.0"
 gem "phony_rails", "~> 0.1.12"
@@ -114,6 +111,9 @@ gem "tilt", "1.3.4"
 gem "delayed_job_active_record", "~> 0.4.4"
 gem "daemons", "~> 1.1.9"
 gem 'psych'
+
+gem "prawn"
+gem "prawn-fillform"
 
 group :test, :development do
   gem 'rspec-rails'

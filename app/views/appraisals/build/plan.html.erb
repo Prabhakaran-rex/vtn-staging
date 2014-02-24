@@ -42,8 +42,8 @@
         </div>
 
         <div class="formProd formProdOn" id="planprod4">
-          <div class="formProdTitle">Summary Appraisal</div>
-          <div class="formProdRed" style="color:#805700;">FULL USE</div>
+          <div class="formProdTitle">&nbsp;</div>
+          <div class="formProdRed" style="color:#805700;">FULL USE APPRAISAL REPORT</div>
           <div class="formProdItem">Premium valuation</div>
           <div class="formProdItem">Comprehensive appraiser’s comments</div>
           <div class="formProdItem">Replacement Value</div>
@@ -67,14 +67,14 @@
         <div class="formProdSelect formProdSelected" id="plansel4">Select</div>
         <div style="clear:both;"></div>
         <div class="formProdPairText"><b>* Note:</b> Check the box below if your appraisal request is for a set (e.g., dresser set), service (e.g., flatware or dinnerware service), or a suite 
-(e.g., suite of bedroom furniture). An additional $20.00 will be applied.</div>
+          (e.g., suite of bedroom furniture). An additional $20.00 will be applied.</div>
         <div class="formProdPair"><input type="checkbox" name="isPair" class="isPair" value="1" style="margin-top: -4px;" /> Appraisal for a set, service or suite adds $20.00</div>
         <div style="clear:both;"></div>
-      </div>
-      <%= f.input :selected_plan, as: :hidden %>
-      <div style="padding-bottom: 20px;">
-        <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
-        <%= f.button :submit, "Next", class: "btn btn-success pull-right" %>
+        <%= f.input :selected_plan, as: :hidden %>
+        <div style="padding-bottom: 20px;">
+          <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
+          <%= f.button :submit, "Next", class: "btn btn-success pull-right" %>
+        </div>
       </div>
     </div>
   <% end %>

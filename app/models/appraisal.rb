@@ -103,6 +103,10 @@ class Appraisal < ActiveRecord::Base
     [EAAppraisalTypeLongRestricted, EAAppraisalTypeLongForSelling, EAAppraisalTypeLongRestrictedPair, EAAppraisalTypeLongForSellingPair].include?(self.selected_plan)
   end
 
+  def is_pair?
+    [EAAppraisalTypeLongRestrictedPair, EAAppraisalTypeLongForSellingPair, EAAppraisalTypeShortRestrictedPair, EAAppraisalTypeShortForSellingPair].include?(self.selected_plan)
+  end
+
   def suggest_for_rejection(params)
     self.status = EActivityValueReviewRejection
     self.rejection_reason = params[:rejection_reason]
@@ -116,6 +120,11 @@ class Appraisal < ActiveRecord::Base
     self.rejection_reason = self.rejection_reason + " ADMIN COMMENTS: " + comments
     self.save
     UserMailer.notify_user_of_rejection(self,comments).deliver if (Rails.env == 'development' || Rails.env == 'production')
+  end
+
+  def return_to_claimed_status
+    self.status = EActivityValueClaimed
+    self.save
   end
 
   def claim!(params)

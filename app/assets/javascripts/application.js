@@ -17,4 +17,5 @@
 //= require jquery.maskedinput-1.3.min
 //= require excanvas.compiled
 //= require cloudinary 
+//= require jquery.textareaCounter.plugin
 //= require_tree .

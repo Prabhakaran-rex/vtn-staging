@@ -1,5 +1,7 @@
 PurexNew::Application.routes.draw do
 
+  get "taxes/irs_income" => "taxes#irs_income", as: :taxes_income
+
   get "payouts/create"
 
   get "dashboard/payouts(/:status)" => "dashboard#payouts", :as => :dashboard_payouts

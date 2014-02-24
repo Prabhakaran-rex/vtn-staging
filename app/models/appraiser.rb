@@ -25,6 +25,10 @@ class Appraiser < User
   attr_accessible :signature, :signature_cache, :remove_signature
   after_update :crop_signature
 
+  def self.confirmed
+    where(status: EAUserStatusConfirmed)
+  end
+
   def is_appraiser_application_complete
     begin
       !self.name.empty? && self.address.valid? && self.appraiser_extra.valid? && self.skills.count > 0 && self.trade_references.count >= 3 && !self.paypal_email.blank? && self.avatar?  && (self.signature? || !self.appraiser_extra.signature_json.nil?)
