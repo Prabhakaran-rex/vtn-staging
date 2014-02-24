@@ -8,7 +8,9 @@
         <tr>
           <th>Item</th>
           <th>Item #</th>
-          <th>Insurance Appraisal</th>
+          <% if Setting.is_set("enable_insurance_claims","true") %>
+            <th>Insurance Appraisal</th>
+          <% end %>
           <th>Date Created</th>
           <th>Status</th>
           <th>Amount Paid</th>
@@ -20,15 +22,17 @@
           <tr>
             <td><%= linked_thumbnail(appraisal) %></td>
             <td><%= linked_title(appraisal) %></td>
-            <td><%= appraisal.is_insurance? ? "Yes" : "No" %></td>
+            <% if Setting.is_set("enable_insurance_claims","true") %>
+              <td><%= appraisal.is_insurance? ? "Yes" : "No" %></td>
+            <% end %>
             <td><%= completed_on(appraisal) %></td>
             <td><%= getStringForActivityValue(appraisal.status) %></td>
             <td><%= "#{print_amount_paid(appraisal)}"%></br><small><%= "#{print_payout_status(appraisal)}" %></small></td>
             <td><%= appraisal_buttons(appraisal) %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 </div>

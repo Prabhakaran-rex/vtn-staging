@@ -66,9 +66,11 @@
         <div class="formProdSelect" id="plansel2">Select</div>
         <div class="formProdSelect formProdSelected" id="plansel4">Select</div>
         <div style="clear:both;"></div>
+        <% if Setting.is_set("enable_pair_pricing","true") %>
         <div class="formProdPairText"><b>* Note:</b> Check the box below if your appraisal request is for a set (e.g., dresser set), service (e.g., flatware or dinnerware service), or a suite 
           (e.g., suite of bedroom furniture). An additional $20.00 will be applied.</div>
         <div class="formProdPair"><input type="checkbox" name="isPair" class="isPair" value="1" style="margin-top: -4px;" /> Appraisal for a set, service or suite adds $20.00</div>
+       <% end %>
         <div style="clear:both;"></div>
         <%= f.input :selected_plan, as: :hidden %>
         <div style="padding-bottom: 20px;">

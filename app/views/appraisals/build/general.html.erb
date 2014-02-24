@@ -31,8 +31,10 @@
           <%= f.simple_fields_for :classification do |c| %>
             <%= c.association :category, as: :select, collection: Category.all(order: 'name'), required: true, input_html: {class: "chzn-select"} %>
           <% end %>
+          <% if Setting.is_set("enable_insurance_claims","true") %>
           <%= f.input :insurance_claim, label: false, inline_label: "This appraisal is for damage claims purposes. I'm seeking values prior to damage", hint: "Remember to provide detailed photos of the item (including a photo showing the whole item)", :input_html => {:class =>"" } %>
           <%= f.input :insurance_location, label: "Location", as: :string, :input_html => {:class =>"span8" }, hint: "Please provide the location (city/state) of the property."%>
+          <% end %>
         </div>
         <div>
           <%= f.button :submit, "Next", class: "btn btn-success pull-right",id: "btnBuildWizardGeneral"  %>
