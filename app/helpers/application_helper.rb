@@ -45,7 +45,11 @@ module ApplicationHelper
     hItems = {EAAppraisalTypeShortRestricted => "Light Restricted Use Appraisal",
               EAAppraisalTypeLongRestricted  => "Full Restricted Use Appraisal",
               EAAppraisalTypeShortForSelling => "Light Summary Appraisal",
-              EAAppraisalTypeLongForSelling => "Full Summary Appraisal"}
+              EAAppraisalTypeLongForSelling => "Full Summary Appraisal", 
+              EAAppraisalTypeShortRestrictedPair => "Light Restricted Use Appraisal Pair",
+              EAAppraisalTypeLongRestrictedPair  => "Full Restricted Use Appraisal Pair",
+              EAAppraisalTypeShortForSellingPair => "Light Summary Appraisal Pair",
+              EAAppraisalTypeLongForSellingPair => "Full Summary Appraisal Pair"}
 
     hItems[nType].empty? ? "" : hItems[nType]
   end
@@ -65,7 +69,7 @@ module ApplicationHelper
     end
   end
 
-  
+
   def wicked_pdf_image_tag(img, options={})
     if img[0].chr == "/" # images from paperclip
       new_image = img.slice 1..-1
@@ -105,12 +109,12 @@ module ApplicationHelper
 
   def display_time(total_seconds)
     total_seconds = total_seconds.to_i
-    
+
     days = total_seconds / 86400
     hours = (total_seconds / 3600) - (days * 24)
     minutes = (total_seconds / 60) - (hours * 60) - (days * 1440)
     seconds = total_seconds % 60
-    
+
     display = ''
     display_concat = ''
     if days > 0

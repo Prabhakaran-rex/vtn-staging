@@ -3,93 +3,93 @@
     <div class="row sub_box">
       <% if @appraisal.status == EActivityValuePayed %>
         <% if @payment_completed  %>
-        <img src="https://valuethisnow.postaffiliatepro.com/scripts/sale.php?AccountId=default1&TotalCost=<%= number_with_precision(@appraisal.payment.amount, precision: 2) %>&OrderID=<%= @appraisal.id %>&ProductID=appraisal-<%= @appraisal.selected_plan %>" width="1" height="1" >
-    <% end %>
-      <div class="alert alert-info">
-        <i class="icon-ok"></i> Congratulations your item has been submitted for valuation! Click <%= link_to "here", new_appraisal_path, :class => "btn btn-mini btn-success" %> to get more items appraised!
-      </div>
-    <% end %>
+          <img src="https://valuethisnow.postaffiliatepro.com/scripts/sale.php?AccountId=default1&TotalCost=<%= number_with_precision(@appraisal.payment.amount, precision: 2) %>&OrderID=<%= @appraisal.id %>&ProductID=appraisal-<%= @appraisal.selected_plan %>" width="1" height="1" >
+        <% end %>
+        <div class="alert alert-info">
+          <i class="icon-ok"></i> Congratulations your item has been submitted for valuation! Click <%= link_to "here", new_appraisal_path, :class => "btn btn-mini btn-success" %> to get more items appraised!
+        </div>
+      <% end %>
 
       <div class="page-header">
         <h5>Status : <%= getStringForActivityValue(@appraisal.status) %></h5>
         <h5>Type : <%= getStringForAppraisalType(@appraisal.selected_plan) %></h5>
         <h3><%= @appraisal.title %>
-          <% if @appraisal.status != EActivityValueFinalized %>
-            <%= link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
+        <% if @appraisal.status != EActivityValueFinalized %>
+          <%= link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
         <% end %>
           <% if @appraisal.status == EActivityValueFinalized %>
             <%= link_to show_shared_path(@appraisal, :format => :pdf), :class => "btn btn-success btn-mini pull-right" do %><i class="icon-download-alt icon-white"></i> Download Appraisal<% end %>
         <% end %>
-        </h3>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="span7 appraisal-info">
-            <table class="table table-condensed">
-              <tbody>
+      </h3>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span7 appraisal-info">
+          <table class="table table-condensed">
+            <tbody>
               <% if @appraisal.status == EActivityValueFinalized%>
                 <tr>
-                <td><%= "File #".upcase %></td>
-                <td><%= @appraisal.id %></td>
-              </tr>
-              <tr>
-                <td><%= "Effective Date of Report".upcase %></td>
-                <td><%= @appraisal.updated_at.strftime("%d %b. %Y") %></td>
-              </tr>
-            <% end %>
+                  <td><%= "File #".upcase %></td>
+                  <td><%= @appraisal.id %></td>
+                </tr>
+                <tr>
+                  <td><%= "Effective Date of Report".upcase %></td>
+                  <td><%= @appraisal.updated_at.strftime("%d %b. %Y") %></td>
+                </tr>
+              <% end %>
               <% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized %>
                 <tr>
-                <td><%= "Appraised by".upcase %></td>
-                <td><%= getProfileForUser(@appraisal.assigned_to) %></td>
-              </tr>
-            <% end %>
+                  <td><%= "Appraised by".upcase %></td>
+                  <td><%= getProfileForUser(@appraisal.assigned_to) %></td>
+                </tr>
+              <% end %>
               <tr>
                 <td width="165px">CATEGORY</td>
                 <td><% if @appraisal.status == EActivityValueFinalized %>
                   <%= @appraisal.classification.nil? ? "" : @appraisal.classification.category.name %>
                 <% else %>
-                    <%= render :partial => "appraisals/edit_classification", :locals => {:appraisal => @appraisal} %>
+                  <%= render :partial => "appraisals/edit_classification", :locals => {:appraisal => @appraisal} %>
                 <% end %>
-                </td>
-              </tr>
-              <tr width="165px">
-                <td><%= "Title".upcase %></td>
-                <td><%= @appraisal.title %></td>
-              </tr>
+              </td>
+            </tr>
+            <tr width="165px">
+              <td><%= "Title".upcase %></td>
+              <td><%= @appraisal.title %></td>
+            </tr>
+            <tr>
+              <td><%= "Description".upcase %></td>
+              <td><%= @appraisal.name %></td>
+            </tr>
+            <tr>
+              <td><%= "Approx. Date of Manufacture".upcase %></td>
+              <td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
+            </tr>
+            <tr>
+              <td><%= "Country of Origin".upcase %></td>
+              <td><%= @appraisal.appraisal_info.country_of_origin %></td>
+            </tr>
+            <tr>
+              <td><%= "Signatures, Maker/Maker's, Dates, etc.".upcase %></td>
+              <td><%= @appraisal.appraisal_info.makers_marks %></td>
+            </tr>
+            <tr>
+              <td><%= "Inscriptions".upcase %></td>
+              <td><%= @appraisal.appraisal_info.inscriptions %></td>
+            </tr>
+            <tr>
+              <td><%= "Dimensions".upcase %></td>
+              <td><%= @appraisal.appraisal_info.dimensions %></td>
+            </tr>
+            <tr>
+              <td><%= "Condition".upcase %></td>
+              <td><%= @appraisal.appraisal_info.damage %></td>
+            </tr>
+            <tr>
+              <td><%= "Item History".upcase %></td>
+              <td><%= @appraisal.appraisal_info.item_history %></td>
+            </tr>
+            <% if @appraisal.status == EActivityValueFinalized %>
               <tr>
-                <td><%= "Description".upcase %></td>
-                <td><%= @appraisal.name %></td>
-              </tr>
-              <tr>
-                <td><%= "Approx. Date of Manufacture".upcase %></td>
-                <td><%= @appraisal.appraisal_info.year_of_manufacture %></td>
-              </tr>
-              <tr>
-                <td><%= "Country of Origin".upcase %></td>
-                <td><%= @appraisal.appraisal_info.country_of_origin %></td>
-              </tr>
-              <tr>
-                <td><%= "Signatures, Maker/Maker's, Dates, etc.".upcase %></td>
-                <td><%= @appraisal.appraisal_info.makers_marks %></td>
-              </tr>
-              <tr>
-                <td><%= "Inscriptions".upcase %></td>
-                <td><%= @appraisal.appraisal_info.inscriptions %></td>
-              </tr>
-              <tr>
-                <td><%= "Dimensions".upcase %></td>
-                <td><%= @appraisal.appraisal_info.dimensions %></td>
-              </tr>
-              <tr>
-                <td><%= "Condition".upcase %></td>
-                <td><%= @appraisal.appraisal_info.damage %></td>
-              </tr>
-              <tr>
-                <td><%= "Item History".upcase %></td>
-                <td><%= @appraisal.appraisal_info.item_history %></td>
-              </tr>
-              <% if @appraisal.status == EActivityValueFinalized %>
-                <tr>
                 <td><%= "Additional Extraordinary Assumptions".upcase %></td>
                 <td><%= @appraisal.appraisal_info.additional_ea %></td>
               </tr>
@@ -124,61 +124,65 @@
         <% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValuePayed %>
             <%= link_to 'Save and Continue', @appraisal, :class => "btn btn-success pull-right" %>
         <% end %>
-        </div>
-        <% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized %>
-          <div class="row">
-          <%= render :partial => "appraisals/comments", :locals => {:appraisal => @appraisal, :comments => @appraisal_comments}%>
-        </div>
+      </div>
+      <% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValuePayed %>
+        <%= link_to 'Save and Continue', @appraisal, :class => "btn btn-success pull-right" %>
       <% end %>
-        <div class="row">
-          &nbsp;
-        </div>
-        <% if @appraisal.status == EActivityValueFinalized %>
+    </div>
+    <% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized %>
+      <div class="row">
+        <%= render :partial => "appraisals/comments", :locals => {:appraisal => @appraisal, :comments => @appraisal_comments}%>
+      </div>
+    <% end %>
+    <div class="row">
+      &nbsp;
+    </div>
+    <% if @appraisal.status == EActivityValueFinalized %>
 
-          <div class="row">
-          <div class="span11">
-            <% if @appraisal.status == EActivityValueFinalized %>
-              <button type="button" class="btn btn-mini btn-success" data-toggle="collapse" data-target="#supplemental_information">
+      <div class="row">
+        <div class="span11">
+          <% if @appraisal.status == EActivityValueFinalized %>
+            <button type="button" class="btn btn-mini btn-success" data-toggle="collapse" data-target="#supplemental_information">
               <i class="icon-file icon-white"></i>
               More (important supplemental information)
             </button>
             <% selected_plan = @appraisal.selected_plan
             appraiser_type = @appraiser.appraiser_info.uspap.to_i
 
-            if (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type == EAAppraiserUSPAPFamiliar
+            if (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted || selected_plan == EAAppraisalTypeShortRestrictedPair || selected_plan == EAAppraisalTypeLongRestrictedPair) && appraiser_type == EAAppraiserUSPAPFamiliar
               format = "appraisal_body_restricteduse_USPAP_compliant_yes"
               option = 1
-            elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type == EAAppraiserUSPAPFamiliar
+            elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling || selected_plan == EAAppraisalTypeShortForSellingPair || selected_plan == EAAppraisalTypeLongForSellingPair) && appraiser_type == EAAppraiserUSPAPFamiliar
               format = "appraisal_body_summary_forselling_USPAP_compliant_yes"
               option =2
-            elsif (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted) && appraiser_type != EAAppraiserUSPAPFamiliar
+            elsif (selected_plan == EAAppraisalTypeShortRestricted || selected_plan == EAAppraisalTypeLongRestricted || selected_plan == EAAppraisalTypeShortRestrictedPair || selected_plan == EAAppraisalTypeLongRestrictedPair) && appraiser_type != EAAppraiserUSPAPFamiliar
               format = "appraisal_body_restricteduse_USPAP_compliant_no"
               option =3
-            elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling) && appraiser_type != EAAppraiserUSPAPFamiliar
+            elsif (selected_plan == EAAppraisalTypeShortForSelling || selected_plan == EAAppraisalTypeLongForSelling || selected_plan == EAAppraisalTypeShortForSellingPair || selected_plan == EAAppraisalTypeLongForSellingPair) && appraiser_type != EAAppraiserUSPAPFamiliar
               format = "appraisal_body_summary_forselling_USPAP_compliant_no"
               option =4
             else
               raise "Invalid selected_plan and appraiser_type combination"
-            end
-          %>
+              end
+            %>
           <div id="supplemental_information" class="collapse">
-              <%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
-              <% if @appraisal.status == EActivityValueFinalized %>
-                <div id="appraiser-info">
+            <%= render :partial => "appraisals/formats/"+format, :locals => {:appraisal => @appraisal} %>
+            <% if @appraisal.status == EActivityValueFinalized %>
+              <div id="appraiser-info">
                 <% if (@appraiser.signature?) %> 
                   <%= image_tag "#{@appraiser.signature.standard.url}?id=#{rand(1000)}", :height => "100", :width => "250"%>
-              <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
+                <% elsif !(@appraiser.appraiser_extra.signature_json.nil? || @appraiser.appraiser_extra.signature_json.empty?) %>
                   <canvas id="appraiser-signature" height="100" width="250"></canvas>
-              <% end %>
+                <% end %>
                 <h4><%= @appraiser.name %></h4>
               </div>
             <% end %>
-            </div>
-          <% end %>
           </div>
-        </div>
-      <% end %>
+        <% end %>
       </div>
+    </div>
+  <% end %>
+</div>
     </div>
   </div>
 </center>
