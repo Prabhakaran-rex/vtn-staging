@@ -1,6 +1,10 @@
 <% if !current_user.superadmin? %>
   <b>You are not authorized</b>
 <% else %>
+  <style type="text/css" media="all">
+    TR.even { background-color: #ddd; }
+    TR.odd { background-color: #AAd; }
+  </style>
   <% start_year = year.to_i %>
   <% end_year = start_year+1 %>
   <h1>Reports</h1>
@@ -14,7 +18,7 @@
       <tr>
         <th>Month</th>
         <% APPRAISAL_PLANS.sort.each do |plan_id| %>
-          <th><%= getStringForAppraisalType plan_id %></th>
+          <th><%= getStringForAppraisalType(plan_id).gsub(/ Appraisal/,'') %></th>
         <% end %>
       </tr>
     </thead>
@@ -23,7 +27,7 @@
         result = Hash.new(0)
         appraisals.each {|x| result[x.selected_plan] += 1 }
       %>
-    <tr>
+    <tr class="<%= cycle("even", "odd") %>">
       <td><%= "#{month.strftime('%B')} (#{appraisals.count})"  %></td>
 
       <% APPRAISAL_PLANS.sort.each do |plan_id| %>
@@ -44,7 +48,7 @@
       <tr>
         <th>Month</th>
         <% APPRAISAL_PLANS.sort.each do |plan_id| %>
-          <th><%= getStringForAppraisalType plan_id %></th>
+          <th><%= getStringForAppraisalType(plan_id).gsub(/ Appraisal/,'') %></th>
         <% end %>
       </tr>
     </thead>
@@ -54,7 +58,7 @@
         result = Hash.new(0)
         appraisals.each {|x| result[x.selected_plan] += x.payment.amount; @totals[x.selected_plan] += x.payment.amount; }
       %>
-    <tr>
+    <tr class="<%= cycle("even", "odd") %>">
       <td><%= "#{month.strftime('%B')} (#{number_to_currency(result.inject(0){|sum,x| sum + x[1]})})"  %></td>
 
       <% APPRAISAL_PLANS.sort.each do |plan_id| %>
@@ -75,13 +79,13 @@
    <!-- Profit per type -->
   <% @appraisals_years = @appraisals.group_by {|t| t.created_at.beginning_of_year} %>
   <% @appraisals_years.sort.each do |year, appraisals| %>
-  <h2>Company Profits for <%= "#{year.strftime('%Y')}" %></h2>
+  <h2>Company Gross Profits for <%= "#{year.strftime('%Y')}" %></h2>
   <table>
     <thead>
       <tr>
         <th>Month</th>
         <% APPRAISAL_PLANS.sort.each do |plan_id| %>
-          <th><%= getStringForAppraisalType plan_id %></th>
+          <th><%= getStringForAppraisalType(plan_id).gsub(/ Appraisal/,'') %></th>
         <% end %>
       </tr>
     </thead>
@@ -91,7 +95,7 @@
         result = Hash.new(0)
         appraisals.each {|x| result[x.selected_plan] += x.payment.amount - x.payout_amount; @totals[x.selected_plan] += x.payment.amount - x.payout_amount; }
       %>
-    <tr>
+    <tr class="<%= cycle("even", "odd") %>">
       <td><%= "#{month.strftime('%B')} (#{number_to_currency(result.inject(0){|sum,x| sum + x[1]})})"  %></td>
 
       <% APPRAISAL_PLANS.sort.each do |plan_id| %>
@@ -118,7 +122,7 @@
       <tr>
         <th>Month</th>
         <% APPRAISAL_PLANS.sort.each do |plan_id| %>
-          <th><%= getStringForAppraisalType plan_id %></th>
+          <th><%= getStringForAppraisalType(plan_id).gsub(/ Appraisal/,'') %></th>
         <% end %>
       </tr>
     </thead>
@@ -128,7 +132,7 @@
         result = Hash.new(0)
         appraisals.each {|x| result[x.selected_plan] += x.payout_amount; @totals[x.selected_plan] += x.payout_amount; }
       %>
-    <tr>
+    <tr class="<%= cycle("even", "odd") %>">
       <td><%= "#{month.strftime('%B')} (#{number_to_currency(result.inject(0){|sum,x| sum + x[1]})})"  %></td>
 
       <% APPRAISAL_PLANS.sort.each do |plan_id| %>
