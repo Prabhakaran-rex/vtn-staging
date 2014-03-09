@@ -72,7 +72,7 @@ gem 'simple_form'
 gem 'country_select'
 gem 'wicked' # For wizard-type appraiser registration
 gem 'wicked_pdf' # for PDF generation
-gem "activeadmin", "~> 0.5.1"
+gem "activeadmin", git: "git://github.com/slopezm/active_admin", branch: "0-5-1"
 gem 'meta_search',    '>= 1.1.0.pre'
 
 gem 'comfortable_mexican_sofa'
