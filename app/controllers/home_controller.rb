@@ -100,29 +100,7 @@ class HomeController < ApplicationController
     render cms_page: '/cost-of-appraisals'
   end
 
-  # Begin For future use
-  def static1
-    render cms_page: '/static1'
-  end
-
-  def static2
-    render cms_page: '/static2'
-  end
-
-  def static3
-    render cms_page: '/static3'
-  end
-
-  def static4
-    render cms_page: '/static4'
-  end
-
-  def static5
-    render cms_page: '/static5'
-  end
-
-  def static6
-    render cms_page: '/static6'
+  def testimonials
   end
 
   def appraisal_provider_agreement

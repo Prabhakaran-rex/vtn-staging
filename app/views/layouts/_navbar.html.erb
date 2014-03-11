@@ -22,7 +22,8 @@
           <li><%= link_to("Support", contact_path) %></li>
           <li><%= link_to("Signout", destroy_user_session_path, method: :delete) %></li>
         <% else %>
-          <li><%= link_to "Blog", 'http://blog.valuethisnow.com' %></li>
+          <li><%= link_to("Blog", 'http://blog.valuethisnow.com') %></li>
+          <li><%= link_to('Testimonials', controller: :home, action: :testimonials) %></li>
           <li class="dropdown" id="toggleHow">
           <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#">How It Works <b class="caret"></b></a>
           <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
