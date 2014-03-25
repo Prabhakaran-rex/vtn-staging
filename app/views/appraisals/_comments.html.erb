@@ -4,7 +4,7 @@
 	<%= render :partial => "appraisals/comment_block.html.erb", :locals => {:comment => comment} %>
 <% end %>
 </div>
-<% if @appraisal.status == EActivityValueClaimed %>
+<% if @appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized  %>
 <div id="div_comment">
 	<%= simple_form_for Comment.new, :action => "comment", :controller => "appraisals" do |f| %>
 	<%= f.input :body, :label => "Please enter your message here:", :input_html => {:rows => 3}  %>
