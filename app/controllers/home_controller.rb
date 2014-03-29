@@ -103,6 +103,9 @@ class HomeController < ApplicationController
   def testimonials
   end
 
+  def affiliate
+  end
+
   def appraisal_provider_agreement
     respond_to do |format|
       format.html

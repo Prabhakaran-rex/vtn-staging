@@ -98,6 +98,7 @@ PurexNew::Application.routes.draw do
   get '/home/appraisal_body_summary_forselling_USPAP_compliant_yes' => 'home#appraisal_body_summary_forselling_USPAP_compliant_yes'
   get '/home/cost' => 'home#cost'
   get '/home/testimonials' => 'home#testimonials'
+  get '/home/affiliate' => 'home#affiliate', :as => 'affiliate'
   get '/home/appraisal_provider_agreement' => 'home#appraisal_provider_agreement', :as => "appraisal_provider_agreeement"
 
   post '/appraisals/comment' => "appraisals#comment", :as => :comments
