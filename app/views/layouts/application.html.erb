@@ -1,45 +1,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><%= get_page_title(request.fullpath) %></title>
-<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900' rel='stylesheet' type='text/css'>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<%= render :partial => 'layouts/meta' %>
-<%= render partial: 'layouts/js_constants' %>
-<%= stylesheet_link_tag    "application", :media => "all" %>
-<%= javascript_include_tag "application" %>
-<%= csrf_meta_tags %>
-<!--  styles -->
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-          <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-<!--[if IE]>
-  <link rel="stylesheet" type="text/css" href="/ie.css">
-<![endif]-->
-<!--[if IE]><script src="https://s3.amazonaws.com/screencasts.valuemytreasure.com/js/excanvas.compiled.js"></script><![endif]-->
-<!-- Le fav and touch icons -->
-<%= analytics_init if Rails.env.production? %>
-<script type="text/javascript">
-//<![CDATA[
-var cvc_loc0=(window.location.protocol == "https:")? "https://secure.comodo.net/trustlogo/javascript/trustlogo.js" :
-"http://www.trustlogo.com/trustlogo/javascript/trustlogo.js";
-document.writeln('<scr' + 'ipt language="JavaScript" src="'+cvc_loc0+'" type="text\/javascript">' + '<\/scr' + 'ipt>');
-//]]>
-</script>
-</head>
-<body <%= "class=blue-background" if current_page?(main_app.url_for(controller: 'home', action: 'index' ))  %>>
-<%= # render :partial => "layouts/welcome"
-%>
-<!-- Navbar -->
-<%= render :partial => "layouts/navbar"%>
-  <%= render :partial => 'layouts/flash', locals: {flash: flash}%>
-<div style="background:#FFF;">
-  <%= yield %>
-</div>
-<%= render :partial => "layouts/footer" %>
-</body>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><%= get_page_title(request.fullpath) %></title>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= render :partial => 'layouts/meta' %>
+    <%= render partial: 'layouts/js_constants' %>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <!--  styles -->
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if IE]>
+    <link rel="stylesheet" type="text/css" href="/ie.css">
+    <![endif]-->
+    <!--[if IE]><script src="https://s3.amazonaws.com/screencasts.valuemytreasure.com/js/excanvas.compiled.js"></script><![endif]-->
+    <!-- Le fav and touch icons -->
+    <%= analytics_init if Rails.env.production? %>
+    <script type="text/javascript">
+      //<![CDATA[
+    var cvc_loc0=(window.location.protocol == "https:")? "https://secure.comodo.net/trustlogo/javascript/trustlogo.js" :
+    "http://www.trustlogo.com/trustlogo/javascript/trustlogo.js";
+    document.writeln('<scr' + 'ipt language="JavaScript" src="'+cvc_loc0+'" type="text\/javascript">' + '<\/scr' + 'ipt>');
+    //]]>
+    </script>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <%= render :partial => "layouts/navbar"%> <!-- tb_check -->
+    <%= render :partial => 'layouts/flash', locals: {flash: flash}%> <!-- tb_check -->
+    <div id="wrap">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render :partial => "layouts/footer" %> <!-- tb_check -->
+  </body>
 </html>

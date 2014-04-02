@@ -18,3 +18,7 @@ More info can be found at [Rolify's FAQ](https://github.com/EppO/rolify/wiki/FAQ
 ### Seeding the categories list
 
 In the CLI run `rake purex:categories` this will insert all categories found on [lib\tasks\categories.rake](https://github.com/slopezm/colosses/blob/master/lib/tasks/categories.rake)
+
+## TODO
+
+* Clean up Contact controlle to remove any lighthouse/ticketing references including `lib/complaints`

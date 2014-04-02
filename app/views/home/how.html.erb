@@ -1,25 +1,18 @@
-<center>
-  <div class="contentBlock">
-    <div class="row sub_box">
-      <div class="span12">
-        <% if @role == "consumer" %>
-          <%= get_cms_content('/how-it-works-consumers') %>
-      <% elsif @role == "appraiser" %>
-          <%= get_cms_content('/how-it-works-appraisers') %>
-      <% else %>
-          <div class="row-fluid">
-          <div class="span5">
-            <%= link_to 'For Consumers', how_path(:role => "consumer"), :class => "btn btn-success btn-large" %>
-          </div>
-          <div class="span2">
-            &nbsp;
-          </div>
-          <div class="span5">
-            <%= link_to 'For Appraisers', how_path(:role => "appraiser"), :class => "btn btn-success btn-large" %>
-          </div>
+<div class="row">
+  <div class="col-md-9 col-md-offset-1">
+    <% if @role == "consumer" %>
+      <%= get_cms_content('/how-it-works-consumers') %>
+    <% elsif @role == "appraiser" %>
+      <%= get_cms_content('/how-it-works-appraisers') %>
+    <% else %>
+      <div class="row">
+        <div class="col-md-5 col-md-offset-2">
+          <%= link_to 'For Consumers', how_path(:role => "consumer"), :class => "btn btn-success btn-large" %>
         </div>
-      <% end %>
+        <div class="col-md-5">
+          <%= link_to 'For Appraisers', how_path(:role => "appraiser"), :class => "btn btn-success btn-large" %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
-</center>
+</div>

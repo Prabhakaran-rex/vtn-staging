@@ -1,9 +1,6 @@
 <% user_type = resource.type.downcase %>
-<div style="background:#FFF;">
-  <center>
-    <div class="contentBlock">
+<div class="row">
+  <div class="col-md-9 col-md-offset-1">
         <%= render :partial => "registrations/new_#{user_type}" %>
-    </center>
   </div>
 </div>
-

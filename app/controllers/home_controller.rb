@@ -68,9 +68,6 @@ class HomeController < ApplicationController
     render cms_page: '/what_makes'
   end
 
-  def appraiser_invite
-  end
-
   def fee_schedule
     render cms_page: '/fee-schedule'
   end

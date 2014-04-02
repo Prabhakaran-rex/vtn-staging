@@ -153,6 +153,10 @@ module ApplicationHelper
     return raw(page.nil? ? "" : page.content)
   end
 
+  def get_static_page_html(path, col = 10, offset = 1)
+    return raw "<div class='row'><div class='col-md-#{col} col-md-offset-#{offset}'>#{get_cms_content('/testimonials')}</div></div>"
+  end
+
   def form_text_field(params)
     title = params[:title] || params[:field].to_s.titleize
     required = params[:required] || false
@@ -167,11 +171,44 @@ module ApplicationHelper
     hint = params[:hint] || nil
     value = params[:value] || nil
 
+
+    markup = "
+      <div class='form-group'>
+        <label class='col-sm-2 control-label'>Email</label>
+        <div class='col-sm-10'>
+          <%= f.input_field :email, class: 'form-control' %>
+        </div>
+      </div>"
+
     markup = "<tr><td class='formTitle' valign='top'>#{'*' if required} #{title}</td>"
     markup += "<td class='formBlock'>"
     markup += params[:form].input params[:field], as: as, required: required, label: label, input_html: input_html, placeholder: placeholder, priority: priority, value: value, hint: hint
     markup += "</td></tr>"
     return raw markup
+  end
+
+
+  def tb_field(params)
+    label_width = params[:label_width] || 2
+    field_width = params[:label_width] || 10
+    title = params[:title] || params[:field].to_s.titleize
+    form = params[:form]
+    value = params[:value] || nil
+    as = params[:as] || :string
+    input_html = params[:input_html] || nil
+    label = as == :hidden ? "" : "<label class='col-sm-#{label_width} control-label'>#{title}</label>"
+    markup = "<div class='form-group'>" + label + "<div class='col-sm-#{field_width}'>"
+    markup += params[:form].input_field :email, class: 'form-control', value: value, as: as, input_html: input_html
+    markup += "</div></div>"
+    return raw markup
+  end
+
+  def tb_submit_button(params = {})
+    label_width = params[:label_width] || 2
+    field_width = params[:label_width] || 10
+    title = params[:title] || "Save"
+    html_class = params[:html_class] || "btn btn-success"
+    return raw "<div class='form-group'><div class='col-sm-offset-#{label_width} col-sm-#{field_width}'><button type='submit' class='#{html_class}'>#{title}</button></div></div>"
   end
 
   def form_submit_button(params)

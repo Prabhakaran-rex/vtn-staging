@@ -1,5 +1,4 @@
 require 'complaints'
-# TODO Rename this to support
 class ContactController < ApplicationController
 	def new
 		@message = Message.new

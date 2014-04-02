@@ -29,7 +29,7 @@ gem "jquery-ui-rails", "~> 4.0.4"
 
 # For Twitter bootstrap
 gem 'sass-rails',   '~> 3.2.3'
-gem 'bootstrap-sass', '~> 2.0.4.0'
+gem 'bootstrap-sass'
 
 gem "heroku-forward"
 
@@ -68,7 +68,7 @@ gem "jbuilder", "~> 1.5.1"
 gem 'ancestry'
 gem "activerecord-import", "~> 0.2.11"
 
-gem 'simple_form'
+gem 'simple_form', git: "git@github.com:plataformatec/simple_form.git", branch: "v2.2"
 gem 'country_select'
 gem 'wicked' # For wizard-type appraiser registration
 gem 'wicked_pdf' # for PDF generation

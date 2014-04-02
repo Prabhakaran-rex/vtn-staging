@@ -1,34 +1,33 @@
+<!-- tb_check -->
 <% unless flash.empty? %>
-<div class="flash">
-  <!-- Flash Notice -->
   <% if flash[:notice] %>
-    <div>
-    <div class="alert alert-info">
-      <a class="close" data-dismiss="alert">×</a>
-      <%= flash[:notice] %>
-    </div> <!-- Alert -->
-  </div> <!-- Row Fluid -->
-<% end %>
-  <!-- End Notice -->
-  <!-- Flash alert -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-info alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <%= flash[:notice] %>
+        </div>
+      </div>
+    </div>
+  <% end %>
   <% if flash[:alert] %>
-    <div>
-    <div class="alert">
-      <a class="close" data-dismiss="alert">×</a>
-      <%= flash[:alert] %>
-    </div> <!-- Alert -->
-  </div> <!-- Row Fluid -->
-<% end %>
-  <!-- End Notice -->
-  <!-- Flash Error -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <%= flash[:alert] %>
+        </div>
+      </div>
+    </div>
+  <% end %>
   <% if flash[:error] %>
-    <div>
-    <div class="alert alert-error">
-      <a class="close" data-dismiss="alert">×</a>
-      <%= flash[:error] %>
-    </div> <!-- Alert -->
-  </div> <!-- Row Fluid -->
-<% end %>
-  <!-- End Notice -->
-</div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-danger alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <%= flash[:error] %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 <% end %>
