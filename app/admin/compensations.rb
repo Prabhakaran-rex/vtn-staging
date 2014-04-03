@@ -39,7 +39,7 @@ ActiveAdmin.register Compensation do
       f.input :min_range, :hint => "In hours"
       f.input :max_range, :hint => "In hours"
     end
-    f.buttons
+    f.actions
   end
 
   show do

@@ -31,7 +31,7 @@ document.writeln('<scr' + 'ipt language="JavaScript" src="'+cvc_loc0+'" type="te
 //]]>
 </script>
 </head>
-<body <%= "class=blue-background" if current_page?(main_app.url_for(controller: 'home', action: 'index' ))  %>>
+<body <%= "class=blue-background" if current_page?(main_app.url_for(controller: '/home', action: 'index' ))  %>>
 <%= # render :partial => "layouts/welcome"
 %>
 <!-- Navbar -->

@@ -25,8 +25,8 @@
         <tr>
           <td class="formTitle" valign="top"></td>
           <td class="formBlock">
-            <%= f.input :agree_to_provider_agreement, :as => :boolean, :wrapper => :checkbox_inline_with_control_group, :label => "I have read and agree to the Appraisal Provider Agreement." , :hint => false %>
-            <%= f.input :agree_to_code_of_ethics, :as => :boolean, :wrapper => :checkbox_inline_with_control_group, :label => "I comply with the #{link_to 'Appraiser Code of Ethics', ethics_path}", :hint => false %>
+            <%= f.input :agree_to_provider_agreement, :as => :boolean, :label => "I have read and agree to the Appraisal Provider Agreement." , :hint => false %>
+            <%= f.input :agree_to_code_of_ethics, :as => :boolean, :label => "I comply with the #{link_to 'Appraiser Code of Ethics', ethics_path}", :hint => false %>
           </td>
         </tr>
       <%= form_submit_button(form: f, title: "Sign up") %>

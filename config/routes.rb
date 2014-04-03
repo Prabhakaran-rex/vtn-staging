@@ -1,5 +1,7 @@
 PurexNew::Application.routes.draw do
 
+
+  root :to => 'home#index'
   get "taxes/irs_income" => "taxes#irs_income", as: :taxes_income
 
   get "payouts/create"
@@ -7,14 +9,14 @@ PurexNew::Application.routes.draw do
   get "dashboard/payouts(/:status)" => "dashboard#payouts", :as => :dashboard_payouts
   get "dashboard(/:detail)" => 'dashboard#index', :as => :dashboard_detail
 
-  match "tags/create" => "tags#create", :as => :annotate
-  match "tags/destroy" => "tags#destroy", :as => :destroy_tag
+  post "tags/create" => "tags#create", :as => :annotate
+  match "tags/destroy" => "tags#destroy", :as => :destroy_tag, via: [:get, :delete, :post]
 
   resources :payments, :only => [:create]
-  match "/validate_coupon" => "payments#validate_coupon", :as => :validate_coupon
+  get "/validate_coupon" => "payments#validate_coupon", :as => :validate_coupon, via: [:get]
   get "appraisal_data/create"
-  match '/facebook/' => "users#facebook_login"
-  match '/users/update_appraiser_status' => "users#update_appraiser_status", :as => :update_appraiser_status
+  get '/facebook/' => "users#facebook_login", via: [:get]
+  match '/users/update_appraiser_status' => "users#update_appraiser_status", :as => :update_appraiser_status, via: [:post, :put]
 
   devise_for :users, :controllers => { :registrations => "registrations"}
 
@@ -22,24 +24,24 @@ PurexNew::Application.routes.draw do
 
   devise_for :customers, :controllers => {:omniauth_callbacks => "omniauth_callbacks",  :registrations => "registrations"}
 
-    get '/users/save_json_signature' => 'users#save_json_signature', :as => :save_json_signature
+    post '/users/save_json_signature' => 'users#save_json_signature', :as => :save_json_signature
     get '/users/new_signature' => 'users#new_signature', :as => :new_signature
     post '/users/save_signature' => 'users#save_signature', :as => :save_signature
-    match '/users/crop_signature' => 'users#crop_signature', :as => :crop_signature
+    get '/users/crop_signature' => 'users#crop_signature', :as => :crop_signature, via: [:all]
 
     get '/users/save_json_avatar' => 'users#save_json_avatar', :as => :save_json_avatar
     get '/users/new_avatar' => 'users#new_avatar', :as => :new_avatar
     post '/users/save_avatar' => 'users#save_avatar', :as => :save_avatar
-    match '/users/crop_avatar' => 'users#crop_avatar', :as => :crop_avatar
+    get '/users/crop_avatar' => 'users#crop_avatar', :as => :crop_avatar, via: [:all]
 
   resources :appraiser_steps
   resources :photos, :only => [:index, :create, :destroy]
   get '/photos/tag/:appraisal_id/:photo_id' => 'photos#tag', :as => :photo_tag
   post '/photos/set_as_default/:appraisal_id/:photo_id' => "photos#set_as_default", :as => :set_default_photo
 
-  match '/appraisals/wizard_photo_upload/:appraisal_id' => 'appraisals#wizard_photo_upload', :as => :wizard_photo_upload
-  match '/appraisals/wizard_categories/:appraisal_id' => 'appraisals#wizard_categories', :as => :wizard_categories
-  match '/appraisals/share' => 'appraisals#share', :as => :share_appraisal
+  get '/appraisals/wizard_photo_upload/:appraisal_id' => 'appraisals#wizard_photo_upload', :as => :wizard_photo_upload, via: [:get]
+  get '/appraisals/wizard_categories/:appraisal_id' => 'appraisals#wizard_categories', :as => :wizard_categories, via: [:get]
+  match '/appraisals/share' => 'appraisals#share', :as => :share_appraisal, via: [:get, :post]
   get '/appraisals/show_shared/:id' => 'appraisals#show_shared', :as => :show_shared
   resources :appraisals do
     resources :build, controller: 'appraisals/build'
@@ -57,8 +59,8 @@ PurexNew::Application.routes.draw do
   end
 
   get '/appraisers/submit_application' => 'appraiser#submit_application', :as => :submit_application
-  match '/appraisers/get_application_status/:id' => "appraiser#get_application_status", :as => :get_application_status
-  match '/appraisers/notify' => "appraiser#notify", :as => :appraisers_notify
+  get '/appraisers/get_application_status/:id' => "appraiser#get_application_status", :as => :get_application_status
+  match '/appraisers/notify' => "appraiser#notify", :as => :appraisers_notify, via: [:get, :post]
 
   get '/skills/getRootCategories' => 'skills#getRootCategories'
   resources :classifications
@@ -67,16 +69,15 @@ PurexNew::Application.routes.draw do
     resources :trade_references
   end
 
-  root :to => 'home#index'
-    
-  match 'contact' => 'contact#new', :as => 'contact', :via => :get
-  match 'contact' => 'contact#create', :as => 'contact', :via => :post
-  match 'complaint' => 'contact#complaint', :as => 'complaints', :via => :get
+
+  get 'contact' => 'contact#new', :as => 'contact'
+  post 'contact' => 'contact#create'
+  get 'complaint' => 'contact#complaint', :as => 'complaints', :via => :get
   get 'tickets' => 'contact#tickets', :as => :tickets
   get 'ticket' => 'contact#ticket', :as => :new_ticket
   post 'ticket' => 'contact#ticket_create', :as => :ticket_create
-  match '/tickets/:id' => "contact#show", :as => :show_ticket
-  
+  get '/tickets/:id' => "contact#show", :as => :show_ticket
+
   # Static pages linked from CMS
   get '/home/how' => 'home#how', :as => 'how'
   get '/home/become' => 'home#become', :as => 'become'
@@ -102,61 +103,15 @@ PurexNew::Application.routes.draw do
   get '/home/appraisal_provider_agreement' => 'home#appraisal_provider_agreement', :as => "appraisal_provider_agreeement"
 
   post '/appraisals/comment' => "appraisals#comment", :as => :comments
-  match '/appraisals/reject/:id' => "appraisals#reject", :as => :appraisal_reject
-  match 'switch_user' => 'switch_user#set_current_user'
+  get '/appraisals/reject/:id' => "appraisals#reject", :as => :appraisal_reject, via: [:all]
+  get 'switch_user' => 'switch_user#set_current_user', via: [:all]
   ActiveAdmin.routes(self)
 
   get '/cms/blog/posts/:slug' => 'home#blog_redirect'
   get '/cms/blog' => 'home#blog_redirect'
 
-  # Begin ComfortableMexicanSofa
-  namespace :cms_admin, :path => ComfortableMexicanSofa.config.admin_route_prefix, :except => :show do
-      get '/', :to => 'cms_admin/sites#index'
-      resources :sites do
-        resources :pages do
-          get  :form_blocks,    :on => :member
-          get  :toggle_branch,  :on => :member
-          put :reorder,         :on => :collection
-          resources :revisions, :only => [:index, :show, :revert] do
-            put :revert, :on => :member
-          end
-        end
-        resources :files do
-          put :reorder, :on => :collection
-        end
-        resources :layouts do
-          put :reorder, :on => :collection
-          resources :revisions, :only => [:index, :show, :revert] do
-            put :revert, :on => :member
-          end
-        end
-        resources :snippets do
-          put :reorder, :on => :collection
-          resources :revisions, :only => [:index, :show, :revert] do
-            put :revert, :on => :member
-          end
-        end
-        resources :categories
-        get 'dialog/:type' => 'dialogs#show', :as => 'dialog'
-      end
-    end unless ComfortableMexicanSofa.config.admin_route_prefix.blank?
-    
-    scope :controller => :cms_content do
-      get 'cms-css/:site_id/:identifier' => :render_css,  :as => 'cms_css'
-      get 'cms-js/:site_id/:identifier'  => :render_js,   :as => 'cms_js'
-      
-      if ComfortableMexicanSofa.config.enable_sitemap
-        get '(:cms_path)/sitemap' => :render_sitemap,
-          :as           => 'cms_sitemap',
-          :constraints  => {:format => /xml/},
-          :format       => :xml
-      end
-      
-      get '/' => :render_html,  :as => 'cms_html',  :path => "(*cms_path)"
-    end
-    # End ComfortableMexicanSofa
+  comfy_route :cms_admin, :path => '/admin'
 
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  match ':controller(/:action(/:id))(.:format)'
+  # Make sure this routeset is defined last
+  comfy_route :cms, :path => '/', :sitemap => false
 end

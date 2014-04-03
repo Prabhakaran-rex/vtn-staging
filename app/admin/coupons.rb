@@ -1,6 +1,5 @@
 ActiveAdmin.register Coupon do
   menu :if => proc{ can?(:manage, Coupon) }
-  controller.authorize_resource 
 	actions :all, :except => [:destroy]
 
   index do
@@ -47,7 +46,7 @@ ActiveAdmin.register Coupon do
                 :member_label => Proc.new { |t|  APPRAISAL_PLANS_NAMES[t] },
                 :hint => "If no produccts are selected, then the coupon will be valid for any type of appraisal"
 
-      f.buttons
+      f.actions
     end
   end
 end

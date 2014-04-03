@@ -1,5 +1,5 @@
 json.files do
-  json.array!(@photos) do |json, photo|
+  json.array!(@photos) do |photo|
     json.id photo.id
     json.name File.basename(photo.asset.to_s)
     json.url photo.picture_url

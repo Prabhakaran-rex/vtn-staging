@@ -1,9 +1,9 @@
 <% userType = @resource.type.downcase %>
 <p>Welcome <%= @resource.name %>!</p>
 <%= raw get_cms_content('/'+userType+'-welcome-email-before-confirmation-link') %>
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @token) %></p>
 <p>or you can copy and paste the following link into your browser:</p>
 <pre>
-  <%= confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)   %>
+  <%= confirmation_url(@resource, :confirmation_token => @token)   %>
 </pre>
 <%= raw get_cms_content('/'+userType+'-welcome-email-after-confirmation-link') %>

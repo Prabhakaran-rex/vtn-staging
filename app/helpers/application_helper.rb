@@ -104,7 +104,7 @@ module ApplicationHelper
   end
 
   def print_as_currency(number)
-    number_to_currency(number, :locale => :us)
+    number_to_currency(number, :locale => 'en-US')
   end
 
   def display_time(total_seconds)
