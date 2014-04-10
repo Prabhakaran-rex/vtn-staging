@@ -80,7 +80,7 @@ function deleteCategory(caller, id ) {
 function getApplicationStatus() {
   $.ajax({
     url: "<%= url_for get_application_status_path(current_user) %>",
-    type: 'post',
+    type: 'get',
     success: function(data) {
       if (data.status == false)
         { $('#btnSubmitApplication').addClass("inactiveLink disabled");

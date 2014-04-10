@@ -37,6 +37,9 @@ class User < ActiveRecord::Base
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
     :payment_method, :uspap, :name, :agree_to_tos, :role, :access_token, :login, :status, :avatar, :avatar_cache, :remove_avatar, :website, :paypal_email
 
+  attr_accessible :crop_avatar_x, :crop_avatar_y, :crop_avatar_w, :crop_avatar_h
+  attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
+
   attr_accessible :agree_to_provider_agreement, :agree_to_code_of_ethics
   validates :agree_to_provider_agreement, :agree_to_code_of_ethics, :acceptance => true, :on => :create, :if => :is_appraiser?
 

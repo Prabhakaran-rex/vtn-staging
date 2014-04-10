@@ -46,7 +46,7 @@ jQuery ->
 
   validate_coupon = (params) ->
     $.ajax "/validate_coupon",
-      type: 'POST'
+      type: 'GET'
       dataType: 'json'
       data: { coupon_code : $("#appraisal_payment_attributes_coupon").val(), appraisal_type: $("#appraisal_type").val() }
       success: (data) ->

@@ -2,8 +2,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :rename_params
+  before_filter :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from CanCan::AccessDenied do |exception|
+    redirect_to admin_dashboard_path, :alert => exception.message
+  end
+
+  def access_denied(exception)
     redirect_to admin_dashboard_path, :alert => exception.message
   end
 
@@ -23,10 +28,10 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_user!
-    authenticate_user! 
+    authenticate_user!
     unless current_user.admin?
       flash[:alert] = "This area is restricted to administrators only."
-      redirect_to root_path 
+      redirect_to root_path
     end
   end
 
@@ -51,6 +56,10 @@ class ApplicationController < ActionController::Base
     if current_user.nil? || !current_user.admin?
       redirect_to root_path
     end
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :password_confirmation) }
   end
 
   private

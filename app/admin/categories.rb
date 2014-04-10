@@ -5,7 +5,7 @@ ActiveAdmin.register Category do
     f.inputs "Category Details" do
       f.input :name
     end
-    f.buttons
+    f.actions
   end
 
 end

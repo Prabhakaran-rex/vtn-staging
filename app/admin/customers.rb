@@ -24,7 +24,7 @@ ActiveAdmin.register Customer do
       f.input :name
       f.input :email
     end
-    f.buttons
+    f.actions
   end
 
   after_create { |admin| admin.send_reset_password_instructions }
@@ -34,7 +34,6 @@ ActiveAdmin.register Customer do
 
 
   controller do
-  	load_and_authorize_resource :except => :index
   	def scoped_collection
   		end_of_association_chain.accessible_by(current_ability)
   	end

@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   def get_user
-    @user = params[:id].nil? ? current_user : User.find(params[:id])
+    @user = current_user
     redirect_to root_path if @user.nil?# || @user.role != "admin"
   end
 
