@@ -395,8 +395,13 @@ GEM
       rails (>= 4.0)
     rails-observers (0.1.2)
       activemodel (~> 4.0)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
     rails_email_validator (0.1.4)
       activemodel (>= 3.0.0)
+    rails_serve_static_assets (0.0.2)
+    rails_stdout_logging (0.0.3)
     railties (4.0.4)
       actionpack (= 4.0.4)
       activesupport (= 4.0.4)
@@ -545,6 +550,7 @@ DEPENDENCIES
   psych
   rails (= 4.0.4)
   rails-observers
+  rails_12factor
   rails_email_validator (~> 0.1.4)
   ransack (~> 1.1.0)
   rb-fsevent (~> 0.9.1)
