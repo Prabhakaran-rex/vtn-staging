@@ -1,15 +1,21 @@
-<h2>Change your password</h2>
-
-<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
-  <%= devise_error_messages! %>
-<%= f.hidden_field :reset_password_token %>
-<div class="form-inputs">
-  <%= f.input :password, :label => "New password", :hint => "Must have at least 6 characters: at least 1 digit, at least 1 upper case letter."%> 
-  <%= f.input :password_confirmation, :hint => "Must have at least 8 characters: at least 1 digit, at least 1 lower case letter, at least 1 upper case letter, at least 1 non-alphanumeric character."%>
+<div class="row">
+  <div class="col-md-9 col-md-offset-1 big-title">
+    Change your password
+  </div>
 </div>
-<div class="form-actions">
-  <%= f.submit "Change my password", :class => "btn btn-success"%>
+<div class="row">
+  <div class="col-md-9 col-md-offset-1">
+    <%= simple_form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'form-horizontal' },
+      wrapper: :horizontal_form,
+      wrapper_mappings: {
+        check_boxes: :horizontal_radio_and_checkboxes,
+        radio_buttons: :horizontal_radio_and_checkboxes,
+        file: :horizontal_file_input,
+        boolean: :horizontal_boolean
+      } do |f| %>
+        <%= f.input :password, :label => "New password", :hint => "Must have at least 6 characters: at least 1 digit, at least 1 upper case letter."%> 
+        <%= f.input :password_confirmation, :hint => "Must have at least 8 characters: at least 1 digit, at least 1 lower case letter, at least 1 upper case letter, at least 1 non-alphanumeric character."%>
+      <%= f.submit "Change my password", :class=> "btn btn-success pull-right"%>
+    <% end %>
+  </div>
 </div>
-<% end %>
-
-<%= render "devise/shared/links" %>

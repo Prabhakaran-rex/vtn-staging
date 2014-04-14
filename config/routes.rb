@@ -83,8 +83,6 @@ PurexNew::Application.routes.draw do
   get '/home/become' => 'home#become', :as => 'become'
   get '/home/privacy' => 'home#privacy', :as => 'privacy'
   get '/home/terms' => 'home#terms', :as => 'terms'
-  get '/home/categories' => 'home#categories', :as => 'categories'
-  get '/home/exclusions' => 'home#exclusions', :as => 'exclusions'
   get '/home/ethics' => 'home#ethics', :as => 'ethics'
   get '/home/determining' => 'home#determining', :as => 'determining'
   get '/home/limiting' => 'home#limiting', :as => 'limiting'

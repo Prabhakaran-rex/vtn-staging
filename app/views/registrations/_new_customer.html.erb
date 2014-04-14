@@ -1,20 +1,32 @@
 <div class="row">
-  <div class="col-md-12 big-title">
+  <div class="col-md-10 col-md-offset-1 big-title">
     Sign-up
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6">
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), input_html: {class: "form-horizontal"}) do |f| %>
-      <%= tb_field(form: f, field: :name) %>
-      <%= tb_field(form: f, field: :email) %>
-      <%= tb_field(form: f, field: :password, as: :password) %>
-      <%= tb_field(form: f, field: :password_confirmation, as: :password) %>
-      <%= tb_field(form: f, field: :agree_to_tos, as: :boolean) %>
-      <%= tb_submit_button(title: "Sign Up") %>
+  <div class="col-md-5 col-md-offset-1 login-div">
+    <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: {class: "form-horizontal"},
+      wrapper: :horizontal_form,
+      wrapper_mappings: {
+        check_boxes: :horizontal_radio_and_checkboxes,
+        radio_buttons: :horizontal_radio_and_checkboxes,
+        file: :horizontal_file_input,
+        boolean: :horizontal_boolean
+      } do |f| %>
+      <%= f.input :name %>
+      <%= f.input :email %>
+      <%= f.input :password, as: :password, hint: "Must have at least 6 characters: at least 1 digit, at least 1 upper case letter."%>
+      <%= f.input :password_confirmation, as: :password, label: "Confirm Password" %>
+      <%= f.input :agree_to_tos, as: :boolean, label: raw("I have read and agree to the #{link_to "Terms of Service", terms_path(format: :pdf)} ") %>
+      <%= f.submit "Sign Up", :class=> "btn btn-success pull-right"%>
     <% end %>
   </div>
-  <div class="col-md-6 facebook-sign-in">
+  <div class="col-md-6">
     <%= link_to omniauth_authorize_path(:customer, :facebook) do %><%= image_tag "b_fb.jpg" %><% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 text-center">
+    <%= render "devise/shared/links" %>
   </div>
 </div>

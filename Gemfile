@@ -67,7 +67,7 @@ gem "jbuilder"
 gem 'ancestry'
 gem "activerecord-import", "~> 0.5.0"
 
-gem 'simple_form',github: "plataformatec/simple_form"
+gem 'simple_form', '~> 3.1.0.rc1'
 gem 'country_select'
 gem 'wicked' # For wizard-type appraiser registration
 gem 'wicked_pdf' # for PDF generation

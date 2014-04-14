@@ -19,19 +19,8 @@ class HomeController < ApplicationController
     end
   end
 
-  # What we value
-  def categories
-    render cms_page: '/categories'
-  end
-
-  # Excluded items
-  def exclusions
-    render cms_page: '/exclusions'
-  end
-
   # Privacy Policy
   def privacy
-    render cms_page: '/privacy-policy'
   end
 
   # How it works
@@ -41,7 +30,6 @@ class HomeController < ApplicationController
 
   # Become an Appraiser page
   def become
-    render cms_page: '/become'
   end
 
   # Appraiser code of Ethics
@@ -111,8 +99,7 @@ class HomeController < ApplicationController
       end
     end
   end
-  # End For Future Use
-  #
+
   def blog_redirect
     url = params[:slug] ? "http://blog.valuethisnow.com/posts/#{params[:slug]}" : "http://blog.valuethisnow.com"
     redirect_to url

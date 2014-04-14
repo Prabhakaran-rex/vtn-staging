@@ -1,37 +1,47 @@
-<div class="formTop">
-  <span class="title41">Become an appraiser</span>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 big-title">
+    Become an appraiser
+  </div>
 </div>
-<%= get_cms_content("/become") %>
-<br /><br />
-<span class="title27">Sign up below to get started as a Value This Now appraiser.</span>
-<div class="formHR"></div>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <table border="0">
-  <tr>
-    <td style="padding-right:30px;">
-      <table>
-        <%= form_text_field(form: f, field: :name, width: 300, required: true ) %>
-        <%= form_text_field(form: f, field: :email, width: 300, required: true ) %>
-        <%= form_text_field(form: f, field: :password, width: 300, as: :password, required: true, hint: "Must have at least 6 characters: at least 1 digit, at least 1 upper case letter." ) %>
-        <%= form_text_field(form: f, field: :password_confirmation, width: 300, as: :password, title: "Confirm Password", required: true ) %>
-        <tr>
-          <td class="formTitle" valign="top"></td>
-          <td class="formBlock">
-            <div style="width:520px;" class="longTxtBox">
-              <%= get_cms_content('/appraisal-provider-agreement') %>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="formTitle" valign="top"></td>
-          <td class="formBlock">
-            <%= f.input :agree_to_provider_agreement, :as => :boolean, :label => "I have read and agree to the Appraisal Provider Agreement." , :hint => false %>
-            <%= f.input :agree_to_code_of_ethics, :as => :boolean, :label => "I comply with the #{link_to 'Appraiser Code of Ethics', ethics_path}", :hint => false %>
-          </td>
-        </tr>
-      <%= form_submit_button(form: f, title: "Sign up") %>
-      </table>
-    </td>
-  </tr>
-</table>
-<% end %>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <%= get_cms_content("/become") %>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    Sign up below to get started as a Value This Now appraiser.
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: {class: "form-horizontal"},
+      wrapper: :horizontal_form,
+      wrapper_mappings: {
+        check_boxes: :horizontal_radio_and_checkboxes,
+        radio_buttons: :horizontal_radio_and_checkboxes,
+        file: :horizontal_file_input,
+        boolean: :horizontal_boolean
+      } do |f| %>
+
+      <%= f.input :name %>
+      <%= f.input :email %>
+      <%= f.input :password, as: :password, hint: "Must have at least 6 characters: at least 1 digit, at least 1 upper case letter."%>
+      <%= f.input :password_confirmation, as: :password, label: "Confirm Password" %>
+      <div class="form-group">
+        <label for="appraisal-provider-agreement" class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+          <textarea class="form-control" rows="3" disabled >
+            <%= get_cms_content('/appraisal-provider-agreement') %>
+          </textarea>
+        </div>
+      </div>
+      <%= f.input :agree_to_provider_agreement, as: :boolean, label: "I have read and agree to the Appraisal Provider Agreement." %>
+      <%= f.input :agree_to_code_of_ethics, :as => :boolean, :label => raw("I comply with the #{link_to 'Appraiser Code of Ethics', ethics_path}") %>
+      <%= f.submit "Sign Up", :class=> "btn btn-success pull-right"%>
+    <% end %>
+  </div>
+</div>

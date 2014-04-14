@@ -17,14 +17,6 @@ GIT
       sass-rails
 
 GIT
-  remote: git://github.com/plataformatec/simple_form.git
-  revision: 6b3f9db8906336d8df80475c71b75613e3fc895b
-  specs:
-    simple_form (3.0.1)
-      actionpack (~> 4.0)
-      activemodel (~> 4.0)
-
-GIT
   remote: git://github.com/slopezm/ruby-paypal.git
   revision: 1ce0b5b6fbdbc950282c92b5bf2ac2ba98d27f7d
   specs:
@@ -445,6 +437,9 @@ GEM
       sprockets-rails (~> 2.0)
     sendgrid_toolkit (1.4.0)
       httparty (>= 0.7.6)
+    simple_form (3.1.0.rc1)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     slop (3.5.0)
     spoon (0.0.4)
       ffi
@@ -558,7 +553,7 @@ DEPENDENCIES
   ruby-paypal (= 0.0.5)!
   sass-rails (~> 4.0.2)
   sendgrid_toolkit (>= 1.1.1)
-  simple_form!
+  simple_form (~> 3.1.0.rc1)
   switch_user (~> 0.9.1)
   thin
   tilt
