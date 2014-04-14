@@ -11,10 +11,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to(after_sign_in_path_for(@user), :notice => 'Your profile was successfully updated.') }
-        format.xml { head :ok }
       else
         format.html { redirect_to(after_sign_in_path_for(@user), :alert => 'Your profile was not updated. Check the input value you gave is correct.') }
-        format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
   end

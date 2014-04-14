@@ -1,28 +1,34 @@
-<center>
-  <div class="contentBlock">
-    <div class="formTop">
-      <span class="title41">Tell us about your item</span>
-      <span class="orderStep"><br />1 of 5</span>
-    </div>
-    <%= simple_form_for(@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
-      <div class="row sub_box">
-        <div>
-          <% if @appraisal.errors.any? %>
-            <div class="error_explanation">
-              <h4>Errors prohibited this appraisal from being saved</h4>
-            </div>
-          <% end %>
-        </div>
-        <div class="form-inputs">
-          <div class="row">
-            <div class="span7">
-              <%= f.input :title, :label => "Item Name", :input_html => {:class => "span5"}, required: true %>
-            </div>
-            <div class="span3">
-              <%= f.input :appraiser_referral, :label => "Appraiser ID <a href='#' id='tooltipAppraiserId'> <span class='badge badge-success'>?</span></a>", :input_html => {:class => "span1 "}, required: false %>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 big-title">
+    Tell us about your item
+  </div>
+  <div class="col-md-1">
+    1 of 5
+  </div>
+</div>
 
-            </div>
-          </div>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <%= simple_form_for@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"},
+      wrapper: :horizontal_form,
+      wrapper_mappings: {
+        check_boxes: :horizontal_radio_and_checkboxes,
+        radio_buttons: :horizontal_radio_and_checkboxes,
+        file: :horizontal_file_input,
+        boolean: :horizontal_boolean
+      } do |f| %>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-1">
+          <%= f.input :title, label: "Item Name" %>
+        </div>
+        <div class="col-md-3">
+          <%= f.input :appraiser_referral, label: raw("Appraiser ID <a href='#' id='tooltipAppraiserId'> <span class='badge badge-success'>?</span></a>") %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
           <%= f.input :name, :as => :text, :label => "Description",  :input_html => {:class => "span8", :rows => 4}, required: true, :hint => "(Enter a brief description of your item including any characteristics you feel are relevant to its value.)" %>
           <%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
             <%= a.input :item_history, :label => "Item History", :as => :text, required: true,:input_html => {:class => "span8", :rows => 4}, hint: "(Where did you get it? Purchase at auction, flea market? Family Heirloom? How long have you owned it?)" %>
@@ -32,14 +38,12 @@
             <%= c.association :category, as: :select, collection: Category.all(order: 'name'), required: true, input_html: {class: "chzn-select"} %>
           <% end %>
           <% if Setting.is_set("enable_insurance_claims","true") %>
-          <%= f.input :insurance_claim, label: false, inline_label: "This appraisal is for damage claims purposes. I'm seeking values prior to damage", hint: "Remember to provide detailed photos of the item (including a photo showing the whole item)", :input_html => {:class =>"" } %>
-          <%= f.input :insurance_location, label: "Location", as: :string, :input_html => {:class =>"span8" }, hint: "Please provide the location (city/state) of the property."%>
+            <%= f.input :insurance_claim, label: false, inline_label: "This appraisal is for damage claims purposes. I'm seeking values prior to damage", hint: "Remember to provide detailed photos of the item (including a photo showing the whole item)", :input_html => {:class =>"" } %>
+            <%= f.input :insurance_location, label: "Location", as: :string, :input_html => {:class =>"span8" }, hint: "Please provide the location (city/state) of the property."%>
           <% end %>
-        </div>
-        <div>
           <%= f.button :submit, "Next", class: "btn btn-success pull-right",id: "btnBuildWizardGeneral"  %>
         </div>
       </div>
     <% end %>
   </div>
-</center>
+</div>

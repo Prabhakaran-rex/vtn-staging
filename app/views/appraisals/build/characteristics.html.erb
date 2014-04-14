@@ -1,32 +1,36 @@
-<center>
-  <div class="contentBlock">
-    <div class="formTop">
-      <span class="title41">Item Characteristics</span>
-      <span class="orderStep"><br />2 of 5</span>
-    </div>
-    <%= simple_form_for(@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
-      <div class="row sub_box">
-      <div>
-        <% if @appraisal.errors.any? %>
-          <div class="error_explanation">
-          <h4>Errors prohibited this appraisal from being saved</h4>
-        </div>
-      <% end %>
-      </div>
-      <div class="form-inputs">
-        <%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
-          <%= a.input :makers_marks, :label => "Signatures, maker's marks, dates", :as => :text, :input_html => {:class => "span8", :rows => 4}, hint: "(List any signatures, maker's marks or dates. If none, enter 'none'.)" %>
-        <%= a.input :inscriptions, :label => "Inscriptions, etc.", :input_html => {:class => "span8"}, hint: "(List any inscriptions, monograms, dedications or other such markings. If none, enter 'none'.)" %>
-        <%= a.input :dimensions, :label => "Dimensions",required: true, :input_html => {:class => "span8"}, hint: "(Enter the height, width, depth, diameter as appropriate.)" %>
-        <%= a.input :materials, :label => "Materials", :as => :text, :input_html => {:class => "span8", :rows => 4}, hint: "What is it made out of?" %>
-        <%= a.input :damage, :label => "Condition", required: true, :as => :text, :input_html => {:class => "span8", :rows => 4}, hint: "(List any damages, old repairs, soiling, staining or other defects. If the item is mechanical or electrical, is it in good working condition?)" %>
-      <% end %>
-      </div>
-      <div>
-        <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
-        <%= f.button :submit, "Next", class: "btn btn-success pull-right" %>
-      </div>
-    </div>
-  <% end %>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 big-title">
+    Item Characteristics
   </div>
-</center>
+  <div class="col-md-1">
+    2 of 5
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <%= simple_form_for@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"},
+      wrapper: :horizontal_form,
+      wrapper_mappings: {
+        check_boxes: :horizontal_radio_and_checkboxes,
+        radio_buttons: :horizontal_radio_and_checkboxes,
+        file: :horizontal_file_input,
+        boolean: :horizontal_boolean
+      } do |f| %>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
+            <%= a.input :makers_marks, :label => "Signatures, maker's marks, dates", :as => :text, :input_html => {:rows => 4}, hint: "(List any signatures, maker's marks or dates. If none, enter 'none'.)" %>
+            <%= a.input :inscriptions, :label => "Inscriptions, etc.", hint: "(List any inscriptions, monograms, dedications or other such markings. If none, enter 'none'.)" %>
+            <%= a.input :dimensions, :label => "Dimensions",required: true, hint: "(Enter the height, width, depth, diameter as appropriate.)" %>
+            <%= a.input :materials, :label => "Materials", :as => :text, :input_html => {:rows => 4}, hint: "What is it made out of?" %>
+            <%= a.input :damage, :label => "Condition", required: true, :as => :text, :input_html => {:rows => 4}, hint: "(List any damages, old repairs, soiling, staining or other defects. If the item is mechanical or electrical, is it in good working condition?)" %>
+          <% end %>
+          <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
+          <%= f.button :submit, "Next", class: "btn btn-success pull-right" %>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
