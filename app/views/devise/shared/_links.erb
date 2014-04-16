@@ -1,3 +1,4 @@
+<div class="devise-shared-links text-center">
 <%- if controller_name != 'sessions' %>
   <%= link_to "Sign in", new_session_path(:user), :class => "shared_link" %>
   <a href="#">|</a>
@@ -31,4 +32,4 @@
     <%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), :class => "shared_link" %><br />
   <% end -%>
 <% end -%> -->
-
+</div>

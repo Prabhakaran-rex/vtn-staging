@@ -16,11 +16,14 @@
       <%= f.input :login %>
       <%= f.input :password %>
       <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-      <%= f.submit "Sign In", :class=> "btn btn-success pull-right"%>
+      <%= f.submit "Sign In", :class=> "btn btn-success pull-right hidden-xs"%>
+      <%= f.submit "Sign In", :class=> "btn btn-success btn-block visible-xs"%>
     <% end %>
   </div>
   <div class="col-md-6">
-    <%= link_to omniauth_authorize_path(:customer, :facebook) do %><%= image_tag "b_fb.jpg" %><% end %>
+    <div class="fb-div">
+      <%= link_to omniauth_authorize_path(:customer, :facebook) do %><%= image_tag "b_fb.jpg" %><% end %>
+    </div>
   </div>
 </div>
 <div class="row">

@@ -1,9 +1,9 @@
 <div id="home">
-  <div class="row" id="main-block">
+  <div class="row hidden-xs" id="main-block">
     <div class="col-md-12">
       <div class="row">
         <div class="col-md-12">
-          <div class="title">
+          <div class="title ">
             Online appraisals made easy
           </div>
           <div class="sign-in">
@@ -42,6 +42,17 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="row visible-xs" id="main-block-xs">
+    <div class="col-md-2">
+          <div class="title text-center">
+            Online appraisals made easy
+          </div>
+          <div class="sign-in text-center">
+            <%= link_to "Sign in / Sign up to get an appraisal", main_app.new_user_session_path, class: "yellow-button" %>
+          </div>
+    </div>
+  
   </div>
   <!-- Home block 1 -->
   <div class="row" id="featured-coupon-block">
