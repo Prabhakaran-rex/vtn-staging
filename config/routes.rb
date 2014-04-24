@@ -62,11 +62,7 @@ PurexNew::Application.routes.draw do
 
   get '/skills/getRootCategories' => 'skills#getRootCategories'
   resources :classifications
-  resources :skills
-  resources :users do
-    resources :trade_references
-  end
-
+  resources :skills, only: [:index, :create, :destroy]
 
   get 'contact' => 'contact#new', :as => 'contact'
   post 'contact' => 'contact#create'
