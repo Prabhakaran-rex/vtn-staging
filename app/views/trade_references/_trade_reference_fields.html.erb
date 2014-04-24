@@ -1,7 +1,7 @@
 <fieldset class="trade-references-inputs">
-  <%= f.input :company, input_html: {class: "input-xxlarge"} %>
-	<%= f.input :contact, input_html: {class: "input-xxlarge"}%>
-	<%= f.input :phone, input_html: {:class => "phone-input input-xxlarge"} %>
+  <%= f.input :company %>
+	<%= f.input :contact%>
+	<%= f.input :phone, input_html: {:class => "phone-input"} %>
 	<%= f.input :_destroy, as: :hidden %>
 	<%= link_to "Remove", '#', class: "remove_fields btn pull-right"%>
 </fieldset>

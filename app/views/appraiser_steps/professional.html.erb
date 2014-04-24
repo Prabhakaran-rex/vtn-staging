@@ -1,32 +1,35 @@
 <%= render :partial => "layouts/doc_has_changed" %>
-<center>
-  <div class="contentBlock">
-    <div class="formTop"><span class="title41">Account</span></div>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="big-title">
+      Account
+    </div>
     <%= render :partial => "appraiser_tabs" %>
-    <div class="sub_box">
-      <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
-        <%= render :partial => "validation_errors" %>
+    <%= simple_form_for @user, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"},
+      wrapper: :horizontal_form,
+      wrapper_mappings: {
+        check_boxes: :horizontal_radio_and_checkboxes,
+        radio_buttons: :horizontal_radio_and_checkboxes,
+        file: :horizontal_file_input,
+        boolean: :horizontal_boolean
+      } do |f| %>
+      <%= render :partial => "validation_errors" %>
 
       <%= f.simple_fields_for :appraiser_extra, @user.appraiser_extra do |a| %>
-        <%= a.input :years_appraising, :label => "Number of years appraising and/or of market-related experience", :hint => "(e.g. as a dealer, auctioneer, estate liquidator, claims adjuster etc.)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
-      <%= a.input :affiliated_with, :label => "List any related organizations that you are a member of or with which you are affiliated", :as => :text,  :input_html => {:class => "input-xxlarge", :rows => 4}%>
-      <%= a.input :certifications, :label => "Do you currently hold any designations from a recognized personal property appraisal society? If so, please list them.", :as => :text,  :input_html => {:class => "input-xxlarge", :rows => 4}%>
-      <%= a.input :description, :label => "Please give a detailed description of yourself, your experience and qualifications", :as => :text,  :input_html => {:class => "input-xxlarge", :rows => 4}%>
-      <%= a.input :uspap,
-        :collection => [[EAAppraiserUSPAPFamiliar, "I am a trained personal property appraiser who writes appraisal reports in conformance with USPAP"],[EAAppraiserUSPAPExperienced, "I am a personal property appraiser, but I have not yet been trained in USPAP"],[EAAppraiserUSPAPExtensive,"I am a subject matter expert with extensive market-related experience and knowledge in my area(s) of specialization"]], 
-        :label_method => :last,
-        :value_method => :first,
-        :as => :radio_buttons,
-        :item_wrapper_class => 'radio',
-        :label => "Check the boxes that apply",
-        :input_html => {:class => "input-xxlarge"}
-      %>
-    <% end %>
-        <div class="form-actions">
-          <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
-          <%= f.submit "Save and Continue", :class => "btn btn-success"%>
+        <%= a.input :years_appraising, :label => "Number of years appraising and/or of market-related experience", :hint => "(e.g. as a dealer, auctioneer, estate liquidator, claims adjuster etc.)", :input_html => {:rows => 4} %>
+        <%= a.input :affiliated_with, :label => "List any related organizations that you are a member of or with which you are affiliated", :as => :text,  :input_html => {:rows => 4}%>
+        <%= a.input :certifications, :label => "Do you currently hold any designations from a recognized personal property appraisal society? If so, please list them.", :as => :text,  :input_html => {:rows => 4}%>
+        <%= a.input :description, :label => "Please give a detailed description of yourself, your experience and qualifications", :as => :text,  :input_html => {:rows => 4}%>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Check the boxes that apply</label>
+          <div class="col-sm-9">
+            <%= a.collection_radio_buttons :uspap, [[EAAppraiserUSPAPFamiliar, "I am a trained personal property appraiser who writes appraisal reports in conformance with USPAP"],[EAAppraiserUSPAPExperienced, "I am a personal property appraiser, but I have not yet been trained in USPAP"],[EAAppraiserUSPAPExtensive,"I am a subject matter expert with extensive market-related experience and knowledge in my area(s) of specialization"]], :first, :last %>
+          </div>
         </div>
-      <% end%>
-      </div>
-    </div>
-  </center>
+      <% end %>
+      <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
+      <%= f.submit "Save and Continue", :class => "btn btn-success pull-right"%>
+    <% end%>
+  </div>
+</div>
+

@@ -1,22 +1,32 @@
 <%= render :partial => "layouts/doc_has_changed" %>
-<center>
-  <div class="contentBlock">
-    <div class="formTop"><span class="title41">Account</span></div>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="big-title">
+      Account
+    </div>
     <%= render :partial => "appraiser_tabs" %>
-    <div class="sub_box">
-      <h4>Please enter at least 3 trade references. Remember to click on the Continue button at the bottom of the page.</h4>
+    <h4>Please enter at least 3 trade references. Remember to click on the Continue button at the bottom of the page.</h4>
 
-      <%= simple_form_for [@user], :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
-        <%= render :partial => "validation_errors" %>
+    <%= simple_form_for @user, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"},
+      wrapper: :horizontal_form,
+      wrapper_mappings: {
+        check_boxes: :horizontal_radio_and_checkboxes,
+        radio_buttons: :horizontal_radio_and_checkboxes,
+        file: :horizontal_file_input,
+        boolean: :horizontal_boolean
+      } do |f| %>
+      <%= render :partial => "validation_errors" %>
       <%= render :partial => "trade_references/form", :locals => {:form => f}%>
       <hr>
       <%= link_to_add_fields "Add Reference", f, :trade_references %>
-      <div class="form-actions">
-        <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
-        <%= f.submit "Save and continue", :class => "btn btn-success", :id => "btn-appraiser_steps-add_references"%>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
+          <%= f.submit "Save and continue", :class => "btn btn-success pull-right", :id => "btn-appraiser_steps-add_references"%>
+        </div>
       </div>
     <% end%>
-    </div>
-  </div>
-</center>
 
+  </div>
+</div>

@@ -52,8 +52,6 @@ PurexNew::Application.routes.draw do
     end
   end
 
-  resources :appraiser_access_tokens
-
   resource :appraiser , :controller => "appraiser" do
     resources :skills
   end

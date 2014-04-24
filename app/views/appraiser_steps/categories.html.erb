@@ -1,164 +1,164 @@
-<center>
-  <div class="contentBlock">
-    <div class="formTop"><span class="title41">Account</span></div>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="big-title">
+      Account
+    </div>
     <%= render :partial => "appraiser_tabs" %>
-    <div class="sub_box">
-      <h3>Please select the categories you want to appraise in</h3>
-      <div>
-        <input type="hidden" name="demo6" />
-        <button class="btn btn-success btn-mini" id='addSkillBtn'>Add</button>
-        <a href="#addAllSkillsModal" role="button" class="btn btn-mini" data-toggle="modal">Add All Categories</a>
-      </div>
-      <div class="results" id="demo6-result"></div>
-      <div>
-        <table class="table" id="skillTable">
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
+    <h3>Please select the categories you want to appraise in</h3>
+    <div>
+      <input type="hidden" name="demo6" />
+      <button class="btn btn-success btn-sm" id='addSkillBtn'>Add</button>
+      <a href="#addAllSkillsModal" role="button" class="btn btn-sm" data-toggle="modal">Add All Categories</a>
+    </div>
+    <div class="results" id="demo6-result">
+    </div>
+    <div>
+      <table class="table condensed" id="skillTable">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
           <% current_user.skills.order(:category_id).each do |s|
             unless s.category.nil? %>
           <tr class="skill_tr">
-              <td><%= s.category.is_root? ? s.category.name : s.category.parent.name %></td>
-              <td><button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'<%= "#{s.id}" %>')">Remove</button>
-              </td>
-            </tr>
-          <% end %>
-          <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="form-actions">
-          <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>    
-          <% if !current_user.is_confirmed? %>
-            <%= link_to "Save and Submit", submit_application_path, :class => "btn btn-success #{"inactiveLink disabled" unless current_user.is_appraiser_application_complete}", :id => "btnSubmitApplication" %></br>
+            <td><%= s.category.is_root? ? s.category.name : s.category.parent.name %></td>
+            <td>
+              <button class="btn btn-danger btn-xs" onClick="deleteCategory($(this),'<%= "#{s.id}" %>')">Remove</button>
+            </td>
+          </tr>
         <% end %>
-        </div>
-      </div>
-    </div>
-  </center>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
+<% if !current_user.is_confirmed? %>
+  <%= link_to "Save and Submit", submit_application_path, :class => "btn btn-success pull-right #{"inactiveLink disabled" unless current_user.is_appraiser_application_complete}", :id => "btnSubmitApplication" %></br>
+<% end %>
+</div>
+</div>
 
-  <div class="modal hide fade" id="addAllSkillsModal">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h3>Warning</h3>
-    </div>
-    <div class="modal-body">
-      <p>You are about to add all <%= Category.count %> categories. Are you sure?</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#" class="btn" data-dismiss="modal">Cancel</a>
-      <button class="btn btn-success" id="addAllSkillsBtn">Continue</a>
-    </div>
+<div class="modal hide fade" id="addAllSkillsModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Warning</h3>
   </div>
+  <div class="modal-body">
+    <p>You are about to add all <%= Category.count %> categories. Are you sure?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+    <button class="btn btn-success" id="addAllSkillsBtn">Continue</a>
+  </div>
+</div>
 
-  <script type="text/javascript">
-/* Delete Task */
+<script type="text/javascript">
+  /* Delete Task */
 function deleteCategory(caller, id ) {
   if ($('.skill_tr').size() == 1)
-    {
-      alert("You should have at least one category selected");
-    }
-    else
-      {
-        $.ajax({
-          url: "<%= url_for skills_path %>/" + id+'.json',
-          type: 'post',
-          dataType: 'script',
-          data: { '_method': 'delete' },
-          success: function() {
-            $(caller).closest('tr').remove();
-            getApplicationStatus();
-          }
-        });
-      }
+  {
+    alert("You should have at least one category selected");
+  }
+  else
+  {
+    $.ajax({
+url: "<%= url_for skills_path %>/" + id+'.json',
+type: 'post',
+dataType: 'script',
+data: { '_method': 'delete' },
+success: function() {
+$(caller).closest('tr').remove();
+getApplicationStatus();
+}
+});
+}
 }
 
 function getApplicationStatus() {
   $.ajax({
-    url: "<%= url_for get_application_status_path(current_user) %>",
-    type: 'get',
-    success: function(data) {
-      if (data.status == false)
-        { $('#btnSubmitApplication').addClass("inactiveLink disabled");
-          $('#applicationNotification').show();
-          $('#applicationCompleted').hide();
-        }
-        else
-          { $('#btnSubmitApplication').removeClass("inactiveLink disabled");
-            $('#applicationNotification').hide();
-            $('#applicationCompleted').show();
-          }
-    }
-  });
+url: "<%= url_for get_application_status_path(current_user) %>",
+type: 'get',
+success: function(data) {
+if (data.status == false)
+{ $('#btnSubmitApplication').addClass("inactiveLink disabled");
+$('#applicationNotification').show();
+$('#applicationCompleted').hide();
+}
+else
+{ $('#btnSubmitApplication').removeClass("inactiveLink disabled");
+$('#applicationNotification').hide();
+$('#applicationCompleted').show();
+}
+}
+});
 }
 
 $(function() {
 
-  var options = {
-    choose: 'Choose a category...',
-    empty_value: 'null',
-    indexed: true,
-    on_each_change: '<%= url_for :controller => :skills, :action => :getRootCategories %>',
-    set_value_on: 'each',
-    choose: function(level) {
-      return 'Choose a category...';
-    },
-    get_parent_value_if_empty: true,
-    attr: "id"
-  };
+    var options = {
+choose: 'Choose a category...',
+empty_value: 'null',
+indexed: true,
+on_each_change: '<%= url_for :controller => :skills, :action => :getRootCategories %>',
+set_value_on: 'each',
+choose: function(level) {
+return 'Choose a category...';
+},
+get_parent_value_if_empty: true,
+attr: "id"
+};
 
-  var displayParents = function() {
-    var labels = []; 
-    $(this).siblings('select')
-    .find(':selected')
-    .each(function() { labels.push($(this).text()); }); 
-    $('').text(this.value + ':' + labels.join(' > ')).appendTo('#demo6-result');
-  }
+var displayParents = function() {
+var labels = [];
+$(this).siblings('select')
+.find(':selected')
+.each(function() { labels.push($(this).text()); });
+$('').text(this.value + ':' + labels.join(' > ')).appendTo('#demo6-result');
+}
 
-  $.getJSON('<%= url_for :controller => :skills, :action => :getRootCategories %>', function(tree) { 
+$.getJSON('<%= url_for :controller => :skills, :action => :getRootCategories %>', function(tree) {
     $('input[name=demo6]').optionTree(tree, options).change(displayParents);
-  });
+    });
 
-  $("#addSkillBtn").click(function() {
+$("#addSkillBtn").click(function() {
     if ($('input[name=demo6]').val() != "") {
-      $.post('<%= url_for skills_path %>.json',{ 'skill[user_id]': '<%= current_user.id %>', 'skill[category_id]': $('input[name=demo6]').val() },function(data) {
-        var category = $('select[name=demo6_] option:selected').text();
-        var subcategory = $('select[name=demo6__] option:selected').text();
-        $('#skillTable > tbody:last').append('<tr class="skill_tr"><td>'+category +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+data.id+')">Remove</button>'
-                                             +'</td></tr>');
-                                             getApplicationStatus();
+    $.post('<%= url_for skills_path %>.json',{ 'skill[user_id]': '<%= current_user.id %>', 'skill[category_id]': $('input[name=demo6]').val() },function(data) {
+      var category = $('select[name=demo6_] option:selected').text();
+      var subcategory = $('select[name=demo6__] option:selected').text();
+      $('#skillTable > tbody:last').append('<tr class="skill_tr"><td>'+category +'</td><td>'+'<button class="btn btn-danger btn-xs" onClick="deleteCategory($(this),'+data.id+')">Remove</button>'
+        +'</td></tr>');
+      getApplicationStatus();
 
       } );
     }
-  });
-
-  $('#addAllSkillsModal').modal(
-    {show: false}
-  );
-
-
-  $('#addAllSkillsBtn').click(function(){
-    $.post('<%= url_for skills_path %>.json',{'skill[all]' : 'true', 'skill[user_id]': '<%= current_user.id %>', 'skill[category_id]': $('input[name=demo6]').val() },function(data) {
-      $.each(data, function(index, value) { 
-        $('#skillTable > tbody:last').append('<tr class="skill_tr"><td>'+value.name +'</td><td>'+'<button class="btn btn-danger btn-mini" onClick="deleteCategory($(this),'+value.id+')">Remove</button>');
-      });
     });
-    $('#addAllSkillsModal').modal('hide')
-  });
 
-  $('#btnSubmitApplication').click(function() {
+$('#addAllSkillsModal').modal(
+    {show: false}
+    );
+
+
+$('#addAllSkillsBtn').click(function(){
+    $.post('<%= url_for skills_path %>.json',{'skill[all]' : 'true', 'skill[user_id]': '<%= current_user.id %>', 'skill[category_id]': $('input[name=demo6]').val() },function(data) {
+      $.each(data, function(index, value) {
+        $('#skillTable > tbody:last').append('<tr class="skill_tr"><td>'+value.name +'</td><td>'+'<button class="btn btn-danger btn-xs" onClick="deleteCategory($(this),'+value.id+')">Remove</button>');
+        });
+      });
+    $('#addAllSkillsModal').modal('hide')
+    });
+
+$('#btnSubmitApplication').click(function() {
     if ($('.skill_tr').size() == 0) {
-      alert("Please select at least one category to continue");
-      return false;
+    alert("Please select at least one category to continue");
+    return false;
     }
     else {
-      getApplicationStatus();
+    getApplicationStatus();
     }
-  });
+    });
 });
-  </script>
-  <%= javascript_include_tag "jquery.optionTree" %>
+</script>
+<%= javascript_include_tag "jquery.optionTree" %>

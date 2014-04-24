@@ -1,31 +1,34 @@
 <%= render :partial => "layouts/doc_has_changed" %>
-<center>
-  <div class="contentBlock">
-    <div class="formTop"><span class="title41">Account</span></div>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="big-title">
+      Account
+    </div>
     <%= render :partial => "appraiser_tabs" %>
-    <div class="sub_box">
-      <% if current_user.is_appraiser? %>
-        <div class="alert alert-info">
+    <% if current_user.is_appraiser? %>
+      <div class="alert alert-info">
         <i class="icon-warning-sign"></i>  <strong>NOTICE:</strong> This information is primarily for the private use of ValueThisNow.com and will not be made public. Only the appraiser’s name, image and website will be made public.
       </div>
     <% end %>
+
+    <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %> 
       <div class="row">
-        <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %> 
-          <div class="span12 div-gravatar">
-          <%= image_tag @user.avatar_url(:small), :size => "180x180", :class => "img-gravatar"%></br>
+        <div class="col-md-12">
+          <%= image_tag @user.avatar_url(:small), :size => "180x180", :class => "img-responsive"%></br>
         </div>
       </div>
       <div class="row">
-        <div class="span12">
-          <%= link_to new_avatar_path, :class => "btn btn-success btn-mini" do %><i class="icon-camera icon-white"></i> Change your Image<% end %>
+        <div class="col-md-12">
+          <%= link_to new_avatar_path, :class => "btn btn-success btn-sm" do %><span class="glyphicon glyphicon-camera"></span> Change your Image<% end %>
         </div>
       </div>
-    </div>
-    <div class="form-actions">
-      <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>   
-      <%= f.submit "Save and Continue", :class => "btn btn-success", :id => "btn_submit_avatar"%>
-    </div>
-  <% end%>
+      <div class="row">
+        <div class="col-md-12">
+          <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>   
+          <%= f.submit "Save and Continue", :class => "btn btn-success pull-right", :id => "btn_submit_avatar"%>
+        </div>
+      </div>
+    <% end%>
     <input type="hidden" name="has_avatar" id="has_avatar" value=<%= current_user.avatar? %>>
   </div>
-</center>
+</div>

@@ -1,65 +1,66 @@
 <%= stylesheet_link_tag("jquery.signature-panel") %>
 <style type="text/css">
 
-#latest-signature {
-  <%= !@user.signature? ? "" : "display:none;" %>
-}
+  #latest-signature {
+    <%= !@user.signature? ? "" : "display:none;" %>
+  }
 </style>
-<center>
-  <div class="contentBlock">
-    <div class="formTop"><span class="title41">Account</span></div>
+<%= render :partial => "layouts/doc_has_changed" %>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="big-title">
+      Account
+    </div>
     <%= render :partial => "appraiser_tabs" %>
-    <div class="sub_box">
-      <h5>Please capture your signature. It will be included in all of your appraisals.</h5>
-      <div class="row">
-        <div class="span5 signature-panel">
-          <div id="my-signature" style="height: 200px; width: 400px;  border: 10px solid gray"></div>
-        </div>
-        <div class="span5">
-          <div id="current-signature">
-            <% if @user.signature? %> 
-              <%= image_tag "#{@user.signature.standard.url}?id=#{rand(1000)}", :style=>"border: 1px solid gray;", :height => "100", :width => "250"%>
-          <% end %>
-          </div>
-          <canvas id="latest-signature" height="100" width="250" style="border: 1px solid gray;" ></canvas></br>
-          <p>Your current signature</p>
-        </div>
+    <h5>Please capture your signature. It will be included in all of your appraisals.</h5>
+    <div class="row">
+      <div class="col-md-5 signature-panel">
+        <div id="my-signature" style="height: 200px; width: 450px;  border: 1px solid gray"></div>
       </div>
-      <h5>You can also upload an image file by clicking <%= link_to new_signature_path, :class => "btn btn-mini btn-success" do %><i class="icon-upload icon-white"></i> here <% end %></h5>
-      <div class="form-actions">
-        <input type="hidden" id="has_signature" name="has_signature" value="<%= current_user.signature? || !current_user.appraiser_extra.signature_json.nil? %>">
-        <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
-        <%= link_to "Save and Continue", next_wizard_path, :class => "btn btn-success", :id => "btn_submit_signature"%>
+      <div class="col-md-5">
+        <div id="current-signature">
+          <% if @user.signature? %> 
+            <%= image_tag "#{@user.signature.standard.url}?id=#{rand(1000)}", :style=>"border: 1px solid gray;", :height => "100", :width => "250"%>
+          <% end %>
+        </div>
+        <canvas id="latest-signature" height="100" width="250" style="border: 1px solid gray;" ></canvas></br>
+        <p>Your current signature</p>
       </div>
     </div>
+    <h5>You can also upload an image file by clicking <%= link_to new_signature_path, :class => "btn btn-mini btn-success" do %><i class="icon-upload icon-white"></i> here <% end %></h5>
+    <div class="form-actions">
+      <input type="hidden" id="has_signature" name="has_signature" value="<%= current_user.signature? || !current_user.appraiser_extra.signature_json.nil? %>">
+      <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
+      <%= link_to "Save and Continue", next_wizard_path, :class => "btn btn-success pull-right", :id => "btn_submit_signature"%>
+    </div>
   </div>
-</center>
+</div>
 
 <%= javascript_include_tag("jquery.signature-panel.js") %>
 <script type="text/javascript">
-function signatureOK(signatureData) {
-  // Show the user the signature they've entered.
-  $("#latest-signature").signaturePanel("drawClickstreamToCanvas", signatureData);
-  // Send the signature to the server and generate an image file.
-  $.ajax({
-    url:"<%= url_for save_json_signature_path %>",
-    type:"POST",
-    data: JSON.stringify(signatureData),
-    contentType:"application/json; charset=utf-8",
-    dataType:"text",
-    success: function(data, textStatus, jqXHR){
-      alert("Signature saved succesfully");
-      $("#has_signature").val("true");
-      $("#latest-signature").attr("src", data);
-      $("#current-signature").empty();
-      $("#latest-signature").show();
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      console.log(textStatus);
-      console.log(errorThrown);
-    }
-  });
-  $("#my-signature").signaturePanel("clear");
+  function signatureOK(signatureData) {
+    // Show the user the signature they've entered.
+    $("#latest-signature").signaturePanel("drawClickstreamToCanvas", signatureData);
+    // Send the signature to the server and generate an image file.
+    $.ajax({
+url:"<%= url_for save_json_signature_path %>",
+type:"POST",
+data: JSON.stringify(signatureData),
+contentType:"application/json; charset=utf-8",
+dataType:"text",
+success: function(data, textStatus, jqXHR){
+alert("Signature saved succesfully");
+$("#has_signature").val("true");
+$("#latest-signature").attr("src", data);
+$("#current-signature").empty();
+$("#latest-signature").show();
+},
+error: function(jqXHR, textStatus, errorThrown) {
+console.log(textStatus);
+console.log(errorThrown);
+}
+});
+$("#my-signature").signaturePanel("clear");
 }
 
 function signatureCancel() {
@@ -67,14 +68,14 @@ function signatureCancel() {
 }
 
 $(document).ready(function() {
-  $("#my-signature").signaturePanel({
-    okCallback: signatureOK,
-    cancelCallback: signatureCancel,
-    clearElementType: "link",
-    okElementType: "link",
-    cancelCaption: ""
-  });
-  var signatureData = JSON.parse('<%= raw current_user.appraiser_extra.signature_json %>');
-  $('#latest-signature').signaturePanel("drawClickstreamToCanvas",signatureData);
+    $("#my-signature").signaturePanel({
+okCallback: signatureOK,
+cancelCallback: signatureCancel,
+clearElementType: "link",
+okElementType: "link",
+cancelCaption: ""
 });
-</script>
+    var signatureData = JSON.parse('<%= raw current_user.appraiser_extra.signature_json %>');
+    $('#latest-signature').signaturePanel("drawClickstreamToCanvas",signatureData);
+    });
+  </script>

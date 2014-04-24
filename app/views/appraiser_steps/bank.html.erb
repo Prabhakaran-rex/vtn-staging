@@ -1,52 +1,59 @@
 <%= render :partial => "layouts/doc_has_changed" %>
-<center>
-  <div class="contentBlock">
-    <div class="formTop"><span class="title41">Account</span></div>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="big-title">
+      Account
+    </div>
     <%= render :partial => "appraiser_tabs" %>
-    <div class="sub_box">
-      <%= simple_form_for @user, :url => wizard_path, :html => {:class => "form-horizontal"} do |f| %>
-        <%= render :partial => "validation_errors" %>
-        <h3>1099 Tax Information Required</h3>
-        <div class="row-fluid">
-          <div class="span6">
-            <%= f.simple_fields_for :appraiser_extra, @user.appraiser_extra do |a| %>
-              <%= a.input :tax_name, label: "First and Last Name", input_html: {class: "input-xlarge"} %>
-              <%= a.input :tax_address, label: "Street Address", input_html: {class: "input-xlarge"} %>
-              <%= a.input :tax_address_2, label: "City, State and Zip", input_html: {class: "input-xlarge"} %>
-              <%= a.input :tax_id, label: "Tax Payers Federal Tax ID", input_html: {class: "input-xlarge"} %>
-              <%= a.input :tax_ein, label: "Social Security Number", input_html: {class: "input-xlarge"}, hint: "Only provide your social security number if you DO NOT have a federal tax ID" %>
-              <%= a.input :tax_wages, label: "Total Compensation Paid Last Year", input_html: {class: "input-xlarge"}, as: :string, hint: "Note: Total payments made for the year will be filled out by VTN management." %>
+    <%= simple_form_for @user, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"},
+      wrapper: :horizontal_form,
+      wrapper_mappings: {
+        check_boxes: :horizontal_radio_and_checkboxes,
+        radio_buttons: :horizontal_radio_and_checkboxes,
+        file: :horizontal_file_input,
+        boolean: :horizontal_boolean
+      } do |f| %>
+
+      <h3>1099 Tax Information Required</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.simple_fields_for :appraiser_extra, @user.appraiser_extra do |a| %>
+            <%= a.input :tax_name, label: "First and Last Name", input_html: {class: "input-xlarge"} %>
+            <%= a.input :tax_address, label: "Street Address", input_html: {class: "input-xlarge"} %>
+            <%= a.input :tax_address_2, label: "City, State and Zip", input_html: {class: "input-xlarge"} %>
+            <%= a.input :tax_id, label: "Tax Payers Federal Tax ID", input_html: {class: "input-xlarge"} %>
+            <%= a.input :tax_ein, label: "Social Security Number", input_html: {class: "input-xlarge"}, hint: "Only provide your social security number if you DO NOT have a federal tax ID" %>
+            <%= a.input :tax_wages, label: "Total Compensation Paid Last Year", input_html: {class: "input-xlarge"}, as: :string, hint: "Note: Total payments made for the year will be filled out by VTN management." %>
+          <% end %>
+        </div>
+        <div class="col-md-6">
+          <div>
+            <%= f.submit "Save and Update", :class => "btn btn-success", :id => "btn_save_bank_step"%>
+          </div>
+          <div>
+            &nbsp;
+          </div>
+          <div>
+            <% if current_user.appraiser_extra.tax_info_complete? %>
+              <input type="text" name="tax_code" id="txt_tax_code" value="" class="input-mini", placeholder="Key" />
+              <%= link_to "Export to 1099", taxes_income_path(format: :pdf), class: "btn btn-success", id: "btn_export_1099" %>
             <% end %>
           </div>
-          <div class="span6">
-            <div>
-              <%= f.submit "Save and Update", :class => "btn btn-success", :id => "btn_save_bank_step"%>
-            </div>
-            <div>
-              &nbsp;
-            </div>
-            <div>
-              <% if current_user.appraiser_extra.tax_info_complete? %>
-                <input type="text" name="tax_code" id="txt_tax_code" value="" class="input-mini", placeholder="Key" />
-                <%= link_to "Export to 1099", taxes_income_path(format: :pdf), class: "btn btn-success", id: "btn_export_1099" %>
-              <% end %>
-            </div>
-          </div>
         </div>
-        <%= get_cms_content('/payout-notes') %>
-        <div class="row-fluid">
-          <div class="span6">
-            <h3>Paypal Account</h3>
-            <%= f.input :paypal_email, label: "Email associated with your Paypal Account", required: true, input_html: {class: "input-xlarge"} %>
-          </div>
-          <div class="span6"><%= image_tag "paypal3.png" %><%= image_tag "paypal2.png" %></div>
+      </div>
+      <%= get_cms_content('/payout-notes') %>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Paypal Account</h3>
+          <%= f.input :paypal_email, label: "Email associated with your Paypal Account", required: true, input_html: {class: "input-xlarge"} %>
         </div>
-        <div class="form-actions">
-          <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
-          <%= f.submit "Save and Continue", :class => "btn btn-success", :id => "btn_save_bank_step"%>
-        </div>
-      <% end%> 
-    </div>
+        <div class="col-md-6"><%= image_tag "paypal3.png" %><%= image_tag "paypal2.png" %></div>
+      </div>
+      <div class="form-actions">
+        <%= link_to "Previous Step", previous_wizard_path, :class => "btn btn-default" %>
+        <%= f.submit "Save and Continue", :class => "btn btn-success pull-right", :id => "btn_save_bank_step"%>
+      </div>
+    <% end%> 
   </div>
-</center>
+</div>
 

@@ -10,7 +10,7 @@
 
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <%= simple_form_for@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"},
+    <%= simple_form_for @appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"},
       wrapper: :horizontal_form,
       wrapper_mappings: {
         check_boxes: :horizontal_radio_and_checkboxes,
