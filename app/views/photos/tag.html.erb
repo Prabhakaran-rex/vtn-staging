@@ -5,91 +5,84 @@
 <%= stylesheet_link_tag "jquery.tag" %>
 <%= stylesheet_link_tag "jquery-ui.custom" %>
 <h4>Tag Photo</h4>
-<div class="sub_box">
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span5">
-				<em>Click the image to add a tag</em>
-				<img src="<%= path_to_image(@photo.picture_url(:large)) %>", id="img">
+<div class="row">
+  <div class="col-md-5">
+    <em>Click the image to add a tag</em>
+    <img src="<%= path_to_image(@photo.picture_url(:large)) %>", id="img">
 
-				<script>
-				$(document).ready(function(){
-					var curUser = '<%= "#{User.find(current_user).name} (#{User.find(current_user).type})" %>';
+    <script>
+      $(document).ready(function(){
+      var curUser = '<%= "#{User.find(current_user).name} (#{User.find(current_user).type})" %>';
 
-					$("#img").tag({showTag: 'always', showLabels: false, defaultTags: <%=  raw @photo.tags.to_json 
-						%>
-						,
-						save: function(width,height,top_pos,left,label,the_tag){
-							$.ajax({
-								url: "<%= url_for annotate_path%>.json",
-								type: "POST",
-								dataType: 'json',
-								data: {'action':'save','width':width,'height':height,'top':top_pos,'left':left,'label':label,'photo_id':<%= @photo.id %>, 'user_id':<%= current_user.id %>},
+      $("#img").tag({showTag: 'always', showLabels: false, defaultTags: <%=  raw @photo.tags.to_json 
+    %>
+  ,
+  save: function(width,height,top_pos,left,label,the_tag){
+  $.ajax({
+  url: "<%= url_for annotate_path%>.json",
+  type: "POST",
+  dataType: 'json',
+  data: {'action':'save','width':width,'height':height,'top':top_pos,'left':left,'label':label,'photo_id':<%= @photo.id %>, 'user_id':<%= current_user.id %>},
 
-								beforeSend: function(xhr) {
-									xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-								},
-								error: function() {
-									alert("error"); 
-								},
-								success: function(id) {
-									the_tag.setId(id);
-									$('#tagTable').append('<tr id="tag-'+id.id+'"><td>'+id.label+'</td><td>'+id.created_at+'</td><td>'+curUser+'</td></tr>'	);
-								}
-							});
-						},
-						remove: function(id){
-							console.log(id);
-							if (id.id != null)
-							oldId = id.id;
-							else
-								oldId = id;
+  beforeSend: function(xhr) {
+  xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+  },
+  error: function() {
+  alert("error"); 
+  },
+  success: function(id) {
+  the_tag.setId(id);
+  $('#tagTable').append('<tr id="tag-'+id.id+'"><td>'+id.label+'</td><td>'+id.created_at+'</td><td>'+curUser+'</td></tr>'	);
+  }
+  });
+  },
+  remove: function(id){
+  console.log(id);
+  if (id.id != null)
+  oldId = id.id;
+  else
+  oldId = id;
 
-							$.ajax({
-								url: "<%= url_for(destroy_tag_path) %>.json",
-								type: "POST",
-								dataType: 'json',
-								data: {'id':oldId},
-								beforeSend: function(xhr) {
-									xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-								},
-								success: function(id) {
-									console.log(oldId);
-									$('#tag-'+oldId).remove();
-								}
+  $.ajax({
+  url: "<%= url_for(destroy_tag_path) %>.json",
+  type: "POST",
+  dataType: 'json',
+  data: {'id':oldId},
+  beforeSend: function(xhr) {
+  xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+  },
+  success: function(id) {
+  console.log(oldId);
+  $('#tag-'+oldId).remove();
+  }
 
-							});
+  });
 
-						}
+  }
 
-					});			
-});
+  });			
+  });
 </script>
 </div> <!-- Span5 -->
-<div class="span7">
-	<a href="" class="btn btn-success pull-right" onClick="self.close();">Close this window</a>
-	<table class="table condensed hover" id='tagTable'>
-		<thead>
-			<tr>
-				<th>Tag</th>
-				<th>Created at</th>
-				<th>Created by</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @photo.tags.each do |t| %>
-			<tr id="tag-<%= t.id %>">
-				<td><%= t.label %></td>
-				<td><%= t.created_at %></td>
-				<td><%= "#{User.find(t.user_id).name} (#{User.find(t.user_id).type})" %></td>
-			</tr>			
-			<% end%>
-		</tbody>
-	</table>
+<div class="col-md-7">
+  <a href="" class="btn btn-success pull-right" onClick="self.close();">Close this window</a>
+  <table class="table condensed hover" id='tagTable'>
+    <thead>
+      <tr>
+        <th>Tag</th>
+        <th>Created at</th>
+        <th>Created by</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @photo.tags.each do |t| %>
+        <tr id="tag-<%= t.id %>">
+          <td><%= t.label %></td>
+          <td><%= t.created_at %></td>
+          <td><%= "#{User.find(t.user_id).name} (#{User.find(t.user_id).type})" %></td>
+        </tr>			
+      <% end%>
+    </tbody>
+  </table>
 </div>
-</div>
-</div>
-
-
-
 </div>

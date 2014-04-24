@@ -12,7 +12,7 @@ jQuery ->
   set_coupon_badge = (status) ->
     switch status
       when 'error'
-        css_style = 'important'
+        css_style = 'danger'
         css_icon = 'remove'
         text = 'Invalid Coupon'
       when 'success'
@@ -23,7 +23,7 @@ jQuery ->
         css_style = 'info'
         css_icon = 'time'
         text = 'Validating coupon'
-    $("#payment-coupon-div .help-block").html('<span class="badge badge-'+ css_style + '"><i class="icon-' + css_icon+' icon-white"></i> '+text+'</span>')
+    $("#payment-coupon-div .help-block").html('<span class="label label-'+ css_style + '"><span class="glyphicon glyphicon-' + css_icon+'"></span> '+text+'</span>')
 
   clear_coupon_badge = (element) ->
       $("#payment-coupon-div .help-block").html('')

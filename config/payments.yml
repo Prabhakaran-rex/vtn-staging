@@ -4,8 +4,8 @@ development:
     password: 1338861588
     signature: A6aKY1rdzYKveggqS0dCSlcOacTKABO0H79hKoBZiQlZDjaOoXvAOJFX
   authorizenet:
-    login: 4A4b8SXUt6M
-    password: 4wugYeKPq29365bk
+    login: 93W5Ghw3j
+    password: 7T89jMx366GZ6hf8
 
 production:
   paypal:
@@ -22,8 +22,8 @@ staging:
     password: 1338861588
     signature: A6aKY1rdzYKveggqS0dCSlcOacTKABO0H79hKoBZiQlZDjaOoXvAOJFX
   authorizenet:
-    login: 4A4b8SXUt6M
-    password: 4wugYeKPq29365bk
+    login: 93W5Ghw3j
+    password: 7T89jMx366GZ6hf8
 
 test:
   paypal:
@@ -31,8 +31,8 @@ test:
     password: 1338861588
     signature: A6aKY1rdzYKveggqS0dCSlcOacTKABO0H79hKoBZiQlZDjaOoXvAOJFX
   authorizenet:
-    login: 4A4b8SXUt6M
-    password: 4wugYeKPq29365bk
+    login: 93W5Ghw3j
+    password: 7T89jMx366GZ6hf8
 
 sandbox:
   paypal:
@@ -40,6 +40,5 @@ sandbox:
     password: 1338861588
     signature: A6aKY1rdzYKveggqS0dCSlcOacTKABO0H79hKoBZiQlZDjaOoXvAOJFX
   authorizenet:
-    login: 4B8uttN6EK
-    password: 3R5455NyA2vz2nCz
-
+    login: 93W5Ghw3j
+    password: 7T89jMx366GZ6hf8

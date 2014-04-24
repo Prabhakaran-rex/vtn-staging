@@ -1,78 +1,50 @@
-<%= simple_form_for(@appraisal, :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
-  <div class="row sub_box">
-  <div>
-    <% if @appraisal.errors.any? %>
-      <div class="error_explanation">
-      <h4><%= "#{pluralize(@appraisal.errors.count, "error")} prohibited this appraisal from being saved:" %></h4>
-      <!-- <ul>
-          <% @appraisal.errors.full_messages.each do |msg| %>
- <li><%= msg %></li>
-          <% end %>
-        </ul> -->
-    </div>
-  <% end %>
-  </div>
-  <div>
-    <div class="form-inputs">
+<%= simple_form_for@appraisal, :html => {:multipart => true, :class => "form-horizontal"},
+  wrapper: :horizontal_form,
+  wrapper_mappings: {
+    check_boxes: :horizontal_radio_and_checkboxes,
+    radio_buttons: :horizontal_radio_and_checkboxes,
+    file: :horizontal_file_input,
+    boolean: :horizontal_boolean
+  } do |f| %>
+  <div class="row">
+    <div class="col-md-12">
       <%= f.simple_fields_for :classification do |c| %>
-          <%= c.association :category, as: :select, input_html: {class: "chzn-select"} %>
+        <%= c.association :category, as: :select, input_html: {class: "form-control chzn-select"} %>
       <% end %>
-      <%= f.input :title, :label => "Item title", :hint => "(Enter a brief noun name of the item.)", :input_html => {:class => "input-xxlarge"} %>
-      <%= f.input :name, :as => :text, :label => "Item description", :hint => "(Enter a brief description of your item including any characteristics you feel are relevant to its value.)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
+      <%= f.input :title, :label => "Item title", :hint => "(Enter a brief noun name of the item.)" %>
+      <%= f.input :name, :as => :text, :label => "Item description", :hint => "(Enter a brief description of your item including any characteristics you feel are relevant to its value.)", :input_html => {:rows => 4} %>
       <%= f.simple_fields_for :appraisal_info, @appraisal.appraisal_info do |a| %>
-        <%= a.input :item_history, :label => "Item history", :as => :text, :hint => "(Where did you get it? Purchase at auction, flea market? Family Heirloom? How long have you owned it?)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
-      <%= a.input :makers_marks, :label => "Signatures, maker's marks, dates", :as => :text, :hint => "(List any signatures, maker's marks or dates. If none, enter 'none'.)", :input_html => {:class => "input-xxlarge", :rows => 4} %>
-      <%= a.input :inscriptions, :label => "Inscriptions, etc", :as => :text, :hint => "(List any inscriptions, monograms, dedications or other such markings. If none, enter 'none'.)" , :input_html => {:class => "input-xxlarge", :rows => 4}%>
-      <%= a.input :dimensions, :label => "Dimensions", :as => :text, :hint => "(Enter the height, width, depth, diameter as appropriate.)" , :input_html => {:class => "input-xxlarge", :rows => 4}%>
-      <%= a.input :materials, :label => "Materials", :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4} %>
-      <%= a.input :country_of_origin, :label => "Country of Origin", :as => :text, :input_html => {:class => "input-xxlarge", :rows => 4} %>
-
-      <%= a.input :damage, :label => "Condition", :as => :text,:hint => "(List any damages, old repairs, soiling, staining or other defects.<br>If the item is mechanical or electrical, is it in good working condition?) ", :input_html => {:class => "input-xxlarge", :rows => 4} %>
-    <% end %>
+        <%= a.input :item_history, :label => "Item history", :as => :text, :hint => "(Where did you get it? Purchase at auction, flea market? Family Heirloom? How long have you owned it?)", :input_html => {:rows => 4} %>
+        <%= a.input :makers_marks, :label => "Signatures, maker's marks, dates", :as => :text, :hint => "(List any signatures, maker's marks or dates. If none, enter 'none'.)", :input_html => {:rows => 4} %>
+        <%= a.input :inscriptions, :label => "Inscriptions, etc", :as => :text, :hint => "(List any inscriptions, monograms, dedications or other such markings. If none, enter 'none'.)" , :input_html => {:rows => 4}%>
+        <%= a.input :dimensions, :label => "Dimensions", :as => :text, :hint => "(Enter the height, width, depth, diameter as appropriate.)" , :input_html => { :rows => 4}%>
+        <%= a.input :materials, :label => "Materials", :as => :text, :input_html => {:rows => 4} %>
+        <%= a.input :country_of_origin, :label => "Country of Origin", :as => :country, input_html: {class: "chzn-select"} %>
+        <%= a.input :damage, :label => "Condition", :as => :text,:hint => "(List any damages, old repairs, soiling, staining or other defects.<br>If the item is mechanical or electrical, is it in good working condition?) ", :input_html => {:rows => 4} %>
+      <% end %>
     </div>
   </div>
-  <% if @appraisal.status == EActivityValueCreated %>
-    <div>
-    <div>
-      <h4>Selected Plan <small><a href="https://www.valuethisnow.com/vmt/using-online-appraisals" class="btn btn-mini btn-success" target="_blank">?</a></small></h4>
-      <%= f.input :selected_plan, 
-        :collection => [[EAAppraisalTypeShortRestricted, "<b>Light Restricted Use Appraisal</b> ($19.95)<br/><ul><li>For your personal use only!</li><li>Provides streamlined feedback and valuation</li></ul>"],[EAAppraisalTypeLongRestricted, "<b>Full Restricted Use Appraisal</b> ($36.95)<br/><ul><li>For your personal use only!</li><li>Provides comprehensive feedback and valuation</li></ul>"],[EAAppraisalTypeLongForSelling, "<b>Full Summary Appraisal</b> ($44.95)<br/><ul><li>For use by you as well as by others</li><li>Provides comprehensive feedback and valuation for reports being used by others</li><li>Provides comprehensive feedback for needs concerning insurance claims/coverage and estate sales</li><li>Provides 3rd party proof of estimated value (insurance/legal and estate related matters)</li></ul>"]], 
-        :label_method => lambda {|a| raw a[1]}, 
-        :value_method => :first,
-        :as => :radio_buttons, 
-        :item_wrapper_class => 'radio',
-        :required => true,
-        :label => ""
-      %>
+  <div class="row">
+    <div class="col-md-9 col-md-offset-3 well">
+      <strong>Notice</strong>
+      <small>
+        <p>This online appraisal will provide an estimate of worth that is based on the subject property's value-relevant characteristics as provided to the appraiser by the client by means of written photographs and written descriptions. As will be noted in the body of the final appraisal report, the online appraiser did not personally inspect the property. The Uniform Standards of Professional Appraisal Practice (USPAP) do not require the appraiser to personally inspect the property. However, USPAP does require that the appraiser "identify" the property and its "value-relevant characteristics." This can be accomplished either by a personal inspection of the property, or by other parties providing the identifying information to the appraiser.</p>
+        <p>The appraiser will provide ranges of values reflecting the property's fair market value as well as its replacement value (comparable). The former reflects what a seller most often accepts and a buyer most often pays for comparable properties, often within the online or onsite auction markets. The latter reflects the appraiser's opinion of what the seller would probably have to pay from within the retail market to replace the subject property with a comparable property within a reasonable amount of time from within the most convenient marketplace.</p>
+        <p>For our purposes, fair market value reflects the gross amount one would expect to realize if selling the item at auction. Replacement value (comparable) reflects the amount one would expect to pay at retail when attempting to replace the property with a comparable item.</p>
+        <p>Appraisals are opinions based on documented market data. ValueThisNow.com does not (indeed, no appraiser can) guarantee that an item will be sold for the appraised amount (items may sell for more or less), nor that a comparable property can be purchased for the appraised amount (a buyer might have to pay more or less).</p>
+      </small>
     </div>
-    </div>
-  <% end %>
-    <div class="well">
-      <div>
-        <strong>Notice</strong>
-        <small><p>This online appraisal will provide an estimate of worth that is based on the subject property's value-relevant characteristics as provided to the appraiser by the client by means of written photographs and written descriptions. As will be noted in the body of the final appraisal report, the online appraiser did not personally inspect the property. The Uniform Standards of Professional Appraisal Practice (USPAP) do not require the appraiser to personally inspect the property. However, USPAP does require that the appraiser "identify" the property and its "value-relevant characteristics." This can be accomplished either by a personal inspection of the property, or by other parties providing the identifying information to the appraiser.</p>
-          <p>The appraiser will provide ranges of values reflecting the property's fair market value as well as its replacement value (comparable). The former reflects what a seller most often accepts and a buyer most often pays for comparable properties, often within the online or onsite auction markets. The latter reflects the appraiser's opinion of what the seller would probably have to pay from within the retail market to replace the subject property with a comparable property within a reasonable amount of time from within the most convenient marketplace.</p>
-          <p>For our purposes, fair market value reflects the gross amount one would expect to realize if selling the item at auction. Replacement value (comparable) reflects the amount one would expect to pay at retail when attempting to replace the property with a comparable item.</p>
-          <p>Appraisals are opinions based on documented market data. ValueThisNow.com does not (indeed, no appraiser can) guarantee that an item will be sold for the appraised amount (items may sell for more or less), nor that a comparable property can be purchased for the appraised amount (a buyer might have to pay more or less).</p></small>
-      </div>
-    </div>
-
-    <div>
+  </div>
+  <div class="row">
+    <div class="col-md-9 col-md-offset-3 allow-share">
       <%= f.input :allow_share,
-        :collection => [[true, "Please help us to keep our marketing costs down by allowing us to share your appraisal through social media"] ,[false, "I don't want anyone else to share this appraisal report through social media except me"]], :value_method => :first, :label_method => :last, :as => :radio_buttons, 
-        :item_wrapper_class => 'radio',
-        :required => true,
-        :label => ""%>
-    </div>
-      <div>
-        <div class="form-actions">
-          <% if params[:action]  != "edit" %>
-            <%= f.button :submit, "Next step", :class => "btn btn-success pull-right" %>
-        <% else %>
-            <%= f.button :submit, "Save and Continue", :class => "btn btn-success" %>
-        <% end %>
-        </div>
-      </div>
-
-    </div>
-  <% end %>
+        :collection => [[true, "Allow ValuethisNow to use my appraisal(s) for promotional purposes. My personal information will NOT be used or displayed for this."] ,[false, "I don't want anyone to be able to share my appraisal except me"]], :value_method => :first, :label_method => :last, :as => :radio_buttons, label: false
+      %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= f.button :submit, "Save and Continue", :class => "btn btn-success pull-right" %>
+  </div>
+</div>
+<% end %>

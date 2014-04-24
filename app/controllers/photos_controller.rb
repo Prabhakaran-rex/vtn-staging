@@ -7,31 +7,8 @@ class PhotosController < ApplicationController
     @photos = @appraisal.photos.order("created_at DESC")
 
     respond_to do |format|
-      format.html
       format.json
     end
-  end
-
-  def show
-    @photo = @appraisal.photos.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @photo }
-    end
-  end
-
-  def new
-    @photo = @appraisal.photos.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @photo }
-    end
-  end
-
-  def edit
-    @photo = @appraisal.photos.find(params[:id])
   end
 
   def create
@@ -42,20 +19,6 @@ class PhotosController < ApplicationController
       render 'index'
     else
       render :json => [{:error => "custom_failure"}], :status => 304
-    end
-  end
-
-  def update
-    @photo = @appraisal.photos.find(params[:id])
-
-    respond_to do |format|
-      if @photo.update_attributes(params[:photo])
-        format.html { redirect_to @appraisal, notice: 'Photo was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @photo.errors, status: :unprocessable_entity }
-      end
     end
   end
 
@@ -88,7 +51,7 @@ class PhotosController < ApplicationController
     end
   end
 
-  private 
+  private
   def load_appraisal
     @appraisal = Appraisal.find(params[:appraisal_id])
   end
