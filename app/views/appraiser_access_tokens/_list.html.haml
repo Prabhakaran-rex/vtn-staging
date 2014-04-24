@@ -1,7 +1,0 @@
-%p{ :class => cycle('odd', 'even')}
-  %span.used= "not used"  if appraiser_access_token.used_at.nil?
-  %span.created= appraiser_access_token.created_at.strftime("%b %d, %H:%M")
-  %span.email= appraiser_access_token.email
-  %span.name= appraiser_access_token.name
-  %span.used= "used: " + appraiser_access_token.used_at.strftime("%b %d, %H:%M")  unless appraiser_access_token.used_at.nil?
-  %span.used= link_to "user" , user_path(appraiser_access_token.user)  unless appraiser_access_token.user.nil?
