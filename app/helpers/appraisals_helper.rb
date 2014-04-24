@@ -40,15 +40,26 @@ module AppraisalsHelper
     distance_of_time_in_words(Time.now,appraisal.updated_at) + " ago"
   end
 
-  def appraisal_buttons(appraisal, role = 'appraiser')
+  def appraisal_buttons(appraisal, role = 'appraiser', small = false)
     if role == "appraiser"
-      case appraisal.status
-      when EActivityValueClaimed
-        link_to reply_appraisal_path(appraisal), :class => "btn btn-success btn-mini" do raw('<i class="icon-edit icon-white"></i> Reply') end
-      when EActivityValuePayed
-        link_to appraisal, :class => "btn btn-success btn-mini" do raw('<i class="icon-folder-open icon-white"></i> View') end
-      when EActivityValueFinalized
-        link_to "Download PDF", show_shared_path(appraisal, :format => :pdf), :class => "btn btn-success btn-mini" 
+      if small
+        case appraisal.status
+        when EActivityValueClaimed
+          link_to reply_appraisal_path(appraisal), :class => "btn btn-success btn-xs" do raw('<span class="glyphicon glyphicon-edit"></spani>') end
+        when EActivityValuePayed
+          link_to appraisal, :class => "btn btn-success btn-xs" do raw('<span class="glyphicon glyphicon-folder-open"></span>') end
+        when EActivityValueFinalized
+          link_to show_shared_path(appraisal, :format => :pdf), :class => "btn btn-success btn-xs" do raw('<span class="glyphicon glyphicon-download-alt"></i>') end
+        end
+      else
+        case appraisal.status
+        when EActivityValueClaimed
+          link_to reply_appraisal_path(appraisal), :class => "btn btn-success btn-sm" do raw('<span class="glyphicon glyphicon-edit"></span> Reply') end
+        when EActivityValuePayed
+          link_to appraisal, :class => "btn btn-success btn-sm" do raw('<span class="glyphicon glyphicon-folder-open"></span> View') end
+        when EActivityValueFinalized
+          link_to "Download PDF", show_shared_path(appraisal, :format => :pdf), :class => "btn btn-success btn-sm" 
+        end
       end
     end
   end

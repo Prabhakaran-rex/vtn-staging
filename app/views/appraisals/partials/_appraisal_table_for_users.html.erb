@@ -15,7 +15,7 @@
   <tbody>
     <% appraisals.each do |appraisal| %>
       <tr>
-        <td  class="hidden-xs"><%= linked_thumbnail(appraisal) %></td>
+        <td class="hidden-xs"><%= linked_thumbnail(appraisal) %></td>
         <td><%= linked_title(appraisal) %></td>
         <td><%= getStringForActivityValue(appraisal.status) %></td>
         <td><%= completed_on(appraisal) %></td>

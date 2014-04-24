@@ -5,7 +5,7 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="span7 appraisal-info">
+    <div class="col-md-7 appraisal-info">
       <table class="table table-condensed">
         <tbody>
           <tr>
@@ -74,12 +74,12 @@
         </tbody>
       </table>
     </div>
-    <div class="span5">
+    <div class="col-md-5">
       <%= render :partial => "photo_carousel" %>
     </div>
   </div>
   <div class="row">
-    <div class="span11">
+    <div class="col-md-11">
       <div class="pull-right" id="appraiser-info">
         <% if (@appraiser.signature?) %> 
           <%= image_tag @appraiser.signature(:small), :height => "100", :width => "250"%>
@@ -91,7 +91,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="span11">
+    <div class="col-md-11">
       <button type="button" class="btn btn-mini btn-success" data-toggle="collapse" data-target="#supplemental_information">
         <i class="icon-file icon-white"></i>
         More (important supplemental information)
