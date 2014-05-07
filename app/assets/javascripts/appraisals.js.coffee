@@ -69,45 +69,58 @@ jQuery ->
 
   # Begin Code for Plan Selection in Appraisal Wizard $("#plansel1").click ->
   $("#planprod1").click ->
-    $("#planprod1").addClass("formProdOn").siblings().removeClass "formProdOn"
-    $("#plansel1").addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    $(".formProd").removeClass("formProdOn")
+    $("#planprod1").addClass("formProdOn")
+    $(".formProdSelect").removeClass("formProdSelected")
+    $("#plansel1").addClass("formProdSelected")
     resetSelectTxt()
     $("#plansel1").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeShortRestricted)
 
   $("#planprod2").click ->
-    $("#planprod2").addClass("formProdOn").siblings().removeClass "formProdOn"
-    $("#plansel2").addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    $(".formProd").removeClass("formProdOn")
+    $("#planprod2").addClass("formProdOn")
+    $(".formProdSelect").removeClass("formProdSelected")
+    $("#plansel2").addClass("formProdSelected")
     resetSelectTxt()
     $("#plansel2").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongRestricted)
 
   $("#planprod4").click ->
-    $("#planprod4").addClass("formProdOn").siblings().removeClass "formProdOn"
-    $("#plansel4").addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    $(".formProd").removeClass("formProdOn")
+    $("#planprod4").addClass("formProdOn")
+    $(".formProdSelect").removeClass("formProdSelected")
+    $("#plansel4").addClass("formProdSelected")
     resetSelectTxt()
     $("#plansel4").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongForSelling)
 
   $("#plansel1").click ->
-    $("#planprod1").addClass("formProdOn").siblings().removeClass "formProdOn"
-    $(this).addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    $(".formProd").removeClass("formProdOn")
+    $("#planprod1").addClass("formProdOn")
+    $(".formProdSelect").removeClass("formProdSelected")
+    $("#plansel1").addClass("formProdSelected")
     resetSelectTxt()
-    $(this).html "Selected"
+    $("#plansel1").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeShortRestricted)
 
   $("#plansel2").click ->
-    $("#planprod2").addClass("formProdOn").siblings().removeClass "formProdOn"
-    $(this).addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    $(".formProd").removeClass("formProdOn")
+    $("#planprod2").addClass("formProdOn")
+    $(".formProdSelect").removeClass("formProdSelected")
+    $("#plansel2").addClass("formProdSelected")
     resetSelectTxt()
-    $(this).html "Selected"
+    $("#plansel2").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongRestricted)
 
+
   $("#plansel4").click ->
-    $("#planprod4").addClass("formProdOn").siblings().removeClass "formProdOn"
-    $(this).addClass("formProdSelected").siblings().removeClass "formProdSelected"
+    $(".formProd").removeClass("formProdOn")
+    $("#planprod4").addClass("formProdOn")
+    $(".formProdSelect").removeClass("formProdSelected")
+    $("#plansel4").addClass("formProdSelected")
     resetSelectTxt()
-    $(this).html "Selected"
+    $("#plansel4").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongForSelling)
 
   setSelectedPlan()

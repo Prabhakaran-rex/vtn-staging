@@ -286,21 +286,17 @@ html, body {
 
 // Plans
 .formProd{
-  position:relative;
-  display:block;
-  float:left;
-  width:310px;
   height:560px;
   background-color:#fff;
   border:1px solid #cccccc;
   text-align:center;
-  margin-right:20px;
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media (max-width: $screen-md-min) { 
   .formProd{
-    height: 160px;
+    height: auto;
+    margin-top: 30px;
   }
 }
 
@@ -344,18 +340,15 @@ html, body {
 
 .formProdPrice{
   position:absolute;
-  bottom:15px;
-  width:300px;
+  bottom:0px;
+  width: 100%;
   font-weight:bold;
   font-size:26px;
   text-align:center;
+  @media (max-width: $screen-md-min) {position: relative; }
 }
 
 .formProdSelect{
-  position:relative;
-  display:block;
-  float:left;
-  width:310px;
   margin-bottom:30px;
   background-color:#fff;
   font-size:23px;
@@ -363,8 +356,13 @@ html, body {
   color:#0079b0;
   margin-top:15px;
   text-align:center;
-  margin-right:20px;
   cursor:pointer;
+}
+
+.planDesc {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 15px;
 }
 
 .formProdSelected{

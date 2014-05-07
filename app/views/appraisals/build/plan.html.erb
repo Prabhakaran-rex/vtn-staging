@@ -8,92 +8,113 @@
 </div>
 
 <div class="container">
-<div class="row">
-  <div class="col-md-12">
+  <div class="row">
+    <div class="col-md-12">
 
-    <%= simple_form_for(@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
-      <div>
-        <!--- Content start -->
-        <div style="position:relative; margin-top:20px;">
-          <div class="formProd" id="planprod1">
-            <div class="formProdTitle">Short Restricted Use</div>
-            <div class="formProdRed">PERSONAL USE ONLY</div>
-            <div class="hidden-xs hidden-sm">
-              <div class="formProdItem">Basic valuation</div>
-              <div class="formProdItem">Basic appraiser’s comments</div>
-              <div class="formProdItem">Replacement Value</div>
-              <div class="formProdItem">Fair Market Value</div>
-              <div class="formProdItem">Personal curiosity</div>
-              <div class="formProdItem">Buying or selling</div>
-              <div class="formProdItem">Equitable distribution</div>
-              <div class="formProdItem">Estate planning</div>
-              <div class="formProdItem">USPAP compliant</div>
+      <%= simple_form_for(@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
+        <div>
+          <!--- Content start -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="formProd" id="planprod1" >
+                <div class="formProdTitle">Short Restricted Use</div>
+                <div class="formProdRed">PERSONAL USE ONLY</div>
+                <div class="hidden-xs hidden-sm">
+                  <div class="formProdItem">Basic valuation</div>
+                  <div class="formProdItem">Basic appraiser’s comments</div>
+                  <div class="formProdItem">Replacement Value</div>
+                  <div class="formProdItem">Fair Market Value</div>
+                  <div class="formProdItem">Personal curiosity</div>
+                  <div class="formProdItem">Buying or selling</div>
+                  <div class="formProdItem">Equitable distribution</div>
+                  <div class="formProdItem">Estate planning</div>
+                  <div class="formProdItem">USPAP compliant</div>
+                </div>
+                <div class="formProdPrice planPrice" id="planPrice1"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeShortRestricted-1]) %></div>
+                <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeShortRestricted-1]+20) %></div>
+                <div class="visible-xs visible-sm planDesc">
+                  USPAP Compliant basic valuation with basic appraiser's comments for personal curiosity, buying or selling, equitable distribution or estate planning.
+                </div>
+              </div>
             </div>
-            <div class="formProdPrice planPrice" id="planPrice1"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeShortRestricted-1]) %></div>
-            <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeShortRestricted-1]+20) %></div>
-          </div>
 
-          <div class="formProd" id="planprod2">
-            <div class="formProdTitle">Full Restricted Use</div>
-            <div class="formProdRed">PERSONAL USE ONLY</div>
-            <div class="hidden-xs hidden-sm">
-              <div class="formProdItem">Standard valuation</div>
-              <div class="formProdItem">Comprehensive appraiser’s comments</div>
-              <div class="formProdItem">Replacement Value</div>
-              <div class="formProdItem">Fair Market Value</div>
-              <div class="formProdItem">Comprehensive description</div>
-              <div class="formProdItem">History often included</div>
-              <div class="formProdItem">Personal curiosity</div>
-              <div class="formProdItem">Buying or selling</div>
-              <div class="formProdItem">Equitable distribution</div>
-              <div class="formProdItem">Estate planning</div>
-              <div class="formProdItem">USPAP compliant</div>
+            <div class="col-md-4">
+              <div class="formProd" id="planprod2">
+                <div class="formProdTitle">Full Restricted Use</div>
+                <div class="formProdRed">PERSONAL USE ONLY</div>
+                <div class="hidden-xs hidden-sm">
+                  <div class="formProdItem">Standard valuation</div>
+                  <div class="formProdItem">Comprehensive appraiser’s comments</div>
+                  <div class="formProdItem">Replacement Value</div>
+                  <div class="formProdItem">Fair Market Value</div>
+                  <div class="formProdItem">Comprehensive description</div>
+                  <div class="formProdItem">History often included</div>
+                  <div class="formProdItem">Personal curiosity</div>
+                  <div class="formProdItem">Buying or selling</div>
+                  <div class="formProdItem">Equitable distribution</div>
+                  <div class="formProdItem">Estate planning</div>
+                  <div class="formProdItem">USPAP compliant</div>
+                </div>
+                <div class="formProdPrice planPrice" id="planPrice2"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongRestricted-1]) %></div>
+                <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongRestricted-1]+20) %></div>
+                <div class="visible-xs visible-sm planDesc">
+                  USPAP Compliant standard valuation with comprehensive appraiser's comments for personal curiosity, buying or selling, equitable distribution or estate planning.
+                </div>
+              </div>
             </div>
-            <div class="formProdPrice planPrice" id="planPrice2"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongRestricted-1]) %></div>
-            <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongRestricted-1]+20) %></div>
-          </div>
-
-          <div class="formProd formProdOn" id="planprod4">
-            <div class="formProdTitle">&nbsp;</div>
-            <div class="formProdRed" style="color:#805700;">FULL USE APPRAISAL REPORT</div>
-            <div class="hidden-xs hidden-sm">
-              <div class="formProdItem">Premium valuation</div>
-              <div class="formProdItem">Comprehensive appraiser’s comments</div>
-              <div class="formProdItem">Replacement Value</div>
-              <div class="formProdItem">Fair Market Value</div>
-              <div class="formProdItem">Comprehensive description</div>
-              <div class="formProdItem">History often included</div>
-              <div class="formProdItem">USPAP compliant</div>
-              <div class="formProdItem2">May be Accepted for </div>
-              <div class="formProdItem">Buying or selling</div>
-              <div class="formProdItem">Equitable distribution</div>
-              <div class="formProdItem">Estate planning</div>
-              <div class="formProdItem"><b>With pre-approval</b></div>
-              <div class="formProdItem">Damage claims</div>
-              <div class="formProdItem">Acquiring insurance</div>
-              <div class="formProdItem">Other legal uses</div>
+            <div class="col-md-4">
+              <div class="formProd formProdOn" id="planprod4">
+                <div class="formProdTitle">&nbsp;</div>
+                <div class="formProdRed" style="color:#805700;">FULL USE APPRAISAL REPORT</div>
+                <div class="hidden-xs hidden-sm">
+                  <div class="formProdItem">Premium valuation</div>
+                  <div class="formProdItem">Comprehensive appraiser’s comments</div>
+                  <div class="formProdItem">Replacement Value</div>
+                  <div class="formProdItem">Fair Market Value</div>
+                  <div class="formProdItem">Comprehensive description</div>
+                  <div class="formProdItem">History often included</div>
+                  <div class="formProdItem">USPAP compliant</div>
+                  <div class="formProdItem2">May be Accepted for </div>
+                  <div class="formProdItem">Buying or selling</div>
+                  <div class="formProdItem">Equitable distribution</div>
+                  <div class="formProdItem">Estate planning</div>
+                  <div class="formProdItem"><b>With pre-approval</b></div>
+                  <div class="formProdItem">Damage claims</div>
+                  <div class="formProdItem">Acquiring insurance</div>
+                  <div class="formProdItem">Other legal uses</div>
+                </div>
+                <div class="formProdPrice planPrice" id="planPrice"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongForSelling-1]) %></div>
+                <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongForSelling-1]+20) %></div>
+                <div class="visible-xs visible-sm planDesc">
+                  USPAP Compliant premium valuation with comprehensive appraiser’s comments, comprehensive description for buying or selling, equitable distribution, estate planning,
+                  damage claims, acquiring insurance and other legal uses.
+                </div>
+              </div>
             </div>
-            <div class="formProdPrice planPrice" id="planPrice"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongForSelling-1]) %></div>
-            <div class="formProdPrice planPairPrice" style="display: none;"><%= number_to_currency(PAYMENT_PLAN[EAAppraisalTypeLongForSelling-1]+20) %></div>
           </div>
-          <div class="formProdSelect hidden-xs hidden-sm" id="plansel1">Select</div>
-          <div class="formProdSelect hidden-xs hidden-sm" id="plansel2">Select</div>
-          <div class="formProdSelect hidden-xs hidden-sm formProdSelected" id="plansel4">Select</div>
-          <div style="clear:both;"></div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="formProdSelect hidden-xs hidden-sm" id="plansel1">Select</div>
+            </div>
+            <div class="col-md-4">
+              <div class="formProdSelect hidden-xs hidden-sm" id="plansel2">Select</div>
+            </div>
+            <div class="col-md-4">
+              <div class="formProdSelect hidden-xs hidden-sm formProdSelected" id="plansel4">Select</div>
+            </div>
+          </div>
           <% if Setting.is_set("enable_pair_pricing","true") %>
             <div class="formProdPairText"><b>* Note:</b> Check the box below if your appraisal request is for a set (e.g., dresser set), service (e.g., flatware or dinnerware service), or a suite 
               (e.g., suite of bedroom furniture). An additional $20.00 will be applied.</div>
             <div class="formProdPair"><input type="checkbox" name="isPair" class="isPair" value="1" style="margin-top: -4px;" /> Appraisal for a set, service or suite adds $20.00</div>
           <% end %>
-          <div style="clear:both;"></div>
           <%= f.input :selected_plan, as: :hidden %>
-          <div style="padding-bottom: 20px;">
+          <div style="margin-top: 20px; padding-bottom: 20px;">
             <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
             <%= f.button :submit, "Next", class: "btn btn-success pull-right" %>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
 </div>
