@@ -1,5 +1,9 @@
 <%= stylesheet_link_tag 'chosen.css' %>
 <%= javascript_include_tag "chosen.jquery.min.js" %>
+<style type="text/css" media="all">
+  #divCategoriesSelect {padding-top: 15px; padding-right: 40px;}
+  
+</style>
 <% if @appraisal.status == EActivityValueCreated %>
 <div id="divCategorySelect" <%= "style='display:none;'" if !@appraisal.category.nil? %>>
 		<select data-placeholder="Choose a category..." style="width:350px;" class="chzn-select" id="demo6">
@@ -9,15 +13,16 @@
 			<% end %>
 		</select>
 		<div id="divCategoriesSelect">
-			<button class="btn btn-success btn-mini pull-right" id='addClassificationBtn'>Save</button>
-			<button class="btn btn-danger btn-mini pull-right" id='cancelClassificationBtn'>Cancel</button>
+			<button class="btn btn-success btn-xs pull-right" id='addClassificationBtn'>Save</button>
+			<button class="btn btn-danger btn-xs pull-right" id='cancelClassificationBtn'>Cancel</button>
 			<input type="hidden" name="demo6" />
 		</div>
 </div>
 
+
 <div id="divCategoryName" <%= "style='display:none;'" if @appraisal.classification.nil? %>>
 	<span id="divCategoryNameField"><%= @appraisal.category.name unless @appraisal.category.nil? %></span>
-	<a href="#" id="btnEditCategory" class="btn btn-success btn-mini pull-right">Change</a>
+	<a href="#" id="btnEditCategory" class="btn btn-success btn-xs pull-right">Change</a>
 </div>
 <% else %>
 <div id="divCategoryName" <%= "style='display:none;'" if @appraisal.classification.nil? %>>

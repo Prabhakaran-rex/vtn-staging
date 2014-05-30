@@ -436,3 +436,11 @@ html, body {
 
   }
 }
+  .longTxtBox {
+position: relative;
+display: block;
+height: 100px;
+padding: 10px;
+overflow: scroll;
+border: 1px solid #cccccc;
+}

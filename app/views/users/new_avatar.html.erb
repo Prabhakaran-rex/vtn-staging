@@ -3,7 +3,7 @@
     <div class="formTop"><span class="title41">Avatar</span></div>
     <div class="sub_box">
       <%= simple_form_for @user, :url => :save_avatar, :method => :post, :html => { :multipart => true } do |form| %>
-        <%= form.input :avatar, :as => :file, :label => "Please upload an image file with your avatar. Only JPG or PNG files can be uploaded. " %>
+        <%= form.input :avatar, :as => :file, :label => "Please upload an image file with your avatar. Only JPG, PNG or TIFF files can be uploaded. " %>
       <%= form.input :avatar_cache, :as => :hidden %>
       <div class="form-actions">
         <%= form.submit "Continue", :class => "btn btn-success"%>

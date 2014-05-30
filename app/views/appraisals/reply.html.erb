@@ -41,26 +41,6 @@
         <%= a.input :fair_market_value_max, :label => "Fair Market Value Maximum", :input_html => {:class => "currency-input"}, hint: "Consider Fair Market Value to be what the client would most likely be able to sell the item for at auction. Fair Market Value is always less than replacement value."  %>
       <% end %>
       <%= f.input :status, :as => :hidden, :value => @appraisal.status %>
-      <div id="extra">
-        <% if @appraisal.status == EActivityValueFinalized %>
-          <label class="checkbox">
-            <input type="checkbox" name="notify_user" value="true">Check to notify client of edit
-          </label>
-          <button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
-        <% else %>
-          <label class="checkbox">
-            <input type="checkbox" name="suggest_rejection" id="chkSuggestRejection" value="false">Suggest to admin that this assignment be rejected and the customer so notified
-          </label>
-          <div id="divRejectionReason">
-            <label class="string optional control-label" for="txtRejectionReason">Reason For Rejection</label>
-            <div class="controls">
-              <input type="text" name="txtRejectionReason" id="txtRejectionReason" value="" />
-            </div>
-          </div>
-          <button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
-          <button class="btn btn-success" id="btnSubmitAppraisalReply">Save and submit appraisal to Client</button>
-        <% end %>
-      </div> <!-- extra -->
     </div>
     <div class="col-md-5 pull-right">
       <div class="row">
@@ -73,5 +53,31 @@
       </div>
     </div>
   </div> <!-- row -->
+    <div class="row">
+    <div class="col-md-10 col-md-offset-2">
+      <div id="extra">
+        <% if @appraisal.status == EActivityValueFinalized %>
+          <label class="checkbox">
+            <input type="checkbox" name="notify_user" value="true">Check to notify client of edit
+          </label>
+          <button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
+        <% else %>
+          <label class="checkbox">
+            <input type="checkbox" name="suggest_rejection" id="chkSuggestRejection" value="false">Suggest to admin that this assignment be rejected and the customer so notified
+          </label>
+          <div id="divRejectionReason" style="margin-bottom: 20px;">
+            <label class="string optional control-label" for="txtRejectionReason">Reason For Rejection</label>
+            <div class="controls">
+              <input type="text" name="txtRejectionReason" id="txtRejectionReason" value="" />
+            </div>
+          </div>
+          <div>
+          <button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
+          <button class="btn btn-success" id="btnSubmitAppraisalReply">Save and submit appraisal to Client</button>
+          </div>
+        <% end %>
+      </div> <!-- extra -->
+    </div>
+    </div>
 <% end %>
 </div>

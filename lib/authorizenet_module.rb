@@ -15,7 +15,7 @@ module AuthorizenetModule
       gateway = ActiveMerchant::Billing::AuthorizeNetGateway.new(
         :login     => authorizenet_credential[:login],
         :password  => authorizenet_credential[:password],
-        :test => false)
+        :test => ENV['TEST_PAYMENT'])
       return gateway
     end
 

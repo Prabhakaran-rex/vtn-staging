@@ -5,7 +5,7 @@ development:
     signature: A6aKY1rdzYKveggqS0dCSlcOacTKABO0H79hKoBZiQlZDjaOoXvAOJFX
   authorizenet:
     login: 93W5Ghw3j
-    password: 7T89jMx366GZ6hf8
+    password: 5G3b7ppn4T22Ja3S
 
 production:
   paypal:
@@ -23,7 +23,7 @@ staging:
     signature: A6aKY1rdzYKveggqS0dCSlcOacTKABO0H79hKoBZiQlZDjaOoXvAOJFX
   authorizenet:
     login: 93W5Ghw3j
-    password: 7T89jMx366GZ6hf8
+    password: 5G3b7ppn4T22Ja3S
 
 test:
   paypal:
@@ -32,7 +32,7 @@ test:
     signature: A6aKY1rdzYKveggqS0dCSlcOacTKABO0H79hKoBZiQlZDjaOoXvAOJFX
   authorizenet:
     login: 93W5Ghw3j
-    password: 7T89jMx366GZ6hf8
+    password: 5G3b7ppn4T22Ja3S
 
 sandbox:
   paypal:
@@ -41,4 +41,4 @@ sandbox:
     signature: A6aKY1rdzYKveggqS0dCSlcOacTKABO0H79hKoBZiQlZDjaOoXvAOJFX
   authorizenet:
     login: 93W5Ghw3j
-    password: 7T89jMx366GZ6hf8
+    password: 5G3b7ppn4T22Ja3S

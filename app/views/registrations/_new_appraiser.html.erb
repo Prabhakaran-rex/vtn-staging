@@ -34,9 +34,9 @@
       <div class="form-group">
         <label for="appraisal-provider-agreement" class="col-sm-3 control-label"></label>
         <div class="col-sm-9">
-          <textarea class="form-control" rows="3" disabled >
-            <%= get_cms_content('/appraisal-provider-agreement') %>
-          </textarea>
+           <div style="width:520px;" class="longTxtBox">
+                <%= raw get_cms_content('/appraisal-provider-agreement') %>
+            </div>
         </div>
       </div>
       <%= f.input :agree_to_provider_agreement, as: :boolean, label: "I have read and agree to the Appraisal Provider Agreement." %>
