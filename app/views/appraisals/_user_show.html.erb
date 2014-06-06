@@ -6,7 +6,7 @@
       <%= @appraisal.title %>
     </h3>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-1" style="padding-top: 15px;">
       <% if @appraisal.status != EActivityValueFinalized %>
         <%= link_to 'Edit', edit_appraisal_path(@appraisal), :class => "btn btn-success btn-block" %>
       <% end %>

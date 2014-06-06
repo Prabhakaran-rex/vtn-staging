@@ -46,11 +46,6 @@
       <div class="row">
         <%= render :partial => "photo_carousel" %>
       </div>
-      <div class="row">
-        <div class="col-md-11">
-          <%= render :partial => "appraisals/comments", :locals => {:appraisal => @appraisal, :comments => @appraisal_comments}%>
-        </div>
-      </div>
     </div>
   </div> <!-- row -->
     <div class="row">
@@ -72,7 +67,7 @@
             </div>
           </div>
           <div>
-          <button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
+          <%= f.submit 'Save and update appraisal', class: "btn btn-success", id: "btnUpdateAppraisalReply" %>
           <button class="btn btn-success" id="btnSubmitAppraisalReply">Save and submit appraisal to Client</button>
           </div>
         <% end %>
@@ -80,4 +75,9 @@
     </div>
     </div>
 <% end %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= render :partial => "appraisals/comments", :locals => {:appraisal => @appraisal, :comments => @appraisal_comments}%>
+  </div>
 </div>

@@ -6,7 +6,7 @@
       <%= @appraisal.title %>
     </h3>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-1" style="padding-top: 15px;">
     <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValuePayed %>
     <% if (@appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized) && (current_user == @appraisal.assigned_to) %>
       <%= link_to 'Edit', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
