@@ -113,9 +113,21 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="appraisal_payment_attributes_zip" class="col-sm-4 control-label">* Card</label>
+              <label for="appraisal_payment_attributes_zip" class="col-sm-4 control-label">* Card No.</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" id="appraisal_payment_attributes_number" name="appraisal[payment_attributes][number]" value="" maxlength="16" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">* Type</label>
+              <div class="col-sm-8">
+                <select name="select" id="select" class="form-control" required>
+                  <option value=""></option>
+                  <option>VISA</option>
+                  <option>Mastercard</option>
+                  <option>American Express</option>
+                  <option>Discover</option>
+                </select>
               </div>
             </div>
             <div class="form-group">
@@ -164,18 +176,6 @@
                     </select>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-4 control-label">* Type</label>
-              <div class="col-sm-8">
-                <select name="select" id="select" class="form-control" required>
-                  <option value=""></option>
-                  <option>VISA</option>
-                  <option>Mastercard</option>
-                  <option>American Express</option>
-                  <option>Discover</option>
-                </select>
               </div>
             </div>
             <div class="form-group">
