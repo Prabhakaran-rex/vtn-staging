@@ -12,9 +12,9 @@ class DashboardController < ApplicationController
 				when "processing"
 					@appraisals = Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueClaimed)
 				when "unclaimed"
-          @appraisals = Appraisal.where('status = ? and (appraiser_referral in (?))', EActivityValuePayed, [nil, "", current_user.referral_id])
+          @appraisals = Appraisal.where('status = ?', EActivityValuePayed)
           if Setting.is_set("show_all_appraisals","false")
-            @specializedAppraisals = Appraisal.select("appraisals.id").joins(:classification => {:category => {:skills => :appraiser}}).where('appraisals.status in (?) and categories.id in (?) and appraisals.appraiser_referral in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ],current_user.skills.pluck(:category_id).uniq, [nil, current_user.referral_id]).pluck('appraisals.id').uniq
+            @specializedAppraisals = Appraisal.select("appraisals.id").joins(:classification => {:category => {:skills => :appraiser}}).where('appraisals.status in (?) and categories.id in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ],current_user.skills.pluck(:category_id).uniq).pluck('appraisals.id').uniq
             @appraisals = @appraisals.where("id in (?)",@specializedAppraisals)
           end
 				when "referrals"
