@@ -39,8 +39,8 @@
             </div>
         </div>
       </div>
-      <%= f.input :agree_to_provider_agreement, as: :boolean, label: "I have read and agree to the Appraisal Provider Agreement." %>
-      <%= f.input :agree_to_code_of_ethics, :as => :boolean, :label => raw("I comply with the #{link_to 'Appraiser Code of Ethics', ethics_path}") %>
+      <%= f.input :agree_to_provider_agreement, as: :boolean, label: "I have read and agree to the Appraisal Provider Agreement.", required: true %>
+      <%= f.input :agree_to_code_of_ethics, :as => :boolean, :label => raw("I comply with the #{link_to 'Appraiser Code of Ethics', ethics_path}"), required: true %>
       <%= f.submit "Sign Up", :class=> "btn btn-success pull-right hidden-xs"%>
       <%= f.submit "Sign Up", :class=> "btn btn-success btn-block visible-xs"%>
     <% end %>

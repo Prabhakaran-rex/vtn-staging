@@ -42,6 +42,26 @@ jQuery ->
     $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeIn()
   ), ->
     $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeOut()
-    
+
   $("textarea").attr('rows',4)
 
+  $('#new_customer').submit ->
+    if $('#customer_agree_to_tos').prop('checked')
+      true
+    else
+      alert 'You should accept the Terms and Conditions to continue'
+      false
+
+  $('#new_appraiser').submit ->
+    if $('#appraiser_agree_to_provider_agreement').prop('checked')
+      true
+    else
+      alert 'You should agree to the Appraisal Provider Agreement to continue'
+      false
+
+  $('#new_appraiser').submit ->
+    if $('#appraiser_agree_to_code_of_ethics').prop('checked')
+      true
+    else
+      alert 'You should agree to the Appraiser Code of Ethics to continue'
+      false
