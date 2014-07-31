@@ -116,6 +116,8 @@ group :test, :development do
   gem 'pry'
   gem 'better_errors'
   gem "binding_of_caller"
+  gem 'debugger'
+
 end
 
 group :test do
@@ -135,3 +137,5 @@ gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 gem 'activerecord-deprecated_finders'
 gem 'rails_12factor'
+#gem 'freshbooks.rb', '~> 3.0.25'
+gem 'ruby-freshbooks'

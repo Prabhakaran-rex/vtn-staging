@@ -4,8 +4,11 @@ development:
     password: 1338861588
     signature: A6aKY1rdzYKveggqS0dCSlcOacTKABO0H79hKoBZiQlZDjaOoXvAOJFX
   authorizenet:
-    login: 93W5Ghw3j
-    password: 5G3b7ppn4T22Ja3S
+    login: 4KAPnt76m
+    password: 64Kcb8834Z8f6yEm
+  freshbook:
+    login: vtn-billing.freshbooks.com
+    password: f26f576d8a60a60324e139b575a9a8fa
 
 production:
   paypal:
@@ -15,6 +18,9 @@ production:
   authorizenet:
     login: 29U2GgeyC7
     password: 4A62xU5m63mQ7vTH
+  freshbook:
+    login: vtn-billing.freshbooks.com
+    password: f26f576d8a60a60324e139b575a9a8fa
 
 staging:
   paypal:
@@ -24,6 +30,9 @@ staging:
   authorizenet:
     login: 93W5Ghw3j
     password: 5G3b7ppn4T22Ja3S
+  freshbook:
+    login: vtn-billing.freshbooks.com
+    password: f26f576d8a60a60324e139b575a9a8fa
 
 test:
   paypal:
