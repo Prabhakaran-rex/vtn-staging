@@ -9,6 +9,6 @@ class Setting < ActiveRecord::Base
 
   def self.get(key)
     theKey = find_by_key(key)
-    return theKey.nil? ? "" : theKey.value
+    return theKey.nil? ? "no-reply@valuethisnow.com" : theKey.value
   end
 end

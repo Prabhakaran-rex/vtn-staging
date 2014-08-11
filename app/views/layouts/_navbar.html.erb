@@ -1,6 +1,9 @@
 <!-- tb_check -->
 <nav class="navbar navbar-default" role="navigation" id="main-navbar">
 <div class="container-fluid">
+  <% if current_user %>
+    <span class="welcome_name"><%= current_user.get_user_name %></span>
+  <% end %>
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
       <span class="sr-only">Toggle navigation</span>
