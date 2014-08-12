@@ -195,7 +195,14 @@ class Appraisal < ActiveRecord::Base
       if self.appraisal_info.appraiser_comments.blank?
         errors.add(:appraiser_comments, "can't be blank")
       end
-    end
+    when EActivityValueClaimed
+      if self.appraisal_info.appraiser_comments.blank?
+        errors.add(:appraiser_comments, "can't be blank")
+      end
+      if (self.appraisal_info.appraiser_comments.length <= 100 )
+        errors.add(:appraiser_comments, "minimum length of 100 words")
+      end
+    end  
   end
 
   def validate_appraisal_info

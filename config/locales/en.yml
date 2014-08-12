@@ -3,3 +3,11 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        appraisal:
+          attributes:
+            appraisal_info:
+              appraiser_comments:
+                blank: "is required"
