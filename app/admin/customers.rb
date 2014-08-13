@@ -23,6 +23,7 @@ ActiveAdmin.register Customer do
     f.inputs "Admin Details" do
       f.input :name
       f.input :email
+      f.input :is_partner, :label => "Create Vendor key"
     end
     f.actions
   end

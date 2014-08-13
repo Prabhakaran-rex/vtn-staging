@@ -76,6 +76,27 @@ class Payment < ActiveRecord::Base
        return {:status => true , :message => "Congratulations your item has been submitted for valuation! You'll be redirected to our home page in a couple of seconds"}
       end
     end
+    
+    def create_client_to_freshbook()
+      freshbook = get_freshbook_auth
+      response = freshbook.client.create(:client => { :first_name => "ddddd", 
+                                                      :last_name => "ddd",
+                                                      :organization => "complany",
+                                                      :email => "fgdfg@mailinator.com",
+                                                      :p_street1 => "",
+                                                      :p_street2 => "",
+                                                      :p_city => "",
+                                                      :p_state => "",
+                                                      :p_country => "",
+                                                      :p_code => ""
+                                                    })
+      unless response["error"].blank?
+        logger.error response["error"]
+      else
+        self.update_column(:client_id, response["client_id"])
+      end
+      
+    end
   
     def add_item_to_invoice(invoice_id,appraisal)
       freshbook = get_freshbook_auth

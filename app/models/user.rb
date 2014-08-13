@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   attr_accessor :crop_avatar_x, :crop_avatar_y, :crop_avatar_w, :crop_avatar_h
   after_update :crop_avatar
+  #after_update :generate_token
 
   accepts_nested_attributes_for :photos, :allow_destroy => true
 
@@ -35,7 +36,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :access_token, :login, :status, :avatar, :avatar_cache, :remove_avatar, :website, :paypal_email
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :access_token, :login, :status, :avatar, :avatar_cache, :remove_avatar, :website, :paypal_email, :is_partner
 
   attr_accessible :crop_avatar_x, :crop_avatar_y, :crop_avatar_w, :crop_avatar_h
   attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
@@ -190,6 +191,7 @@ class User < ActiveRecord::Base
     nexmo.send_message({:to => params[:number], :from => SMS_NUMBER, :text => params[:body]})
   end
 
+  
   private
   def create_address
     y = Address.new(); y.user_id = self.id;
