@@ -452,3 +452,32 @@ border: 1px solid #cccccc;
 .navbar-header,.navbar-collapse {
   margin: 5px 0;
 }
+
+.forgot_pwd_width
+{
+  width: 40%
+}
+@media (min-width: 360px) and (max-width: 640px) 
+{
+    .forgot_pwd_width{ width: 75% !important; }
+
+}
+.confirm_mail_width{ width: 40% }
+
+@media (min-width: 320px) and (max-width: 480px) 
+{
+    .confirm_mail_width{ width: 85% !important; }
+
+}
+@media (min-width: 481px) and (max-width: 655px) 
+{
+    .confirm_mail_width{ width: 60% !important; }
+
+}
+@media (min-width: 768px) and (max-width: 993px) 
+{
+    .confirm_mail_width{ width: 50% !important; }
+
+}
+
+
