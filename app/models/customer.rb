@@ -7,15 +7,13 @@ class Customer < User
   after_create :create_customer_extra
   attr_accessible :customer_extra_attributes
   devise :omniauthable
-  after_update :generate_token 
+  after_save :generate_token 
 
 
   def generate_token
     if is_partner == true && vendor_token.blank?
-      vendor_token = loop do
         random_token = SecureRandom.urlsafe_base64
-        break random_token unless Customer.exists?(vendor_token: random_token)
-      end
+        self.vendor_token  = random_token
       save(:validate => false)
       create_client_to_freshbook
     end
@@ -23,16 +21,17 @@ class Customer < User
  
   def create_client_to_freshbook()
     freshbook = Payment.get_freshbook_auth
-    response = freshbook.client.create(:client => { :first_name => "ddddd", 
-                                                    :last_name => "ddd",
-                                                    :organization => "complany",
-                                                    :email => "fgdfg@mailinator.com",
-                                                    :P_street1 => "",
-                                                    :P_street2 => "",
-                                                    :P_city => "",
-                                                    :P_state => "",
-                                                    :P_country => "",
-                                                    :P_code => ""
+    address = self.address
+    response = freshbook.client.create(:client => { :first_name => self.name, 
+                                                    :last_name => "",
+                                                    :organization => "company",
+                                                    :email => self.email,
+                                                    :p_street1 => address.try(:address),
+                                                    :p_street2 => "",
+                                                    :p_city => address.try(:city),
+                                                    :p_state => address.try(:state),
+                                                    :p_country => address.try(:country),
+                                                    :p_code => address.try(:zip)
                                                   })
     unless response["error"].blank?
       logger.error response["error"]

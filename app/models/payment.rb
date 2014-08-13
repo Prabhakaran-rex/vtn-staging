@@ -44,24 +44,26 @@ class Payment < ActiveRecord::Base
     
     def export_to_freshbook(params,appraisal)
       freshbook = get_freshbook_auth
-      client_id = 41410 #TODO will find vtn partner by vendor id
-      exiting_invoice = get_draft_invoice_for_current_month(client_id, freshbook)
+      client = User.where(:vendor_token => params["vendor"]).first 
+      return {:status => false , :message => "Vendor not found!"} if client.blank?
+      exiting_invoice = get_draft_invoice_for_current_month(client.client_id, freshbook) unless client.blank?
       if exiting_invoice.blank?
-        create_invoice_to_freshbook(client_id,appraisal)
+        create_invoice_to_freshbook(client.client_id,appraisal, params["company_name"]) unless client.blank?
       else
         add_item_to_invoice(exiting_invoice,appraisal)
       end
     end 
     
-    def create_invoice_to_freshbook(client_id,appraisal)
+    def create_invoice_to_freshbook(client_id,appraisal,company)
       freshbook = get_freshbook_auth
       response = freshbook.invoice.create(:invoice => {
-                :client_id     => client_id,
+                :client_id     => client_id.to_i,
                 :status        => 'draft',
                 :date          => Date.today,
                 :notes         => 'Due upon receipt.',
                 :currency_code => 'USD',
                 :terms         => 'Payment due in 30 days.',
+                :organization  =>  company,
                 :lines => [{ :line => {
                                :name         => appraisal.title,
                                :description  => appraisal.name,
@@ -75,27 +77,6 @@ class Payment < ActiveRecord::Base
        appraisal.update_column(:invoice_id, response["invoice_id"])
        return {:status => true , :message => "Congratulations your item has been submitted for valuation! You'll be redirected to our home page in a couple of seconds"}
       end
-    end
-    
-    def create_client_to_freshbook()
-      freshbook = get_freshbook_auth
-      response = freshbook.client.create(:client => { :first_name => "ddddd", 
-                                                      :last_name => "ddd",
-                                                      :organization => "complany",
-                                                      :email => "fgdfg@mailinator.com",
-                                                      :p_street1 => "",
-                                                      :p_street2 => "",
-                                                      :p_city => "",
-                                                      :p_state => "",
-                                                      :p_country => "",
-                                                      :p_code => ""
-                                                    })
-      unless response["error"].blank?
-        logger.error response["error"]
-      else
-        self.update_column(:client_id, response["client_id"])
-      end
-      
     end
   
     def add_item_to_invoice(invoice_id,appraisal)

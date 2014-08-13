@@ -308,4 +308,28 @@
   $(document).ready(function(){
     $(".show_if_checked").hide();
   });
+
+$( document ).on("focusout" , "#appraisal_payment_attributes_zip_partner", function() {
+     var temp = $(this).val();
+     if(temp == "") {
+     } else {
+     $.ajax({
+       type: "GET",
+       url: "/users/get_user_by_vendor_token",
+       data: { vendor_id: temp},
+       dataType: "json",
+     }).done(function(data) {
+         if(data != null) {
+         $("#txtCardName_partner").val()
+         $("#appraisal_payment_attributes_address_partner").val(data.name)
+         $("#appraisal_payment_attributes_city_partner").val(data.address)
+         var city_state_zip = data.city + ", " + data.state + ", " +data.zip
+         $("#appraisal_payment_attributes_state_partner").val(city_state_zip)
+         $("#appraisal_payment_attributes_claim").val()
+         }  
+       });
+     
+     }
+   });
+
 </script>
