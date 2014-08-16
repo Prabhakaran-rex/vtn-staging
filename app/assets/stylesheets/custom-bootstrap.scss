@@ -312,6 +312,7 @@ html, body {
   font-weight:bold;
   background: -moz-linear-gradient(top,#35751f 0%,#1e530c);
   background: -webkit-gradient(linear, left top, left bottom, from(#35751f),to(#1e530c));
+  -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#35751f,EndColorStr=#1e530c)";
   text-align:center;
   padding:3px;
   border-bottom:#cccccc;
