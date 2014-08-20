@@ -4,7 +4,11 @@ class PaymentsController < ApplicationController
 
   def create
     @appraisal = Appraisal.find(params[:appraisal_id])
-    payment_response = AuthorizenetModule::PayGateway.new.process(appraisal: @appraisal, appraisal_params: params[:appraisal], email: current_user.email )
+    if params[:vtn_partner] == "true"
+      payment_response = Payment.export_to_freshbook(params[:partner_attributes],@appraisal)
+    else
+      payment_response = AuthorizenetModule::PayGateway.new.process(appraisal: @appraisal, appraisal_params: params[:appraisal], email: current_user.email )      
+    end
     respond_to do |format|
       format.json {render :json => payment_response.to_json}
     end

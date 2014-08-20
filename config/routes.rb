@@ -17,7 +17,8 @@ PurexNew::Application.routes.draw do
   get "appraisal_data/create"
   get '/facebook/' => "users#facebook_login", via: [:get]
   match '/users/update_appraiser_status' => "users#update_appraiser_status", :as => :update_appraiser_status, via: [:post, :put]
-
+  get '/users/get_user_by_vendor_token' => 'users#get_user_by_vendor_token'
+  
   devise_for :users, :controllers => { :registrations => "registrations"}
 
   devise_for :appraisers, :controllers => { :registrations => "registrations"}

@@ -108,4 +108,12 @@ class UsersController < ApplicationController
       end
     end
   end
+  
+   def get_user_by_vendor_token
+    @user = User.where(:vendor_token => params[:vendor_id]).first
+    unless @user.blank?
+      responce = {:name => @user.name, :address => @user.address.try(:address), :city => @user.address.try(:city), :state => @user.address.try(:state), :zip => @user.address.try(:zip)} 
+    end
+    render :json => responce
+  end
 end

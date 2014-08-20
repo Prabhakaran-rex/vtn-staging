@@ -154,7 +154,16 @@ jQuery ->
       $("#appraisal_payment_attributes_city").val("")
       $("#appraisal_payment_attributes_state").val("")
       $("#appraisal_payment_attributes_zip").val("")
-
+  
+  $("#chkVtnPartner").change ->
+    if $(this).is(":checked")
+      $(".show_if_checked").show()
+      $(".hide_if_checked").hide()
+    else
+      $(".show_if_checked").hide()
+      $(".hide_if_checked").show()
+    return  
+  
   $("#btnBuildWizardPhoto").click ->
     if $('.img-row').length is 0
       alert "Please upload at least one image to continue"
@@ -212,9 +221,10 @@ jQuery ->
 
 requiredFields = ->
   isValid = true
-  $("[required]").each ->
+  $("[required]").not(":hidden").each ->
     isValid = false if $(this).val() is ""
   isValid
+  
 
 resetSelectTxt = ->
   $("#plansel1").html "Select"

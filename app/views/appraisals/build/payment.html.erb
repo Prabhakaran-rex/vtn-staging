@@ -12,7 +12,7 @@
     <!-- Requested appraisal and product snapshot -->
     <h3>Requested appraisal</h3>
 
-    <%= simple_form_for@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal payment_form"},
+    <%= simple_form_for @appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal payment_form"},
       wrapper: :horizontal_form,
       wrapper_mappings: {
         check_boxes: :horizontal_radio_and_checkboxes,
@@ -67,51 +67,107 @@
         </div>
       </div>
       <hr>
+      
       <h3>Billing Information</h3>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <div class="checkbox">
+          <div class="checkbox" style="float: left;">
             <label>
-              <input type="checkbox" value="true" id="chkImportAccount" /> Use account information
+              <input type="checkbox" value="true" id="chkImportAccount"  /> Use account information
             </label>
           </div>
+          <div class="checkbox" style="float: right; margin-right: 83px;">
+            <label>
+              <input type="checkbox" value="true" id="chkVtnPartner" name="vtn_partner" /> Authorized VTN partner submission only
+            </label>
+          </div>
+          
         </div>
       </div>
+      
       <div class="row">
         <div class="col-md-12">
-          <div class="col-md-6">
+          
+          <div class="col-md-6 ">
             <div class="form-group">
               <label for="txtCardName" class="col-sm-4 control-label">* Name on Card</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" id="txtCardName" name="appraisal[payment_attributes][name]" required />
               </div>
             </div>
+            
             <div class="form-group">
               <label for="appraisal_payment_attributes_address" class="col-sm-4 control-label">* Address</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" id="appraisal_payment_attributes_address" name="appraisal[payment_attributes][address]" required/>
               </div>
             </div>
+            
             <div class="form-group">
               <label for="appraisal_payment_attributes_city" class="col-sm-4 control-label">* City</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" id="appraisal_payment_attributes_city" name="appraisal[payment_attributes][city]" required/>
               </div>
             </div>
+            
             <div class="form-group">
               <label for="appraisal_payment_attributes_city" class="col-sm-4 control-label">* State/Province</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" id="appraisal_payment_attributes_state" name="appraisal[payment_attributes][state]" required/>
               </div>
             </div>
+            
             <div class="form-group">
               <label for="appraisal_payment_attributes_zip" class="col-sm-4 control-label">* Zip/Postal Code</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" id="appraisal_payment_attributes_zip" name="appraisal[payment_attributes][zip]" required/>
               </div>
             </div>
+          </div><!-- col-md-6 closed -->
+          
+          
+          <div class="col-md-6 show_if_checked" >
+            <div class="form-group">
+              <label for="appraisal_payment_attributes_zip" class="col-sm-4 control-label">* Vendor ID number</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="appraisal_payment_attributes_zip_partner" name="partner_attributes[vendor]" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="txtCardName" class="col-sm-4 control-label">* Company Name</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtCardName_partner" name="partner_attributes[company_name]" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="appraisal_payment_attributes_address" class="col-sm-4 control-label">* Client  or adjuster name</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="appraisal_payment_attributes_address_partner" name="partner_attributes[client_name]" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="appraisal_payment_attributes_city" class="col-sm-4 control-label">Address</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="appraisal_payment_attributes_city_partner" name="partner_attributes[street_address]" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="appraisal_payment_attributes_city" class="col-sm-4 control-label">City, State, Postal Code</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="appraisal_payment_attributes_state_partner" name="partner_attributes[postal_address]" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="appraisal_payment_attributes_zip" class="col-sm-4 control-label">* Claim or job number</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="appraisal_payment_attributes_claim" name="partner_attributes[job_number]" required/>
+              </div>
+            </div>
+            
           </div>
-          <div class="col-md-6">
+          
+            
+          <div class="col-md-6 hide_if_checked" >
             <div class="form-group">
               <label for="appraisal_payment_attributes_zip" class="col-sm-4 control-label">* Card No.</label>
               <div class="col-sm-8">
@@ -185,6 +241,7 @@
               </div>
             </div>
           </div>
+          
         </div>
       </div>
       <!--Billing Information-->
@@ -201,7 +258,6 @@
                 <input type="text" class="form-control" id="appraisal_payment_attributes_coupon" name="appraisal[payment_attributes][coupon]"/>
               </div>
             </div>
-
           </div>
           <div id="payment-coupon-div" class="pull-right"><span class="help-block"></span></div>
         </div>
@@ -227,6 +283,7 @@
   <% end %>
 </div>
 </div>
+
 <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -245,3 +302,34 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  $(document).ready(function(){
+    $(".show_if_checked").hide();
+  });
+
+$( document ).on("focusout" , "#appraisal_payment_attributes_zip_partner", function() {
+     var temp = $(this).val();
+     if(temp == "") {
+     } else {
+     $.ajax({
+       type: "GET",
+       url: "/users/get_user_by_vendor_token",
+       data: { vendor_id: temp},
+       dataType: "json",
+     }).done(function(data) {
+         if(data != null) {
+         $("#txtCardName_partner").val()
+         $("#appraisal_payment_attributes_address_partner").val(data.name)
+         $("#appraisal_payment_attributes_city_partner").val(data.address)
+         var city_state_zip = data.city + ", " + data.state + ", " +data.zip
+         $("#appraisal_payment_attributes_state_partner").val(city_state_zip)
+         $("#appraisal_payment_attributes_claim").val()
+         }  
+       });
+     
+     }
+   });
+
+</script>
