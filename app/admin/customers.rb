@@ -49,6 +49,7 @@ ActiveAdmin.register Customer do
       row("Email") {customer.email}
       row("Created") {customer.created_at}
       row("Status") {customer.status}
+      row("Vendor Token") {customer.vendor_token}
     end
 
     panel "Address" do
