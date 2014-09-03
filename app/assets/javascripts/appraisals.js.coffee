@@ -163,7 +163,7 @@ jQuery ->
       $(".show_if_checked").hide()
       $(".hide_if_checked").show()
     return  
-  
+
   $("#btnBuildWizardPhoto").click ->
     if $('.img-row').length is 0
       alert "Please upload at least one image to continue"
@@ -204,9 +204,9 @@ jQuery ->
       return false
 
   $("#paymentModal").on "hide", ->
-      $("#paymentModalLoading").show()
-      $("#paymentModalDeclined").hide()
-      $("#paymentModalFooter").hide()
+      $("#paymentModalLoading").show();
+      $("#paymentModalDeclined").hide();
+      $("#paymentModalFooter").hide();
 
   $("#tooltipAppraiserId").tooltip
     placement: "bottom"
@@ -214,10 +214,9 @@ jQuery ->
 
   $("#txtAppraisalComments").textareaCount {originalStyle: "originalDisplayInfo"}, (data) ->
     if data.words >= 100
-      $("#fullSummaryHelp").hide()
+      $("#fullSummaryHelp").hide();
     else
-      $("#fullSummaryHelp").show()
-    return textareaCount
+      $("#fullSummaryHelp").show();
 
 requiredFields = ->
   isValid = true

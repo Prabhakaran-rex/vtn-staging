@@ -5,11 +5,14 @@
     </div>
     <%= render :partial => "appraiser_tabs" %>
     <h3>Please select the categories you want to appraise in</h3>
-    <div>
-      <input type="hidden" name="demo6" />
-      <button class="btn btn-success btn-sm" id='addSkillBtn'>Add</button>
-      <a href="#addAllSkillsModal" role="button" class="btn btn-sm" data-toggle="modal">Add All Categories</a>
+    <div class="row">
+      <div class="col-md-12">
+        <input type="hidden" name="demo6" id="addCategotyBtn" />
+        <button class="btn btn-success btn-sm" id='addSkillBtn'>Add</button>
+        <a href="#addAllSkillsModal" role="button" class="btn btn-sm" data-toggle="modal">Add All Categories</a>
+      </div>      
     </div>
+
     <div class="results" id="demo6-result">
     </div>
     <div>

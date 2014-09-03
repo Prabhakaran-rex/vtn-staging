@@ -7,9 +7,9 @@
     </h3>
   </div>
   <div class="col-md-1" style="padding-top: 15px;">
-    <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success pull-right" if @appraisal.status == EActivityValuePayed %>
+    <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success pull-right claim" if @appraisal.status == EActivityValuePayed %>
     <% if (@appraisal.status == EActivityValueClaimed || @appraisal.status == EActivityValueFinalized) && (current_user == @appraisal.assigned_to) %>
-      <%= link_to 'Edit', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right" %>
+      <%= link_to 'Edit', reply_appraisal_path(@appraisal), :class => "btn btn-success pull-right edit" %>
     <% end %>
   </div>
 </div>
@@ -111,7 +111,7 @@
     </div>
   </div>
   <!-- wip -->
-  <div class="row">
+  <div class="row bottom-button">
     <div class="col-md-12">
       <%= link_to 'Claim', claim_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValuePayed %>
       <%= link_to 'Edit', reply_appraisal_path(@appraisal), :class => "btn btn-success" if @appraisal.status == EActivityValueClaimed %>

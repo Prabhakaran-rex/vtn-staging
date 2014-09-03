@@ -41,11 +41,8 @@
     <%= render :partial => 'layouts/flash', locals: {flash: flash}%> <!-- tb_check -->
     <div id="wrap">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
+        
             <%= yield %>
-          </div>
-        </div>
       </div>
     </div>
     <%= render :partial => "layouts/footer" %> <!-- tb_check -->

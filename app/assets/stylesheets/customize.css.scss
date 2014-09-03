@@ -1,0 +1,63 @@
+#btnSaveComment {
+  margin-bottom: 1%;
+}
+
+#btnUpdateAppraisalReply {
+ margin-top: 1%;
+ margin-bottom: 1%;
+}
+
+.btn.btn-success.pull-right.claim, .btn.btn-success.pull-right.edit, .large-photo {
+  margin-bottom: 1%;
+}
+
+#build_general .chosen-container.chosen-container-single {
+  width: 100% !important;
+}
+
+#build_plan .formProdPair{
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#build_plan .formProdPairText{
+  margin-bottom: 5px;
+}
+
+#build_plan .label_isPair {
+  font-weight: normal;
+}
+
+#build_plan .buttons {
+  margin-top: 5px;
+    padding-bottom: 50px;
+}
+
+.bottom-button {
+  margin-top: 5px;
+}
+
+#addSkillBtn {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#addCategotyBtn {
+  width: 100%;
+}
+
+select[name="demo6_"] {
+  width: 80%;
+}
+
+/*@media only screen and (max-width : 500px) {
+  .signature-panel-control, .signature-panel-wrapper, #my-signature {
+    width: 100% !important;
+  }
+
+  .signature-panel-wrapper canvas {
+    width: 100% !important;
+    height: 85% !important;
+  }
+}*/

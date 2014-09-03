@@ -13,12 +13,15 @@
         boolean: :horizontal_boolean
       } do |f| %>
       <% if (!@user.address.phone1.nil? && !@user.address.phone1.blank? && !@user.address.phone1.empty?) %>
+        
         <%= f.input :notify_by_sms, :label => @user.is_customer? ? "Please send a text to the cellular number in my profile whenever an apprasial report is completed 
-        " : "Receive notifications by SMS (SMS notifications will be sent to <b>#{@user.address.phone1}</b>)", :inline_label => "Yes"%>
+        ".html_safe : "Receive notifications by SMS (SMS notifications will be sent to <b>#{@user.address.phone1}</b>)".html_safe, :inline_label => "Yes"%>
+
+
     <% else %>
       <div class="alert"><b>Please add a phone number in the Contact tab if you would like to have SMS (text message) notifications sent to your phone.</b></div>
     <% end %>
-    <%= f.input :notify_by_email, :label => (@user.is_customer? ? "Please email a copy of my appraisal report to <b>#{@user.email}</b>" : "Receive notifications by Email (Email notifications will be sent to <b>#{@user.email})</b>"),  :inline_label => "Yes"%>
+    <%= f.input :notify_by_email, :label => (@user.is_customer? ? "Please email a copy of my appraisal report to <b>#{@user.email}</b>".html_safe : "Receive notifications by Email (Email notifications will be sent to <b>#{@user.email})</b>".html_safe),  :inline_label => "Yes"%>
     <% if @user.is_appraiser?%>
       <div class="form-group">
         <%= f.label "How often do you want to be notified when a job that is suitable for your skills is available?", class: "col-sm-3" %>

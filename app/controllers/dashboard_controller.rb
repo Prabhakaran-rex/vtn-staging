@@ -22,7 +22,7 @@ class DashboardController < ApplicationController
 				when "completed"
 					@appraisals = Appraisal.where("assigned_to = ? and status = ?",current_user,EActivityValueFinalized)
         else
-					@appraisals = Appraisal.where('status = ?', EActivityValuePayed)
+					@appraisals = Appraisal.all
           if Setting.is_set("show_all_appraisals","false")
             @specializedAppraisals = Appraisal.select("appraisals.id").joins(:classification => {:category => {:skills => :appraiser}}).where('appraisals.status in (?) and categories.id in (?)', [EActivityValuePayed, EActivityValueFinalized,EActivityValueClaimed ],current_user.skills.pluck(:category_id).uniq).pluck('appraisals.id').uniq
             @appraisals = @appraisals.where("id in (?)",@specializedAppraisals)

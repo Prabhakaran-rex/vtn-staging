@@ -1,28 +1,32 @@
-<% if payouts.empty? %>
-  <h3>There are currently no transactions that match the selected conditions.</h3>
-<% else %>
-  <table class="table table-striped table-condensed table-responsive">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Appraisal</th>
-        <th>Completed On</th>
-        <th>Plan</th>
-        <th>Amount</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% payouts.each do |payout| %>
-        <tr>
-          <td><%= payout.created_at.to_i %></td>
-          <td><%= link_to(h(payout.appraisal.title) + " ##{payout.appraisal.id}", payout.appraisal)%></td>
-          <td><%= payout.created_at %></td>
-          <td><%= getStringForAppraisalType(payout.appraisal.selected_plan) %></td>
-          <td><%= "#{print_amount_paid(payout.appraisal)}"%></td>
-          <td><%= "#{print_payout_status(payout.appraisal)}" %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <% if payouts.empty? %>
+      <h3>There are currently no transactions that match the selected conditions.</h3>
+    <% else %>
+      <table class="table table-striped table-condensed table-responsive">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Appraisal</th>
+            <th>Completed On</th>
+            <th>Plan</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% payouts.each do |payout| %>
+            <tr>
+              <td><%= payout.created_at.to_i %></td>
+              <td><%= link_to(h(payout.appraisal.title) + " ##{payout.appraisal.id}", payout.appraisal)%></td>
+              <td><%= payout.created_at %></td>
+              <td><%= getStringForAppraisalType(payout.appraisal.selected_plan) %></td>
+              <td><%= "#{print_amount_paid(payout.appraisal)}"%></td>
+              <td><%= "#{print_payout_status(payout.appraisal)}" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
