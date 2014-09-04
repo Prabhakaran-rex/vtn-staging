@@ -66,33 +66,46 @@ jQuery ->
 
   $('#btnSubmitAppraisalReply').click ->
     $('#appraisal_status').val("10")
+    if words_number < 100
+      alert "The minimum length for Appraiser's Additional Comments is 100 words"
+      false
+    else
+      true
 
   # Begin Code for Plan Selection in Appraisal Wizard $("#plansel1").click ->
   $("#planprod1").click ->
     $(".formProd").removeClass("formProdOn")
     $("#planprod1").addClass("formProdOn")
     $(".formProdSelect").removeClass("formProdSelected")
+    $(".formProdSelect").removeClass("formProdSelected-small")
     $("#plansel1").addClass("formProdSelected")
+    $("#small-plansel1").addClass("formProdSelected-small")
     resetSelectTxt()
-    $("#plansel1").html "Selected"
+    $("#small-plansel1").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeShortRestricted)
 
   $("#planprod2").click ->
     $(".formProd").removeClass("formProdOn")
     $("#planprod2").addClass("formProdOn")
     $(".formProdSelect").removeClass("formProdSelected")
+    $(".formProdSelect").removeClass("formProdSelected-small")
     $("#plansel2").addClass("formProdSelected")
+    $("#small-plansel2").addClass("formProdSelected-small")
     resetSelectTxt()
     $("#plansel2").html "Selected"
+    $("#small-plansel2").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongRestricted)
 
   $("#planprod4").click ->
     $(".formProd").removeClass("formProdOn")
     $("#planprod4").addClass("formProdOn")
     $(".formProdSelect").removeClass("formProdSelected")
+    $(".formProdSelect").removeClass("formProdSelected-small")
     $("#plansel4").addClass("formProdSelected")
+    $("#small-plansel4").addClass("formProdSelected-small")
     resetSelectTxt()
     $("#plansel4").html "Selected"
+    $("#small-plansel4").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongForSelling)
 
   $("#plansel1").click ->
@@ -104,6 +117,15 @@ jQuery ->
     $("#plansel1").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeShortRestricted)
 
+  $("#small-plansel1").click ->
+    $(".formProd").removeClass("formProdOn")
+    $("#planprod1").addClass("formProdOn")
+    $(".formProdSelect").removeClass("formProdSelected-small")
+    $("#small-plansel1").addClass("formProdSelected-small")
+    resetSelectTxt()
+    $("#small-plansel1").html "Selected"
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeShortRestricted)
+
   $("#plansel2").click ->
     $(".formProd").removeClass("formProdOn")
     $("#planprod2").addClass("formProdOn")
@@ -111,6 +133,15 @@ jQuery ->
     $("#plansel2").addClass("formProdSelected")
     resetSelectTxt()
     $("#plansel2").html "Selected"
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongRestricted)
+
+  $("#small-plansel2").click ->
+    $(".formProd").removeClass("formProdOn")
+    $("#planprod2").addClass("formProdOn")
+    $(".formProdSelect").removeClass("formProdSelected-small")
+    $("#small-plansel2").addClass("formProdSelected-small")
+    resetSelectTxt()
+    $("#small-plansel2").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongRestricted)
 
 
@@ -121,6 +152,16 @@ jQuery ->
     $("#plansel4").addClass("formProdSelected")
     resetSelectTxt()
     $("#plansel4").html "Selected"
+    $("#small-plansel4").html "Selected"
+    $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongForSelling)
+
+  $("#small-plansel4").click ->
+    $(".formProd").removeClass("formProdOn")
+    $("#planprod4").addClass("formProdOn")
+    $(".formProdSelect").removeClass("formProdSelected-small")
+    $("#small-plansel4").addClass("formProdSelected-small")
+    resetSelectTxt()
+    $("#small-plansel4").html "Selected"
     $("#appraisal_selected_plan").val(vtn_constants.EAAppraisalTypeLongForSelling)
 
   setSelectedPlan()
@@ -139,7 +180,11 @@ jQuery ->
       alert "Please enter a reason for rejecting the appraisal"
       false
     else
-      true
+      if words_number < 100
+        alert "The minimum length for Appraiser's Additional Comments is 100 words"
+        false
+      else
+        true
 
   $("#chkImportAccount").change ->
     if $(this).is(':checked')
@@ -171,7 +216,7 @@ jQuery ->
     else
       true
 
-  $("#btnBuildWizardGeneral").click ->
+  $("#btnBuildWizardGeneral").click ->       
     if $("#appraisal_classification_attributes_category_id").val() is ""
       alert "Error. Please choose a category before proceeding"
       false
@@ -229,6 +274,10 @@ resetSelectTxt = ->
   $("#plansel1").html "Select"
   $("#plansel2").html "Select"
   $("#plansel4").html "Select"
+
+  $("#small-plansel1").html "Select"
+  $("#small-plansel2").html "Select"
+  $("#small-plansel4").html "Select"
 
 setSelectedPlan = ->
   if $("#appraisal_selected_plan").val()

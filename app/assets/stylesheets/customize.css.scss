@@ -51,6 +51,35 @@ select[name="demo6_"] {
   width: 80%;
 }
 
+.medium-title {
+  font-size: 27px;
+  font-weight: bold;
+  color: #373737;
+}
+
+.big-title {
+  margin-left: 3%;
+}
+
+label.error {
+  color: red;
+}
+
+input.error:focus, textarea.error:focus {
+  border-color: rgba(229, 103, 23, 0.8);
+  box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(229, 103, 23, 0.6);
+  outline: 0 none;
+}
+
+.formProdSelected-small {
+  background: url(check.png) no-repeat;
+  background-position: 285px 0px;
+  cursor: default;
+  color: #000;
+}
+
+
+
 /*@media only screen and (max-width : 500px) {
   .signature-panel-control, .signature-panel-wrapper, #my-signature {
     width: 100% !important;

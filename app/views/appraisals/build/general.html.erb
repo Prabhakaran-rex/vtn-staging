@@ -21,7 +21,7 @@
         } do |f| %>
         <div class="row">
           <div class="col-md-8 col-md-offset-1">
-            <%= f.input :title, label: "Item Name" %>
+            <%= f.input :title, label: "Item Name", required: true%>
           </div>
           <div class="col-md-3">
             <%= f.input :appraiser_referral, label: raw("Appraiser ID <a href='#' id='tooltipAppraiserId'> <span class='badge badge-success'>?</span></a>") %>
@@ -40,7 +40,7 @@
             <% end %>
             <% if Setting.is_set("enable_insurance_claims","true") %>
               <%= f.input :insurance_claim, label: false, inline_label: "This appraisal is for damage claims purposes. I'm seeking values prior to damage", hint: "Remember to provide detailed photos of the item (including a photo showing the whole item)", :input_html => {:class =>"" } %>
-              <%= f.input :insurance_location, label: "Location", as: :string, :input_html => {:class =>"span8" }, hint: "Please provide the location (city/state) of the property."%>
+              <%= f.input :insurance_location, label: "Location", as: :string, :input_html => {:class =>"span8" }, required: true, hint: "Please provide the location (city/state) of the property."%>
             <% end %>
             <%= f.button :submit, "Next", class: "btn btn-success pull-right",id: "btnBuildWizardGeneral"  %>
           </div>

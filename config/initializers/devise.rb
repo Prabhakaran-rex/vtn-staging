@@ -1,3 +1,4 @@
+Devise::TRUE_VALUES << ["on"]
 FACEBOOK_ACCESS = YAML.load_file(File.join(Rails.root, "config", "facebook_access.yml"))
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
@@ -104,7 +105,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 2.weeks
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false

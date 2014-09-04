@@ -42,5 +42,7 @@ jQuery ->
 		if ($("#has_signature").val() == "false")
 			alert("Please upload a signature to continue")
 			false
+
+
 			
 	

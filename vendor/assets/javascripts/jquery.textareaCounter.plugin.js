@@ -20,7 +20,7 @@
 		var options = $.extend(defaults, options);
 		
 		var container = $(this);
-		
+
 		$("<div class='charleft'>&nbsp;</div>").insertAfter(container);
 		
 		//create charleft css
@@ -36,7 +36,13 @@
 		var maxCharacters = options.maxCharacterSize;
 		var numLeft = 0;
 		var numWords = 0;
-				
+
+		$(document).ready(function(event){
+			if (document.URL.split("/")[document.URL.split("/").length-1] == "reply") {
+				limitTextAreaByCharacterCount();
+			}
+		})
+
 		container.bind('keyup', function(event){limitTextAreaByCharacterCount();})
 				 .bind('mouseover', function(event){setTimeout(function(){limitTextAreaByCharacterCount();}, 10);})
 				 .bind('paste', function(event){setTimeout(function(){limitTextAreaByCharacterCount();}, 10);});
@@ -157,6 +163,7 @@
 		
 		function countWord(cleanedWordString){
 			var word_count = cleanedWordString.length-1;
+			words_number = word_count;
 			return word_count;
 		}
 	};  

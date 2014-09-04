@@ -89,10 +89,16 @@
             <td><%= print_fair_market_value(@appraisal) %></td>
           </tr>
         <% end %>
+
         <tr>
-          <td><%=raw @appraisal.insurance_claim ? "<span class='glyphicon glyphicon-ok-circle pull-right'></span>" : "<span class='glyphicon glyphicon-ban-circle pull-right'></span>"  %></td>
-          <td> This appraisal is for an insurance claim for cashing out a property.</td>
+          <% if @appraisal.insurance_claim %>
+            <td>
+              <span class='glyphicon glyphicon-ban-circle pull-right'></span>
+            </td>
+            <td> This appraisal is for an insurance claim for cashing out a property.</td>
+          <% end %>  
         </tr>
+        
         <tr>
           <tr>
             <td>ITEM LOCATION</td>

@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource_or_scope)
     return session[:user_return_to] if session[:user_return_to]
+    
     if (current_user.admin?)
       admin_dashboard_path
     elsif(current_user.is_appraiser?)

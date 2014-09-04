@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :access_token, :login, :status, :avatar, :avatar_cache, :remove_avatar, :website, :paypal_email, :is_partner
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :access_token, :login, :status, :avatar, :avatar_cache, :remove_avatar, :website, :paypal_email, :is_partner, :partner_pricing_id
 
   attr_accessible :crop_avatar_x, :crop_avatar_y, :crop_avatar_w, :crop_avatar_h
   attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
 
   # Set requirement for signup
   validates :agree_to_tos, :acceptance => true, :on => :create
-  validates_presence_of :name
+  validates_presence_of :name, :email, :password, :password_confirmation
 
   def notify_creator_of_appraisal_update( appraisal )
     UserMailer.notify_creator_of_appraisal_update( appraisal ).deliver

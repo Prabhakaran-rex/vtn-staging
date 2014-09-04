@@ -25,7 +25,7 @@ class Appraisal < ActiveRecord::Base
   accepts_nested_attributes_for :payment, :allow_destroy => true
 
   validates_presence_of :created_by, if: :active_or_general?
-  validates_presence_of :name, :title, if: :active_or_general?
+  validates_presence_of :name, :title, :insurance_location, if: :active_or_general?
   validates :selected_plan, :presence => { :message => "Please select a plan to continue" }, if: :active?
   validate :validate_appraisal_requirements, if: :active?
   validate :validate_appraiser_referral, if: :active_or_general?
