@@ -23,6 +23,8 @@ class Appraisals::BuildController < ApplicationController
     params[:appraisal][:step] = 'active' if step == steps.last
     params[:appraisal][:selected_plan] = (params[:appraisal][:selected_plan].to_i + 4) if params[:isPair]
     @appraisal.update_attributes(params[:appraisal])
+    @appraisal.assigned_to = Appraiser.find(@appraisal.appraiser_referral.to_i)
+    @appraisal.save
     render_wizard @appraisal
   end
 end

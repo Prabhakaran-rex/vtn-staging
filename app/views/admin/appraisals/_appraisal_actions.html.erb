@@ -12,3 +12,28 @@
     <input type="number" name="appraiser_id" style="width:50px;">
 <%# end %>
 </form>
+
+<script text="javascript">
+  var status = <%= appraisal.status %>
+  $("#btnAssign").on('click',function() {
+    if (status != "12") {
+      rs = confirm("This Appraisal's status is not Unclaimed \n You'll remove all appraisal informations from later appraiser!")
+      if (rs == true)
+        return true;
+      else
+        return false;
+    }
+  })
+
+  $("#btnReturn").on('click',function() {
+    if (status != "12") {
+      rs = confirm("This Appraisal's status is not Unclaimed \n You'll remove all appraisal informations from later appraiser!")
+      if (rs == true)
+        return true;
+      else
+        return false;
+    }
+  })
+
+
+</script>

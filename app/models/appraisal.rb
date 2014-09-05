@@ -129,12 +129,30 @@ class Appraisal < ActiveRecord::Base
   end
 
   def return_to_queue
+    unless self.status == EActivityValuePayed
+      self.status = EActivityValuePayed
+      self.appraisal_info.additional_ea = ""
+      self.appraisal_info.appraiser_comments = ""
+      self.appraisal_info.replacement_cost_min = ""
+      self.appraisal_info.replacement_cost_max = ""
+      self.appraisal_info.fair_market_value_min = ""
+      self.appraisal_info.fair_market_value_max = ""
+    end
     self.appraiser_referral = ""
     self.assigned_to = nil
     self.save 
   end
 
   def assign_to_appraiser_id(id)
+    unless self.status == EActivityValuePayed
+      self.status = EActivityValuePayed
+      self.appraisal_info.additional_ea = ""
+      self.appraisal_info.appraiser_comments = ""
+      self.appraisal_info.replacement_cost_min = ""
+      self.appraisal_info.replacement_cost_max = ""
+      self.appraisal_info.fair_market_value_min = ""
+      self.appraisal_info.fair_market_value_max = ""
+    end
     self.appraiser_referral = Appraiser.find(id).referral_id
     self.assigned_to = Appraiser.find(id)
     self.assigned_on = Time.now
