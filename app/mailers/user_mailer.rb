@@ -93,6 +93,12 @@ class UserMailer < ActionMailer::Base
          :subject => "[Appraisal Rejected ] #{appraisal.name}")
   end
 
+  def notify_appraiser_for_new_assign(appraiser_id)
+    @appraiser = Appraiser.find(appraiser_id)
+    mail(:to => @appraiser.email,
+         :subject => "[Value This Now] An Appraisal has been assigned to you")
+  end
+
   private
 
   def add_attachment(attachment_name)

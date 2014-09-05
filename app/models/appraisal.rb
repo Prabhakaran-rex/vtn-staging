@@ -128,6 +128,20 @@ class Appraisal < ActiveRecord::Base
     self.save
   end
 
+  def return_to_queue
+    self.appraiser_referral = ""
+    self.assigned_to = nil
+    self.save 
+  end
+
+  def assign_to_appraiser_id(id)
+    self.appraiser_referral = Appraiser.find(id).referral_id
+    self.assigned_to = Appraiser.find(id)
+    self.assigned_on = Time.now
+    self.save
+    UserMailer.notify_appraiser_for_new_assign(id).deliver
+  end
+
   def claim!(params)
     return false if self.status != EActivityValuePayed
 

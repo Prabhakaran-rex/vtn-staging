@@ -202,15 +202,34 @@ class AppraisalsController < ApplicationController
   def reject
     if current_user.admin?
       @appraisal = Appraisal.find(params[:id])
-      if params[:btn_submit] == "Return to Claimed"
-        @appraisal.return_to_claimed_status
-        flash[:error]  = "The appraisal was returned for claimed status"
-      else
-        @appraisal.reject(params[:comments])
-        flash[:error]  = "The appraisal was rejected"
-      end
+
+      type = params[:btn_submit]
+      case type
+        when "Return to Claimed"
+          @appraisal.return_to_claimed_status
+          flash[:error]  = "The appraisal was returned for claimed status"
+          redirect_to admin_root_path
+        when "Return to queue"
+          @appraisal.return_to_queue
+          flash[:error] = "The appraisal was returned to queue"
+          redirect_to admin_root_path
+        when "Assign to Appraiser ID"
+          appraiser_id = params[:appraiser_id].to_i
+          unless appraiser_id <= 0 || appraiser_id > 999
+            @appraisal.assign_to_appraiser_id(appraiser_id)
+            flash[:error] = "The appraisal was assigned to Appraiser with ID: #{params[:appraiser_id]}"
+            redirect_to admin_root_path
+          else
+            flash[:error] = "Appraiser with ID must be between 1 and 999"
+            redirect_to admin_appraisal_path(@appraisal)
+          end
+        else
+          @appraisal.reject(params[:comments])
+          flash[:error]  = "The appraisal was rejected"
+          redirect_to admin_root_path
+      end    
     end
-    redirect_to admin_root_path
+    
   end
 
 

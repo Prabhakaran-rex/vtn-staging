@@ -1,12 +1,14 @@
 <form id="frmAppraisalActions" action="<%= url_for appraisal_reject_path %>" >
   <input type="hidden" name="appraisal" value="<%= appraisal.id %>">
-  <% if appraisal.status == EActivityValueReviewRejection%>
+  <%# if appraisal.status == EActivityValueReviewRejection%>
     <p><label for="comments">Additional Comments for Rejection Notice</label></p>
     <p><textarea rows="4" cols="50" name="comments" value=""></textarea></p>
-  <% end %>
-  <% if appraisal.status == EActivityValueReviewRejection %>
+  <%# end %>
+  <%# if appraisal.status == EActivityValueReviewRejection %>
     <input type="submit" value="Reject" id="btnReject" class="my_btn" name="btn_submit">
-    <input type="submit" value="Return to Claimed" id="btnClaimed" class="my_btn" name="btn_submit">
-<% end %>
+    <input type="submit" value="Return to Appraiser" id="btnClaimed" class="my_btn" name="btn_submit">
+    <input type="submit" value="Return to queue" id="btnReturn" class="my_btn" name="btn_submit">
+    <input type="submit" value="Assign to Appraiser ID" id="btnAssign" class="my_btn" name="btn_submit">
+    <input type="number" name="appraiser_id" style="width:50px;">
+<%# end %>
 </form>
-
