@@ -205,7 +205,7 @@ class AppraisalsController < ApplicationController
 
       type = params[:btn_submit]
       case type
-        when "Return to Claimed"
+        when "Return to Appraiser"
           @appraisal.return_to_claimed_status
           flash[:error]  = "The appraisal was returned for claimed status"
           redirect_to admin_root_path
@@ -216,9 +216,16 @@ class AppraisalsController < ApplicationController
         when "Assign to Appraiser ID"
           appraiser_id = params[:appraiser_id].to_i
           unless appraiser_id <= 0 || appraiser_id > 999
-            @appraisal.assign_to_appraiser_id(appraiser_id)
-            flash[:error] = "The appraisal was assigned to Appraiser with ID: #{params[:appraiser_id]}"
-            redirect_to admin_root_path
+            
+            if Appraiser.exists?(appraiser_id) && Appraiser.find(appraiser_id).type == "Appraiser"
+              appraiser = Appraiser.find(appraiser_id)
+              @appraisal.assign_to_appraiser_id(appraiser)
+              flash[:error] = "The appraisal was assigned to Appraiser with ID: #{params[:appraiser_id]}"
+              redirect_to admin_root_path
+            else
+              flash[:error] = "Appraiser is not found"
+            redirect_to admin_appraisal_path(@appraisal)
+            end
           else
             flash[:error] = "Appraiser with ID must be between 1 and 999"
             redirect_to admin_appraisal_path(@appraisal)

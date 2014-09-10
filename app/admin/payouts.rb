@@ -1,4 +1,4 @@
-ActiveAdmin.register Payout, :namespace => :admin do
+ActiveAdmin.register Payout do
   menu :if => proc{ can?(:manage, Payout) }     
   actions :all, :except => [:destroy]
   menu :label => "Appraiser Payouts", :parent => "Compensations"  
@@ -38,7 +38,7 @@ ActiveAdmin.register Payout, :namespace => :admin do
 
   show do
     attributes_table do
-      row	:created_at
+      row :created_at
       row :updated_at
       row :id
       row :appraisal_id

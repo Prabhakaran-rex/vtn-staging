@@ -64,12 +64,13 @@
           <div id="divRejectionReason" style="margin-bottom: 20px;">
             <label class="string optional control-label" for="txtRejectionReason">Reason For Rejection</label>
             <div class="controls">
-              <input type="text" name="txtRejectionReason" id="txtRejectionReason" value="" />
+              <input type="text" name="txtRejectionReason" id="txtRejectionReason" value=""/> <!-- class="form-control"/> -->
             </div>
           </div>
           <div>
           <%= f.submit 'Save and update appraisal', class: "btn btn-success", id: "btnUpdateAppraisalReply" %>
           <button class="btn btn-success" id="btnSubmitAppraisalReply">Save and submit appraisal to Client</button>
+          <!-- <button class="btn btn-success" id="btnRejectAppraisal">Reject Appraisal</button> -->
           </div>
         <% end %>
       </div> <!-- extra -->
@@ -85,9 +86,9 @@
 
 
 <script text="javascript">
+  var payment_selected_plan = <%= @appraisal.selected_plan %>;
 
-
-$(document).ready(function() {
+$(document).ready(function() { 
   var words_number = 0;
 
   $(".edit_appraisal").validate({

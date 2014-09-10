@@ -180,11 +180,12 @@ jQuery ->
       alert "Please enter a reason for rejecting the appraisal"
       false
     else
-      if words_number < 100
-        alert "The minimum length for Appraiser's Additional Comments is 100 words"
-        false
-      else
-        true
+      if payment_selected_plan == 1
+        if words_number < 100
+          alert "The minimum length for Appraiser's Additional Comments is 100 words"
+          false
+        else
+          true
 
   $("#chkImportAccount").change ->
     if $(this).is(':checked')

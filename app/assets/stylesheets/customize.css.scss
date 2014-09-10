@@ -71,15 +71,20 @@ input.error:focus, textarea.error:focus {
   outline: 0 none;
 }
 
-.formProdSelected-small {
+/*.formProdSelected-small {
   background: url(check.png) no-repeat;
   background-position: 285px 0px;
   cursor: default;
   color: #000;
 }
 
+#txtRejectionReason {
+  width: 48.5%;
+}
 
-
+#btnSaveComment {
+  width: 10%;
+}*/
 /*@media only screen and (max-width : 500px) {
   .signature-panel-control, .signature-panel-wrapper, #my-signature {
     width: 100% !important;

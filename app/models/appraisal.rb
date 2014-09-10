@@ -118,6 +118,7 @@ class Appraisal < ActiveRecord::Base
   def reject(comments)
     comments ||= "No reason for rejection was given"
     self.status = EActivityValueRejected
+    # self.rejection_reason = "" unless self.rejection_reason
     self.rejection_reason = self.rejection_reason + " ADMIN COMMENTS: " + comments
     self.save
     UserMailer.notify_user_of_rejection(self,comments).deliver if (Rails.env == 'development' || Rails.env == 'production')
@@ -143,7 +144,7 @@ class Appraisal < ActiveRecord::Base
     self.save 
   end
 
-  def assign_to_appraiser_id(id)
+  def assign_to_appraiser_id(appraiser)
     unless self.status == EActivityValuePayed
       self.status = EActivityValuePayed
       self.appraisal_info.additional_ea = ""
@@ -153,11 +154,11 @@ class Appraisal < ActiveRecord::Base
       self.appraisal_info.fair_market_value_min = ""
       self.appraisal_info.fair_market_value_max = ""
     end
-    self.appraiser_referral = Appraiser.find(id).referral_id
-    self.assigned_to = Appraiser.find(id)
+    self.appraiser_referral = appraiser.referral_id
+    self.assigned_to = appraiser
     self.assigned_on = Time.now
     self.save
-    UserMailer.notify_appraiser_for_new_assign(id).deliver
+    UserMailer.notify_appraiser_for_new_assign(appraiser.id).deliver
   end
 
   def claim!(params)
