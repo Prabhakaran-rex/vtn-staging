@@ -22,11 +22,17 @@
         <div class="row">
           <div class="col-md-8 col-md-offset-1">
             <%= f.input :title, label: "Item Name", required: true%>
+            <div class="row brief_name">
+              <div class="col-md-9 col-md-offset-3"> (Enter the brief name for your item, e.g., wall clock, walnut desk, Hummel figurine.) </div>
+              </div>
+
           </div>
           <div class="col-md-3">
             <%= f.input :appraiser_referral, label: raw("Appraiser ID <a href='#' id='tooltipAppraiserId'> <span class='badge badge-success'>?</span></a>") %>
           </div>
         </div>
+
+
 
         <div class="row">
           <div class="col-md-12">
