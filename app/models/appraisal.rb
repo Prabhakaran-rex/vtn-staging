@@ -118,7 +118,7 @@ class Appraisal < ActiveRecord::Base
   def reject(comments)
     comments ||= "No reason for rejection was given"
     self.status = EActivityValueRejected
-    # self.rejection_reason = "" unless self.rejection_reason
+    self.rejection_reason = "" unless self.rejection_reason
     self.rejection_reason = self.rejection_reason + " ADMIN COMMENTS: " + comments
     self.save
     UserMailer.notify_user_of_rejection(self,comments).deliver if (Rails.env == 'development' || Rails.env == 'production')

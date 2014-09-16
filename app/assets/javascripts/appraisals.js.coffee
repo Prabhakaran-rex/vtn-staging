@@ -71,6 +71,23 @@ jQuery ->
       false
     else
       true
+  $("#chkSuggestRejection").click ->
+    if ($(this).attr("checked") == "checked")
+      $("#btnUpdateAppraisalReply").attr("disabled", true)
+      $("#btnSubmitAppraisalReply").attr("disabled", true)
+      $("#btnRejectAppraisal").attr("disabled", false)
+    else
+      $("#btnUpdateAppraisalReply").attr("disabled", false)
+      $("#btnSubmitAppraisalReply").attr("disabled", false)
+      $("#btnRejectAppraisal").attr("disabled", true)
+
+  $('#btnRejectAppraisal').click ->
+    $('#appraisal_status').val("14")
+    if words_number < 100
+      alert "The minimum length for Appraiser's Additional Comments is 100 words"
+      false
+    else
+      true
 
   # Begin Code for Plan Selection in Appraisal Wizard $("#plansel1").click ->
   $("#planprod1").click ->

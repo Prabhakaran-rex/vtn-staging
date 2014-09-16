@@ -21,6 +21,7 @@ class HomeController < ApplicationController
 
   # Privacy Policy
   def privacy
+    render cms_page: '/privacy-policy'
   end
 
   # How it works
@@ -30,6 +31,7 @@ class HomeController < ApplicationController
 
   # Become an Appraiser page
   def become
+    render cms_page: '/become'
   end
 
   # Appraiser code of Ethics

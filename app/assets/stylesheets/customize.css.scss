@@ -75,7 +75,7 @@ input.error:focus, textarea.error:focus {
   margin-bottom: 10px;
 }
 
-/*.formProdSelected-small {
+.formProdSelected-small {
   background: url(check.png) no-repeat;
   background-position: 285px 0px;
   cursor: default;
@@ -88,14 +88,4 @@ input.error:focus, textarea.error:focus {
 
 #btnSaveComment {
   width: 10%;
-}*/
-/*@media only screen and (max-width : 500px) {
-  .signature-panel-control, .signature-panel-wrapper, #my-signature {
-    width: 100% !important;
-  }
-
-  .signature-panel-wrapper canvas {
-    width: 100% !important;
-    height: 85% !important;
-  }
-}*/
+}

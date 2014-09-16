@@ -59,18 +59,18 @@
           <button class="btn btn-success" id="btnUpdateAppraisalReply">Save and update appraisal</button>
         <% else %>
           <label class="checkbox">
-            <input type="checkbox" name="suggest_rejection" id="chkSuggestRejection" value="false">Suggest to admin that this assignment be rejected and the customer so notified
+            <input type="checkbox" name="suggest_rejection" id="chkSuggestRejection">Suggest to admin that this assignment be rejected and the customer so notified
           </label>
           <div id="divRejectionReason" style="margin-bottom: 20px;">
             <label class="string optional control-label" for="txtRejectionReason">Reason For Rejection</label>
             <div class="controls">
-              <input type="text" name="txtRejectionReason" id="txtRejectionReason" value=""/> <!-- class="form-control"/> -->
+              <input type="text" name="txtRejectionReason" id="txtRejectionReason" value="" class="form-control"/> 
             </div>
           </div>
           <div>
           <%= f.submit 'Save and update appraisal', class: "btn btn-success", id: "btnUpdateAppraisalReply" %>
           <button class="btn btn-success" id="btnSubmitAppraisalReply">Save and submit appraisal to Client</button>
-          <!-- <button class="btn btn-success" id="btnRejectAppraisal">Reject Appraisal</button> -->
+          <button class="btn btn-success" id="btnRejectAppraisal">Reject Appraisal</button>
           </div>
         <% end %>
       </div> <!-- extra -->
@@ -87,8 +87,10 @@
 
 <script text="javascript">
   var payment_selected_plan = <%= @appraisal.selected_plan %>;
-
-$(document).ready(function() { 
+  
+$(document).ready(function() {
+  $("#btnRejectAppraisal").attr("disabled", true)
+  // Disable Reject Button
   var words_number = 0;
 
   $(".edit_appraisal").validate({
