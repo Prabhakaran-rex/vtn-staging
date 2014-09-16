@@ -66,11 +66,13 @@ jQuery ->
 
   $('#btnSubmitAppraisalReply').click ->
     $('#appraisal_status').val("10")
-    if words_number < 100
-      alert "The minimum length for Appraiser's Additional Comments is 100 words"
-      false
-    else
-      true
+    if payment_selected_plan == 4 || payment_selected_plan == 8
+      if words_number < 100
+        alert "The minimum length for Appraiser's Additional Comments is 100 words"
+        false
+      else
+        true
+
   $("#chkSuggestRejection").click ->
     if ($(this).attr("checked") == "checked")
       $("#btnUpdateAppraisalReply").attr("disabled", true)
@@ -82,12 +84,21 @@ jQuery ->
       $("#btnRejectAppraisal").attr("disabled", true)
 
   $('#btnRejectAppraisal').click ->
+    edit_form.resetForm()
+    form = $('.edit_appraisal').get(0)
+    $.removeData(form,'validator')
     $('#appraisal_status').val("14")
-    if words_number < 100
-      alert "The minimum length for Appraiser's Additional Comments is 100 words"
+    if $("#chkSuggestRejection").is(':checked') and $("#txtRejectionReason").val().length == 0
+      alert "Please enter a reason for rejecting the appraisal"
       false
-    else
-      true
+  
+  $('#btnUpdateAppraisalReply').click ->
+    if payment_selected_plan == 4 || payment_selected_plan == 8
+      if words_number < 100
+        alert "The minimum length for Appraiser's Additional Comments is 100 words"
+        false
+      else
+        true
 
   # Begin Code for Plan Selection in Appraisal Wizard $("#plansel1").click ->
   $("#planprod1").click ->
@@ -191,18 +202,6 @@ jQuery ->
     else
       $("#divRejectionReason").hide()
       $("#txtRejectionReason").val("")
-
-  $('#btnUpdateAppraisalReply').click ->
-    if $("#chkSuggestRejection").is(':checked') and $("#txtRejectionReason").val().length == 0
-      alert "Please enter a reason for rejecting the appraisal"
-      false
-    else
-      if payment_selected_plan == 1
-        if words_number < 100
-          alert "The minimum length for Appraiser's Additional Comments is 100 words"
-          false
-        else
-          true
 
   $("#chkImportAccount").change ->
     if $(this).is(':checked')
