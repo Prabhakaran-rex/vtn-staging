@@ -106,4 +106,14 @@ class HomeController < ApplicationController
     url = params[:slug] ? "http://blog.valuethisnow.com/posts/#{params[:slug]}" : "http://blog.valuethisnow.com"
     redirect_to url
   end
+
+  def using_online_appraisals
+    render cms_page: '/using-online-appraisals'
+  end
+
+  def cost_of_appraisals
+    render cms_page: '/cost-of-appraisals'
+  end
+
+
 end

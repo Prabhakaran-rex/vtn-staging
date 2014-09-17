@@ -94,6 +94,8 @@ PurexNew::Application.routes.draw do
   get '/home/testimonials' => 'home#testimonials'
   get '/home/affiliate' => 'home#affiliate', :as => 'affiliate'
   get '/home/appraisal_provider_agreement' => 'home#appraisal_provider_agreement', :as => "appraisal_provider_agreement"
+  get '/home/using_online_appraisals' => 'home#using_online_appraisals', :as => "using_online_appraisals"
+  get '/home/cost_of_appraisals' => 'home#cost_of_appraisals', :as => "cost_of_appraisals"
 
   post '/appraisals/comment' => "appraisals#comment", :as => :comments
   get '/appraisals/reject/:id' => "appraisals#reject", :as => :appraisal_reject, via: [:all]
