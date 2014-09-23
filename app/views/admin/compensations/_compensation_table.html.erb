@@ -9,9 +9,16 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% Compensation.find_all_by_appraisal_plan(plan).each do |compensation| %>
+		<% Compensation.find_all_by_appraisal_plan(plan, :order => "id").each do |compensation| %>
 		<tr>
-			<td><%= "#{compensation.min_range} to #{compensation.max_range}" %></td>
+			<td>
+				<% unless compensation.is_over  %>
+					<%= "#{compensation.min_range} to #{compensation.max_range}" %>
+				<% else %>
+					<%= "Over #{pluralize(compensation.min_range, 'hour')} " %>
+				<% end %>
+				
+			</td>
 			<td><%= "#{print_as_currency(compensation.amount)}" %></td>
 			<td><%= "#{print_as_currency(PAYMENT_PLAN[plan-1]-compensation.amount)}" %></td>
 		</tr>
