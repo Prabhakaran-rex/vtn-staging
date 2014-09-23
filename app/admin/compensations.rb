@@ -58,6 +58,21 @@ ActiveAdmin.register Compensation do
     end
   end
 
+  controller do
+    # This code is evaluated within the controller class
+
+    def update
+      super
+      if params[:compensation][:is_over] == "1"
+        @admin_compensation = Compensation.find(params[:id])
+        @admin_compensation.update_attributes(max_range: nil)
+      end
+
+
+
+    end
+  end
+
 end
 
 ActiveAdmin.register_page "Compensation Table" do
