@@ -45,7 +45,6 @@ class Appraisal < ActiveRecord::Base
   def completion_time(format = "s")
     begin
       claimed_on = (get_date_for_status_change(EActivityValuePayed, EActivityValueClaimed)).to_i
-      sleep 1
       completed_on = (get_date_for_status_change(EActivityValueClaimed, EActivityValueFinalized)).to_i
 
       duration = (claimed_on == 0 || completed_on == 0) ? 0 : (completed_on - claimed_on)
