@@ -9,7 +9,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% Compensation.find_all_by_appraisal_plan(plan, :order => "id").each do |compensation| %>
+		<% Compensation.find_all_by_appraisal_plan(plan, :order => "amount desc").each do |compensation| %>
 		<tr>
 			<td>
 				<% unless compensation.is_over  %>

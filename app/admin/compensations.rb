@@ -44,7 +44,7 @@ ActiveAdmin.register Compensation do
       f.input :amount, :hint => "Enter the amount in dollars to be paid to the appraiser"
       f.input :min_range, :hint => "In hours"
       f.input :max_range, :hint => "In hours"
-      f.input :is_over, label: "Check for Over the min value"
+      f.input :is_over, label: "Do not have the Max range"
     end
     f.actions
   end
