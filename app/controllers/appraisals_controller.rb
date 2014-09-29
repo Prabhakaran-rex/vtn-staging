@@ -211,16 +211,21 @@ class AppraisalsController < ApplicationController
           flash[:error]  = "The appraisal was returned for claimed status"
           redirect_to admin_root_path
         when "Return to queue"
-          @appraisal.return_to_queue
-          flash[:error] = "The appraisal was returned to queue"
-          redirect_to admin_root_path
+          if @appraisal.status != 0
+            @appraisal.return_to_queue
+            flash[:error] = "The appraisal was returned to queue"
+            redirect_to admin_root_path
+          else
+            flash[:error] = "Can not return incompleted appraisal to queue"
+            redirect_to admin_appraisal_path(@appraisal)
+          end
         when "Assign to Appraiser ID"
           appraiser_id = params[:appraiser_id].to_i
           unless appraiser_id <= 0 || appraiser_id > 999
             
             if Appraiser.exists?(appraiser_id) && Appraiser.find(appraiser_id).type == "Appraiser"
               appraiser = Appraiser.find(appraiser_id)
-              if appraiser.status.to_s == "2"
+              if appraiser.status == 2
                 @appraisal.assign_to_appraiser_id(appraiser)
                 flash[:error] = "The appraisal was assigned to Appraiser with ID: #{params[:appraiser_id]}"
                 redirect_to admin_root_path
