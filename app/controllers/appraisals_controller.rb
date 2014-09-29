@@ -220,12 +220,17 @@ class AppraisalsController < ApplicationController
             
             if Appraiser.exists?(appraiser_id) && Appraiser.find(appraiser_id).type == "Appraiser"
               appraiser = Appraiser.find(appraiser_id)
-              @appraisal.assign_to_appraiser_id(appraiser)
-              flash[:error] = "The appraisal was assigned to Appraiser with ID: #{params[:appraiser_id]}"
-              redirect_to admin_root_path
+              if appraiser.status.to_s == "2"
+                @appraisal.assign_to_appraiser_id(appraiser)
+                flash[:error] = "The appraisal was assigned to Appraiser with ID: #{params[:appraiser_id]}"
+                redirect_to admin_root_path
+              else
+                flash[:error] = "Please be noticed that the appraisal only be assigned to the Confirmed Appraiser"
+                redirect_to admin_appraisal_path(@appraisal)
+              end
             else
               flash[:error] = "Appraiser is not found"
-            redirect_to admin_appraisal_path(@appraisal)
+              redirect_to admin_appraisal_path(@appraisal)
             end
           else
             flash[:error] = "Appraiser with ID must be between 1 and 999"
