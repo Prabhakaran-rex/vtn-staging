@@ -14,7 +14,7 @@ class AppraisalsController < ApplicationController
     end
     @appraisals = @appraisals.flatten
 
-    if @appraisals.empty?
+    if @appraisals.blank?
       @appraisal = Appraisal.new
       1.times { @appraisal.photos.build }
     end
