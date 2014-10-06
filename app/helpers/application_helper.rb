@@ -51,7 +51,7 @@ module ApplicationHelper
               EAAppraisalTypeShortForSellingPair => "Light Summary Appraisal Pair",
               EAAppraisalTypeLongForSellingPair => "Full Summary Appraisal Pair"}
 
-    hItems[nType].empty? ? "" : hItems[nType]
+    hItems[nType].blank? ? "" : hItems[nType]
   end
 
   def getStringForPayoutStatus(status)
@@ -244,4 +244,7 @@ module ApplicationHelper
     }.merge options
     url_for(options)
   end
+  #  TODO Return the price of partner customer
+
+
 end
