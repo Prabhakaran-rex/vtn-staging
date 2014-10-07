@@ -1,0 +1,7 @@
+table#strategic_partner .col.col-name {
+  max-width: 100px !important;
+  overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow: ellipsis; 
+  -o-text-overflow: ellipsis;
+}
