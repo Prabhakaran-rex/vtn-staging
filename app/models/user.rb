@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :tags
   has_many :tickets
 
+  belongs_to :partner_pricing
 # STI Migration
   attr_accessible :type
   has_one :address
@@ -36,13 +37,16 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me,
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
-    :payment_method, :uspap, :name, :agree_to_tos, :role, :access_token, :login, :status, :avatar, :avatar_cache, :remove_avatar, :website, :paypal_email, :is_partner, :partner_pricing_id
+    :payment_method, :uspap, :name, :agree_to_tos, :role, :access_token, :login, :status, :avatar, 
+    :avatar_cache, :remove_avatar, :website, :paypal_email, :is_partner, :partner_pricing_id,
+    :negotiated_cost, :payment_term, :secondary_contact_name, :secondary_contact_email
 
   attr_accessible :crop_avatar_x, :crop_avatar_y, :crop_avatar_w, :crop_avatar_h
   attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
 
   attr_accessible :agree_to_provider_agreement, :agree_to_code_of_ethics
   validates :agree_to_provider_agreement, :agree_to_code_of_ethics, :acceptance => true, :on => :create, :if => :is_appraiser?
+  validates :negotiated_cost , numericality: { greater_than_or_equal_to: 0}
 
   # Used for appraiser signup
   attr_accessor :access_token
@@ -193,7 +197,7 @@ class User < ActiveRecord::Base
   def self.send_sms(params)
     Rails.logger.debug "*** delivering sms #{params.to_json}"
     nexmo = Nexmo::Client.new(SMS_API_KEY, SMS_SECRET_KEY)
-    nexmo.send_message({:to => params[:number], :from => SMS_NUMBER, :text => params[:body]})
+    nexmo.send_message({:to => params[:number], :from => SMS_NUMBER, :text => params[:body]}) if Rails.env == "production"
   end
 
   

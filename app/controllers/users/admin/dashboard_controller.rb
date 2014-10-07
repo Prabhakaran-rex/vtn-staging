@@ -1,6 +1,5 @@
 class Users::Admin::DashboardController < ApplicationController
   before_filter :check_admin
-
   def show
     @appraiser_access_token = AppraiserAccessToken.new
   end

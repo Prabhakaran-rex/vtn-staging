@@ -42,34 +42,40 @@ class Payment < ActiveRecord::Base
       where("appraisal_id = ?", appraisal_id).first
     end
     
-    def export_to_freshbook(params,appraisal)
+    def export_to_freshbook(params,appraisal, is_xw)
       freshbook = get_freshbook_auth
-      client = User.where(:vendor_token => params["vendor"]).first 
-      return {:status => false , :message => "Vendor not found!"} if client.blank?
-      exiting_invoice = get_draft_invoice_for_current_month(client.client_id, freshbook) unless client.blank?
+
+      client = User.where(:vendor_token => params["vendor_token"]).first
+      return {:status => false , :message => "Vendor Token not found!"} if client.blank?
+      unless freshbook.client.get(:client_id => client.client_id)["client"]["organization"] == params["company_name"]
+        return {:status => false , :message => "Company Name is not met"}
+      end
+      
+      exiting_invoice = get_draft_invoice_for_current_month(client.client_id, freshbook) unless client.blank?    
+
       if exiting_invoice.blank?
-        create_invoice_to_freshbook(client.client_id,appraisal, params["company_name"]) unless client.blank?
+        create_invoice_to_freshbook(client.client_id,appraisal, params["company_name"], is_xw) unless client.blank?
       else
-        add_item_to_invoice(exiting_invoice,appraisal)
+        add_item_to_invoice(exiting_invoice,appraisal, is_xw)
       end
     end 
     
-    def create_invoice_to_freshbook(client_id,appraisal,company)
+    def create_invoice_to_freshbook(client_id,appraisal,company, is_xw)
       freshbook = get_freshbook_auth
-      response = freshbook.invoice.create(:invoice => {
-                :client_id     => client_id.to_i,
-                :status        => 'draft',
-                :date          => Date.today,
-                :notes         => 'Due upon receipt.',
-                :currency_code => 'USD',
-                :terms         => 'Payment due in 30 days.',
-                :organization  =>  company,
-                :lines => [{ :line => {
-                               :name         => appraisal.title,
-                               :description  => appraisal.name,
-                               :unit_cost    => PAYMENT_PLAN[appraisal.selected_plan-1],
-                               :quantity     => 1
-                             }}]})
+      pricing = get_pricing_of_partner(appraisal.owned_by, appraisal.selected_plan, is_xw)
+      p pricing, "++++++++++++++++++++++++++++++++++"
+      response = freshbook.invoice.create(:invoice => { :client_id => client_id, 
+                                                        :status => 'draft', 
+                                                        :date => Date.today, 
+                                                        :notes => 'Due upon receipt.', 
+                                                        :currency_code => 'USD', 
+                                                        :terms  => 'Payment due in 30 days.', 
+                                                        :organization => company, 
+                                                        :lines => [{ :line => { :name  => appraisal.title, 
+                                                                                :description  => appraisal.name, 
+                                                                                :unit_cost  => pricing, 
+                                                                                :quantity => 1 }}]})
+
       unless response["error"].blank?
         logger.error response["error"]
         return {:status => false , :message => response["error"]}
@@ -79,9 +85,16 @@ class Payment < ActiveRecord::Base
       end
     end
   
-    def add_item_to_invoice(invoice_id,appraisal)
+    def add_item_to_invoice(invoice_id,appraisal, is_xw)
       freshbook = get_freshbook_auth
-      response = freshbook.invoice.lines.add(:invoice_id => invoice_id, :lines => {:line => {:name => appraisal.title, :description => appraisal.name, :unit_cost => PAYMENT_PLAN[appraisal.selected_plan-1], :quantity => 1, :type => "Item"}})
+      pricing = get_pricing_of_partner(appraisal.owned_by, appraisal.selected_plan, is_xw)
+      response = freshbook.invoice.lines.add( :invoice_id => invoice_id, 
+                                              :lines => { :line => {
+                                                          :name => appraisal.title, 
+                                                          :description => appraisal.name, 
+                                                          :unit_cost => pricing, 
+                                                          :quantity => 1, 
+                                                          :type => "Item"}})
       unless response["error"].blank?
         logger.error response["error"]
         return {:status => false , :message => response["error"]}
@@ -93,7 +106,10 @@ class Payment < ActiveRecord::Base
   
     def get_draft_invoice_for_current_month(client_id, freshbook)
       invoice_id = ""
-      list = freshbook.invoice.list(:client_id => client_id, :status => "draft", :date_from => Date.today.beginning_of_month.to_s, :date_to => Date.today.end_of_month.to_s) 
+      list = freshbook.invoice.list( :client_id => client_id, :status => "draft", 
+                                      :date_from => Date.today.beginning_of_month.to_s, 
+                                      :date_to => Date.today.end_of_month.to_s) 
+
       if list["error"].blank? &&  !list["invoices"]["invoice"].blank?
         invoice_id = if list["invoices"]["total"] == "1" 
                         list["invoices"]["invoice"]["invoice_id"]
@@ -103,6 +119,45 @@ class Payment < ActiveRecord::Base
       end
       return invoice_id
     end
+
+    #  TODO Return the price of partner customer
+    def get_pricing_of_partner(user, selected_plan, is_xw)
+      pricing = PartnerPricing.find_by_user_id(user)
+      if pricing.blank?
+        return PAYMENT_PLAN[selected_plan-1]
+      end
+      
+      price = 0
+
+      if selected_plan > 4
+        selected_plan -= 4
+        price += 20
+      end
+
+      plan = PAYMENT_PLAN_FOR_PARTNER[selected_plan]
+      if is_xw.blank?
+        case plan
+          when "short_restricted"
+            price += pricing.short_restricted
+          when "full_restricted"
+            price += pricing.full_restricted
+          when "full_use"
+            price += pricing.full_use      
+        end
+      else
+        case plan
+          when "short_restricted"
+            price += pricing.short_restricted_xw
+          when "full_restricted"
+            price += pricing.full_restricted_xw
+          when "full_use"
+            price += pricing.full_use_xw
+        end
+      end
+
+      return price
+    end
+
   end  
   class CreditCard
     attr_accessor :number, :cvv, :expmon, :expyear, :name, :amount 

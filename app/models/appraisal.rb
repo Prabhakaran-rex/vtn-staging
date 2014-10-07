@@ -32,7 +32,7 @@ class Appraisal < ActiveRecord::Base
 
   serialize :appraisal_info, AppraisalInfo
 
-  attr_accessible :appraiser_referral, :allow_share, :created_by, :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type, :title
+  attr_accessible :appraiser_referral, :allow_share, :created_by, :selected_plan, :name, :photos_attributes, :appraiser_number, :appraisal_info, :status, :appraisal_type, :title, :is_downloaded
   attr_accessible :classification_attributes, :payment_attributes, :step, :rejection_reason
   attr_accessible :insurance_claim, :insurance_prior, :insurance_location
   acts_as_commentable

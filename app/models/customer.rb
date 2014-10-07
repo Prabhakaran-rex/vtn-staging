@@ -18,13 +18,21 @@ class Customer < User
       create_client_to_freshbook
     end
   end
+
+  def re_generate_token
+    if is_partner == true && !vendor_token.blank?
+        random_token = SecureRandom.urlsafe_base64
+        self.vendor_token  = random_token
+      save(:validate => false)
+    end
+  end
  
   def create_client_to_freshbook()
     freshbook = Payment.get_freshbook_auth
     address = self.address
     response = freshbook.client.create(:client => { :first_name => self.name, 
                                                     :last_name => "",
-                                                    :organization => "company",
+                                                    :organization => self.name,
                                                     :email => self.email,
                                                     :p_street1 => address.try(:address),
                                                     :p_street2 => "",

@@ -1,6 +1,10 @@
 ActiveAdmin.register Customer do
   menu :if => proc{ can?(:manage, Customer) }    
-  actions :all, :except => [:new, :destroy] 
+  actions :all, :except => [:new, :destroy]
+
+  PAYMENT_TERMS = {"Net 30" => "Net 30",
+                   "Net 60" => "Net 60",
+                   "Net 90" => "Net 90"}
 
   action_item :only => :show do
     link_to "Become", "/switch_user?scope_identifier=user_#{customer.id}"
@@ -23,6 +27,10 @@ ActiveAdmin.register Customer do
     f.inputs "Admin Details" do
       f.input :name
       f.input :email
+      f.input :secondary_contact_name
+      f.input :secondary_contact_email
+      f.input :negotiated_cost
+      f.input :payment_term, :as => :select, :collection => PAYMENT_TERMS
       f.input :is_partner, :label => "Create Vendor key", :wrapper_html => {:class => "partner_checkbox"}
     end
     f.actions
@@ -41,6 +49,13 @@ ActiveAdmin.register Customer do
   	rescue_from CanCan::AccessDenied do |exception|
   		redirect_to admin_dashboard_path, :alert => exception.message
   	end
+
+  end
+
+  member_action :regenerate_token, :method => :put do 
+    user = User.find(params[:id])
+    user.re_generate_token
+    redirect_to :action => :show
   end
 
   show :title => :name do
@@ -49,7 +64,15 @@ ActiveAdmin.register Customer do
       row("Email") {customer.email}
       row("Created") {customer.created_at}
       row("Status") {customer.status}
+      row("Secondary Contact Name") {customer.secondary_contact_name}
+      row("Secondary Contact Email") {customer.secondary_contact_email}
+      row("Negotiated Cost") {customer.negotiated_cost}
+      row("Payment Terms") {customer.payment_term}
       row("Vendor Token") {customer.vendor_token}
+      row "Generate Token" do
+        button_to("Regenerate Token", regenerate_token_admin_customer_path(id: customer), method: :put, class: "btn")
+      end
+      
     end
 
     panel "Address" do
@@ -59,5 +82,7 @@ ActiveAdmin.register Customer do
     panel "Additional Information" do
       render :partial=> "admin/users/appraiser_info", :locals => {:extra_info => customer.customer_extra}
     end
+
   end
+
 end

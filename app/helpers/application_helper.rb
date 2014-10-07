@@ -51,7 +51,7 @@ module ApplicationHelper
               EAAppraisalTypeShortForSellingPair => "Light Summary Appraisal Pair",
               EAAppraisalTypeLongForSellingPair => "Full Summary Appraisal Pair"}
 
-    hItems[nType].empty? ? "" : hItems[nType]
+    hItems[nType].blank? ? "" : hItems[nType]
   end
 
   def getStringForPayoutStatus(status)
@@ -244,6 +244,27 @@ module ApplicationHelper
     }.merge options
     url_for(options)
   end
-  
+  #  TODO Return the price of partner customer
+  def get_pricing_of_partner(user, selected_plan)
+    pricing = PartnerPricing.find_by_user_id(user)
+    price = 0
+
+    if selected_plan > 4
+      selected_plan -= 4
+      price += 20
+    end
+
+    plan = PAYMENT_PLAN_FOR_PARTNER[selected_plan]
+    case plan
+      when "short_restricted"
+        price += pricing.short_restricted
+      when "full_restricted"
+        price += pricing.full_restricted
+      when "full_use"
+        price += pricing.full_use      
+    end
+
+    return price
+  end
 
 end

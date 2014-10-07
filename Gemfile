@@ -43,7 +43,7 @@ gem 'aws-sdk'
 gem "fog"
 
 # authentication
-gem 'devise' #this is our usermanagement system
+gem 'devise','~> 3.4.0' #this is our usermanagement system
 gem "devise_security_extension"
 gem "rails_email_validator", "~> 0.1.4"
 gem "rolify"

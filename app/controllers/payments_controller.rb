@@ -5,7 +5,8 @@ class PaymentsController < ApplicationController
   def create
     @appraisal = Appraisal.find(params[:appraisal_id])
     if params[:vtn_partner] == "true"
-      payment_response = Payment.export_to_freshbook(params[:partner_attributes],@appraisal)
+      user = @appraisal.owned_by
+      payment_response = Payment.export_to_freshbook(params[:partner_attributes],@appraisal, params[:processXW])
     else
       payment_response = AuthorizenetModule::PayGateway.new.process(appraisal: @appraisal, appraisal_params: params[:appraisal], email: current_user.email )      
     end

@@ -219,13 +219,36 @@ jQuery ->
   
   $("#chkVtnPartner").change ->
     if $(this).is(":checked")
-      $(".show_if_checked").show()
       $(".hide_if_checked").hide()
+      $(".show_if_checked").show()
+
+      $("#appraisal_payment_attributes_vendor_token_partner").val($("#customer_vendor_token").val())
+
     else
       $(".show_if_checked").hide()
       $(".hide_if_checked").show()
     return  
 
+  $("#auto_fill").change ->
+    if $(this).is(":checked")
+      $("#txtCompanyName_partner").val($("#customer_name").val())
+      $("#appraisal_payment_attributes_contact_name_partner").val($("#customer_secondary_contact_name").val())
+      $("#appraisal_payment_attributes_address_partner").val($("#customer_address_attributes_address").val())
+      if $("#customer_address_attributes_city").val() != "" && $("#customer_address_attributes_state").val() != "" && $("#customer_address_attributes_zip").val() != ""
+        city_state_postal =  $("#customer_address_attributes_city").val() + ", " + $("#customer_address_attributes_state").val() + " " +  $("#customer_address_attributes_zip").val()
+      else
+        city_state_postal = ""
+      $("#appraisal_payment_attributes_city_state_postal_partner").val(city_state_postal)
+      $("#appraisal_payment_attributes_claim_partner").val("")
+      
+    else
+      $("#txtCompanyName_partner").val("")
+      $("#appraisal_payment_attributes_contact_name_partner").val("")
+      $("#appraisal_payment_attributes_address_partner").val("")
+      $("#appraisal_payment_attributes_city_state_postal_partner").val("")
+      $("#appraisal_payment_attributes_claim_partner").val("")
+    return
+  
   $("#btnBuildWizardPhoto").click ->
     if $('.img-row').length is 0
       alert "Please upload at least one image to continue"
@@ -282,10 +305,14 @@ jQuery ->
 
 requiredFields = ->
   isValid = true
-  $("[required]").not(":hidden").each ->
-    isValid = false if $(this).val() is ""
+  if $("#chkVtnPartner")[0].checked == true
+    $("[partner-required]").not(":hidden").each ->
+      isValid = false if $(this).val() is ""
+  else
+    $("[required]").not(":hidden").each ->
+      isValid = false if $(this).val() is ""
   isValid
-  
+
 
 resetSelectTxt = ->
   $("#plansel1").html "Select"

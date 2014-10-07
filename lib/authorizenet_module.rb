@@ -45,6 +45,7 @@ module AuthorizenetModule
     end
 
     def _create_credit_card(params)
+      user = Appraisal.find(params[:appraisal][:id]).owned_by
       ccparam = params[:appraisal_params][:payment_attributes]
       credit_card = Hash.new
       credit_card[:number] = ccparam[:number]
@@ -52,7 +53,13 @@ module AuthorizenetModule
       credit_card[:expmon] = ccparam[:expmon]
       credit_card[:expyear] = ccparam[:expyear]
       credit_card[:name] = ccparam[:name]
-      credit_card[:amount]  = PAYMENT_PLAN[ params[:appraisal].selected_plan-1 ]*100
+
+      unless user.is_partner && !PartnerPricing.find_by_user_id(user).blank?
+        credit_card[:amount]  = PAYMENT_PLAN[ params[:appraisal].selected_plan-1 ]*100
+      else
+        credit_card[:amount]  = get_pricing_of_partner(user, params[:appraisal].selected_plan)*100
+      end
+
       credit_card[:has_coupon] = !ccparam[:coupon].blank?
       if credit_card[:has_coupon]
         credit_card[:amount] = Coupon.details_for(ccparam[:coupon]).calculate_discounted_amount(credit_card[:amount]/100)*100
@@ -84,6 +91,7 @@ module AuthorizenetModule
         :year      => mycc.expyear,
         :verification_value => mycc.cvv)
       payment_response = _get_gateway.purchase(mycc.amount.to_i, credit_card, {:billing_address => params[:billing_address].as_json, :email => params[:email]})
+
       if payment_response.success?
         appraisal = Appraisal.find(params[:appraisal])
         Payment.add_payment(payment_response.authorization, mycc.number[-4,4], mycc.amount/100, appraisal.created_by, appraisal.id)
@@ -103,6 +111,30 @@ module AuthorizenetModule
     def _pretty_message(payment_response)
       "Declined (#{payment_response.params['response_code']}-#{payment_response.params['response_reason_code']}) : #{payment_response.message}"
     end
+
+    #  TODO Return the price of partner customer
+    def get_pricing_of_partner(user, selected_plan)
+      pricing = PartnerPricing.find_by_user_id(user)
+      price = 0
+
+      if selected_plan > 4
+        selected_plan -= 4
+        price += 20
+      end
+
+      plan = PAYMENT_PLAN_FOR_PARTNER[selected_plan]
+      case plan
+        when "short_restricted"
+          price += pricing.short_restricted
+        when "full_restricted"
+          price += pricing.full_restricted
+        when "full_use"
+          price += pricing.full_use      
+      end
+
+      return price
+    end
+
   end
 end
 
