@@ -44,9 +44,13 @@ class Payment < ActiveRecord::Base
     
     def export_to_freshbook(params,appraisal, is_xw)
       freshbook = get_freshbook_auth
-
       client = User.where(:vendor_token => params["vendor_token"]).first
       return {:status => false , :message => "Vendor Token not found!"} if client.blank?
+
+      if message = freshbook.client.get(:client_id => client.client_id)["error"]
+        return {:status => false , :message => message}
+      end
+      
       unless freshbook.client.get(:client_id => client.client_id)["client"]["organization"] == params["company_name"]
         return {:status => false , :message => "Company Name is not met"}
       end
