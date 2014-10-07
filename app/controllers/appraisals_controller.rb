@@ -55,7 +55,7 @@ class AppraisalsController < ApplicationController
     
     template_file = @pdf_full ? "/appraisals/reports/full.pdf.erb" : "/appraisals/reports/lacey.pdf.erb"
     respond_to do |format|
-      format.pdf { render :pdf => 'report.pdf', :page_size => "Legal", :show_as_html => params[:debug].present?, :template => template_file }
+      format.pdf { render :pdf => 'report', :page_size => "Legal", :show_as_html => params[:debug].present?, :template => template_file }
     end
   end
 
