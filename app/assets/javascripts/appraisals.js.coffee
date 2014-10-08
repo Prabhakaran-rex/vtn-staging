@@ -232,7 +232,6 @@ jQuery ->
   $("#auto_fill").change ->
     if $(this).is(":checked")
       $("#txtCompanyName_partner").val($("#customer_name").val())
-      $("#appraisal_payment_attributes_contact_name_partner").val($("#customer_secondary_contact_name").val())
       $("#appraisal_payment_attributes_address_partner").val($("#customer_address_attributes_address").val())
       if $("#customer_address_attributes_city").val() != "" && $("#customer_address_attributes_state").val() != "" && $("#customer_address_attributes_zip").val() != ""
         city_state_postal =  $("#customer_address_attributes_city").val() + ", " + $("#customer_address_attributes_state").val() + " " +  $("#customer_address_attributes_zip").val()
@@ -243,7 +242,6 @@ jQuery ->
       
     else
       $("#txtCompanyName_partner").val("")
-      $("#appraisal_payment_attributes_contact_name_partner").val("")
       $("#appraisal_payment_attributes_address_partner").val("")
       $("#appraisal_payment_attributes_city_state_postal_partner").val("")
       $("#appraisal_payment_attributes_claim_partner").val("")

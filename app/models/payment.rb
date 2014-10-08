@@ -67,7 +67,6 @@ class Payment < ActiveRecord::Base
     def create_invoice_to_freshbook(client_id,appraisal,company, is_xw)
       freshbook = get_freshbook_auth
       pricing = get_pricing_of_partner(appraisal.owned_by, appraisal.selected_plan, is_xw)
-      p pricing, "++++++++++++++++++++++++++++++++++"
       response = freshbook.invoice.create(:invoice => { :client_id => client_id, 
                                                         :status => 'draft', 
                                                         :date => Date.today, 
@@ -132,7 +131,6 @@ class Payment < ActiveRecord::Base
       end
       
       price = 0
-
       if selected_plan > 4
         selected_plan -= 4
         price += 20
