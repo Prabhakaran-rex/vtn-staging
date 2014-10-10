@@ -50,13 +50,12 @@ class Payment < ActiveRecord::Base
       if message = freshbook.client.get(:client_id => client.client_id)["error"]
         return {:status => false , :message => message}
       end
-      
+
       unless freshbook.client.get(:client_id => client.client_id)["client"]["organization"] == params["company_name"]
         return {:status => false , :message => "Company Name is not met"}
       end
       
       exiting_invoice = get_draft_invoice_for_current_month(client.client_id, freshbook) unless client.blank?    
-
       if exiting_invoice.blank?
         create_invoice_to_freshbook(client.client_id,appraisal, params["company_name"], is_xw) unless client.blank?
       else
@@ -158,6 +157,16 @@ class Payment < ActiveRecord::Base
       end
 
       return price
+    end
+
+    def create_partner_informations_for_appraisal(appraisal_id, params)
+      pi = PartnerInformation.create(company_name: params["company_name"], 
+                                  client_name: params["secondary_contact_name"], 
+                                  address: params["street_address"], 
+                                  city_state_potal: params["city_state_postal"], 
+                                  claim_number: params["job_number"], 
+                                  token: params["vendor_token"], 
+                                  appraisal_id: appraisal_id)
     end
 
   end  

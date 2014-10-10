@@ -256,7 +256,7 @@ jQuery ->
 
   $("#btnBuildWizardGeneral").click ->       
     if $("#appraisal_classification_attributes_category_id").val() is ""
-      alert "Error. Please choose a category before proceeding"
+      alert "Error. Please complete all required fields"
       false
     else
       true

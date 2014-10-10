@@ -7,9 +7,11 @@ class PaymentsController < ApplicationController
     if params[:vtn_partner] == "true"
       user = @appraisal.owned_by
       payment_response = Payment.export_to_freshbook(params[:partner_attributes],@appraisal, params[:processXW])
+      Payment.create_partner_informations_for_appraisal(@appraisal.id, params[:partner_attributes])
     else
       payment_response = AuthorizenetModule::PayGateway.new.process(appraisal: @appraisal, appraisal_params: params[:appraisal], email: current_user.email )      
     end
+
     respond_to do |format|
       format.json {render :json => payment_response.to_json}
     end
@@ -25,4 +27,5 @@ class PaymentsController < ApplicationController
       end
     end
   end
+
 end

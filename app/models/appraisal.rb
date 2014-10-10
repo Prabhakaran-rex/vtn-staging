@@ -16,6 +16,8 @@ class Appraisal < ActiveRecord::Base
   has_one :classification
   has_one :payment
 
+  has_many :partner_informations
+
   belongs_to :assigned_to, :class_name => 'User' , :foreign_key => "assigned_to"
   belongs_to :owned_by,    :class_name => 'User' , :foreign_key => "created_by"
 
