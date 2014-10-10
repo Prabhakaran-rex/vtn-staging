@@ -7,7 +7,8 @@ $(document).ready(function(){
 });
 </script>
 
-<form id="frmAppraiserActions" action="<%= url_for update_appraiser_status_path %>">
+<form id="frmAppraiserActions" action="<%= url_for update_appraiser_status_path %>" method="POST">
+<%= token_tag %>
 <input type="hidden" name="status" value="" id="txtStatus">
 <input type="hidden" name="user" value="<%= appraiser.id %>">
 <% if appraiser.status == EAUserStatusReview %>

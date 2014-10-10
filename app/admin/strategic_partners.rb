@@ -15,10 +15,10 @@ ActiveAdmin.register_page "Strategic Partners" do
           column("Negotiated Cost", sortable: :negotiated_cost) { |appraisal| appraisal.owned_by.negotiated_cost}
           column("Payment Term", sortable: :payment_term) { |appraisal| appraisal.owned_by.payment_term}
           column("Vendor ID", sortable: :vendor_token) { |appraisal| appraisal.owned_by.vendor_token}
-          column("Client or adjuster name") { |appraisal| appraisal.partner_informations.length > 0 ? appraisal.partner_informations.last.try(:client_name) : ""}
-          column("Adress") { |appraisal| appraisal.partner_informations.length > 0 ? appraisal.partner_informations.last.try(:address) : ""}
-          column("City, State, Postal Code") { |appraisal| appraisal.partner_informations.length > 0 ? appraisal.partner_informations.last.try(:city_state_potal) : ""}
-          column("Claim or Job Number") { |appraisal| appraisal.partner_informations.length > 0 ? appraisal.partner_informations.last.try(:claim_number) : ""}
+          column("Client or adjuster name", sortable: :client_name) { |appraisal| appraisal.partner_informations.length > 0 ? appraisal.partner_informations.last.try(:client_name) : ""}
+          column("Address", sortable: :address) { |appraisal| appraisal.partner_informations.length > 0 ? appraisal.partner_informations.last.try(:address) : ""}
+          column("City, State, Postal Code", sortable: :city_state_potal) { |appraisal| appraisal.partner_informations.length > 0 ? appraisal.partner_informations.last.try(:city_state_potal) : ""}
+          column("Claim or Job Number", sortable: :claim_number) { |appraisal| appraisal.partner_informations.length > 0 ? appraisal.partner_informations.last.try(:claim_number) : ""}
         end
 
       end
@@ -27,6 +27,7 @@ ActiveAdmin.register_page "Strategic Partners" do
 
   controller do
     USER_CONSTANT = ["contact_name", "email", "negotiated_cost", "payment_term", "vendor_token", "secondary_contact_name", "secondary_contact_email"]
+    PARTNER_INFO = ["client_name", "address", "city_state_potal", "claim_number"]
 
     def index
       sort = params[:order] || "id_asc"
@@ -35,7 +36,9 @@ ActiveAdmin.register_page "Strategic Partners" do
 
       if USER_CONSTANT.include?(sort.split(" ")[0])
         sort = sort.gsub("contact_", "users.") if sort.split(" ")[0] == "contact_name"
-        @appraisals =  Appraisal.includes(:owned_by => users).order(sort)
+        @appraisals =  Appraisal.includes(:owned_by).where(created_by: users).order(sort)
+      elsif PARTNER_INFO.include?(sort.split(" ")[0])
+        @appraisals =  Appraisal.includes(:partner_informations).where(created_by: users).order(sort)
       else
         @appraisals = Appraisal.where(created_by: users).order(sort)
       end 
@@ -43,6 +46,7 @@ ActiveAdmin.register_page "Strategic Partners" do
     end
 
   end
+
 
 
 end
