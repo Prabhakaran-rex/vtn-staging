@@ -19,7 +19,13 @@
       <div class="col-md-12">
         <div class="alert alert-dismissable">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <%= flash[:alert] %>
+
+          <% unless  flash[:alert].include?("email")%>
+            <%= flash[:alert] %>
+          <% else %>
+            <%= flash[:alert].gsub("email", "username") %>
+          <% end %>
+          
         </div>
       </div>
     </div>
