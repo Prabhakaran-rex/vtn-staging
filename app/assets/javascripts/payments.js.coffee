@@ -40,6 +40,7 @@ jQuery ->
     "$" + parseFloat(value, 10).toFixed(2)
 
   update_totals = (amounts) ->
+    console.log(amounts)
     $("#td_appraisal_cost").text(as_currency(amounts[0]))
     $("#td_appraisal_discount").text(as_currency(amounts[1]))
     $("#td_appraisal_total").text(as_currency(amounts[2]))
@@ -48,7 +49,11 @@ jQuery ->
     $.ajax "/validate_coupon",
       type: 'GET'
       dataType: 'json'
-      data: { coupon_code : $("#appraisal_payment_attributes_coupon").val(), appraisal_type: $("#appraisal_type").val() }
+      data: { 
+        coupon_code : $("#appraisal_payment_attributes_coupon").val(), 
+        appraisal_type: $("#appraisal_type").val(), 
+        customer_id: $("#customer_id").val()
+      }
       success: (data) ->
         set_coupon_badge('success')
         update_totals(calculate_discount($("#appraisal_price").val(),data.discount,data.discount_type))

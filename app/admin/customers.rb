@@ -66,11 +66,11 @@ ActiveAdmin.register Customer do
       row("Status") {customer.status}
       row("Secondary Contact Name") {customer.secondary_contact_name}
       row("Secondary Contact Email") {customer.secondary_contact_email}
-      row("Negotiated Cost") {customer.negotiated_cost}
-      row("Payment Terms") {customer.payment_term}
       row("Vendor Token") {customer.vendor_token}
-      row "Generate Token" do
-        button_to("Regenerate Token", regenerate_token_admin_customer_path(id: customer), method: :put, class: "btn")
+      if customer.is_partner
+        row "Generate Token" do
+          button_to("Regenerate Token", regenerate_token_admin_customer_path(id: customer), method: :put, class: "btn")
+        end
       end
       
     end

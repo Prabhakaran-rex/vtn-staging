@@ -42,7 +42,7 @@ class Payment < ActiveRecord::Base
       where("appraisal_id = ?", appraisal_id).first
     end
     
-    def export_to_freshbook(params,appraisal, is_xw)
+    def export_to_freshbook(params,appraisal, is_xw, coupon)
       freshbook = get_freshbook_auth
       client = User.where(:vendor_token => params["vendor_token"]).first
       return {:status => false , :message => "Vendor Token not found!"} if client.blank?
@@ -57,15 +57,15 @@ class Payment < ActiveRecord::Base
       
       exiting_invoice = get_draft_invoice_for_current_month(client.client_id, freshbook) unless client.blank?    
       if exiting_invoice.blank?
-        create_invoice_to_freshbook(client.client_id,appraisal, params["company_name"], is_xw) unless client.blank?
+        create_invoice_to_freshbook(client.client_id,appraisal, params["company_name"], is_xw, coupon) unless client.blank?
       else
-        add_item_to_invoice(exiting_invoice,appraisal, is_xw)
+        add_item_to_invoice(exiting_invoice,appraisal, is_xw, coupon)
       end
     end 
     
-    def create_invoice_to_freshbook(client_id,appraisal,company, is_xw)
+    def create_invoice_to_freshbook(client_id,appraisal,company, is_xw, coupon)
       freshbook = get_freshbook_auth
-      pricing = get_pricing_of_partner(appraisal.owned_by, appraisal.selected_plan, is_xw)
+      pricing = get_pricing_of_partner(appraisal.owned_by, appraisal.selected_plan, is_xw, coupon)
       response = freshbook.invoice.create(:invoice => { :client_id => client_id, 
                                                         :status => 'draft', 
                                                         :date => Date.today, 
@@ -87,9 +87,9 @@ class Payment < ActiveRecord::Base
       end
     end
   
-    def add_item_to_invoice(invoice_id,appraisal, is_xw)
+    def add_item_to_invoice(invoice_id,appraisal, is_xw, coupon)
       freshbook = get_freshbook_auth
-      pricing = get_pricing_of_partner(appraisal.owned_by, appraisal.selected_plan, is_xw)
+      pricing = get_pricing_of_partner(appraisal.owned_by, appraisal.selected_plan, is_xw, coupon)
       response = freshbook.invoice.lines.add( :invoice_id => invoice_id, 
                                               :lines => { :line => {
                                                           :name => appraisal.title, 
@@ -123,7 +123,7 @@ class Payment < ActiveRecord::Base
     end
 
     #  TODO Return the price of partner customer
-    def get_pricing_of_partner(user, selected_plan, is_xw)
+    def get_pricing_of_partner(user, selected_plan, is_xw, coupon)
       pricing = PartnerPricing.find_by_user_id(user)
       if pricing.blank?
         return PAYMENT_PLAN[selected_plan-1]
@@ -154,6 +154,11 @@ class Payment < ActiveRecord::Base
           when "full_use"
             price += pricing.full_use_xw
         end
+      end
+      
+      unless coupon.blank?
+        coupon = Coupon.find_by_code(coupon)
+        price = coupon.calculate_discounted_amount(price)
       end
 
       return price

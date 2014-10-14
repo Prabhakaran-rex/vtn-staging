@@ -31,11 +31,12 @@
         <% end %>
 
         
-        <input type="hidden" name="appraisal_id" value="<%= @appraisal.id %>" />
+        <input type="hidden" name="appraisal_id" id="appraisal_id" value="<%= @appraisal.id %>" />
         <%= simple_fields_for current_user do |u| %>
           <%= u.input :name, as: :hidden %>
           <%= u.input :secondary_contact_name, as: :hidden %>
           <%= u.input :vendor_token, as: :hidden %>
+          <%= u.input :id, as: :hidden %>
           <%= u.simple_fields_for :address do |a| %>
             <%= a.input :address, as: :hidden %>
             <%= a.input :city, as: :hidden %>
