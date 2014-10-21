@@ -283,7 +283,7 @@ Then /^I should see a signed out message$/ do
 end
 
 Then /^I see an invalid login message$/ do
-  page.should have_content "Invalid email or password."
+  page.should have_content "Invalid username or password."
 end
 
 Then /^I should see an account edited message$/ do

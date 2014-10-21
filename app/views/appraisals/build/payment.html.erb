@@ -359,7 +359,7 @@
 
 <script>
   $(document).ready(function(){
-    $(".show_if_checked").hide();
+    $(".show_if_checked")[0].style.display = 'none';
   });
 
 $( document ).on("focusout" , "#appraisal_payment_attributes_zip_partner", function() {
