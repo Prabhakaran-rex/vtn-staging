@@ -10,6 +10,7 @@ jQuery ->
   $(".currency-input").maskMoney()
   $("#supplemental_information").collapse({toggle:false})
   $(".chzn-select").chosen()
+  $(".show_if_checked").hide();
   
   # Make sure that at least one image has been uploaded before continuing
   $('#btn_step_2_wizard_image_upload').click ->
