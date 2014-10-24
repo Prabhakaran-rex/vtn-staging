@@ -46,7 +46,8 @@ class Appraisal < ActiveRecord::Base
   # Returns how much time it took the appraiser to complete the appraisal (can return in seconds (s), minutes(m), hours(h), or days(d))
   def completion_time(format = "s")
     begin
-      claimed_on = (get_date_for_status_change(EActivityValuePayed, EActivityValueClaimed)).to_i
+      # claimed_on = (get_date_for_status_change(EActivityValuePayed, EActivityValueClaimed)).to_i
+      claimed_on = get_claimed_on
       completed_on = (get_date_for_status_change(EActivityValueClaimed, EActivityValueFinalized)).to_i
 
       duration = (claimed_on == 0 || completed_on == 0) ? 0 : (completed_on - claimed_on)
@@ -63,6 +64,20 @@ class Appraisal < ActiveRecord::Base
       end
     rescue
       return 0
+    end
+  end
+
+  def get_claimed_on
+    reject_to_process = self.versions.select {|x| YAML.load(x.object_changes)["status"] == [EActivityValueReviewRejection, EActivityValueClaimed] }
+    unclaim_to_process = self.versions.select {|x| YAML.load(x.object_changes)["status"] == [EActivityValuePayed, EActivityValueClaimed] }
+
+    # If no rejected
+    if reject_to_process.blank?
+      return unclaim_to_process.last.created_at.to_i
+    elsif reject_to_process.length >= unclaim_to_process.length
+      return reject_to_process.last.created_at.to_i
+    elsif reject_to_process.length < unclaim_to_process.length
+      return unclaim_to_process.last.created_at.to_i
     end
   end
 
