@@ -19,7 +19,7 @@
 
 
     <% else %>
-      <div class="alert"><b>Please add a phone number in the Contact tab if you would like to have SMS (text message) notifications sent to your phone.</b></div>
+      <div class="alert alert_phonenumber"><b>Please add a phone number in the Contact tab if you would like to have SMS (text message) notifications sent to your phone.</b></div>
     <% end %>
     <%= f.input :notify_by_email, :label => (@user.is_customer? ? "Please email a copy of my appraisal report to <b>#{@user.email}</b>".html_safe : "Receive notifications by Email (Email notifications will be sent to <b>#{@user.email})</b>".html_safe),  :inline_label => "Yes"%>
     <% if @user.is_appraiser?%>

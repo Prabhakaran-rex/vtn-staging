@@ -2,7 +2,7 @@
 
 ComfortableMexicanSofa.configure do |config|
   # Title of the admin area
-  #   config.cms_title = 'ComfortableMexicanSofa CMS Engine'
+  config.cms_title = 'Value This Now'
 
   # Controller that is inherited from CmsAdmin::BaseController
   #   config.base_controller = 'ApplicationController'
@@ -18,7 +18,7 @@ ComfortableMexicanSofa.configure do |config|
 
   # When arriving at /cms-admin you may chose to redirect to arbirtary path,
   # for example '/cms-admin/users'
-  #   config.admin_route_redirect = ''
+  config.admin_route_redirect = '/cms-admin/sites'
 
   # File uploads use Paperclip and can support filesystem or s3 uploads.  Override
   # the upload method and appropriate settings based on Paperclip.  For S3 see:
@@ -99,6 +99,7 @@ end
 ComfortableMexicanSofa::HttpAuth.username = 'username'
 ComfortableMexicanSofa::HttpAuth.password = 'password'
 
+ComfortableMexicanSofa::ViewHooks.add(:navigation, 'layouts/cms_admin/navigation')
 # You can use bcrypt (gem 'bcrypt-ruby') if you want to:
 #   require 'bcrypt'
 #   ComfortableMexicanSofa::HttpAuth.username = 'username'
