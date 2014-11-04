@@ -14,7 +14,7 @@
       } do |f| %>
       <%= devise_error_messages! %>
       <%= f.input :email %>
-      <%= f.input :password, label: "Current Password", :hint => "We need your current password to confirm your changes"%>
+      <%= f.input :current_password, label: "Current Password", :hint => "We need your current password to confirm your changes"%>
       <%= f.input :password, label: "New Password", placeholder: "Use this field to change your password." %>
       <%= f.input :password_confirmation, :hint => "Must have at least 6 characters: at least 1 digit, at least 1 upper case letter."%>
       <%= f.submit "Save", :class => "btn btn-success pull-right"%>

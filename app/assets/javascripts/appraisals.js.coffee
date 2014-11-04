@@ -11,6 +11,7 @@ jQuery ->
   $("#supplemental_information").collapse({toggle:false})
   $(".chzn-select").chosen()
   $(".show_if_checked").hide();
+  validate_form();
   
   # Make sure that at least one image has been uploaded before continuing
   $('#btn_step_2_wizard_image_upload').click ->
@@ -222,12 +223,14 @@ jQuery ->
     if $(this).is(":checked")
       $(".hide_if_checked").hide()
       $(".show_if_checked").show()
+      disable_user_information();
 
       $("#appraisal_payment_attributes_vendor_token_partner").val($("#customer_vendor_token").val())
 
     else
       $(".show_if_checked").hide()
       $(".hide_if_checked").show()
+      enable_user_information();
     return  
 
   $("#auto_fill").change ->
@@ -249,7 +252,7 @@ jQuery ->
     return
   
   $("#btnBuildWizardPhoto").click ->
-    if $('.img-row').length is 0
+    if $('.img-row').length == 1
       alert "Please upload at least one image to continue"
       false
     else
@@ -327,6 +330,66 @@ setSelectedPlan = ->
     $("#plansel"+$("#appraisal_selected_plan").val()).trigger('click')
   else
     $("#plansel4").trigger('click')
+
+disable_user_information = ->
+  $("#chkImportAccount").attr("disabled", "disabled");
+  $("[required]").attr("disabled", "disabled");
+
+enable_user_information = ->
+  $("#chkImportAccount").removeAttr("disabled");
+  $("[required]").removeAttr("disabled");
+
+validate_form = ->
+  edit_form = $(".edit_appraisal").validate(
+    rules:
+      "appraisal[title]":
+        required: true
+
+      "appraisal[name]":
+        required: true
+
+      "appraisal[appraisal_info][damage]":
+        required: true
+
+      "appraisal[appraisal_info][replacement_cost_min]":
+        required: true
+
+      "appraisal[appraisal_info][replacement_cost_max]":
+        required: true
+
+      "appraisal[appraisal_info][fair_market_value_min]":
+        required: true
+
+      "appraisal[appraisal_info][fair_market_value_max]":
+        required: true
+
+    messages:
+      "appraisal[title]":
+        required: "This field is required."
+
+      "appraisal[name]":
+        required: "This field is required."
+
+      "appraisal[appraisal_info][damage]":
+        required: "This field is required."
+
+      "appraisal[appraisal_info][replacement_cost_min]":
+        required: "This field is required."
+
+      "appraisal[appraisal_info][fair_market_value_min]":
+        required: "This field is required."
+
+      "appraisal[appraisal_info][fair_market_value_max]":
+        required: "This field is required."
+
+      "appraisal[appraisal_info][damage]":
+        required: "This field is required."
+
+    errorPlacement: (error, element) ->
+      error.appendTo element.parent()
+      return
+  )
+  return
 
 $.fn.serializeObject = ->
   json = {}
