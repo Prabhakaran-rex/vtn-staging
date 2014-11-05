@@ -245,7 +245,7 @@ module ApplicationHelper
     url_for(options)
   end
   #  TODO Return the price of partner customer
-  def get_pricing_of_partner(user, selected_plan)
+  def get_pricing_of_partner(user, selected_plan, is_xw = false)
     pricing = PartnerPricing.find_by_user_id(user)
     price = 0
 
@@ -255,13 +255,24 @@ module ApplicationHelper
     end
 
     plan = PAYMENT_PLAN_FOR_PARTNER[selected_plan]
-    case plan
-      when "short_restricted"
-        price += pricing.short_restricted
-      when "full_restricted"
-        price += pricing.full_restricted
-      when "full_use"
-        price += pricing.full_use      
+    if is_xw.blank?
+      case plan
+        when "short_restricted"
+          price += pricing.short_restricted
+        when "full_restricted"
+          price += pricing.full_restricted
+        when "full_use"
+          price += pricing.full_use      
+      end
+    else
+      case plan
+        when "short_restricted"
+          price += pricing.short_restricted_xw
+        when "full_restricted"
+          price += pricing.full_restricted_xw
+        when "full_use"
+          price += pricing.full_use_xw
+      end
     end
 
     return price

@@ -25,7 +25,7 @@ class PaymentsController < ApplicationController
         unless user.is_partner && !PartnerPricing.find_by_user_id(user).blank?
           amount = PAYMENT_PLAN[(params[:appraisal_type].to_i)-1] 
         else
-          amount = get_pricing_of_partner(current_user, params[:appraisal_type].to_i, false)
+          amount = get_pricing_of_partner(current_user, params[:appraisal_type].to_i, params[:is_xw])
         end
 
         format.json {render json: {discount: coupon.calculate_discounted_amount(amount), discount_type: coupon.discount_type}}
@@ -49,7 +49,7 @@ class PaymentsController < ApplicationController
       end
 
       plan = PAYMENT_PLAN_FOR_PARTNER[selected_plan]
-      if is_xw.blank?
+      if is_xw == "false"
         case plan
           when "short_restricted"
             price += pricing.short_restricted

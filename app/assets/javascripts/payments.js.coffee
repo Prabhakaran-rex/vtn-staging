@@ -40,7 +40,6 @@ jQuery ->
     "$" + parseFloat(value, 10).toFixed(2)
 
   update_totals = (amounts) ->
-    console.log(amounts)
     $("#td_appraisal_cost").text(as_currency(amounts[0]))
     $("#td_appraisal_discount").text(as_currency(amounts[1]))
     $("#td_appraisal_total").text(as_currency(amounts[2]))
@@ -53,6 +52,7 @@ jQuery ->
         coupon_code : $("#appraisal_payment_attributes_coupon").val(), 
         appraisal_type: $("#appraisal_type").val(), 
         customer_id: $("#customer_id").val()
+        is_xw: $("#processXW").is(":checked")
       }
       success: (data) ->
         set_coupon_badge('success')
@@ -72,3 +72,12 @@ jQuery ->
 
   clear_coupon_badge()
   $("#appraisal_payment_attributes_coupon").keyup()
+
+  $("#processXW").change ->
+    if $("#appraisal_payment_attributes_coupon").val().length != 16
+      clear_coupon_badge()
+      update_totals(calculate_discount($("#appraisal_price").val(),0,"fixed"))
+      return false
+    else
+      set_coupon_badge('processing')
+      validate_coupon()

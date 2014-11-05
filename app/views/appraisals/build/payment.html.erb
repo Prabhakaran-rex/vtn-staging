@@ -371,8 +371,22 @@
 
 
 <script>
+  var current_price = $("#appraisal_price").val();
   $(document).ready(function(){
-    // $(".show_if_checked")[0].style.display = 'none';
+    $("#processXW").change(function() {
+      if($(this).is(":checked")) {
+        var price = <%= get_pricing_of_partner(current_user, @appraisal.selected_plan, true) %>
+        price_currency = parseFloat(price, 10).toFixed(2)
+        $("#appraisal_price").val(price_currency);
+        $("#td_appraisal_total").text("$" + price_currency);
+      }
+      else {
+        $("#appraisal_price").val(current_price);
+        current_price_currency = parseFloat(current_price, 10).toFixed(2)
+        $("#td_appraisal_total").text("$" + current_price_currency);
+      }
+    })
+
   });
 
 $( document ).on("focusout" , "#appraisal_payment_attributes_zip_partner", function() {
