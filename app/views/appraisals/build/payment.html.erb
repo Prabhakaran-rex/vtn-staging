@@ -375,7 +375,12 @@
   $(document).ready(function(){
     $("#processXW").change(function() {
       if($(this).is(":checked")) {
-        var price = <%= get_pricing_of_partner(current_user, @appraisal.selected_plan, true) %>
+        <% if current_user.is_partner && !PartnerPricing.find_by_user_id(current_user).blank? %>
+          var price = <%= get_pricing_of_partner(current_user, @appraisal.selected_plan, true) %>
+        <% else %>
+          var price = current_price;
+        <% end %>        
+
         price_currency = parseFloat(price, 10).toFixed(2)
         $("#appraisal_price").val(price_currency);
         $("#td_appraisal_total").text("$" + price_currency);
