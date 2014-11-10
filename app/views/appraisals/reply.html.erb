@@ -94,6 +94,59 @@ $(document).ready(function() {
   // Disable Reject Button
   var words_number = 0;
 
+    edit_form = $(".edit_appraisal").validate({
+      rules: {
+        "appraisal[title]": {
+          required: true
+        },
+        "appraisal[name]": {
+          required: true
+        },
+        "appraisal[appraisal_info][damage]": {
+          required: true
+        },
+        "appraisal[appraisal_info][replacement_cost_min]": {
+          required: true
+        },
+        "appraisal[appraisal_info][replacement_cost_max]": {
+          required: true
+        },
+        "appraisal[appraisal_info][fair_market_value_min]": {
+          required: true
+        },
+        "appraisal[appraisal_info][fair_market_value_max]": {
+          required: true
+        }
+      },
+      messages: {
+        "appraisal[title]": {
+          required: "This field is required."
+        },
+        "appraisal[name]": {
+          required: "This field is required."
+        },
+        "appraisal[appraisal_info][damage]": {
+          required: "This field is required."
+        },
+        "appraisal[appraisal_info][replacement_cost_min]": {
+          required: "This field is required."
+        },
+        "appraisal[appraisal_info][fair_market_value_min]": {
+          required: "This field is required."
+        },
+        "appraisal[appraisal_info][fair_market_value_max]": {
+          required: "This field is required."
+        },
+        "appraisal[appraisal_info][damage]": {
+          required: "This field is required."
+        }
+      },
+      errorPlacement: function(error, element) {
+        error.appendTo(element.parent());
+      }
+    });
+
+
 })
 
 </script>

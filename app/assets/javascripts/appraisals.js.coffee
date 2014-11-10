@@ -11,7 +11,6 @@ jQuery ->
   $("#supplemental_information").collapse({toggle:false})
   $(".chzn-select").chosen()
   $(".show_if_checked").hide();
-  validate_form();
   
   # Make sure that at least one image has been uploaded before continuing
   $('#btn_step_2_wizard_image_upload').click ->
@@ -339,57 +338,7 @@ enable_user_information = ->
   $("#chkImportAccount").removeAttr("disabled");
   $("[required]").removeAttr("disabled");
 
-validate_form = ->
-  edit_form = $(".edit_appraisal").validate(
-    rules:
-      "appraisal[title]":
-        required: true
 
-      "appraisal[name]":
-        required: true
-
-      "appraisal[appraisal_info][damage]":
-        required: true
-
-      "appraisal[appraisal_info][replacement_cost_min]":
-        required: true
-
-      "appraisal[appraisal_info][replacement_cost_max]":
-        required: true
-
-      "appraisal[appraisal_info][fair_market_value_min]":
-        required: true
-
-      "appraisal[appraisal_info][fair_market_value_max]":
-        required: true
-
-    messages:
-      "appraisal[title]":
-        required: "This field is required."
-
-      "appraisal[name]":
-        required: "This field is required."
-
-      "appraisal[appraisal_info][damage]":
-        required: "This field is required."
-
-      "appraisal[appraisal_info][replacement_cost_min]":
-        required: "This field is required."
-
-      "appraisal[appraisal_info][fair_market_value_min]":
-        required: "This field is required."
-
-      "appraisal[appraisal_info][fair_market_value_max]":
-        required: "This field is required."
-
-      "appraisal[appraisal_info][damage]":
-        required: "This field is required."
-
-    errorPlacement: (error, element) ->
-      error.appendTo element.parent()
-      return
-  )
-  return
 
 $.fn.serializeObject = ->
   json = {}
