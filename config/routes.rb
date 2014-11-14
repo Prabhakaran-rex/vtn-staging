@@ -25,6 +25,8 @@ PurexNew::Application.routes.draw do
 
   devise_for :customers, :controllers => {:omniauth_callbacks => "omniauth_callbacks",  :registrations => "registrations"}
 
+  match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+
     post '/users/save_json_signature' => 'users#save_json_signature', :as => :save_json_signature
     get '/users/new_signature' => 'users#new_signature', :as => :new_signature
     post '/users/save_signature' => 'users#save_signature', :as => :save_signature

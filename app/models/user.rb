@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  TEMP_EMAIL_PREFIX = 'change@me'
+  TEMP_EMAIL_REGEX = /\Achange@me/
+
   include ActiveRecord::CallbacksAwareSti
   attr_accessible :type
 
@@ -97,40 +100,41 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
-    data = access_token['extra']['raw_info']
-    token = access_token['credentials']['token']
-    users = User.where("facebook_id=? OR email=?", data['id'], data["email"])
+  # def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
+  #   data = access_token['extra']['raw_info']
+  #   token = access_token['credentials']['token']
+  #   users = User.where("facebook_id=? OR email=?", data['id'], data["email"])
 
-    if user = users.find_by_facebook_id(data['id'])
-      user
-    else # Create a user with a stub password.
-      if user = users.find_by_email(data['email'])
-        user
-      else
-        user = Customer.new(:email => data["email"],
-                        :username => data["username"],
-                        :password => Devise.friendly_token[0, 20]
-        )
-        user.skip_confirmation!
-        user.role = "customer"
-      end
-    end
-    user.facebook_id = data['id'] unless user.facebook_id
-    user.name = data['name']
-    user.facebook_token = token
-    user.email = data["email"]
-  if (!data['location'].nil?)
-    user.facebook_location = data['location']['name']
-    user.facebook_location_id = data['location']['id']
-  end
-    user.facebook_gender = data['gender']
-    user.facebook_verified = data['verified']
-    user.facebook_updated = data['updated_time']
-    user.facebook_locale = data['locale']
-    user.save
-    user
-  end
+  #   if user = users.find_by_facebook_id(data['id'])
+  #     user
+  #   else # Create a user with a stub password.
+  #     if user = users.find_by_email(data['email'])
+  #       user
+  #     else
+  #       user = Customer.new(:email => data["email"],
+  #                       :username => data["username"],
+  #                       :password => Devise.friendly_token[0, 20]
+  #       )
+  #       user.skip_confirmation!
+  #       user.role = "customer"
+  #     end
+  #   end
+  #   user.facebook_id = data['id'] unless user.facebook_id
+  #   user.name = data['name']
+  #   user.facebook_token = token
+  #   user.email = data["email"]
+  #   if (!data['location'].nil?)
+  #     user.facebook_location = data['location']['name']
+  #     user.facebook_location_id = data['location']['id']
+  #   end
+  #     user.facebook_gender = data['gender']
+  #     user.facebook_verified = data['verified']
+  #     user.facebook_updated = data['updated_time']
+  #     user.facebook_locale = data['locale']
+  #     user.save
+  #     user
+  # end
+
   # Override to allow users to sign up with their username or email
   # https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address
   def self.find_first_by_auth_conditions(warden_conditions)
@@ -199,6 +203,65 @@ class User < ActiveRecord::Base
     Rails.logger.debug "*** delivering sms #{params.to_json}"
     nexmo = Nexmo::Client.new(SMS_API_KEY, SMS_SECRET_KEY)
     nexmo.send_message({:to => params[:number], :from => SMS_NUMBER, :text => params[:body]}) if Rails.env == "production"
+  end
+
+  def self.find_for_oauth(auth, signed_in_resource = nil)
+    p signed_in_resource, "-----------------------------"
+    # Get the identity and user if they exist
+    identity = Identity.find_for_oauth(auth)
+
+    # If a signed_in_resource is provided it always overrides the existing user
+    # to prevent the identity being locked with accidentally created accounts.
+    # Note that this may leave zombie accounts (with no associated identity) which
+    # can be cleaned up at a later date.
+    user = signed_in_resource ? signed_in_resource : identity.user
+
+    # Create the user if needed
+    if user.nil?
+
+      # Get the existing user by email if the provider gives us a verified email.
+      # If no verified email was provided we assign a temporary email and ask the
+      # user to verify it on the next step via UsersController.finish_signup
+      email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
+      email = auth.info.email if email_is_verified
+      user = User.where(:email => email).first if email
+
+
+      # Create the user if it's a new registration
+      if user.nil?
+        user = User.find_by_email(auth.info.email)
+        p "*************"
+        p auth.info.email
+        p user
+        if user.blank?
+          user = User.new(
+            name: auth.extra.raw_info.name,
+            #username: auth.info.nickname || auth.uid,
+            email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
+            password: "1qazXSW@#{auth.extra.raw_info.id_str}",
+            password_confirmation: "1qazXSW@#{auth.extra.raw_info.id_str}"
+            
+          )
+          user.name =  auth.info.name if auth.provider.eql?("linkedin")
+          user.email = auth.info.email if auth.provider.eql?("linkedin")
+          user.email = "twitter.login_#{auth.extra.raw_info.id_str}@valuethisnow.com" if auth.provider.eql?("twitter")
+          user.type = "Customer"
+          user.skip_confirmation!
+          user.save!
+        end
+      end
+    end
+
+    # Associate the identity with the user if needed
+    if identity.user != user
+      identity.user = user
+      identity.save!
+    end
+    user
+  end
+
+  def email_verified?
+    self.email && self.email !~ TEMP_EMAIL_REGEX
   end
 
   

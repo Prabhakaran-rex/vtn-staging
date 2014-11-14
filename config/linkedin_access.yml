@@ -1,0 +1,6 @@
+development:
+    app_id: '75ho8d61sfddek'
+    app_secret: '0Z7bIPtlpYLm35ip'
+staging:
+    app_id: '75ho8d61sfddek'
+    app_secret: '0Z7bIPtlpYLm35ip'

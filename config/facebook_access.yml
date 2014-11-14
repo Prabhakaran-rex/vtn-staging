@@ -1,6 +1,9 @@
 development:
-    app_id: '425544334168202'
-    app_secret: 'b466a4f70ed5102ffd737f1bc069bb8d'
+    app_id: '1560483437499237'
+    app_secret: 'a3beca9fa6f23fabfc97789a07b974fd'
+# development:
+#     app_id: '425544334168202'
+#     app_secret: 'b466a4f70ed5102ffd737f1bc069bb8d'
 
 test:
     app_id: '425544334168202'
@@ -14,9 +17,13 @@ production:
     app_id: '446278322085973'
     app_secret: 'bcba5da0c6c9848789b4d503be3f6704'
 
+# staging:
+#     app_id: '497050763668069'
+#     app_secret: '226e568e8e143e968c0639269f2e100a'
+
 staging:
-    app_id: '497050763668069'
-    app_secret: '226e568e8e143e968c0639269f2e100a'
+    app_id: '1560483437499237'
+    app_secret: 'a3beca9fa6f23fabfc97789a07b974fd'
 
 sandbox:
     app_id: '497050763668069'

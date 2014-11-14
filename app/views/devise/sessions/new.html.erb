@@ -20,10 +20,25 @@
       <%= f.submit "Sign In", :class=> "btn btn-success btn-block visible-xs"%>
     <% end %>
   </div>
+
   <div class="col-md-5">
-    <div class="fb-div">
-      <%= link_to omniauth_authorize_path(:customer, :facebook) do %><%= image_tag "b_fb.jpg" %><% end %>
+   <!--  <div class="fb-div">
+      <%#= link_to omniauth_authorize_path(:customer, :facebook) do %><%#= image_tag "b_fb.jpg" %><%# end %>
+    </div> -->
+    <div class="col-md-6">
+      <div class="fb-div">
+        <%= link_to "Sign in with Facebook", customer_omniauth_authorize_path(:facebook), class: "btn btn-block btn-social btn-lg btn-facebook" %>
+      </div>
+      <br>
+      <div class="tw-div">  
+       <%= link_to "Sign in with Twitter", customer_omniauth_authorize_path(:twitter), class: "btn btn-block btn-social btn-lg btn-twitter" %>
+      </div>
+      <br>
+      <div class="li-div">  
+        <%= link_to "Sign in with Linked In", customer_omniauth_authorize_path(:linkedin), class: "btn btn-block btn-social btn-lg btn-linkedin" %>
+      </div>
     </div>
+
   </div>
 </div>
 <div class="row">

@@ -1,0 +1,6 @@
+development:
+    app_id: '3vbepUEfQLUnQt96dkxAERJ7j'
+    app_secret: '5pLhxIfHCU0Exn6E8h2zuiOETYarI3E0Z9fBnTGPWOly4gLl2h'
+staging:
+    app_id: '3vbepUEfQLUnQt96dkxAERJ7j'
+    app_secret: '5pLhxIfHCU0Exn6E8h2zuiOETYarI3E0Z9fBnTGPWOly4gLl2h'

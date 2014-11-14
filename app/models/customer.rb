@@ -6,7 +6,7 @@ class Customer < User
   accepts_nested_attributes_for :customer_extra
   after_create :create_customer_extra
   attr_accessible :customer_extra_attributes
-  devise :omniauthable
+  devise :omniauthable, :omniauth_providers => [:twitter, :facebook, :linkedin]
   after_save :generate_token 
 
 
@@ -47,6 +47,7 @@ class Customer < User
       self.update_column(:client_id, response["client_id"])
     end
   end
+ 
   
   private
   def create_customer_extra

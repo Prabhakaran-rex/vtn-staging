@@ -50,6 +50,8 @@ gem "rolify"
 gem "omniauth"
 # gem "oa-oauth", :require => "omniauth/oauth"  #this allows us to use things like facebook sign in
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-linkedin'
 gem "cancan" #this form the basis of user permissions
 gem "switch_user", "~> 0.9.1"
 
