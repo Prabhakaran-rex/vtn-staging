@@ -25,21 +25,28 @@
    <!--  <div class="fb-div">
       <%#= link_to omniauth_authorize_path(:customer, :facebook) do %><%#= image_tag "b_fb.jpg" %><%# end %>
     </div> -->
-    <div class="col-md-6">
-      <div class="fb-div">
-        <%= link_to "Sign in with Facebook", customer_omniauth_authorize_path(:facebook), class: "btn btn-block btn-social btn-lg btn-facebook" %>
+      <div class="social-button-div">
+        <%= link_to customer_omniauth_authorize_path(:facebook), class: "btn btn-block btn-social btn-lg btn-facebook" do %>
+          <i class="fa fa-facebook"> </i>
+          Sign in with Facebook
+        <% end %>
       </div>
       <br>
-      <div class="tw-div">  
-       <%= link_to "Sign in with Twitter", customer_omniauth_authorize_path(:twitter), class: "btn btn-block btn-social btn-lg btn-twitter" %>
+      <div class="social-button-div">  
+        <%= link_to customer_omniauth_authorize_path(:twitter), class: "btn btn-block btn-social btn-lg btn-twitter" do %>
+          <i class="fa fa-twitter"> </i>
+          Sign in with Twitter
+        <% end %>
       </div>
       <br>
-      <div class="li-div">  
-        <%= link_to "Sign in with Linked In", customer_omniauth_authorize_path(:linkedin), class: "btn btn-block btn-social btn-lg btn-linkedin" %>
+      <div class="social-button-div">  
+        <%= link_to customer_omniauth_authorize_path(:linkedin), class: "btn btn-block btn-social btn-lg btn-linkedin" do %>
+          <i class="fa fa-linkedin"> </i>
+          Sign in with LinkedIn
+        <% end %>
       </div>
-    </div>
-
   </div>
+  
 </div>
 <div class="row">
   <div class="col-md-10 col-md-offset-1 text-center">

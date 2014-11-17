@@ -10,11 +10,11 @@
  *
  *= require_self
  *= require custom-bootstrap
- *= require_tree ./bootstrap-social
  *= require jquery.tag
  *= require jquery-ui.custom
  *= require magiczoom
  *= require chosen
+ *= require_tree ./bootstrap-social
  *= require jquery.fileupload-ui
  *= require customize
  */
