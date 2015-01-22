@@ -9,7 +9,27 @@ ActiveAdmin.register Customer do
   action_item :only => :show do
     link_to "Become", "/switch_user?scope_identifier=user_#{customer.id}"
   end
- 
+
+  csv do
+    column :id
+    column :email
+    column :name
+    column :username
+    column :created_at
+    column :role
+    column :notify_by_sms
+    column :notify_by_email
+    column :payment_method
+    column :uspap
+    column :status
+    column :avatar
+    column :is_partner
+    column :secondary_contact_name
+    column :secondary_contact_email
+    column :negotiated_cost
+    column :payment_term
+  end
+
 	index do
 		column :id
 		column :email
