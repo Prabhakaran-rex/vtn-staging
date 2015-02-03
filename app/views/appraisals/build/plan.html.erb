@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "progress_step_bar" %>
 <div id="build_plan">
   <div class="row">
     <div class="col-md-11 col-md-offset-1 big-title">
@@ -8,11 +9,15 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
+  <div class="row">
+    <div class="col-md-10">
+      <%= render "progress_step_4"%>
+    </div>
+  </div>
 
-        <%= simple_form_for(@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
+  <div class="row">
+    <div class="col-md-10">
+      <%= simple_form_for(@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"}) do |f| %>
           <div>
             <!--- Content start -->
             <div class="row">
@@ -177,7 +182,21 @@
 
           </div>
         <% end %>
+    </div>
+
+    <div class="col-md-2">
+      <div class="center">
+        <%= link_to "Save It", appraisals_path, id: "save_it_btn", class: "btn btn-success"%>
+        </br>
+        If you have to go lets save your stuff for next time!
       </div>
+
+      <div class="sticky">
+        <p>
+          Your done all you need to do is checkout
+        </p>
+      </div>
+
     </div>
   </div>
 </div>

@@ -272,4 +272,65 @@ class Appraisal < ActiveRecord::Base
   def initialize_classification
     Classification.create(appraisal_id: self.id)
   end
+
+  def find_uncompleted_appraisal
+    
+  end
+
+  def self.auto_email_when_uncomplete
+    appraisals_24h = Appraisal.where("status=0 AND sent_24h=false AND created_at between ? and ?", Time.now - 24.hours - 5.minutes, Time.now - 24.hours + 5.minutes)
+    unless appraisals_24h.blank?
+      appraisals_24h.each do |a|
+        UserMailer.notify_uncomplete_appraisal(a, "24h").deliver
+        a.sent_24h = true
+        a.save
+      end
+    end
+
+    appraisals_48h = Appraisal.where("status=0 AND sent_24h=true AND sent_48h=false AND created_at between ? and ?", Time.now - 48.hours - 5.minutes, Time.now - 48.hours + 5.minutes)
+    unless appraisals_48h.blank?
+      appraisals_48h.each do |a|
+        UserMailer.notify_uncomplete_appraisal(a, "48h").deliver
+        a.sent_48h = true
+        a.save
+      end
+    end
+
+    appraisals_72h = Appraisal.where("status=0 AND sent_24h=true AND sent_48h=true AND sent_72h=false AND created_at between ? and ?", Time.now - 72.hours - 5.minutes, Time.now - 72.hours + 5.minutes)
+    unless appraisals_72h.blank?
+      appraisals_72h.each do |a|
+        UserMailer.notify_uncomplete_appraisal(a, "72h").deliver
+        a.sent_72h = true
+        a.save
+      end
+    end
+
+    appraisals_1w = Appraisal.where("status=0 AND sent_24h=true AND sent_48h=true AND sent_72h=true AND sent_1w=false AND created_at between ? and ?", Time.now - 1.week - 5.minutes, Time.now - 1.week + 5.minutes)
+    unless appraisals_1w.blank?
+      appraisals_1w.each do |a|
+        UserMailer.notify_uncomplete_appraisal(a, "1w").deliver
+        a.sent_1w = true
+        a.save
+      end
+    end
+
+    appraisals_2w = Appraisal.where("status=0 AND sent_24h=true AND sent_48h=true AND sent_72h=true AND sent_1w=true AND sent_2w=false AND created_at between ? and ?", Time.now - 2.weeks - 5.minutes, Time.now - 2.weeks + 5.minutes)
+    unless appraisals_2w.blank?
+      appraisals_2w.each do |a|
+        UserMailer.notify_uncomplete_appraisal(a, "2w").deliver
+        a.sent_2w = true
+        a.save
+      end
+    end
+
+    appraisals_30d = Appraisal.where("status=0 AND sent_24h=true AND sent_48h=true AND sent_72h=true AND sent_1w=true AND sent_2w=true AND sent_30d=false AND created_at between ? and ?", Time.now - 30.days - 5.minutes, Time.now - 30.days + 5.minutes)
+    unless appraisals_30d.blank?
+      appraisals_30d.each do |a|
+        UserMailer.notify_uncomplete_appraisal(a, "30d").deliver
+        a.sent_30d = true
+        a.save
+      end
+    end
+    
+  end
 end

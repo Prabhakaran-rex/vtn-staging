@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "progress_step_bar" %>
 <div class="row">
   <div class="col-md-11 col-md-offset-1 big-title">
     Item Characteristics
@@ -8,7 +9,13 @@
 </div>
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-10">
+    <%= render "progress_step_2"%>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-10">
     <%= simple_form_for@appraisal, :url => wizard_path, :method => :put,  :html => {:multipart => true, :class => "form-horizontal"},
       wrapper: :horizontal_form,
       wrapper_mappings: {
@@ -33,4 +40,21 @@
       </div>
     <% end %>
   </div>
+
+  <div class="col-md-2">
+    <div class="center">
+      <%= link_to "Save It", appraisals_path, id: "save_it_btn", class: "btn btn-success"%>
+      </br>
+      If you have to go lets save your stuff for next time!
+    </div>
+
+    <div class="sticky">
+      <p>
+        Your getting close just a couple more steps!
+      </p>
+      
+    </div>
+
+  </div>
+
 </div>

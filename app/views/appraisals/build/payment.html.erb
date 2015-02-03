@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "progress_step_bar" %>
 <div class="row">
   <div class="col-md-11 col-md-offset-1 big-title">
     Payment and Confirm
@@ -7,8 +8,9 @@
   </div>
 </div>
 
+
 <div class="row" id="build-payment">
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-10">
     <!-- Requested appraisal and product snapshot -->
     <h3>Requested appraisal</h3>
 
@@ -351,11 +353,30 @@
           <script type="text/javascript">var ANS_customer_id="e6d07733-39cf-4af2-9f8c-b27b1dbdfb31";</script> <script type="text/javascript" src="//verify.authorize.net/anetseal/seal.js" ></script> <a href="https://test.authorize.net/gateway/transact.dll" id="AuthorizeNetText" target="_blank"></a>
           <%= image_tag "cards.jpg" %>
         </div>
-      </div>
-      
+      </div>  
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+
+  <div class="col-md-2 save-it-last-btn">
+    <div class="center">
+      <%= link_to "Save It", appraisals_path, id: "save_it_btn", class: "btn btn-success"%>
+      </br>
+      If you have to go lets save your stuff for next time!
+    </div>
+
+    <div class="sticky">
+      <p>
+        Now you can securely checkout.
+        <br>
+        Were excited for you!
+        <br>
+        Lets get your item valued but an EXPERT!
+      </p>
+    </div>
+
+  </div>
+
 </div>
 
 <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

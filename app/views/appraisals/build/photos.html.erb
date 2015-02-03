@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "progress_step_bar" %>
 <div class="row">
   <div class="col-md-11 col-md-offset-1 big-title">
     Upload Photos
@@ -8,9 +9,31 @@
 </div>
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-10">
+    <%= render "progress_step_3"%>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-10">
     <%= render  :partial => "photos/new_multiple_image_upload_form", locals: {photos: @photos} %>
     <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
     <%= link_to "Next", next_wizard_path, class: "btn btn-success pull-right", id: "btnBuildWizardPhoto" %>
   </div>
+
+  <div class="col-md-2">
+    <div class="center">
+      <%= link_to "Save It", appraisals_path, id: "save_it_btn", class: "btn btn-success"%>
+      </br>
+      If you have to go lets save your stuff for next time!
+    </div>
+
+    <div class="sticky">
+      <p>
+        Ok we just need at least one good picture of your treasure.
+      </p>
+    </div>
+
+  </div>
+
 </div>

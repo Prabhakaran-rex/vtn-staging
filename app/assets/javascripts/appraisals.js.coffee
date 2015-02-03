@@ -304,6 +304,9 @@ jQuery ->
     else
       $("#fullSummaryHelp").show();
 
+  $("#save_it_btn").click ->
+    alert "Your Appraisal has been saved for the next time!"
+
 requiredFields = ->
   isValid = true
   if $("#chkVtnPartner")[0].checked == true
