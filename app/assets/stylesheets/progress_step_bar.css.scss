@@ -42,13 +42,14 @@ legend { display:none; }
 
 
 .done:after{
+   color: white;
    content: "\2713";
-   background-color: #84EA52;
+   background-color: #276014;
    border-radius: 25px;
-   border: solid black 2px;
+   border: solid black 0px;
    width: 15px;
    height: 15px;
-   line-height: 11px;
+   line-height: 15px;
    text-align: center;
    float: right;
    position: relative;
@@ -106,8 +107,11 @@ legend { display:none; }
 }
  
 .items {
-   float: right;
-   margin: 10px 0px 50px 0px;
+   
+  display: table;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  margin-top: 10px;
 }
 
 .short-text {
@@ -177,4 +181,38 @@ legend { display:none; }
 
 #build-payment .save-it-last-btn {
    margin-top: 80px;
+}
+
+  
+li.first_step {
+  z-index: 5;
+  position: relative;
+}
+
+li.second_step {
+  z-index: 4;
+  position: relative;
+  left: -15px;
+}
+
+li.third_step {
+  z-index: 3;
+  position: relative;
+  left: -30px;
+}
+
+li.fourth_step {
+  z-index: 2;
+  position: relative;
+  left: -45px;
+}
+
+li.fifth_step {
+  z-index: 1;
+  position: relative;
+  left: -60px;
+}
+
+.stepsbar {
+  margin-bottom: 40px;
 }
