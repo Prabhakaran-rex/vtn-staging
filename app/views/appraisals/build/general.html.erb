@@ -11,7 +11,7 @@
 
   <div class="row stepsbar">
     <div class="col-md-12 center">
-      <%= image_tag "steps/progressbar-2.jpg"%>
+      <%= image_tag "steps/progressbar-2.jpg", class: "img-responsive"%>
 
       <!-- <%= render "progress_step_1"%> -->
     </div>
@@ -56,7 +56,11 @@
               <%= f.input :insurance_location, label: "Location", as: :string, :input_html => {:class =>"span8" }, required: true, hint: "Please provide the location (city/state) of the property."%>
               <%= f.input :insurance_claim, label: false, inline_label: "This appraisal is for damage claims purposes. I'm seeking values prior to damage", hint: "Remember to provide detailed photos of the item (including a photo showing the whole item)", :input_html => {:class =>"" } %>
             <% end %>
-            <%= f.button :submit, "Next", class: "btn btn-success pull-right",id: "btnBuildWizardGeneral"  %>
+
+            <div class="btns-back-forward">
+              <%= f.button :submit, "Forward", class: "btn btn-success pull-right",id: "btnBuildWizardGeneral"  %>
+            </div>
+            
           </div>
         </div>
       <% end %>
@@ -69,11 +73,10 @@
         If you have to go lets save your stuff for next time!
       </div>
 
-    <div class="sticky">
-      <p>
-        An Expert Appraisal is only moments away dont stop now
-      </p>
+    <div>
+      <%= image_tag "pinnotes/pinnote1.png", class: "img-responsive"%>
     </div>
+    
 
 
     </div>

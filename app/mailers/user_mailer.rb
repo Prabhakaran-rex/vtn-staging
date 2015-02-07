@@ -102,7 +102,6 @@ class UserMailer < ActionMailer::Base
   def notify_uncomplete_appraisal(appraisal, type_of_notify)
     @txt = Cms::Page.find_by_label("email_when_#{type_of_notify}")
     @appraisal = appraisal
-    @type_of_notify = type_of_notify
     mail(:to => @appraisal.owned_by.email,
          :subject => "[Value This Now] Uncompleted Appraisal!")
   end

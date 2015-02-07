@@ -34,8 +34,11 @@
             <%= a.input :materials, :label => "Materials", :as => :text, :input_html => {:rows => 4}, hint: "What is it made out of?" %>
             <%= a.input :damage, :label => "Condition", required: true, :as => :text, :input_html => {:rows => 4}, hint: "(List any damages, old repairs, soiling, staining or other defects. If the item is mechanical or electrical, is it in good working condition?)" %>
           <% end %>
-          <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
-          <%= f.button :submit, "Next", class: "btn btn-success pull-right" %>
+
+          <div class="btns-back-forward">
+            <%= link_to "Back", previous_wizard_path, class: "btn btn-success pull-left" %>
+            <%= f.button :submit, "Forward", class: "btn btn-success pull-right" %>
+          </div>
 
         </div>
       </div>
@@ -49,11 +52,8 @@
       If you have to go lets save your stuff for next time!
     </div>
 
-    <div class="sticky">
-      <p>
-        Your getting close just a couple more steps!
-      </p>
-      
+    <div>
+      <%= image_tag "pinnotes/pinnote2.png", class: "img-responsive"%>
     </div>
 
   </div>

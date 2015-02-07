@@ -131,9 +131,26 @@ body {
 
 .payment_hr {
   margin-top: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 
 .social-button-div {
   width: 300px;
+}
+
+.total-charge-text {
+  position: relative;
+  top: -50px;
+  font-size: 20px;
+}
+
+.btns-back-forward  {
+  input, a {
+    width: 120px;
+    height: 35px;
+  }
+}
+
+.edited-height {
+  height: 400px;
 }

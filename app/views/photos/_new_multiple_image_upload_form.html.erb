@@ -19,7 +19,7 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
         <% if can_upload %>
           <span class="btn btn-success fileinput-button" id="btn_upload_image">
             <span class="glyphicon glyphicon-plus"></span>
-            <span id="btn_image_upload_label">Add files...</span>
+            <span id="btn_image_upload_label">Add Photos</span>
             <%= f.cl_image_upload(:picture,:html => { :multiple => true, id: "btn_upload_image_input" } ) %>
           </span>
         <% end %>
@@ -37,7 +37,7 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
 </div>
 <!-- Old design -->
 
-  <div class="row">
+  <div class="row edited-height">
     <div class="col-md-12">
       <table class="table table-striped table-responsive" id="img-table">
         <tbody>
@@ -84,7 +84,16 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
 <script>
   var progressElements = { };
   $(document).ready(function() {
-
+  if ($(".img-row").length > 1) {
+    $("#pinnote-1").hide();
+    $("#pinnote-2").show();
+  }
+  else {
+    if ($(".img-row").length == 1) {
+      $("#pinnote-2").hide();
+      $("#pinnote-1").show();
+    }
+  }
   var set_as_default_image;
 
   set_as_default_image = function(btn) {
@@ -132,17 +141,40 @@ can_mark_as_primary ||= can_mark_as_primary.nil? %>
   url: '/photos.json',
   data: data.result,
   success: function(data) {
-  var fileName = extra_data.files[0].name;
-  var el = progressElements[ extra_data.files[0].name ];
-  el.find("img:first").attr("src", data.files[0].thumbnailUrl);
-  el.find(".thumb_link").attr("href", data.files[0].url);
-  $(el).find("td:last").remove();
-  $(el).append('<td><div class="hidden-xs hidden-sm"><a href="'+data.files[0].tag_url+'" class="btn btn-success btn-sm" target="_blank"><span class="glyphicon glyphicon-tag"></span> Tag</a></div></td>');
-  $(el).append('<td><a href="'+data.files[0].set_as_default_url+'" class="btn btn-default btn-sm btn_make_image_primary" data-method="post" data-remote="true" rel="nofollow"><span class="glyphicon glyphicon-picture"></span>Mark As Primary</a></td>');
-  $(el).append('<td class="delete"><a href="'+data.files[0].deleteUrl+'" class="btn btn-default btn-sm btn_delete_image" data-method="delete" data-remote="true" rel="nofollow"><span class="glyphicon glyphicon-trash"></span><span>Delete</span></a></td>');
-  $(".btn_delete_image").click(function() {
-  $(this).closest("tr").hide();
-  });
+    var fileName = extra_data.files[0].name;
+    var el = progressElements[ extra_data.files[0].name ];
+    el.find("img:first").attr("src", data.files[0].thumbnailUrl);
+    el.find(".thumb_link").attr("href", data.files[0].url);
+    $(el).find("td:last").remove();
+    $(el).append('<td><div class="hidden-xs hidden-sm"><a href="'+data.files[0].tag_url+'" class="btn btn-success btn-sm" target="_blank"><span class="glyphicon glyphicon-tag"></span> Tag</a></div></td>');
+    $(el).append('<td><a href="'+data.files[0].set_as_default_url+'" class="btn btn-default btn-sm btn_make_image_primary" data-method="post" data-remote="true" rel="nofollow"><span class="glyphicon glyphicon-picture"></span>Mark As Primary</a></td>');
+    $(el).append('<td class="delete"><a href="'+data.files[0].deleteUrl+'" class="btn btn-default btn-sm btn_delete_image" data-method="delete" data-remote="true" rel="nofollow"><span class="glyphicon glyphicon-trash"></span><span>Delete</span></a></td>');
+
+    if ($(".img-row").length > 1) {
+      $("#pinnote-1").hide();
+      $("#pinnote-2").show();
+    }
+    else {
+      if ($(".img-row").length == 1) {
+        $("#pinnote-2").hide();
+        $("#pinnote-1").show();
+      }
+    }
+
+
+    $(".btn_delete_image").click(function() {
+      $(this).closest("tr").remove();
+      if ($(".img-row").length > 1) {
+        $("#pinnote-1").hide();
+        $("#pinnote-2").show();
+      }
+      else {
+        if ($(".img-row").length == 1) {
+          $("#pinnote-2").hide();
+          $("#pinnote-1").show();
+        }
+      }
+    });
   $(el).find(".btn_make_image_primary").on('click',(function(event) {
   $.ajax($(this).attr("href"), {
   type: 'POST',

@@ -24,6 +24,7 @@ ActiveAdmin.register Customer do
     column :status
     column :avatar
     column :is_partner
+    column :is_deny_email
     column :secondary_contact_name
     column :secondary_contact_email
     column :negotiated_cost
@@ -51,7 +52,9 @@ ActiveAdmin.register Customer do
       f.input :secondary_contact_email
       f.input :negotiated_cost
       f.input :payment_term, :as => :select, :collection => PAYMENT_TERMS
+      f.input :is_deny_email, :label => "Deny Notifiacation Email", :wrapper_html => {:class => "partner_checkbox"}
       f.input :is_partner, :label => "Create Vendor key", :wrapper_html => {:class => "partner_checkbox"}
+      
     end
     f.actions
   end
@@ -86,6 +89,7 @@ ActiveAdmin.register Customer do
       row("Status") {customer.status}
       row("Secondary Contact Name") {customer.secondary_contact_name}
       row("Secondary Contact Email") {customer.secondary_contact_email}
+      row("Deny Notification Email") {customer.is_deny_email}
       row("Vendor Token") {customer.vendor_token}
       if customer.is_partner
         row "Generate Token" do

@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
     :photos_attributes, :notify_by_sms, :notify_by_email, :next_notification_interval_in_minutes,
     :payment_method, :uspap, :name, :agree_to_tos, :role, :access_token, :login, :status, :avatar, 
     :avatar_cache, :remove_avatar, :website, :paypal_email, :is_partner, :partner_pricing_id,
-    :negotiated_cost, :payment_term, :secondary_contact_name, :secondary_contact_email
+    :negotiated_cost, :payment_term, :secondary_contact_name, :secondary_contact_email, :is_deny_email
 
   attr_accessible :crop_avatar_x, :crop_avatar_y, :crop_avatar_w, :crop_avatar_h
   attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
@@ -230,9 +230,6 @@ class User < ActiveRecord::Base
       # Create the user if it's a new registration
       if user.nil?
         user = User.find_by_email(auth.info.email)
-        p "*************"
-        p auth.info.email
-        p user
         if user.blank?
           user = User.new(
             name: auth.extra.raw_info.name,

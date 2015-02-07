@@ -139,3 +139,4 @@ gem 'actionpack-action_caching'
 gem 'activerecord-deprecated_finders'
 gem 'rails_12factor'
 gem 'ruby-freshbooks'
+gem 'whenever', :require => false
