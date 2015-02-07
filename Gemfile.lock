@@ -120,6 +120,7 @@ GEM
     celluloid-io (0.15.0)
       celluloid (>= 0.15.0)
       nio4r (>= 0.5.0)
+    chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cloudinary (1.0.70)
@@ -491,6 +492,8 @@ GEM
     uuidtools (2.1.4)
     warden (1.2.3)
       rack (>= 1.0)
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
     wicked (1.0.2)
       rails (>= 3.0.7)
     wicked_pdf (0.10.0)
@@ -581,6 +584,7 @@ DEPENDENCIES
   thin
   tilt
   uglifier (>= 2.5.0)
+  whenever
   wicked
   wicked_pdf
   will_paginate
