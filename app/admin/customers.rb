@@ -52,7 +52,7 @@ ActiveAdmin.register Customer do
       f.input :secondary_contact_email
       f.input :negotiated_cost
       f.input :payment_term, :as => :select, :collection => PAYMENT_TERMS
-      f.input :is_deny_email, :label => "Deny Notifiacation Email", :wrapper_html => {:class => "partner_checkbox"}
+      f.input :is_deny_email, :label => "Turn Off The Reminder Email", :wrapper_html => {:class => "partner_checkbox"}
       f.input :is_partner, :label => "Create Vendor key", :wrapper_html => {:class => "partner_checkbox"}
       
     end
