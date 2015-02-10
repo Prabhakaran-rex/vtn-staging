@@ -89,7 +89,7 @@ ActiveAdmin.register Customer do
       row("Status") {customer.status}
       row("Secondary Contact Name") {customer.secondary_contact_name}
       row("Secondary Contact Email") {customer.secondary_contact_email}
-      row("Deny Notification Email") {customer.is_deny_email}
+      row("Turn Off The Reminder Email") {customer.is_deny_email}
       row("Vendor Token") {customer.vendor_token}
       if customer.is_partner
         row "Generate Token" do
