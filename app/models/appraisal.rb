@@ -160,7 +160,7 @@ class Appraisal < ActiveRecord::Base
     end
     self.appraiser_referral = ""
     self.assigned_to = nil
-    self.save 
+    self.save
   end
 
   def assign_to_appraiser_id(appraiser)
@@ -254,7 +254,7 @@ class Appraisal < ActiveRecord::Base
       if (self.appraisal_info.appraiser_comments.length <= 100 )
         errors.add(:appraiser_comments, "minimum length of 100 words")
       end
-    end  
+    end
   end
 
   def validate_appraisal_info
@@ -274,7 +274,7 @@ class Appraisal < ActiveRecord::Base
   end
 
   def find_uncompleted_appraisal
-    
+
   end
 
   def self.auto_email_when_uncomplete
@@ -287,7 +287,7 @@ class Appraisal < ActiveRecord::Base
       end
     end
 
-    appraisals_48h = Appraisal.where("status=0 AND sent_24h=true AND sent_48h=false AND created_at between ? and ?", Time.now - 48.hours - 15.minutes, Time.now - 48.hours + 15.minutes)
+    appraisals_48h = Appraisal.where("status=0 AND sent_48h=false AND created_at between ? and ?", Time.now - 48.hours - 15.minutes, Time.now - 48.hours + 15.minutes)
     unless appraisals_48h.blank?
       appraisals_48h.each do |a|
         UserMailer.notify_uncomplete_appraisal(a, "48h").deliver
@@ -296,7 +296,7 @@ class Appraisal < ActiveRecord::Base
       end
     end
 
-    appraisals_72h = Appraisal.where("status=0 AND sent_24h=true AND sent_48h=true AND sent_72h=false AND created_at between ? and ?", Time.now - 72.hours - 15.minutes, Time.now - 72.hours + 15.minutes)
+    appraisals_72h = Appraisal.where("status=0 AND sent_72h=false AND created_at between ? and ?", Time.now - 72.hours - 15.minutes, Time.now - 72.hours + 15.minutes)
     unless appraisals_72h.blank?
       appraisals_72h.each do |a|
         UserMailer.notify_uncomplete_appraisal(a, "72h").deliver
@@ -305,7 +305,7 @@ class Appraisal < ActiveRecord::Base
       end
     end
 
-    appraisals_1w = Appraisal.where("status=0 AND sent_24h=true AND sent_48h=true AND sent_72h=true AND sent_1w=false AND created_at between ? and ?", Time.now - 1.week - 15.minutes, Time.now - 1.week + 15.minutes)
+    appraisals_1w = Appraisal.where("status=0 AND sent_1w=false AND created_at between ? and ?", Time.now - 1.week - 15.minutes, Time.now - 1.week + 15.minutes)
     unless appraisals_1w.blank?
       appraisals_1w.each do |a|
         UserMailer.notify_uncomplete_appraisal(a, "1w").deliver
@@ -314,7 +314,7 @@ class Appraisal < ActiveRecord::Base
       end
     end
 
-    appraisals_2w = Appraisal.where("status=0 AND sent_24h=true AND sent_48h=true AND sent_72h=true AND sent_1w=true AND sent_2w=false AND created_at between ? and ?", Time.now - 2.weeks - 15.minutes, Time.now - 2.weeks + 15.minutes)
+    appraisals_2w = Appraisal.where("status=0 AND sent_2w=false AND created_at between ? and ?", Time.now - 2.weeks - 15.minutes, Time.now - 2.weeks + 15.minutes)
     unless appraisals_2w.blank?
       appraisals_2w.each do |a|
         UserMailer.notify_uncomplete_appraisal(a, "2w").deliver
@@ -331,6 +331,6 @@ class Appraisal < ActiveRecord::Base
         a.save
       end
     end
-    
+
   end
 end
