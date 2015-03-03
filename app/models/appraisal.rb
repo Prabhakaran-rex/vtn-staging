@@ -323,7 +323,7 @@ class Appraisal < ActiveRecord::Base
       end
     end
 
-    appraisals_30d = Appraisal.where("status=0 AND sent_24h=true AND sent_48h=true AND sent_72h=true AND sent_1w=true AND sent_2w=true AND sent_30d=false AND created_at between ? and ?", Time.now - 30.days - 15.minutes, Time.now - 30.days + 15.minutes)
+    appraisals_30d = Appraisal.where("status=0 AND sent_30d=false AND created_at between ? and ?", Time.now - 30.days - 15.minutes, Time.now - 30.days + 15.minutes)
     unless appraisals_30d.blank?
       appraisals_30d.each do |a|
         UserMailer.notify_uncomplete_appraisal(a, "30d").deliver
