@@ -1,4 +1,4 @@
-class UserMailer <
+class UserMailer < ActionMailer::Base
   helper :application
   default :from    => "no-reply@valuethisnow.com",
     :sent_on => Time.now.to_s
