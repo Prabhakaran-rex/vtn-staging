@@ -115,7 +115,6 @@ class UserMailer < ActionMailer::Base
          :subject => "[Value This Now] Uncompleted Appraisal!")
     end
   end
-  <div style="float:right;font-size:11px;">To unsubscribe please press <a href="UnsubscribeEmailUrl">here</a></div>
 
   private
 
