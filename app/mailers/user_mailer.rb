@@ -102,9 +102,7 @@ class UserMailer < ActionMailer::Base
   def notify_uncomplete_appraisal(appraisal, type_of_notify)
     @txt = Cms::Page.find_by_label("email_when_#{type_of_notify}")
     @appraisal = appraisal
-    #@user = @appraisal.owned_by
-    # Only test send mail
-    @user = User.find(271) rescue nil
+    @user = @appraisal.owned_by
     if (@user && !@user.is_deny_email)
       # create a token from id
       crypt = ActiveSupport::MessageEncryptor.new(Devise.secret_key)
