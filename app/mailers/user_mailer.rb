@@ -1,4 +1,4 @@
-class UserMailer < ActionMailer::Base
+class UserMailer <
   helper :application
   default :from    => "no-reply@valuethisnow.com",
     :sent_on => Time.now.to_s
@@ -102,7 +102,9 @@ class UserMailer < ActionMailer::Base
   def notify_uncomplete_appraisal(appraisal, type_of_notify)
     @txt = Cms::Page.find_by_label("email_when_#{type_of_notify}")
     @appraisal = appraisal
-    @user = @appraisal.owned_by
+    #@user = @appraisal.owned_by
+    # Only test send mail
+    @user = User.find(271) rescue nil
     if (@user && !@user.is_deny_email)
       # create a token from id
       crypt = ActiveSupport::MessageEncryptor.new(Devise.secret_key)
@@ -113,6 +115,7 @@ class UserMailer < ActionMailer::Base
          :subject => "[Value This Now] Uncompleted Appraisal!")
     end
   end
+  <div style="float:right;font-size:11px;">To unsubscribe please press <a href="UnsubscribeEmailUrl">here</a></div>
 
   private
 
