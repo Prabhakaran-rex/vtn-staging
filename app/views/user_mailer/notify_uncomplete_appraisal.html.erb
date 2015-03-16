@@ -2,9 +2,9 @@
   <%= image_tag 'logo.png' %>
 </div>
 <br>
-Hi <%= @appraisal.owned_by.name %>,
+Hi <%= @user.name %>,
 <br>
-<%= @txt.content.html_safe %>
+<%= @content.html_safe %>
 <div class="image" style="float:right;">
   <%= image_tag 'small_logo.png' %>
 </div>

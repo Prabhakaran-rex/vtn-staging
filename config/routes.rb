@@ -18,7 +18,7 @@ PurexNew::Application.routes.draw do
   get '/facebook/' => "users#facebook_login", via: [:get]
   match '/users/update_appraiser_status' => "users#update_appraiser_status", :as => :update_appraiser_status, via: [:post, :put]
   get '/users/get_user_by_vendor_token' => 'users#get_user_by_vendor_token'
-  
+
   devise_for :users, :controllers => { :registrations => "registrations"}
 
   devise_for :appraisers, :controllers => { :registrations => "registrations"}
@@ -76,6 +76,7 @@ PurexNew::Application.routes.draw do
   get '/tickets/:id' => "contact#show", :as => :show_ticket
 
   # Static pages linked from CMS
+  get 'unsubscribe' => 'home#unsubscribe'
   get '/home/how' => 'home#how', :as => 'how'
   get '/home/become' => 'home#become', :as => 'become'
   get '/home/privacy' => 'home#privacy', :as => 'privacy'

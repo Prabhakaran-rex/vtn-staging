@@ -9,6 +9,21 @@ class HomeController < ApplicationController
     return redirect_to get_index_for_user_type(current_user) unless current_user.nil?
   end
 
+  def unsubscribe
+    token = params[:token]
+    # decrypt token get user_id
+    crypt = ActiveSupport::MessageEncryptor.new(Devise.secret_key)
+    user_id = crypt.decrypt_and_verify(token)
+    user =  User.find(user_id) rescue nil
+    if user
+      user.is_deny_email = true
+      user.save
+      redirect_to(root_path, :notice => ' You have successfully unsubscribed from our reminder for your uncompleted appraisal.')
+    else
+      render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+    end
+  end
+
   # Terms and Conditions
   def terms
     respond_to do |format|
