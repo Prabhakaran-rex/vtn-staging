@@ -17,6 +17,16 @@
         <li> <%= link_to("Privacy Policy", privacy_path) %></li>
         <li> <%= link_to("Terms of Service", terms_path) %></li>
         <li> <%= link_to "Login", new_user_session_path %></li>
+        <li class="dropdown" id="togglemore">
+        <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#">More <b class="caret"></b></a>
+        <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="<%= url_for home_stores_path %>">Stores</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="<%= url_for home_roadshows_path %>">Road Show</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="<%= url_for home_salvages_path %>">Salvage</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="<%= url_for home_rare_books_path %>">Rare Books</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="<%= url_for home_sports_memorabilia_path %>">Sport Memorabilia</a></li>
+        </ul>
+        </li>
       </ul>
     </div>
   </div>

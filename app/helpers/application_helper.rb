@@ -157,6 +157,10 @@ module ApplicationHelper
     return raw "<div class='row'><div class='col-md-#{col} col-md-offset-#{offset}'>#{get_cms_content('/testimonials')}</div></div>"
   end
 
+  def get_static_page_html2(path, col = 10, offset = 1)
+    return raw "<div class='row'><div class='col-md-#{col} col-md-offset-#{offset}'>#{get_cms_content(path)}</div></div>"
+  end
+
   def form_text_field(params)
     title = params[:title] || params[:field].to_s.titleize
     required = params[:required] || false

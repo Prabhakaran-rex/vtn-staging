@@ -105,6 +105,21 @@ class HomeController < ApplicationController
   def testimonials
   end
 
+  def stores
+  end
+
+  def roadshows
+  end
+
+  def salvages
+  end
+
+  def rare_books
+  end
+  
+  def sports_memorabilia
+  end
+  
   def affiliate
   end
 
