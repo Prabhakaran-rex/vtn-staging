@@ -37,15 +37,21 @@
     </script>
   </head>
   <body>
+    <div id="wrapper_new">
     <!-- Navbar -->
     <%= render :partial => "layouts/navbar"%> <!-- tb_check -->
     <%= render :partial => 'layouts/flash', locals: {flash: flash}%> <!-- tb_check -->
-    <div id="wrap">
-      <div class="container-fluid">
+	<div id="content_new">    
+	  <div id="wrap">
+        <div class="container-fluid">
             <%= yield %>
-      </div>
+        </div>
+	  </div>
     </div>
+    <div id="footer_new">
     <%= render :partial => "layouts/footer" %> <!-- tb_check -->
     <img src="http://s.amazon-adsystem.com/iui3?d=3p-hbg&ex-src=valuethisnow.com&ex-hargs=v%3D1.0%3Bc%3D6195181157857%3Bp%3DH" width=1 height=1 border=0>
+    </div>
+	</div>
   </body>
 </html>
