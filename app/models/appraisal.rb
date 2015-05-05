@@ -278,6 +278,7 @@ class Appraisal < ActiveRecord::Base
   end
 
   def self.auto_email_when_uncomplete
+    ActiveRecord::Base.record_timestamps = false
     appraisals_24h = Appraisal.where("status=0 AND sent_24h=false AND created_at between ? and ?", Time.now - 24.hours - 15.minutes, Time.now - 24.hours + 15.minutes)
     unless appraisals_24h.blank?
       appraisals_24h.each do |a|
@@ -331,6 +332,7 @@ class Appraisal < ActiveRecord::Base
         a.save
       end
     end
+    ActiveRecord::Base.record_timestamps = true
 
   end
 end

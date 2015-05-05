@@ -110,7 +110,7 @@ class UserMailer < ActionMailer::Base
       unsubscribe_url = unsubscribe_url(token: @token)
       @content = @txt.content.gsub('UnsubscribeEmailUrl', unsubscribe_url)
       mail(:to => @user.email,
-         :subject => "[Value This Now] Uncompleted Appraisal!")
+         :subject => "[Value This Now] Uncompleted Appraisal!   ID: #{appraisal.id.to_s}")
     end
   end
 
