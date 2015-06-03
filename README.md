@@ -1,6 +1,6 @@
 # Value This Now
 
-## Setup
+## Setupx
 
 ### Creating an admin user
 
