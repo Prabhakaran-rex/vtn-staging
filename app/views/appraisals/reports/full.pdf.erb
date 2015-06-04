@@ -10,8 +10,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%= render :partial => 'layouts/meta.html.erb' %>
 <%= render partial: 'layouts/js_constants.html.erb' %>
-<link rel="stylesheet" type="text/css" href="http://vtn.assets.valuethisnow.com.s3.amazonaws.com/full_finalized_appraisal.css">
-<%= javascript_include_tag "application" %>
+<!-- <link rel="stylesheet" type="text/css" href="http://vtn.assets.valuethisnow.com.s3.amazonaws.com/full_finalized_appraisal.css"> -->
+<%= wicked_pdf_stylesheet_link_tag "full_finalized_appraisal"%>
+<%#= javascript_include_tag "application" %>
+<%= wicked_pdf_javascript_include_tag "application" %>
 <%= csrf_meta_tags %>
 <!--  styles -->
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
