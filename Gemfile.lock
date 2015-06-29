@@ -17,6 +17,12 @@ GIT
       sass-rails
 
 GIT
+  remote: git://github.com/pallymore/wkhtmltopdf-binary.git
+  revision: d58ccefd6cbd4b6e1d0767c7b6520aa70efca8bb
+  specs:
+    wkhtmltopdf-binary (0.12.1)
+
+GIT
   remote: git://github.com/slopezm/ruby-paypal.git
   revision: 1ce0b5b6fbdbc950282c92b5bf2ac2ba98d27f7d
   specs:
@@ -499,7 +505,6 @@ GEM
     wicked_pdf (0.10.0)
       rails
     will_paginate (3.0.5)
-    wkhtmltopdf-binary (0.9.9.1)
     xml-simple (1.1.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -588,4 +593,4 @@ DEPENDENCIES
   wicked
   wicked_pdf
   will_paginate
-  wkhtmltopdf-binary
+  wkhtmltopdf-binary!

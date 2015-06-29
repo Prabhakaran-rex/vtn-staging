@@ -14,8 +14,8 @@ gem 'pg'
 
 gem 'thin'
 
-gem 'wkhtmltopdf-binary'
-
+#gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary',:github =>"pallymore/wkhtmltopdf-binary"
 
 # Gems used only for assets and not required
 # in production environments by default.
