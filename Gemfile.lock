@@ -17,16 +17,16 @@ GIT
       sass-rails
 
 GIT
-  remote: git://github.com/pallymore/wkhtmltopdf-binary.git
-  revision: d58ccefd6cbd4b6e1d0767c7b6520aa70efca8bb
-  specs:
-    wkhtmltopdf-binary (0.12.1)
-
-GIT
   remote: git://github.com/slopezm/ruby-paypal.git
   revision: 1ce0b5b6fbdbc950282c92b5bf2ac2ba98d27f7d
   specs:
     ruby-paypal (0.0.5)
+
+GIT
+  remote: git://github.com/thuylc/wkhtmltopdf-binary.git
+  revision: 27e933affc70e6798e731e298a9fdc9d188dfabf
+  specs:
+    wkhtmltopdf-binary (0.12.1)
 
 GEM
   remote: https://rubygems.org/
