@@ -24,7 +24,7 @@ GIT
 
 GIT
   remote: git://github.com/thuylc/wkhtmltopdf-binary.git
-  revision: 27e933affc70e6798e731e298a9fdc9d188dfabf
+  revision: ec4fa747d0e049025f09920a9e144767a42c156c
   specs:
     wkhtmltopdf-binary (0.12.1)
 
