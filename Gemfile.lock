@@ -144,7 +144,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    columnize (0.8.9)
     comfortable_mexican_sofa (1.11.2)
       active_link_to (>= 1.0.0)
       codemirror-rails (>= 3.0.0)
@@ -178,12 +177,6 @@ GEM
     daemons (1.1.9)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
-    debugger (1.6.8)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.3.5)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.3.5)
     delayed_job (4.0.0)
       activesupport (>= 3.0, < 4.1)
     delayed_job_active_record (4.0.0)
@@ -500,8 +493,8 @@ GEM
       rack (>= 1.0)
     whenever (0.9.4)
       chronic (>= 0.6.3)
-    wicked (1.0.2)
-      rails (>= 3.0.7)
+    wicked (1.2.1)
+      railties (>= 3.0.7)
     wicked_pdf (0.10.0)
       rails
     will_paginate (3.0.5)
@@ -537,7 +530,6 @@ DEPENDENCIES
   cucumber-rails (~> 1.4.0)
   daemons (~> 1.1.9)
   database_cleaner
-  debugger
   delayed_job_active_record (~> 4.0.0)
   devise (~> 3.4.0)
   devise_security_extension
@@ -590,7 +582,10 @@ DEPENDENCIES
   tilt
   uglifier (>= 2.5.0)
   whenever
-  wicked
+  wicked (~> 1.2)
   wicked_pdf
   will_paginate
   wkhtmltopdf-binary!
+
+BUNDLED WITH
+   1.11.2

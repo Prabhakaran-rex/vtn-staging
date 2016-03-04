@@ -71,7 +71,7 @@ gem "activerecord-import", "~> 0.5.0"
 
 gem 'simple_form', '~> 3.1.0.rc1'
 gem 'country_select'
-gem 'wicked' # For wizard-type appraiser registration
+gem 'wicked', '~> 1.2'
 gem 'wicked_pdf' # for PDF generation
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'ransack', '~> 1.1.0'
@@ -118,7 +118,6 @@ group :test, :development do
   gem 'pry'
   gem 'better_errors'
   gem "binding_of_caller"
-  gem 'debugger'
 end
 
 group :test do
